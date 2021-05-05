@@ -4,20 +4,20 @@ This project uses React Native with Expo.
 
 ## Libraries
 
-1. [React Navigation:](https://reactnavigation.org/)
+1. [React Navigation](https://reactnavigation.org/)
 2. redux and react-redux
 3. axios
 4. ...
 
 ## Running locally
 
-After cloning the repo, don't forget to install the dependencies : )
+After cloning the repo, don't forget to install the dependencies!
 
-## Collaboration rules
+## Collaboration flow
 
 1. Pull the latest changes from the main branch
 2. To work on a task or feature, create a new branch.
-3. Commit often : )
+3. Commit often ;)
 4. When ready, push to a new remote branch. (Never push to main!)
 5. Create a Pull Request and assign a person who will review the PR.
 6. Switch to the main branch to pull the latest changes.
