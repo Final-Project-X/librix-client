@@ -30,4 +30,31 @@ Make sure you have ESLint installed and enabled in VSCode:
 
 `Code => Preferences => Extentions => ESLint`
 
-ESLint configuration was taken from here: [Add Eslint Support to your React Native Project + React Hooks Rules](https://medium.com/swlh/add-eslint-support-to-your-react-native-project-with-react-hooks-1bbac3fac25d). Additionally, the basic prettier configs have been added.
+ESLint configuration from react-native-community:
+
+`npm install eslint @react-native-community/eslint-config --save-dev`
+
+Config files:
+
+```javascript
+// .eslintrc.js
+
+module.exports = {
+  root: true,
+  extends: '@react-native-community',
+};
+```
+
+```javascript
+// .prettierrc.js
+
+module.exports = {
+  bracketSpacing: true,
+  singleQuote: true,
+  trailingComma: 'all',
+};
+```
+
+A script in `package.json`:
+
+`"lint": "eslint ."`
