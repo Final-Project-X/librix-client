@@ -1,0 +1,112 @@
+import React, { useState } from 'react';
+import { SafeAreaView, View, Text, TouchableOpacity } from 'react-native';
+import { useForm, Controller } from 'react-hook-form';
+import { LinearGradient } from 'expo-linear-gradient';
+import Input from '../../components/Inputs/Input';
+import SubmitButton from '../../components/Buttons/SubmitButton/SubmitButton';
+import styles from './styles';
+
+const SignUpScreen = ({ navigation }) => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors: inputErrors },
+  } = useForm();
+
+  const [errors, setErrors] = useState({});
+
+  const onSubmit = (values) => console.log(values);
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <LinearGradient
+        colors={['#FFFFFF', '#FAA96C']}
+        start={[0.2, 0.7]}
+        style={styles.gradient}
+      >
+        <View style={styles.form}>
+          <Controller
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <Input
+                setErrors={setErrors}
+                customStyles={styles.input}
+                onChange={onChange}
+                value={value}
+                keyboardType="email-address"
+                placeholder="Your email"
+                control={control}
+              />
+            )}
+            name="email"
+            rules={{
+              required: {
+                value: true,
+                message: 'Email is required',
+              },
+              maxLength: {
+                value: 50,
+                message: 'Email address does not exist',
+              },
+            }}
+            defaultValue=""
+          />
+
+          <Text style={styles.inputError}>
+            {errors.email && errors.email.message}
+          </Text>
+
+          <Controller
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <Input
+                setErrors={setErrors}
+                customStyles={styles.input}
+                onChange={onChange}
+                value={value}
+                keyboardType="default"
+                placeholder="Username"
+              />
+            )}
+            name="username"
+            rules={{
+              required: {
+                value: true,
+                message: 'Username is required',
+              },
+              maxLength: {
+                value: 50,
+                message: 'Username not found',
+              },
+            }}
+            defaultValue=""
+          />
+          <Text style={styles.inputError}>
+            {errors.username && errors.username.message}
+          </Text>
+
+          <SubmitButton
+            title="Log in"
+            handleSubmit={handleSubmit}
+            onSubmit={onSubmit}
+            errors={inputErrors}
+            setErrors={setErrors}
+          />
+          <View style={styles.textWrapper}>
+            <Text style={styles.text}>Don't have an account yet?</Text>
+            <TouchableOpacity>
+              <Text
+                onPress={() => navigation.navigate('SignUp')}
+                style={[styles.text, styles.toLogin]}
+              >
+                sign up
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </LinearGradient>
+    </SafeAreaView>
+  );
+};
+
+export default SignUpScreen;
