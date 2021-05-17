@@ -1,8 +1,8 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import AddBook1 from '../screens/AddBookStack/AddBook1';
+import AddBook1 from '../screens/AddBookScreens/AddBook1';
 import AddBook2 from '../screens/AddBookScreens/AddBook2';
-import AddBook3 from '../screens/AddBookStack/AddBook3';
+import AddBook3 from '../screens/AddBookScreens/AddBook3';
 
 const Stack = createStackNavigator();
 
