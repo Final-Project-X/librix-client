@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from 'react';
 import {
-  StyleSheet,
   Text,
   View,
   TextInput,
@@ -11,9 +10,10 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Ionicons } from '@expo/vector-icons';
+import styles from './styles';
 // import * as ImagePicker from 'expo-image-picker';
 
-export default function AddBook3({ navigation }) {
+const AddBook3 = ({ navigation }) => {
   const [valueGenre, setValueGenre] = useState(null);
   const [genreOpen, setGenreOpen] = useState(false);
   const [genres, setGenres] = useState([
@@ -172,75 +172,6 @@ export default function AddBook3({ navigation }) {
       </LinearGradient>
     </SafeAreaView>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  background: {
-    width: '100%',
-    height: '100%',
-  },
-  backgroundDrop: {
-    backgroundColor: 'lightblue',
-  },
-  picker: {
-    borderColor: 'transparent',
-    borderRadius: 40,
-    marginBottom: 10,
-    backgroundColor: '#ffffff',
-    shadowRadius: 10,
-    shadowColor: '#000',
-    shadowOpacity: 0.4,
-    shadowOffset: { width: 0, height: 7 },
-  },
-  main: {
-    marginHorizontal: 40,
-  },
-  text: {
-    textAlign: 'center',
-    margin: 20,
-    fontSize: 20,
-  },
-  inputText: {
-    padding: 15,
-    borderRadius: 20,
-    marginBottom: 20,
-    height: 100,
-    backgroundColor: '#ffffff',
-    shadowRadius: 10,
-    shadowColor: '#000',
-    shadowOpacity: 0.4,
-    shadowOffset: { width: 0, height: 7 },
-  },
-  uploadButtton: {
-    paddingVertical: 5,
-    paddingHorizontal: 20,
-    backgroundColor: '#2a2a81',
-    borderRadius: 40,
-    alignSelf: 'flex-start',
-    marginLeft: 40,
-    flexDirection: 'row',
-  },
-  uploadText: {
-    color: 'white',
-    marginRight: 5,
-  },
-  button: {
-    backgroundColor: '#2a2a81',
-    borderRadius: 40,
-    paddingVertical: 10,
-    paddingHorizontal: 60,
-    marginTop: 20,
-    alignSelf: 'center',
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-});
+export default AddBook3;
