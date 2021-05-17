@@ -27,7 +27,7 @@ export default function AddBook1({ navigation }) {
         <Text style={styles.text}>
           Please enter an ISBN number, and we'll pre-fill the info for you.
         </Text>
-        <Text style={styles.label}>ISNB</Text>
+        <Text style={styles.label}>ISBN</Text>
         <View style={styles.input}>
           <TextInput
             style={styles.inputText}
