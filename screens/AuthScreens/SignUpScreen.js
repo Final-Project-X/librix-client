@@ -7,10 +7,10 @@ import {
   Alert,
 } from 'react-native';
 import { useForm, Controller, useWatch } from 'react-hook-form';
-import { LinearGradient } from 'expo-linear-gradient';
 import { Feather } from '@expo/vector-icons';
+import ScreenGradient from '../../components/Gradients/ScreenGradient';
 import Input from '../../components/Inputs/Input';
-import SubmitButton from '../../components/Buttons/SubmitButton/SubmitButton';
+import SubmitButton from '../../components/Buttons/SubmitButton';
 import styles from './styles';
 
 const SignUpScreen = ({ navigation }) => {
@@ -38,11 +38,7 @@ const SignUpScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <LinearGradient
-        colors={['#FFFFFF', '#FAA96C']}
-        start={[0.2, 0.7]}
-        style={styles.gradient}
-      >
+      <ScreenGradient>
         <View style={styles.form}>
           <Controller
             control={control}
@@ -198,6 +194,7 @@ const SignUpScreen = ({ navigation }) => {
             onSubmit={onSubmit}
             errors={inputErrors}
             setErrors={setErrors}
+            customStyles={styles.buttonMargin}
           />
           <View style={styles.textWrapper}>
             <Text style={styles.text}>Already have an account?</Text>
@@ -206,7 +203,7 @@ const SignUpScreen = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         </View>
-      </LinearGradient>
+      </ScreenGradient>
     </SafeAreaView>
   );
 };
