@@ -10,6 +10,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Feather from '@expo/vector-icons/Feather';
 import { LinearGradient } from 'expo-linear-gradient';
 import LibrixTabBar from '../components/LibrixTabBar/LibrixTabBar';
+import AddBookStack from './AddBookStack';
 
 const GradientMainScreen = ({ screenText, children, handlePress }) => {
   return (
@@ -44,12 +45,7 @@ const Books = ({ navigation }) => (
     handlePress={() => navigation.toggleDrawer()}
   />
 );
-const AddBook = ({ navigation }) => (
-  <GradientMainScreen
-    screenText="Add a Book"
-    handlePress={() => navigation.toggleDrawer()}
-  />
-);
+
 const Matches = ({ navigation }) => (
   <GradientMainScreen
     screenText="Matches"
@@ -70,7 +66,7 @@ const BottomTabNavigator = () => {
     <Tab.Navigator tabBar={(props) => <LibrixTabBar {...props} />}>
       <Tab.Screen name="Saved" component={Saved} />
       <Tab.Screen name="Books" component={Books} />
-      <Tab.Screen name="Add book" component={AddBook} />
+      <Tab.Screen name="Add book" component={AddBookStack} />
       <Tab.Screen name="Matches" component={Matches} />
       <Tab.Screen name="Messages" component={Messages} />
     </Tab.Navigator>
