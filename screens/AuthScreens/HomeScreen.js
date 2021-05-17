@@ -1,6 +1,6 @@
 import React from 'react';
 import { SafeAreaView, View, Text } from 'react-native';
-import StackNavButton from '../../components/Buttons/StackNavButton/StackNavButton';
+import StackNavButton from '../../components/Buttons/StackNavButton';
 
 const HomeScreen = ({ navigation }) => {
   return (

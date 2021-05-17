@@ -1,25 +1,29 @@
 import React from 'react';
 import { TouchableOpacity, View, Text } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import ButtonGradient from '../Gradients/ButtonGradient';
 import styles from './styles';
 
-const SubmitButton = ({ title, handleSubmit, onSubmit, errors, setErrors }) => {
+const SubmitButton = ({
+  title,
+  handleSubmit,
+  onSubmit,
+  errors,
+  setErrors,
+  customStyles,
+}) => {
   return (
     <TouchableOpacity
       onPress={() => {
         setErrors(errors);
         handleSubmit(onSubmit);
       }}
+      style={customStyles}
     >
-      <LinearGradient
-        colors={['#d8d3ff', '#5f41ee']}
-        start={[1.25, 1]}
-        style={styles.gradient}
-      >
+      <ButtonGradient>
         <View style={styles.wrapper}>
           <Text style={styles.title}>{title}</Text>
         </View>
-      </LinearGradient>
+      </ButtonGradient>
     </TouchableOpacity>
   );
 };

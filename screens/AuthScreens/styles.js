@@ -4,9 +4,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  gradient: {
-    flex: 1,
-  },
   form: {
     flex: 1,
     justifyContent: 'center',
@@ -57,6 +54,9 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     color: '#5f41ee',
     textTransform: 'uppercase',
+  },
+  buttonMargin: {
+    marginTop: 6,
   },
 });
 
