@@ -11,6 +11,8 @@ import Feather from '@expo/vector-icons/Feather';
 import { LinearGradient } from 'expo-linear-gradient';
 import LibrixTabBar from '../components/LibrixTabBar/LibrixTabBar';
 import AddBookStack from './AddBookStack';
+import IconButton from '../components/Buttons/IconButton';
+import { colors } from '../global/styles';
 
 const GradientMainScreen = ({ screenText, children, handlePress }) => {
   return (
@@ -23,9 +25,16 @@ const GradientMainScreen = ({ screenText, children, handlePress }) => {
       <SafeAreaView>
         <View>
           <Text>{screenText}</Text>
-          <TouchableOpacity style={styles.profileIcon} onPress={handlePress}>
-            <Feather name="user" size={24} color="white" />
-          </TouchableOpacity>
+          {/* <TouchableOpacity style={styles.profileIcon} onPress={handlePress}> */}
+          <IconButton
+            iconSize="24"
+            iconName="user"
+            iconColor={colors.white}
+            buttonColor={colors.primary.dark}
+            handlePress={handlePress}
+          />
+          {/* <Feather name="user" size={24} color="white" /> */}
+          {/* </TouchableOpacity> */}
           {children}
         </View>
       </SafeAreaView>
@@ -37,7 +46,32 @@ const Saved = ({ navigation }) => (
   <GradientMainScreen
     screenText="Saved Books"
     handlePress={() => navigation.toggleDrawer()}
-  />
+  >
+    <IconButton
+      iconSize="18"
+      iconName="user"
+      iconColor="#5F41EE"
+      buttonColor="#FFFFFF"
+      shadow={true}
+      handlePress={() => console.log('icon button pressed!')}
+    />
+    <IconButton
+      iconSize="18"
+      iconName="message-circle"
+      iconColor="#5F41EE"
+      buttonColor="#FFFFFF"
+      shadow={true}
+      handlePress={() => console.log('icon button pressed!')}
+    />
+    <IconButton
+      iconSize="18"
+      iconName="more-vertical"
+      iconColor="#5F41EE"
+      buttonColor="#FFFFFF"
+      shadow={true}
+      handlePress={() => console.log('icon button pressed!')}
+    />
+  </GradientMainScreen>
 );
 const Books = ({ navigation }) => (
   <GradientMainScreen
