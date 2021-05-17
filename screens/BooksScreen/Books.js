@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
-import { LinearGradient } from 'expo-linear-gradient';
 import Book from '../../components/BookCard/styles';
 import { colors } from '../../global/styles';
+import ScreenGradient from '../../components/Gradients/ScreenGradient';
 
 // const books = async () => {
 // const response = await getBooks()
@@ -117,10 +117,7 @@ const BooksScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <LinearGradient
-        colors={[colors.secondary.light, colors.secondary.dark]}
-        style={styles.background}
-      >
+      <ScreenGradient>
         <Swiper
           cards={books}
           cardIndex={0}
@@ -182,7 +179,7 @@ const BooksScreen = () => {
             },
           }}
         />
-      </LinearGradient>
+      </ScreenGradient>
     </SafeAreaView>
   );
 };
