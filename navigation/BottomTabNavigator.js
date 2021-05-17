@@ -3,24 +3,28 @@ import { View, Text, SafeAreaView } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import LibrixTabBar from '../components/LibrixTabBar/LibrixTabBar';
 import AddBookStack from './AddBookStack';
-import IconButton from '../components/Buttons/IconButton';
+import { HeaderIconButton } from '../components/Buttons/IconButtons';
 import ScreenGradient from '../components/Gradients/ScreenGradient';
 import { colors } from '../global/styles';
 
-const GradientMainScreen = ({ screenText, children, handlePress }) => {
+const GradientMainScreen = ({
+  screenText,
+  children,
+  toggleDrawer,
+  handlePress,
+}) => {
   return (
     <ScreenGradient>
       <SafeAreaView>
         <View>
-          <Text>{screenText}</Text>
-
-          <IconButton
-            iconSize="24"
+          <HeaderIconButton
             iconName="user"
             iconColor={colors.white}
             buttonColor={colors.primary.dark}
-            handlePress={handlePress}
+            handlePress={toggleDrawer}
           />
+
+          <Text>{screenText}</Text>
 
           {children}
         </View>
@@ -32,26 +36,26 @@ const GradientMainScreen = ({ screenText, children, handlePress }) => {
 const Saved = ({ navigation }) => (
   <GradientMainScreen
     screenText="Saved Books"
-    handlePress={() => navigation.toggleDrawer()}
+    toggleDrawer={() => navigation.toggleDrawer()}
   />
 );
 const Books = ({ navigation }) => (
   <GradientMainScreen
     screenText="Pool of Books"
-    handlePress={() => navigation.toggleDrawer()}
+    toggleDrawer={() => navigation.toggleDrawer()}
   />
 );
 
 const Matches = ({ navigation }) => (
   <GradientMainScreen
     screenText="Matches"
-    handlePress={() => navigation.toggleDrawer()}
+    toggleDrawer={() => navigation.toggleDrawer()}
   />
 );
 const Messages = ({ navigation }) => (
   <GradientMainScreen
     screenText="Messages"
-    handlePress={() => navigation.toggleDrawer()}
+    toggleDrawer={() => navigation.toggleDrawer()}
   />
 );
 

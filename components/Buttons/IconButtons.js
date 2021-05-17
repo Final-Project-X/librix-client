@@ -28,6 +28,42 @@ const IconButton = ({
   );
 };
 
+export const MatchesIconButton = ({
+  iconName,
+  iconColor,
+  buttonColor,
+  handlePress,
+  shadow,
+}) => {
+  return (
+    <IconButton
+      iconSize="18"
+      iconName={iconName}
+      iconColor={iconColor}
+      buttonColor={buttonColor}
+      handlePress={handlePress}
+      shadow={true}
+    />
+  );
+};
+
+export const HeaderIconButton = ({
+  iconName,
+  iconColor,
+  buttonColor,
+  handlePress,
+}) => {
+  return (
+    <IconButton
+      iconSize="24"
+      iconName={iconName}
+      iconColor={iconColor}
+      buttonColor={buttonColor}
+      handlePress={handlePress}
+    />
+  );
+};
+
 const styles = (iconSize, buttonColor = colors.white) =>
   StyleSheet.create({
     iconButton: {
@@ -40,5 +76,3 @@ const styles = (iconSize, buttonColor = colors.white) =>
     },
     shadow: buttonShadow,
   });
-
-export default IconButton;
