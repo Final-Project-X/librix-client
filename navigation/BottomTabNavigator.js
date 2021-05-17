@@ -11,6 +11,7 @@ import Feather from '@expo/vector-icons/Feather';
 import { LinearGradient } from 'expo-linear-gradient';
 import LibrixTabBar from '../components/LibrixTabBar/LibrixTabBar';
 import AddBookStack from './AddBookStack';
+import BooksStack from './BooksStack';
 
 const GradientMainScreen = ({ screenText, children, handlePress }) => {
   return (
@@ -65,7 +66,7 @@ const BottomTabNavigator = () => {
   return (
     <Tab.Navigator tabBar={(props) => <LibrixTabBar {...props} />}>
       <Tab.Screen name="Saved" component={Saved} />
-      <Tab.Screen name="Books" component={Books} />
+      <Tab.Screen name="Books" component={BooksStack} />
       <Tab.Screen name="Add book" component={AddBookStack} />
       <Tab.Screen name="Matches" component={Matches} />
       <Tab.Screen name="Messages" component={Messages} />
