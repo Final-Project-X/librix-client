@@ -6,7 +6,6 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import Feather from '@expo/vector-icons/Feather';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import BottomTabNavigator from './BottomTabNavigator';
@@ -59,14 +58,12 @@ const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = () => {
   return (
-    <NavigationContainer>
-      <Drawer.Navigator>
-        <Drawer.Screen name="Main" component={BottomTabNavigator} />
-        <Drawer.Screen name="Profile" component={Profile} />
-        <Drawer.Screen name="Preferences" component={Filter} />
-        <Drawer.Screen name="Log out" component={LogOut} />
-      </Drawer.Navigator>
-    </NavigationContainer>
+    <Drawer.Navigator>
+      <Drawer.Screen name="Main" component={BottomTabNavigator} />
+      <Drawer.Screen name="Profile" component={Profile} />
+      <Drawer.Screen name="Preferences" component={Filter} />
+      <Drawer.Screen name="Log out" component={LogOut} />
+    </Drawer.Navigator>
   );
 };
 
