@@ -33,7 +33,6 @@ export const MatchesIconButton = ({
   iconColor,
   buttonColor,
   handlePress,
-  shadow,
 }) => {
   return (
     <IconButton
@@ -73,6 +72,7 @@ const styles = (iconSize, buttonColor = colors.white) =>
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: 50,
+      margin: 10,
     },
     shadow: buttonShadow,
   });
