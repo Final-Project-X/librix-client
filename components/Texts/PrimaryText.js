@@ -8,7 +8,11 @@ const PrimaryText = ({ text }) => {
     Montserrat_400Regular,
   });
 
-  return <Text style={{ fontFamily: 'Montserrat_400Regular' }}>{text}</Text>;
+  const fontFamily = {
+    fontFamily: fontsLoaded ? 'Montserrat_400Regular' : null,
+  };
+
+  return <Text style={fontFamily}>{text}</Text>;
 };
 
 export default PrimaryText;
