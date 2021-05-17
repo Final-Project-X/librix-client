@@ -1,31 +1,19 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  SafeAreaView,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import { View, Text, SafeAreaView } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Feather from '@expo/vector-icons/Feather';
-import { LinearGradient } from 'expo-linear-gradient';
 import LibrixTabBar from '../components/LibrixTabBar/LibrixTabBar';
 import AddBookStack from './AddBookStack';
 import IconButton from '../components/Buttons/IconButton';
+import ScreenGradient from '../components/Gradients/ScreenGradient';
 import { colors } from '../global/styles';
 
 const GradientMainScreen = ({ screenText, children, handlePress }) => {
   return (
-    <LinearGradient
-      style={styles.fullHeight}
-      colors={['white', '#FAA96C']}
-      start={[0, 0]}
-      end={[1, 1]}
-    >
+    <ScreenGradient>
       <SafeAreaView>
         <View>
           <Text>{screenText}</Text>
-          {/* <TouchableOpacity style={styles.profileIcon} onPress={handlePress}> */}
+
           <IconButton
             iconSize="24"
             iconName="user"
@@ -33,12 +21,11 @@ const GradientMainScreen = ({ screenText, children, handlePress }) => {
             buttonColor={colors.primary.dark}
             handlePress={handlePress}
           />
-          {/* <Feather name="user" size={24} color="white" /> */}
-          {/* </TouchableOpacity> */}
+
           {children}
         </View>
       </SafeAreaView>
-    </LinearGradient>
+    </ScreenGradient>
   );
 };
 
@@ -46,32 +33,7 @@ const Saved = ({ navigation }) => (
   <GradientMainScreen
     screenText="Saved Books"
     handlePress={() => navigation.toggleDrawer()}
-  >
-    <IconButton
-      iconSize="18"
-      iconName="user"
-      iconColor="#5F41EE"
-      buttonColor="#FFFFFF"
-      shadow={true}
-      handlePress={() => console.log('icon button pressed!')}
-    />
-    <IconButton
-      iconSize="18"
-      iconName="message-circle"
-      iconColor="#5F41EE"
-      buttonColor="#FFFFFF"
-      shadow={true}
-      handlePress={() => console.log('icon button pressed!')}
-    />
-    <IconButton
-      iconSize="18"
-      iconName="more-vertical"
-      iconColor="#5F41EE"
-      buttonColor="#FFFFFF"
-      shadow={true}
-      handlePress={() => console.log('icon button pressed!')}
-    />
-  </GradientMainScreen>
+  />
 );
 const Books = ({ navigation }) => (
   <GradientMainScreen
@@ -106,19 +68,5 @@ const BottomTabNavigator = () => {
     </Tab.Navigator>
   );
 };
-
-const styles = StyleSheet.create({
-  fullHeight: {
-    flex: 1,
-  },
-  profileIcon: {
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderColor: 'white',
-    backgroundColor: '#5F41EE',
-    borderRadius: 50,
-    alignSelf: 'flex-start',
-  },
-});
 
 export default BottomTabNavigator;
