@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.18,
     shadowRadius: 7,
+    elevation: 4,
   },
   errorContainer: {
     height: 25,

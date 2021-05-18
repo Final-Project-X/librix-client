@@ -6,7 +6,9 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import ScreenGradient from '../../components/Gradients/ScreenGradient';
+import ButtonGradient from '../../components/Gradients/ButtonGradient';
+
 import styles from './styles';
 
 const AddBook2 = ({ navigation }) => {
@@ -41,10 +43,7 @@ const AddBook2 = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <LinearGradient
-        colors={['rgba(255,255,255,0.1)', 'rgba(247,148,9,0.9)']}
-        style={styles.background}
-      >
+      <ScreenGradient>
         <Text style={styles.text}>
           Please check if the information is correct.
         </Text>
@@ -82,11 +81,13 @@ const AddBook2 = ({ navigation }) => {
                 )
               }
             >
-              <Text style={styles.buttonText}>Next</Text>
+              <ButtonGradient>
+                <Text style={styles.buttonText}>Next</Text>
+              </ButtonGradient>
             </TouchableOpacity>
           </View>
         </View>
-      </LinearGradient>
+      </ScreenGradient>
     </SafeAreaView>
   );
 };
