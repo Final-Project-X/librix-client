@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
-import Book from '../../components/BookCard/styles';
+import Book from '../../components/BookCard/Book';
 import { colors } from '../../global/styles';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
 
