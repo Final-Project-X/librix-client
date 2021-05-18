@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-  StyleSheet,
   Text,
   View,
   TextInput,
@@ -8,8 +7,9 @@ import {
   SafeAreaView,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import styles from './styles';
 
-export default function AddBook2({ navigation }) {
+const AddBook2 = ({ navigation }) => {
   const [title, setTitle] = useState(null);
   const [authors, setAuthors] = useState(null);
   const [publishedDate, setPublishedDate] = useState(null);
@@ -89,52 +89,6 @@ export default function AddBook2({ navigation }) {
       </LinearGradient>
     </SafeAreaView>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  background: {
-    width: '100%',
-    height: '100%',
-  },
-  text: {
-    textAlign: 'center',
-    margin: 30,
-    fontSize: 20,
-  },
-  label: {
-    marginLeft: 40,
-    marginBottom: 5,
-    alignSelf: 'flex-start',
-  },
-  inputText: {
-    padding: 15,
-    backgroundColor: '#ffffff',
-    borderRadius: 40,
-    shadowRadius: 10,
-    shadowColor: '#000',
-    shadowOpacity: 0.4,
-    shadowOffset: { width: 0, height: 7 },
-    width: '80%',
-    marginBottom: 10,
-    alignSelf: 'center',
-  },
-  button: {
-    backgroundColor: '#2a2a81',
-    borderRadius: 40,
-    paddingVertical: 10,
-    paddingHorizontal: 60,
-    marginTop: 40,
-    alignSelf: 'center',
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-});
+export default AddBook2;

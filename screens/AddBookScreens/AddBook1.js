@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-  StyleSheet,
   Text,
   View,
   TextInput,
@@ -9,8 +8,9 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { FontAwesome } from '@expo/vector-icons';
+import styles from './styles';
 
-export default function AddBook1({ navigation }) {
+const AddBook1 = ({ navigation }) => {
   const [isbn, setIsbn] = useState('');
 
   // send ISBN to backend
@@ -27,7 +27,7 @@ export default function AddBook1({ navigation }) {
         <Text style={styles.text}>
           Please enter an ISBN number, and we'll pre-fill the info for you.
         </Text>
-        <Text style={styles.label}>ISNB</Text>
+        <Text style={styles.label}>ISBN</Text>
         <View style={styles.input}>
           <TextInput
             style={styles.inputText}
@@ -52,67 +52,6 @@ export default function AddBook1({ navigation }) {
       </LinearGradient>
     </SafeAreaView>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  background: {
-    width: '100%',
-    height: '100%',
-  },
-  input: {
-    flexDirection: 'row',
-    marginHorizontal: 20,
-    justifyContent: 'center',
-  },
-  text: {
-    textAlign: 'center',
-    margin: 30,
-    fontSize: 20,
-  },
-  label: {
-    marginLeft: 40,
-    marginBottom: 5,
-    marginTop: 20,
-  },
-  inputText: {
-    width: '80%',
-    padding: 15,
-    backgroundColor: '#ffffff',
-    borderRadius: 40,
-    shadowRadius: 10,
-    shadowColor: '#000',
-    shadowOpacity: 0.4,
-    shadowOffset: { width: 0, height: 7 },
-  },
-  or: {
-    marginTop: 60,
-    marginBottom: 20,
-    fontSize: 20,
-    alignSelf: 'center',
-  },
-  smallButton: {
-    backgroundColor: '#2a2a81',
-    borderRadius: 15,
-    padding: 10,
-    marginLeft: 5,
-  },
-  button: {
-    backgroundColor: '#2a2a81',
-    borderRadius: 40,
-    paddingVertical: 10,
-    paddingHorizontal: 60,
-    marginTop: 40,
-    alignSelf: 'center',
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-});
+export default AddBook1;
