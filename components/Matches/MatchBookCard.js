@@ -6,7 +6,7 @@ import { colors } from '../../global/styles';
 const NameLabel = ({ labelName }) => {
   return (
     <View style={styles.nameLabel}>
-      <PrimaryText style={styles.nameLabelText} text={labelName} />
+      <PrimaryText customStyles={styles.nameLabelText} text={labelName} />
     </View>
   );
 };
@@ -20,8 +20,8 @@ const MatchBookCard = ({ bookOwner, bookTitle, bookAuthor, bookImageUri }) => {
           uri: bookImageUri,
         }}
       />
-      <PrimaryText text={bookTitle} />
-      <PrimaryText text={bookAuthor} />
+      <PrimaryText customStyles={styles.bookTitle} text={bookTitle} />
+      <PrimaryText customStyles={styles.bookAuthor} text={bookAuthor} />
     </View>
   );
 };
@@ -37,10 +37,20 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderWidth: 1,
   },
-  nameLabelText: { color: colors.secondary.dark },
+  nameLabelText: {
+    color: colors.secondary.dark,
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+  },
   image: {
     width: 120,
     height: 120,
+  },
+  bookTitle: {
+    fontSize: 16,
+  },
+  bookAuthor: {
+    fontSize: 14,
   },
 });
 
