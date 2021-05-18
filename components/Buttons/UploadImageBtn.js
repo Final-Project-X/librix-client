@@ -4,6 +4,7 @@ import * as ImagePicker from 'expo-image-picker';
 import ButtonGradient from '../Gradients/ButtonGradient';
 import PrimaryText from '../Texts/PrimaryText';
 import { Feather } from '@expo/vector-icons';
+import { colors } from '../../global/styles.js';
 
 const UploadImageBtn = ({ setImage, navigation }) => {
   useEffect(() => {
@@ -50,11 +51,12 @@ const styles = StyleSheet.create({
   wrapper: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     height: 40,
     width: 170,
   },
   text: {
-    color: '#ffffff',
+    color: colors.white,
   },
 });
 

@@ -2,20 +2,19 @@ import React, { useState, useCallback } from 'react';
 import {
   Text,
   View,
+  Image,
   TextInput,
   SafeAreaView,
   TouchableOpacity,
-  //   Image,
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { Ionicons } from '@expo/vector-icons';
 import styles from './styles';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
 import ButtonGradient from '../../components/Gradients/ButtonGradient';
-
-// import * as ImagePicker from 'expo-image-picker';
+import UploadImageBtn from '../../components/Buttons/UploadImageBtn';
 
 const AddBook3 = ({ navigation }) => {
+  const [image, setImage] = useState(null);
   const [valueGenre, setValueGenre] = useState(null);
   const [genreOpen, setGenreOpen] = useState(false);
   const [genres, setGenres] = useState([
@@ -49,7 +48,6 @@ const AddBook3 = ({ navigation }) => {
   ]);
 
   const [note, setNote] = useState('');
-  //   const [image, setImage] = useState(null);
 
   const onGenreOpen = useCallback(() => {
     setGenreOpen(true);
@@ -75,10 +73,7 @@ const AddBook3 = ({ navigation }) => {
     setLanguageOpen(false);
   }, []);
 
-  // add upload image code
-  const uploadImage = () => {};
-
-  // add book info to bookdata
+  // add book info to bookdata inludes image.base64
   const handlePublishBook = (valueNote, valueLan, valueGen, valueCon) => {
     navigation.navigate('Books');
   };
@@ -158,20 +153,8 @@ const AddBook3 = ({ navigation }) => {
               textAlignVertical="top"
             />
           </View>
-
-          <TouchableOpacity style={styles.upload} onPress={uploadImage}>
-            <ButtonGradient>
-              <View style={styles.uploadButtton}>
-                <Text style={styles.uploadText}>Upload image</Text>
-                <Ionicons
-                  name="ios-cloud-upload-outline"
-                  size={20}
-                  color="white"
-                />
-              </View>
-            </ButtonGradient>
-          </TouchableOpacity>
-          {/* {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />} */}
+          <UploadImageBtn setImage={setImage} navigation={navigation} />
+          {image && <Image source={{ uri: image.uri }} style={styles.image} />}
           <TouchableOpacity
             style={styles.button}
             onPress={() =>

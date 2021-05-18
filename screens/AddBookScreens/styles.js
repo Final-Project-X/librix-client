@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '../../global/styles';
+import { Platform } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,12 +25,12 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   isbnInput: {
-    width: '80%',
+    width: 270,
     marginRight: 5,
   },
   inputText: {
     marginHorizontal: 20,
-    padding: 15,
+    padding: Platform.OS === 'ios' ? 15 : 10,
     backgroundColor: colors.white,
     borderRadius: 40,
     shadowRadius: 7,
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
   },
   uploadButtton: {
     flexDirection: 'row',
-    paddingHorizontal: 60,
+    paddingHorizontal: 30,
     paddingVertical: 10,
   },
   uploadText: {
@@ -104,6 +105,13 @@ const styles = StyleSheet.create({
   main: {
     width: '100%',
     alignItems: 'center',
+  },
+  image: {
+    width: 200,
+    height: 200,
+    borderRadius: 15,
+    resizeMode: 'cover',
+    marginTop: 5,
   },
 });
 
