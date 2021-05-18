@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   label: {
-    marginLeft: 30,
+    marginLeft: 50,
     marginBottom: 5,
     marginTop: 20,
   },
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   inputText: {
-    marginHorizontal: 20,
+    marginHorizontal: 40,
     padding: Platform.OS === 'ios' ? 15 : 10,
     backgroundColor: colors.white,
     borderRadius: 40,
@@ -42,10 +42,14 @@ const styles = StyleSheet.create({
   noteText: {
     height: 100,
     borderRadius: 25,
+    marginHorizontal: 20,
   },
   inputContainer: {
     marginBottom: 10,
     width: 370,
+  },
+  formContainer: {
+    width: 400,
   },
   or: {
     marginTop: 60,
