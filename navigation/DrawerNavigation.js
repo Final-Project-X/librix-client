@@ -9,6 +9,7 @@ import {
 import Feather from '@expo/vector-icons/Feather';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import BottomTabNavigator from './BottomTabNavigator';
+import Filter from '../screens/FilterScreen/Filter';
 
 const LogOut = () => (
   <SafeAreaView>
@@ -18,25 +19,6 @@ const LogOut = () => (
         onPress={() => console.log('Logged out!')}
       >
         <Text>Log out</Text>
-      </TouchableOpacity>
-    </View>
-  </SafeAreaView>
-);
-
-const Filter = ({ navigation }) => (
-  <SafeAreaView>
-    <View>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => console.log('Filter preferences')}
-      >
-        <Text>Set preferences</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('Main')}
-      >
-        <Text>Apply</Text>
       </TouchableOpacity>
     </View>
   </SafeAreaView>

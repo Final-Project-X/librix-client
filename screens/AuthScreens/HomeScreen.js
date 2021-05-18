@@ -1,13 +1,14 @@
 import React from 'react';
 import { SafeAreaView, View, Text } from 'react-native';
 import StackNavButton from '../../components/Buttons/StackNavButton';
+import PrimaryText from '../../components/Texts/PrimaryText';
 
 const HomeScreen = ({ navigation }) => {
   return (
     <SafeAreaView>
       <View>
-        <Text>Get rid of books you don't need anymore.</Text>
-        <Text>Exchange them for the ones you would love to read.</Text>
+        <PrimaryText text="Get rid of books you don't need anymore." />
+        <PrimaryText text="Exchange them for the ones you would love to read." />
       </View>
       <View>
         <StackNavButton

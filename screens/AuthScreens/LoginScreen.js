@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
-import { SafeAreaView, View, Text, TouchableOpacity } from 'react-native';
+import {
+  SafeAreaView,
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
 import Input from '../../components/Inputs/Input';
 import SubmitButton from '../../components/Buttons/SubmitButton';
+import UploadImageBtn from '../../components/Buttons/UploadImageBtn';
 import styles from './styles';
 
-const SignUpScreen = ({ navigation }) => {
+const LoginScreen = ({ navigation }) => {
   const {
     control,
     handleSubmit,
@@ -14,6 +21,7 @@ const SignUpScreen = ({ navigation }) => {
   } = useForm();
 
   const [errors, setErrors] = useState({});
+  const [image, setImage] = useState(null);
 
   const onSubmit = (values) => console.log(values);
 
@@ -21,6 +29,13 @@ const SignUpScreen = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       <ScreenGradient>
         <View style={styles.form}>
+          <UploadImageBtn setImage={setImage} navigation={navigation} />
+          {image && (
+            <Image
+              source={{ uri: image.uri }}
+              style={{ width: 200, height: 200 }}
+            />
+          )}
           <Controller
             control={control}
             render={({ field: { onChange, value } }) => (
@@ -106,4 +121,4 @@ const SignUpScreen = ({ navigation }) => {
   );
 };
 
-export default SignUpScreen;
+export default LoginScreen;

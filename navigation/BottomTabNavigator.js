@@ -6,6 +6,7 @@ import AddBookStack from './AddBookStack';
 import { HeaderIconButton } from '../components/Buttons/IconButtons';
 import ScreenGradient from '../components/Gradients/ScreenGradient';
 import { colors } from '../global/styles';
+import BooksStack from './BooksStack';
 
 const GradientMainScreen = ({
   screenText,
@@ -39,12 +40,6 @@ const Saved = ({ navigation }) => (
     toggleDrawer={() => navigation.toggleDrawer()}
   />
 );
-const Books = ({ navigation }) => (
-  <GradientMainScreen
-    screenText="Pool of Books"
-    toggleDrawer={() => navigation.toggleDrawer()}
-  />
-);
 
 const Matches = ({ navigation }) => (
   <GradientMainScreen
@@ -65,7 +60,7 @@ const BottomTabNavigator = () => {
   return (
     <Tab.Navigator tabBar={(props) => <LibrixTabBar {...props} />}>
       <Tab.Screen name="Saved" component={Saved} />
-      <Tab.Screen name="Books" component={Books} />
+      <Tab.Screen name="Books" component={BooksStack} />
       <Tab.Screen name="Add book" component={AddBookStack} />
       <Tab.Screen name="Matches" component={Matches} />
       <Tab.Screen name="Messages" component={Messages} />

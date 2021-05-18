@@ -2,18 +2,19 @@ import React, { useState, useCallback } from 'react';
 import {
   Text,
   View,
+  Image,
   TextInput,
   SafeAreaView,
   TouchableOpacity,
-  //   Image,
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { Ionicons } from '@expo/vector-icons';
 import styles from './styles';
-// import * as ImagePicker from 'expo-image-picker';
+import ScreenGradient from '../../components/Gradients/ScreenGradient';
+import ButtonGradient from '../../components/Gradients/ButtonGradient';
+import UploadImageBtn from '../../components/Buttons/UploadImageBtn';
 
 const AddBook3 = ({ navigation }) => {
+  const [image, setImage] = useState(null);
   const [valueGenre, setValueGenre] = useState(null);
   const [genreOpen, setGenreOpen] = useState(false);
   const [genres, setGenres] = useState([
@@ -47,7 +48,6 @@ const AddBook3 = ({ navigation }) => {
   ]);
 
   const [note, setNote] = useState('');
-  //   const [image, setImage] = useState(null);
 
   const onGenreOpen = useCallback(() => {
     setGenreOpen(true);
@@ -73,103 +73,100 @@ const AddBook3 = ({ navigation }) => {
     setLanguageOpen(false);
   }, []);
 
-  // add upload image code
-  const uploadImage = () => {};
-
-  // add book info to bookdata
+  // add book info to bookdata inludes image.base64
   const handlePublishBook = (valueNote, valueLan, valueGen, valueCon) => {
     navigation.navigate('Books');
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <LinearGradient
-        colors={['rgba(255,255,255,0.1)', 'rgba(247,148,9,0.9)']}
-        style={styles.background}
-      >
+      <ScreenGradient>
         <Text style={styles.text}>And now the rest ...</Text>
         <View style={styles.main}>
-          <DropDownPicker
-            style={styles.picker}
-            open={genreOpen}
-            value={valueGenre}
-            items={genres}
-            searchable={false}
-            placeholder="Genre"
-            onClose={onGenreClose}
-            setOpen={onGenreOpen}
-            onPress={onGenreOpen}
-            setValue={setValueGenre}
-            setItems={setGenres}
-            onChangeValue={(val) => setValueGenre(val)}
-            dropDownContainerStyle={styles.backgroundDrop}
-            zIndex={3000}
-            zIndexInverse={1000}
-            dropDownDirection="TOP"
-          />
-          <DropDownPicker
-            style={styles.picker}
-            open={conditionOpen}
-            value={valueCondition}
-            items={conditions}
-            searchable={false}
-            placeholder="Condition"
-            onClose={onConditionClose}
-            setOpen={onConditionOpen}
-            onPress={onConditionOpen}
-            setValue={setValueCondition}
-            setItems={setConditions}
-            onChangeValue={(val) => setValueCondition(val)}
-            dropDownContainerStyle={styles.backgroundDrop}
-            zIndex={3000}
-            zIndexInverse={1000}
-            dropDownDirection="TOP"
-          />
-          <DropDownPicker
-            style={styles.picker}
-            open={languageOpen}
-            value={valueLanguage}
-            items={languages}
-            searchable={false}
-            placeholder="Language"
-            onClose={onLanguageClose}
-            setOpen={onLanguageOpen}
-            onPress={onLanguageOpen}
-            setValue={setValueLanguage}
-            setItems={setLanguages}
-            onChangeValue={(val) => setValueLanguage(val)}
-            dropDownContainerStyle={styles.backgroundDrop}
-            zIndex={3000}
-            zIndexInverse={1000}
-            dropDownDirection="TOP"
-          />
-
-          <TextInput
-            style={styles.inputText}
-            value={note}
-            onChangeText={(val) => setNote(val)}
-            placeholder="Personal notes (description)"
-            multiline={true}
-            numberOfLines={5}
-            textAlignVertical="top"
-          />
-        </View>
-        <View>
-          <TouchableOpacity style={styles.uploadButtton} onPress={uploadImage}>
-            <Text style={styles.uploadText}>Upload image</Text>
-            <Ionicons name="ios-cloud-upload-outline" size={20} color="white" />
+          <View style={styles.pickerContainer}>
+            <DropDownPicker
+              style={styles.picker}
+              open={genreOpen}
+              value={valueGenre}
+              items={genres}
+              searchable={false}
+              placeholder="Genre"
+              onClose={onGenreClose}
+              setOpen={onGenreOpen}
+              onPress={onGenreOpen}
+              setValue={setValueGenre}
+              setItems={setGenres}
+              onChangeValue={(val) => setValueGenre(val)}
+              dropDownContainerStyle={styles.backgroundDrop}
+              zIndex={3000}
+              zIndexInverse={1000}
+              dropDownDirection="TOP"
+            />
+          </View>
+          <View style={styles.pickerContainer}>
+            <DropDownPicker
+              style={styles.picker}
+              open={conditionOpen}
+              value={valueCondition}
+              items={conditions}
+              searchable={false}
+              placeholder="Condition"
+              onClose={onConditionClose}
+              setOpen={onConditionOpen}
+              onPress={onConditionOpen}
+              setValue={setValueCondition}
+              setItems={setConditions}
+              onChangeValue={(val) => setValueCondition(val)}
+              dropDownContainerStyle={styles.backgroundDrop}
+              zIndex={3000}
+              zIndexInverse={1000}
+              dropDownDirection="TOP"
+            />
+          </View>
+          <View style={styles.pickerContainer}>
+            <DropDownPicker
+              style={styles.picker}
+              open={languageOpen}
+              value={valueLanguage}
+              items={languages}
+              searchable={false}
+              placeholder="Language"
+              onClose={onLanguageClose}
+              setOpen={onLanguageOpen}
+              onPress={onLanguageOpen}
+              setValue={setValueLanguage}
+              setItems={setLanguages}
+              onChangeValue={(val) => setValueLanguage(val)}
+              dropDownContainerStyle={styles.backgroundDrop}
+              zIndex={3000}
+              zIndexInverse={1000}
+              dropDownDirection="TOP"
+            />
+          </View>
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={[styles.inputText, styles.noteText]}
+              value={note}
+              onChangeText={(val) => setNote(val)}
+              placeholder="Personal notes (description)"
+              multiline={true}
+              textAlignVertical="top"
+            />
+          </View>
+          <UploadImageBtn setImage={setImage} navigation={navigation} />
+          {image && <Image source={{ uri: image.uri }} style={styles.image} />}
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() =>
+              handlePublishBook(note, valueLanguage, valueGenre, valueCondition)
+            }
+          >
+            <ButtonGradient>
+              <Text style={styles.buttonText}>Publish book</Text>
+            </ButtonGradient>
           </TouchableOpacity>
-          {/* {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />} */}
         </View>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() =>
-            handlePublishBook(note, valueLanguage, valueGenre, valueCondition)
-          }
-        >
-          <Text style={styles.buttonText}>Publish book</Text>
-        </TouchableOpacity>
-      </LinearGradient>
+      </ScreenGradient>
     </SafeAreaView>
   );
 };
