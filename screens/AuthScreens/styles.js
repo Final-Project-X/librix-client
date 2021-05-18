@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { colors } from '../../global/styles';
 
 const styles = StyleSheet.create({
   container: {
@@ -15,14 +16,14 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     height: 48,
     width: 270,
-    fontSize: 18,
-    backgroundColor: '#ffffff',
-    shadowColor: 'black',
+    fontSize: 16,
+    backgroundColor: colors.white,
+    shadowColor: colors.black,
     shadowOffset: {
       width: 0,
       height: 5,
     },
-    shadowOpacity: 0.18,
+    shadowOpacity: 0.2,
     shadowRadius: 7,
     elevation: 4,
   },
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
     height: 25,
   },
   inputError: {
-    color: 'red',
+    color: colors.error,
   },
   textWrapper: {
     width: 270,
@@ -42,22 +43,22 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   inputWrapper: {
-    width: 270,
+    position: 'relative',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  inputWithIcon: {
-    flex: 1,
-    marginRight: 6,
-  },
   toLogin: {
     marginLeft: 5,
-    color: '#5f41ee',
+    color: colors.primary.dark,
     textTransform: 'uppercase',
   },
   buttonMargin: {
     marginTop: 6,
+  },
+  icon: {
+    position: 'absolute',
+    right: 20,
   },
 });
 

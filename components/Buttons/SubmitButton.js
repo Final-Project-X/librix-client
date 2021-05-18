@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, View, Text } from 'react-native';
 import ButtonGradient from '../Gradients/ButtonGradient';
+import PrimaryBold from '../Texts/PrimaryBold';
 import styles from './styles';
 
 const SubmitButton = ({
@@ -12,16 +13,10 @@ const SubmitButton = ({
   customStyles,
 }) => {
   return (
-    <TouchableOpacity
-      onPress={() => {
-        setErrors(errors);
-        handleSubmit(onSubmit);
-      }}
-      style={customStyles}
-    >
+    <TouchableOpacity onPress={handleSubmit(onSubmit)} style={customStyles}>
       <ButtonGradient>
         <View style={styles.wrapper}>
-          <Text style={styles.title}>{title}</Text>
+          <PrimaryBold text={title} customStyles={styles.title} />
         </View>
       </ButtonGradient>
     </TouchableOpacity>
