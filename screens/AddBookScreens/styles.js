@@ -40,9 +40,11 @@ const styles = StyleSheet.create({
   },
   noteText: {
     height: 100,
+    borderRadius: 25,
   },
   inputContainer: {
     marginBottom: 10,
+    width: 370,
   },
   or: {
     marginTop: 60,
