@@ -3,12 +3,16 @@ import { Text } from 'react-native';
 import { useFonts } from 'expo-font';
 import { Montserrat_400Regular } from '@expo-google-fonts/montserrat';
 
-const PrimaryText = ({ text }) => {
+const PrimaryText = ({ text, customStyles }) => {
   const [fontsLoaded] = useFonts({
     Montserrat_400Regular,
   });
 
-  return <Text style={{ fontFamily: 'Montserrat_400Regular' }}>{text}</Text>;
+  const fontFamily = {
+    fontFamily: fontsLoaded ? 'Montserrat_400Regular' : null,
+  };
+
+  return <Text style={[fontFamily, customStyles]}>{text}</Text>;
 };
 
 export default PrimaryText;

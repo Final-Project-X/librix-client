@@ -4,8 +4,8 @@ import AuthStack from './navigation/AuthStack';
 import MainStack from './navigation/MainStack';
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [userToken, setUserToken] = useState('12345');
+  const [isLoading, setIsLoading] = useState(false);
+  const [userToken, setUserToken] = useState('123');
 
   useEffect(() => {
     setTimeout(() => {
