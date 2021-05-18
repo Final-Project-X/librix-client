@@ -1,62 +1,56 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  SafeAreaView,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import { View, Text, SafeAreaView } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Feather from '@expo/vector-icons/Feather';
-import { LinearGradient } from 'expo-linear-gradient';
 import LibrixTabBar from '../components/LibrixTabBar/LibrixTabBar';
 import AddBookStack from './AddBookStack';
+import { HeaderIconButton } from '../components/Buttons/IconButtons';
+import ScreenGradient from '../components/Gradients/ScreenGradient';
+import { colors } from '../global/styles';
 import BooksStack from './BooksStack';
 
-const GradientMainScreen = ({ screenText, children, handlePress }) => {
+const GradientMainScreen = ({
+  screenText,
+  children,
+  toggleDrawer,
+  handlePress,
+}) => {
   return (
-    <LinearGradient
-      style={styles.fullHeight}
-      colors={['white', '#FAA96C']}
-      start={[0, 0]}
-      end={[1, 1]}
-    >
+    <ScreenGradient>
       <SafeAreaView>
         <View>
+          <HeaderIconButton
+            iconName="user"
+            iconColor={colors.white}
+            buttonColor={colors.primary.dark}
+            handlePress={toggleDrawer}
+          />
+
           <Text>{screenText}</Text>
-          <TouchableOpacity style={styles.profileIcon} onPress={handlePress}>
-            <Feather name="user" size={24} color="white" />
-          </TouchableOpacity>
+
           {children}
         </View>
       </SafeAreaView>
-    </LinearGradient>
+    </ScreenGradient>
   );
 };
 
 const Saved = ({ navigation }) => (
   <GradientMainScreen
     screenText="Saved Books"
-    handlePress={() => navigation.toggleDrawer()}
-  />
-);
-const Books = ({ navigation }) => (
-  <GradientMainScreen
-    screenText="Pool of Books"
-    handlePress={() => navigation.toggleDrawer()}
+    toggleDrawer={() => navigation.toggleDrawer()}
   />
 );
 
 const Matches = ({ navigation }) => (
   <GradientMainScreen
     screenText="Matches"
-    handlePress={() => navigation.toggleDrawer()}
+    toggleDrawer={() => navigation.toggleDrawer()}
   />
 );
 const Messages = ({ navigation }) => (
   <GradientMainScreen
     screenText="Messages"
-    handlePress={() => navigation.toggleDrawer()}
+    toggleDrawer={() => navigation.toggleDrawer()}
   />
 );
 
@@ -73,19 +67,5 @@ const BottomTabNavigator = () => {
     </Tab.Navigator>
   );
 };
-
-const styles = StyleSheet.create({
-  fullHeight: {
-    flex: 1,
-  },
-  profileIcon: {
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderColor: 'white',
-    backgroundColor: '#5F41EE',
-    borderRadius: 50,
-    alignSelf: 'flex-start',
-  },
-});
 
 export default BottomTabNavigator;

@@ -15,3 +15,14 @@ export const colors = {
   almostBlack: '#111111', // prefer this for text color instead of black?
   textFaded: '#767676',
 };
+
+export const buttonShadow = {
+  shadowColor: '#000',
+  shadowOffset: {
+    width: 0,
+    height: 4,
+  },
+  shadowOpacity: 0.25,
+  shadowRadius: 13,
+  elevation: 5,
+};
