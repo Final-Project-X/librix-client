@@ -47,7 +47,7 @@ const AddBook2 = ({ navigation }) => {
         <Text style={styles.text}>
           Please check if the information is correct.
         </Text>
-        <View>
+        <View style={styles.formContainer}>
           <Text style={styles.label}>Title</Text>
           <TextInput
             style={styles.inputText}
