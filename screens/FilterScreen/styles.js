@@ -3,16 +3,16 @@ import { colors } from '../../global/styles';
 import { Platform } from 'react-native';
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.white,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  // container: {
+  //   flex: 1,
+  //   backgroundColor: colors.white,
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  // },
   main: {
     width: '100%',
     alignItems: 'center',
-    marginHorizontal: 20,
+    // marginHorizontal: 20,
   },
   pickerContainer: {
     marginHorizontal: 20,

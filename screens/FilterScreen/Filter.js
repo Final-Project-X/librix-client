@@ -96,71 +96,71 @@ export default function Filter({ navigation }) {
   console.log(poolOfBooks);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScreenGradient>
-        <View style={styles.main}>
-          <Text style={styles.title}>Filter</Text>
-          <TextInput
-            style={styles.input}
-            value={city}
-            placeholder="Location"
-            onChangeText={(val) => setCity(val)}
+    // <View style={styles.container}>
+    <ScreenGradient>
+      <SafeAreaView style={styles.main}>
+        <Text style={styles.title}>Filter</Text>
+        <TextInput
+          style={styles.input}
+          value={city}
+          placeholder="Location"
+          onChangeText={(val) => setCity(val)}
+        />
+        <View style={styles.pickerContainer}>
+          <DropDownPicker
+            style={styles.picker}
+            open={genreOpen}
+            value={valueGenre}
+            items={genres}
+            searchable={false}
+            placeholder="Genre"
+            onClose={onGenreClose}
+            setOpen={onGenreOpen}
+            onPress={onGenreOpen}
+            setValue={setValueGenre}
+            setItems={setGenres}
+            onChangeValue={(val) => setValueGenre(val)}
+            dropDownContainerStyle={styles.backgroundDrop}
+            zIndex={3000}
+            zIndexInverse={1000}
+            dropDownDirection="TOP"
           />
-          <View style={styles.pickerContainer}>
-            <DropDownPicker
-              style={styles.picker}
-              open={genreOpen}
-              value={valueGenre}
-              items={genres}
-              searchable={false}
-              placeholder="Genre"
-              onClose={onGenreClose}
-              setOpen={onGenreOpen}
-              onPress={onGenreOpen}
-              setValue={setValueGenre}
-              setItems={setGenres}
-              onChangeValue={(val) => setValueGenre(val)}
-              dropDownContainerStyle={styles.backgroundDrop}
-              zIndex={3000}
-              zIndexInverse={1000}
-              dropDownDirection="TOP"
-            />
-          </View>
-          <View style={styles.pickerContainer}>
-            <DropDownPicker
-              style={styles.picker}
-              open={languageOpen}
-              value={valueLanguage}
-              items={languages}
-              searchable={false}
-              placeholder="Language"
-              onClose={onLanguageClose}
-              setOpen={onLanguageOpen}
-              onPress={onLanguageOpen}
-              setValue={setValueLanguage}
-              setItems={setLanguages}
-              onChangeValue={(val) => setValueLanguage(val)}
-              dropDownContainerStyle={styles.backgroundDrop}
-              zIndex={3000}
-              zIndexInverse={1000}
-              dropDownDirection="TOP"
-            />
-          </View>
-          {/* <View style={styles.button}> */}
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              apply(city, valueGenre, valueLanguage);
-              navigation.navigate('Books');
-            }}
-          >
-            <ButtonGradient>
-              <Text style={styles.buttonText}>Apply</Text>
-            </ButtonGradient>
-          </TouchableOpacity>
-          {/* </View> */}
         </View>
-      </ScreenGradient>
-    </SafeAreaView>
+        <View style={styles.pickerContainer}>
+          <DropDownPicker
+            style={styles.picker}
+            open={languageOpen}
+            value={valueLanguage}
+            items={languages}
+            searchable={false}
+            placeholder="Language"
+            onClose={onLanguageClose}
+            setOpen={onLanguageOpen}
+            onPress={onLanguageOpen}
+            setValue={setValueLanguage}
+            setItems={setLanguages}
+            onChangeValue={(val) => setValueLanguage(val)}
+            dropDownContainerStyle={styles.backgroundDrop}
+            zIndex={3000}
+            zIndexInverse={1000}
+            dropDownDirection="TOP"
+          />
+        </View>
+        {/* <View style={styles.button}> */}
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            apply(city, valueGenre, valueLanguage);
+            navigation.navigate('Books');
+          }}
+        >
+          <ButtonGradient>
+            <Text style={styles.buttonText}>Apply</Text>
+          </ButtonGradient>
+        </TouchableOpacity>
+        {/* </View> */}
+      </SafeAreaView>
+    </ScreenGradient>
+    // </View>
   );
 }
