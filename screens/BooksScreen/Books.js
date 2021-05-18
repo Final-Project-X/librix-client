@@ -99,7 +99,7 @@ const books = [
   },
 ];
 
-const BooksScreen = () => {
+const Books = () => {
   const [likedBooks, setLikedBooks] = useState([]);
   const [savedBooks, setSavedBooks] = useState([]);
 
@@ -193,4 +193,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BooksScreen;
+export default Books;
