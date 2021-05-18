@@ -9,7 +9,8 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 7 },
     alignItems: 'center',
     backgroundColor: '#ffff',
-    marginTop: -40,
+    marginTop: -50,
+    elevation: 4,
   },
   cardImage: {
     width: 200,
