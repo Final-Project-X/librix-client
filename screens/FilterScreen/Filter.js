@@ -31,7 +31,7 @@ const books = [
   },
 ];
 
-export default function Filter({ navigation }) {
+const Filter = ({ navigation }) => {
   const [city, setCity] = useState('Berlin');
   const [genreOpen, setGenreOpen] = useState(false);
   const [languageOpen, setLanguageOpen] = useState(false);
@@ -163,4 +163,6 @@ export default function Filter({ navigation }) {
     </ScreenGradient>
     // </View>
   );
-}
+};
+
+export default Filter;
