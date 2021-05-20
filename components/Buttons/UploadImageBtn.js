@@ -48,17 +48,4 @@ const UploadImageBtn = ({ setImage, navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  wrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 40,
-    width: 170,
-  },
-  text: {
-    color: colors.white,
-  },
-});
-
 export default UploadImageBtn;
