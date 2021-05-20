@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '../../global/styles';
+import { Platform } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -19,17 +20,17 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   label: {
-    marginLeft: 30,
+    marginLeft: 50,
     marginBottom: 5,
     marginTop: 20,
   },
   isbnInput: {
-    width: '80%',
+    width: 270,
     marginRight: 5,
   },
   inputText: {
-    marginHorizontal: 20,
-    padding: 15,
+    marginHorizontal: 40,
+    padding: Platform.OS === 'ios' ? 15 : 10,
     backgroundColor: colors.white,
     borderRadius: 40,
     shadowRadius: 7,
@@ -41,10 +42,14 @@ const styles = StyleSheet.create({
   noteText: {
     height: 100,
     borderRadius: 25,
+    marginHorizontal: 20,
   },
   inputContainer: {
     marginBottom: 10,
     width: 370,
+  },
+  formContainer: {
+    width: 400,
   },
   or: {
     marginTop: 60,
@@ -76,7 +81,7 @@ const styles = StyleSheet.create({
   },
   uploadButtton: {
     flexDirection: 'row',
-    paddingHorizontal: 60,
+    paddingHorizontal: 30,
     paddingVertical: 10,
   },
   uploadText: {
@@ -104,6 +109,13 @@ const styles = StyleSheet.create({
   main: {
     width: '100%',
     alignItems: 'center',
+  },
+  image: {
+    width: 200,
+    height: 200,
+    borderRadius: 15,
+    resizeMode: 'cover',
+    marginTop: 5,
   },
 });
 

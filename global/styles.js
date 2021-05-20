@@ -16,3 +16,14 @@ export const colors = {
   textFaded: '#767676',
   error: '#B00020',
 };
+
+export const buttonShadow = {
+  shadowColor: '#000',
+  shadowOffset: {
+    width: 0,
+    height: 4,
+  },
+  shadowOpacity: 0.25,
+  shadowRadius: 13,
+  elevation: 5,
+};
