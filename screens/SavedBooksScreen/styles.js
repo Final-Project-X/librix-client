@@ -2,58 +2,6 @@ import { StyleSheet } from 'react-native';
 import { colors } from '../../global/styles';
 
 const styles = StyleSheet.create({
-  item: {
-    backgroundColor: colors.white,
-    flexDirection: 'row',
-    padding: 10,
-    margin: 15,
-    borderRadius: 15,
-    shadowRadius: 10,
-    shadowColor: colors.black,
-    shadowOpacity: 0.18,
-    shadowOffset: { width: 0, height: 5 },
-    alignItems: 'center',
-    elevation: 4,
-  },
-  noBooks: {
-    textAlign: 'center',
-  },
-  delete: {
-    position: 'absolute',
-    top: -15,
-    left: -10,
-    elevation: 4,
-  },
-  love: {
-    position: 'absolute',
-    top: -13,
-    right: -10,
-    elevation: 4,
-  },
-  cardImage: {
-    width: 60,
-    height: 100,
-    resizeMode: 'cover',
-  },
-  info: {
-    width: 280,
-    paddingHorizontal: 10,
-    alignItems: 'flex-start',
-    flex: 1,
-  },
-  title: {
-    fontWeight: 'bold',
-    marginBottom: 5,
-  },
-  text: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    padding: 16,
-  },
-  category: {
-    fontWeight: 'bold',
-    marginTop: 5,
-  },
   singleBook: {
     flex: 0.88,
     margin: 20,
