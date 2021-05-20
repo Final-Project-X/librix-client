@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
-import {
-  SafeAreaView,
-  View,
-  Text,
-  TouchableOpacity,
-  Alert,
-} from 'react-native';
+import { SafeAreaView, View, TouchableOpacity, Alert } from 'react-native';
 import { useForm, Controller, useWatch } from 'react-hook-form';
 import { Feather } from '@expo/vector-icons';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
 import Input from '../../components/Inputs/Input';
 import SubmitButton from '../../components/Buttons/SubmitButton';
+import PrimaryText from '../../components/Texts/PrimaryText';
 import styles from './styles';
+import { colors } from '../../global/styles';
 
 const SignUpScreen = ({ navigation }) => {
   const {
@@ -70,10 +66,10 @@ const SignUpScreen = ({ navigation }) => {
             }}
             defaultValue=""
           />
-
-          <Text style={styles.inputError}>
-            {errors.email && errors.email.message}
-          </Text>
+          <PrimaryText
+            text={errors.email && errors.email.message}
+            customStyles={styles.inputError}
+          />
 
           <Controller
             control={control}
@@ -100,16 +96,17 @@ const SignUpScreen = ({ navigation }) => {
             }}
             defaultValue=""
           />
-          <Text style={styles.inputError}>
-            {errors.username && errors.username.message}
-          </Text>
+          <PrimaryText
+            text={errors.username && errors.username.message}
+            customStyles={styles.inputError}
+          />
           <View style={styles.inputWrapper}>
             <Controller
               control={control}
               render={({ field: { onChange, value } }) => (
                 <Input
                   setErrors={setErrors}
-                  customStyles={[styles.input, styles.inputWithIcon]}
+                  customStyles={styles.input}
                   onChange={onChange}
                   value={value}
                   keyboardType="default"
@@ -129,13 +126,14 @@ const SignUpScreen = ({ navigation }) => {
               }}
               defaultValue=""
             />
-            <TouchableOpacity onPress={showCityInfo}>
-              <Feather name="info" size={18} color="black" />
+            <TouchableOpacity style={styles.icon} onPress={showCityInfo}>
+              <Feather name="info" size={18} color={colors.textFaded} />
             </TouchableOpacity>
           </View>
-          <Text style={styles.inputError}>
-            {errors.city && errors.city.message}
-          </Text>
+          <PrimaryText
+            text={errors.city && errors.city.message}
+            customStyles={styles.inputError}
+          />
           <Controller
             control={control}
             render={({ field: { onChange, value } }) => (
@@ -162,9 +160,10 @@ const SignUpScreen = ({ navigation }) => {
             }}
             defaultValue=""
           />
-          <Text style={styles.inputError}>
-            {errors.password && errors.password.message}
-          </Text>
+          <PrimaryText
+            text={errors.password && errors.password.message}
+            customStyles={styles.inputError}
+          />
           <Controller
             control={control}
             render={({ field: { onChange, value } }) => (
@@ -185,9 +184,10 @@ const SignUpScreen = ({ navigation }) => {
             }}
             defaultValue=""
           />
-          <Text style={styles.inputError}>
-            {errors.confirmPassword && errors.confirmPassword.message}
-          </Text>
+          <PrimaryText
+            text={errors.confirmPassword && errors.confirmPassword.message}
+            customStyles={styles.inputError}
+          />
           <SubmitButton
             title="Sign up"
             handleSubmit={handleSubmit}
@@ -197,9 +197,15 @@ const SignUpScreen = ({ navigation }) => {
             customStyles={styles.buttonMargin}
           />
           <View style={styles.textWrapper}>
-            <Text style={styles.text}>Already have an account?</Text>
+            <PrimaryText
+              text="Already have an account?"
+              customStyles={styles.text}
+            />
             <TouchableOpacity onPress={() => navigation.navigate('LogIn')}>
-              <Text style={[styles.text, styles.toLogin]}>log in</Text>
+              <PrimaryText
+                text="log in"
+                customStyles={[styles.text, styles.toLogin]}
+              />
             </TouchableOpacity>
           </View>
         </View>

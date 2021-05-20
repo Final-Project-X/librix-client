@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
-import { TouchableOpacity, View, StyleSheet, Platform } from 'react-native';
+import { TouchableOpacity, View, Platform } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import ButtonGradient from '../Gradients/ButtonGradient';
-import PrimaryText from '../Texts/PrimaryText';
+import PrimaryBold from '../Texts/PrimaryBold';
 import { Feather } from '@expo/vector-icons';
-import { colors } from '../../global/styles.js';
+import { colors } from '../../global/styles';
+import styles from './uploadImage.styles';
 
 const UploadImageBtn = ({ setImage, navigation }) => {
   useEffect(() => {
@@ -37,10 +38,10 @@ const UploadImageBtn = ({ setImage, navigation }) => {
 
   return (
     <TouchableOpacity onPress={pickImage}>
-      <ButtonGradient>
+      <ButtonGradient customStyles={styles.gradient}>
         <View style={styles.wrapper}>
-          <PrimaryText text="Upload image" customStyles={styles.text} />
-          <Feather name="upload" size={24} color="black" />
+          <PrimaryBold text="Upload image" customStyles={styles.text} />
+          <Feather name="upload" size={20} color={colors.white} />
         </View>
       </ButtonGradient>
     </TouchableOpacity>
