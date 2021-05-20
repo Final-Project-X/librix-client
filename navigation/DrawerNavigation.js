@@ -10,6 +10,7 @@ import Feather from '@expo/vector-icons/Feather';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import BottomTabNavigator from './BottomTabNavigator';
 import Filter from '../screens/FilterScreen/Filter';
+import ProfileStack from '../navigation/ProfileStack';
 
 const LogOut = () => (
   <SafeAreaView>
@@ -42,7 +43,7 @@ const DrawerNavigator = () => {
   return (
     <Drawer.Navigator>
       <Drawer.Screen name="Main" component={BottomTabNavigator} />
-      <Drawer.Screen name="Profile" component={Profile} />
+      <Drawer.Screen name="Profile" component={ProfileStack} />
       <Drawer.Screen name="Preferences" component={Filter} />
       <Drawer.Screen name="Log out" component={LogOut} />
     </Drawer.Navigator>
