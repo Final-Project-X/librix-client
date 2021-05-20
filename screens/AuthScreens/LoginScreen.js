@@ -1,16 +1,10 @@
 import React, { useState } from 'react';
-import {
-  SafeAreaView,
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-} from 'react-native';
+import { SafeAreaView, View, Text, TouchableOpacity } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
 import Input from '../../components/Inputs/Input';
 import SubmitButton from '../../components/Buttons/SubmitButton';
-import UploadImageBtn from '../../components/Buttons/UploadImageBtn';
+import PrimaryText from '../../components/Texts/PrimaryText';
 import styles from './styles';
 
 const LoginScreen = ({ navigation }) => {
@@ -21,7 +15,6 @@ const LoginScreen = ({ navigation }) => {
   } = useForm();
 
   const [errors, setErrors] = useState({});
-  const [image, setImage] = useState(null);
 
   const onSubmit = (values) => console.log(values);
 
@@ -29,13 +22,6 @@ const LoginScreen = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       <ScreenGradient>
         <View style={styles.form}>
-          <UploadImageBtn setImage={setImage} navigation={navigation} />
-          {image && (
-            <Image
-              source={{ uri: image.uri }}
-              style={{ width: 200, height: 200 }}
-            />
-          )}
           <Controller
             control={control}
             render={({ field: { onChange, value } }) => (
@@ -62,11 +48,10 @@ const LoginScreen = ({ navigation }) => {
             }}
             defaultValue=""
           />
-
-          <Text style={styles.inputError}>
-            {errors.email && errors.email.message}
-          </Text>
-
+          <PrimaryText
+            text={errors.email && errors.email.message}
+            style={styles.inputError}
+          />
           <Controller
             control={control}
             render={({ field: { onChange, value } }) => (
@@ -92,10 +77,10 @@ const LoginScreen = ({ navigation }) => {
             }}
             defaultValue=""
           />
-          <Text style={styles.inputError}>
-            {errors.username && errors.username.message}
-          </Text>
-
+          <PrimaryText
+            text={errors.username && errors.username.message}
+            style={styles.inputError}
+          />
           <SubmitButton
             title="Log in"
             handleSubmit={handleSubmit}
@@ -106,13 +91,11 @@ const LoginScreen = ({ navigation }) => {
           />
           <View style={styles.textWrapper}>
             <Text style={styles.text}>Don't have an account yet?</Text>
-            <TouchableOpacity>
-              <Text
-                onPress={() => navigation.navigate('SignUp')}
-                style={[styles.text, styles.toLogin]}
-              >
-                sign up
-              </Text>
+            <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+              <PrimaryText
+                text="sign up"
+                customStyles={[styles.text, styles.toLogin]}
+              />
             </TouchableOpacity>
           </View>
         </View>

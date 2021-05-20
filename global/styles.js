@@ -14,6 +14,7 @@ export const colors = {
   black: '#000000',
   almostBlack: '#111111', // prefer this for text color instead of black?
   textFaded: '#767676',
+  error: '#B00020',
 };
 
 export const buttonShadow = {

@@ -18,7 +18,6 @@ const AddBook3 = ({ navigation }) => {
   const [valueGenre, setValueGenre] = useState(null);
   const [genreOpen, setGenreOpen] = useState(false);
   const [genres, setGenres] = useState([
-    { label: 'Any', value: 'Any' },
     { label: 'Drama', value: 'drama' },
     { label: 'Crime', value: 'crime' },
     { label: 'Comic book', value: 'comic book' },
@@ -30,7 +29,6 @@ const AddBook3 = ({ navigation }) => {
   const [valueCondition, setValueCondition] = useState(null);
   const [conditionOpen, setConditionOpen] = useState(false);
   const [conditions, setConditions] = useState([
-    { label: 'Any', value: 'Any' },
     { label: 'As good as new', value: 'as good as new' },
     { label: 'Average', value: 'average' },
     { label: 'Below average', value: 'below average' },
@@ -39,7 +37,6 @@ const AddBook3 = ({ navigation }) => {
   const [valueLanguage, setValueLanguage] = useState(null);
   const [languageOpen, setLanguageOpen] = useState(false);
   const [languages, setLanguages] = useState([
-    { label: 'Any', value: 'Any' },
     { label: 'English', value: 'english' },
     { label: 'French', value: 'french' },
     { label: 'German', value: 'german' },
