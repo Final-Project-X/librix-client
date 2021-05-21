@@ -4,7 +4,7 @@ import Swiper from 'react-native-deck-swiper';
 import Book from '../../components/BookCard/Book';
 import { colors } from '../../global/styles';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
-
+import { AntDesign, Entypo } from '@expo/vector-icons';
 // const books = async () => {
 // const response = await getBooks()
 // return data
@@ -131,10 +131,9 @@ const Books = () => {
           backgroundColor={'transparent'}
           overlayLabels={{
             left: {
-              title: 'Nope',
+              title: <Entypo name="circle-with-cross" size={50} color="red" />,
               style: {
                 label: {
-                  backgroundColor: colors.secondary.dark,
                   color: colors.white,
                   fontSize: 20,
                 },
@@ -148,10 +147,9 @@ const Books = () => {
               },
             },
             right: {
-              title: 'Yes',
+              title: <AntDesign name="checkcircle" size={50} color="green" />,
               style: {
                 label: {
-                  backgroundColor: colors.primary.dark,
                   color: colors.white,
                   fontSize: 20,
                 },
@@ -168,7 +166,6 @@ const Books = () => {
               title: 'Save',
               style: {
                 label: {
-                  backgroundColor: colors.textFaded,
                   color: colors.white,
                   fontSize: 20,
                 },
