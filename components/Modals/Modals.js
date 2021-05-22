@@ -2,6 +2,8 @@ import React from 'react';
 import { Modal, Text, TouchableOpacity, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import styles from './styles';
+import { colors } from '../../global/styles';
+import PrimaryText from '../../components/Texts/PrimaryText';
 
 const Modals = ({ isVisible, setIsVisible, textValue, buttonValue }) => {
   return (
@@ -16,9 +18,13 @@ const Modals = ({ isVisible, setIsVisible, textValue, buttonValue }) => {
       >
         <View style={styles.mainModal}>
           <View style={styles.main}>
-            <Ionicons name="alert-circle-outline" size={24} color="#be53ea" />
-            <Text style={styles.text}>{textValue}</Text>
-            <Text>Are you sure?</Text>
+            <Ionicons
+              name="alert-circle-outline"
+              size={24}
+              color={colors.secondary.dark}
+            />
+            <PrimaryText text={textValue} customStyles={styles.text} />
+            <PrimaryText text="Are you sure?" />
             <View style={styles.buttons}>
               <TouchableOpacity
                 style={[styles.button, styles.buttonN]}
@@ -30,7 +36,7 @@ const Modals = ({ isVisible, setIsVisible, textValue, buttonValue }) => {
                 style={styles.button}
                 onPress={() => setIsVisible(!isVisible)}
               >
-                <Text style={styles.textStyle}>{buttonValue}</Text>
+                <PrimaryText text={buttonValue} style={styles.textStyle} />
               </TouchableOpacity>
             </View>
           </View>

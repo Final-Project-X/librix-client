@@ -1,34 +1,47 @@
 import React from 'react';
-import { View, Text, Image, ScrollView } from 'react-native';
+import { View, Image, ScrollView } from 'react-native';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
 import styles from './styles';
+import PrimaryText from '../../components/Texts/PrimaryText';
+import SerifText from '../../components/Texts/SerifText';
 
 const SingleBook = ({ route }) => {
   const { item } = route.params;
   return (
     <ScreenGradient>
-      <View style={styles.singleBook}>
-        <Image source={{ uri: item.selectedFiles }} style={styles.card} />
+      <ScrollView contentContainerStyle={styles.contentContainer}>
+        <View style={styles.singleBook}>
+          <Image source={{ uri: item.selectedFiles }} style={styles.card} />
 
-        <View style={styles.info2}>
-          <Text style={styles.title2}>{item.title}</Text>
-          <Text style={styles.title2}>by {item.authors.join(', ')}</Text>
-          <ScrollView
-            style={styles.scrollView}
-            contentContainerStyle={styles.contentContainer}
-          >
-            <Text>{item.description}</Text>
-          </ScrollView>
-          <View style={styles.item1}>
-            <Text style={styles.lan}>Language: {item.language}</Text>
-            <Text>Year: {item.publishedDate}</Text>
-          </View>
-          <View style={styles.item1}>
-            <Text style={styles.lan}>Category: {item.category[0]}</Text>
-            <Text>Condition: {item.condition}</Text>
+          <View>
+            <SerifText text={item.title} customStyles={styles.text} />
+            <PrimaryText
+              text={`by ${item.authors.join(', ')}`}
+              customStyles={styles.text}
+            />
+
+            <PrimaryText text={item.description} />
+            <PrimaryText
+              text={`Personal notes: ${item.note}`}
+              customStyles={styles.note}
+            />
+            <View style={styles.item1}>
+              <PrimaryText
+                text={`Language: ${item.language}`}
+                customStyles={styles.lan}
+              />
+              <PrimaryText text={`Year: ${item.publishedDate}`} />
+            </View>
+            <View style={styles.item1}>
+              <PrimaryText
+                text={`Category: ${item.category[0]}`}
+                customStyles={styles.lan}
+              />
+              <PrimaryText text={`Condition: ${item.condition}`} />
+            </View>
           </View>
         </View>
-      </View>
+      </ScrollView>
     </ScreenGradient>
   );
 };

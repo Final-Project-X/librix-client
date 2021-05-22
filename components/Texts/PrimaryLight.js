@@ -3,7 +3,7 @@ import { Text } from 'react-native';
 import { useFonts } from 'expo-font';
 import { Montserrat_300Light } from '@expo-google-fonts/montserrat';
 
-const PrimaryLight = ({ text, customStyles }) => {
+const PrimaryLight = ({ text, customStyles, numberOfLines }) => {
   const [fontsLoaded] = useFonts({
     Montserrat_300Light,
   });
@@ -12,7 +12,11 @@ const PrimaryLight = ({ text, customStyles }) => {
     fontFamily: fontsLoaded ? 'Montserrat_300Light' : null,
   };
 
-  return <Text style={[fontFamily, customStyles]}>{text}</Text>;
+  return (
+    <Text style={[fontFamily, customStyles]} numberOfLines={numberOfLines}>
+      {text}
+    </Text>
+  );
 };
 
 export default PrimaryLight;

@@ -1,10 +1,13 @@
 import React from 'react';
 import { colors } from '../../global/styles';
-import { Text, View, TouchableOpacity, Image } from 'react-native';
+import { View, TouchableOpacity, Image } from 'react-native';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import styles from './styles';
+import PrimaryText from '../Texts/PrimaryText';
+import PrimaryBold from '../Texts/PrimaryBold';
+import PrimaryLight from '../Texts/PrimaryLight';
 
-const BookList = ({ item, setBooks, books, navigation }) => {
+const SavedBookList = ({ item, setBooks, books, navigation }) => {
   const handleDelete = (val) => {
     const newBooks = books.filter((book) => book._id !== val._id);
     return setBooks(newBooks);
@@ -30,9 +33,9 @@ const BookList = ({ item, setBooks, books, navigation }) => {
         <Image source={{ uri: item.selectedFiles }} style={styles.img} />
 
         <View style={styles.detail}>
-          <Text style={styles.titleText}>{item.title}</Text>
-          <Text numberOfLines={2}>{item.description}</Text>
-          <Text style={styles.category}>{item.category[0]}</Text>
+          <PrimaryBold text={item.title} customStyles={styles.titleText} />
+          <PrimaryLight text={item.description} numberOfLines={2} />
+          <PrimaryText text={item.category[0]} customStyles={styles.category} />
         </View>
         <Ionicons
           name="heart-circle-sharp"
@@ -46,4 +49,4 @@ const BookList = ({ item, setBooks, books, navigation }) => {
   );
 };
 
-export default BookList;
+export default SavedBookList;

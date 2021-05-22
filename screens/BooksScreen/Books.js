@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
-import Book from '../../components/BookCard/Book';
+import SwipingBook from '../../components/BookCard/SwipingBook';
 import { colors } from '../../global/styles';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
-import { AntDesign, Entypo } from '@expo/vector-icons';
+import { AntDesign, Entypo, Fontisto } from '@expo/vector-icons';
 // const books = async () => {
 // const response = await getBooks()
 // return data
@@ -15,6 +15,8 @@ const books = [
   {
     authors: ['Robert Dimery'],
     category: ['Popular music'],
+    language: 'English',
+    condition: 'good',
     selectedFiles:
       'https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQ1xebBiuWpBBbsBEovQfm0ilY9ex_ejvHCbhhCpHuzEdNUvNvf6ITitqjrHSnalVXwVHEgYfIGwE3UjM3QYKrQe8xL78Ru&usqp=CAE',
     reserved: false,
@@ -31,7 +33,8 @@ const books = [
   },
   {
     authors: ['Marcus Hünnebeck'],
-    category: [],
+    category: ['Drama'],
+    condition: 'new',
     selectedFiles: 'https://m.media-amazon.com/images/I/51htp+0pH4L.jpg',
     reserved: false,
     interestedUsers: ['609a81d7be7697a88577453c'],
@@ -44,10 +47,13 @@ const books = [
     publishedDate: 2021,
     shape: 'as good as new',
     owner: '609a81d7be7697a88577453c',
+    language: 'English',
   },
   {
     authors: ['Suzy Toronto'],
     category: ['Self-Help'],
+    publishedDate: 1998,
+    condition: 'good',
     selectedFiles:
       'https://images-na.ssl-images-amazon.com/images/I/61-8-hLsi3L._SX355_BO1,204,203,200_.jpg',
     reserved: false,
@@ -64,7 +70,8 @@ const books = [
   },
   {
     authors: ['Roman Mars', 'Kurt Kohlstedt'],
-    category: [],
+    category: ['Crime'],
+    condition: 'acceptable',
     selectedFiles: 'https://bilder.buecher.de/produkte/58/58726/58726418n.jpg',
     reserved: false,
     interestedUsers: ['609a81d7be7697a88577453e'],
@@ -78,9 +85,14 @@ const books = [
     publishedDate: 1997,
     shape: 'as good as new',
     owner: '609a81d7be7697a88577453e',
+    language: 'English',
   },
   {
     authors: ['Jojo Moyes'],
+    category: ['Romance'],
+    publishedDate: 2010,
+    language: 'English',
+    condition: 'new',
     selectedFiles:
       'https://upload.wikimedia.org/wikipedia/en/f/fd/Me_Before_You_%28film%29.jpg',
     title: 'Me Before You',
@@ -90,6 +102,10 @@ const books = [
   },
   {
     authors: ['	Bernard Cornwell'],
+    language: 'English',
+    publishedDate: 2010,
+    category: ['Romance'],
+    condition: 'good',
     selectedFiles:
       'https://images2.medimops.eu/product/5fbfff/M00446520942-large.jpg',
     title: 'Selling the Invisible: A Field Guide to Modern Marketing',
@@ -121,7 +137,7 @@ const Books = () => {
         <Swiper
           cards={books}
           cardIndex={0}
-          renderCard={(book) => <Book book={book} />}
+          renderCard={(book) => <SwipingBook book={book} />}
           onSwipedLeft={(book) => handleNope(book)}
           onSwipedBottom={(book) => handleSave(book)}
           onSwipedRight={(book) => handleYes(book)}
@@ -131,14 +147,15 @@ const Books = () => {
           backgroundColor={'transparent'}
           overlayLabels={{
             left: {
-              title: <Entypo name="circle-with-cross" size={50} color="red" />,
+              title: (
+                <Entypo
+                  name="circle-with-cross"
+                  size={50}
+                  color={colors.error}
+                />
+              ),
               style: {
-                label: {
-                  color: colors.white,
-                  fontSize: 20,
-                },
                 wrapper: {
-                  flexDirection: 'column',
                   alignItems: 'flex-end',
                   marginTop: 20,
                   marginLeft: 20,
@@ -149,12 +166,7 @@ const Books = () => {
             right: {
               title: <AntDesign name="checkcircle" size={50} color="green" />,
               style: {
-                label: {
-                  color: colors.white,
-                  fontSize: 20,
-                },
                 wrapper: {
-                  flexDirection: 'column',
                   alignItems: 'flex-start',
                   marginTop: 20,
                   marginLeft: -20,
@@ -163,16 +175,17 @@ const Books = () => {
               },
             },
             bottom: {
-              title: 'Save',
+              title: (
+                <Fontisto
+                  name="bookmark-alt"
+                  size={50}
+                  color={colors.secondary.dark}
+                />
+              ),
               style: {
-                label: {
-                  color: colors.white,
-                  fontSize: 20,
-                },
                 wrapper: {
-                  flexDirection: 'column',
                   alignItems: 'center',
-                  marginTop: -60,
+                  marginTop: -80,
                   elevation: 4,
                 },
               },
@@ -187,9 +200,6 @@ const Books = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  background: {
-    height: '100%',
   },
 });
 

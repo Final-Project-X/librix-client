@@ -5,11 +5,11 @@ const styles = StyleSheet.create({
   card: {
     borderRadius: 15,
     shadowRadius: 10,
-    shadowColor: '#000',
+    shadowColor: colors.black,
     shadowOpacity: 0.6,
     shadowOffset: { width: 0, height: 7 },
     alignItems: 'center',
-    backgroundColor: '#ffff',
+    backgroundColor: colors.white,
     marginTop: -50,
     elevation: 4,
   },
@@ -26,13 +26,10 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   text: {
-    fontSize: 16,
-    fontStyle: 'italic',
-    marginBottom: 20,
+    marginBottom: 10,
   },
   title: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 16,
     marginVertical: 10,
     textAlign: 'center',
   },
@@ -76,11 +73,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   titleText: {
-    fontWeight: 'bold',
     marginBottom: 5,
   },
   category: {
-    fontWeight: 'bold',
+    marginTop: 5,
+  },
+  lan: {
+    alignSelf: 'flex-start',
     marginTop: 5,
   },
 });

@@ -13,9 +13,11 @@ export default StyleSheet.create({
     paddingRight: 15,
     height: 40,
     width: 170,
-    borderRadius: 15,
+    borderRadius: 25,
+    borderColor: colors.primary.dark,
+    borderWidth: 1,
   },
   text: {
-    color: colors.white,
+    color: colors.primary.dark,
   },
 });

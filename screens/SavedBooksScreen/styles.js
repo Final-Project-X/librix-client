@@ -2,9 +2,30 @@ import { StyleSheet } from 'react-native';
 import { colors } from '../../global/styles';
 
 const styles = StyleSheet.create({
+  title: {
+    fontSize: 20,
+    padding: 16,
+  },
+  text: {
+    padding: 8,
+    textAlign: 'center',
+    fontSize: 16,
+  },
+  flatlist: {
+    marginBottom: 120,
+  },
+  button: {
+    marginTop: 40,
+    alignSelf: 'center',
+  },
+  buttonText: {
+    color: colors.white,
+    paddingVertical: 10,
+    paddingHorizontal: 60,
+  },
   singleBook: {
-    flex: 0.88,
-    margin: 20,
+    flex: 1,
+    margin: 15,
     backgroundColor: colors.white,
     padding: 20,
     borderRadius: 15,
@@ -18,41 +39,23 @@ const styles = StyleSheet.create({
   card: {
     width: 120,
     height: 200,
+    borderRadius: 15,
     resizeMode: 'cover',
     marginBottom: 10,
     marginTop: -10,
-  },
-  info2: {
-    width: 280,
-    paddingHorizontal: 10,
-    alignItems: 'center',
-    textAlign: 'center',
-  },
-  title2: {
-    fontWeight: 'bold',
-    marginBottom: 5,
   },
   contentContainer: {
     justifyContent: 'center',
     alignItems: 'center',
     paddingBottom: 20,
   },
-  scrollView: {
-    height: '25%',
-    alignSelf: 'center',
-    padding: 10,
+  note: {
     marginTop: 10,
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: colors.neutralBackground,
-    shadowColor: colors.black,
-    shadowOpacity: 0.2,
-    shadowOffset: { width: 0, height: 5 },
-    elevation: 4,
   },
   item1: {
     marginTop: 10,
     flexDirection: 'row',
+    alignSelf: 'flex-start',
   },
   lan: {
     marginRight: 10,
