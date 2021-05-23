@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 50,
     marginHorizontal: 50,
-    fontSize: 16,
+    fontSize: 18,
   },
   isbnInput: {
     width: 250,

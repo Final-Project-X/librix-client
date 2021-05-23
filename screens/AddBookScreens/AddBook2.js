@@ -51,6 +51,7 @@ const AddBook2 = ({ navigation }) => {
               style={styles.inputText}
               value={title}
               placeholder="Book title"
+              placeholderTextColor="black"
               defaultValue={book.title}
               onChangeText={(val) => setTitle(val)}
             />
@@ -58,6 +59,7 @@ const AddBook2 = ({ navigation }) => {
               style={styles.inputText}
               value={authors}
               placeholder="Author's name"
+              placeholderTextColor="black"
               defaultValue={book.authors?.join(', ')}
               onChangeText={(val) => setAuthors(val)}
             />
@@ -65,6 +67,7 @@ const AddBook2 = ({ navigation }) => {
               style={styles.inputText}
               value={publishedDate}
               placeholder="Year"
+              placeholderTextColor="black"
               defaultValue={book.publishedDate?.toString()}
               onChangeText={(val) => setPublishedDate(val)}
               numeric={true}

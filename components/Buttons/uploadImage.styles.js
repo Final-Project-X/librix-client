@@ -9,15 +9,15 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
-    paddingLeft: 15,
-    paddingRight: 15,
+    paddingHorizontal: 15,
     height: 40,
-    width: 170,
     borderRadius: 25,
     borderColor: colors.primary.dark,
     borderWidth: 1,
+    backgroundColor: colors.white,
   },
   text: {
     color: colors.primary.dark,
+    marginRight: 5,
   },
 });

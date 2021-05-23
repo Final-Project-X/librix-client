@@ -30,6 +30,7 @@ const AddBook1 = ({ navigation }) => {
               value={isbn}
               autoFocus={true}
               placeholder="ISBN"
+              placeholderTextColor="black"
               onChangeText={(val) => handleIsbn(val)}
             />
             <TouchableOpacity

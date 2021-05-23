@@ -21,13 +21,13 @@ const AddBook3 = ({ navigation }) => {
   const [genreOpen, setGenreOpen] = useState(false);
   const [genres, setGenres] = useState([
     { label: 'Action', value: 'action' },
-    { label: 'Drama', value: 'drama' },
-    { label: 'Crime', value: 'crime' },
-    { label: 'Comic book', value: 'comic book' },
+    { label: 'Children book', value: 'children book' },
     { label: 'Classic', value: 'classic' },
+    { label: 'Comic book', value: 'comic book' },
+    { label: 'Crime', value: 'crime' },
+    { label: 'Drama', value: 'drama' },
     { label: 'Poetry', value: 'poetry' },
     { label: 'Self-help', value: 'self-help' },
-    { label: 'Children book', value: 'children book' },
   ]);
   const [valueCondition, setValueCondition] = useState(null);
   const [conditionOpen, setConditionOpen] = useState(false);
@@ -161,6 +161,7 @@ const AddBook3 = ({ navigation }) => {
                   value={note}
                   onChangeText={(val) => setNote(val)}
                   placeholder="Describe the book"
+                  placeholderTextColor="black"
                   multiline={true}
                   textAlignVertical="top"
                 />
