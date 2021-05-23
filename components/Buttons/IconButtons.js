@@ -1,21 +1,22 @@
 import React from 'react';
 import { TouchableOpacity, StyleSheet } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
-import { buttonShadow, colors } from '../../global/styles';
+import { colors, shadow } from '../../global/styles';
 
 const IconButton = ({
   iconName,
   iconSize,
   iconColor,
   buttonColor,
-  shadow,
+  shadowOn,
+  position,
   handlePress,
 }) => {
   return (
     <TouchableOpacity
       style={[
-        styles(iconSize, buttonColor).iconButton,
-        shadow && styles().shadow,
+        styles(iconSize, buttonColor, position).iconButton,
+        shadowOn && styles().shadow,
       ]}
       onPress={handlePress}
     >
@@ -33,15 +34,17 @@ export const MatchesIconButton = ({
   iconColor,
   buttonColor,
   handlePress,
+  position,
 }) => {
   return (
     <IconButton
-      iconSize="18"
+      iconSize="20"
       iconName={iconName}
       iconColor={iconColor}
       buttonColor={buttonColor}
       handlePress={handlePress}
-      shadow={true}
+      shadowOn={true}
+      position={position}
     />
   );
 };
@@ -63,7 +66,7 @@ export const HeaderIconButton = ({
   );
 };
 
-const styles = (iconSize, buttonColor = colors.white) =>
+const styles = (iconSize, buttonColor = colors.white, position) =>
   StyleSheet.create({
     iconButton: {
       width: iconSize * 1.4,
@@ -72,7 +75,9 @@ const styles = (iconSize, buttonColor = colors.white) =>
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: 50,
-      margin: 10,
+      marginVertical: 10,
+      marginLeft: position === 'left' ? 0 : 10,
+      marginRight: position === 'right' ? 0 : 10,
     },
-    shadow: buttonShadow,
+    shadow: shadow.button,
   });

@@ -1,37 +1,52 @@
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import PrimaryText from '../Texts/PrimaryText';
-import { colors } from '../../global/styles';
+import PrimaryBold from '../Texts/PrimaryBold';
+import { colors, shadow } from '../../global/styles';
 
 const NameLabel = ({ labelName }) => {
   return (
     <View style={styles.nameLabel}>
-      <PrimaryText customStyles={styles.nameLabelText} text={labelName} />
+      <PrimaryBold customStyles={styles.nameLabelText} text={labelName} />
     </View>
   );
 };
 const MatchBookCard = ({ bookOwner, bookTitle, bookAuthor, bookImageUri }) => {
   return (
-    <View>
+    <View style={styles.bookCard}>
       <NameLabel labelName={bookOwner} />
       <Image
-        style={styles.image}
+        style={[styles.image, styles.imageShadow]}
         source={{
           uri: bookImageUri,
         }}
       />
-      <PrimaryText customStyles={styles.bookTitle} text={bookTitle} />
-      <PrimaryText customStyles={styles.bookAuthor} text={bookAuthor} />
+      <PrimaryText customStyles={styles.bookTitle} text={bookTitle} lines={2} />
+      <PrimaryText
+        customStyles={styles.bookAuthor}
+        text={bookAuthor}
+        lines={1}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  bookCard: {
+    width: '44%',
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 3,
+    marginTop: 10,
+  },
   nameLabel: {
     position: 'absolute',
-    top: 0,
-    left: 0,
+    top: -5,
+    left: -5,
     zIndex: 3,
+    backgroundColor: colors.white,
+    paddingVertical: 3,
+    paddingHorizontal: 5,
     borderColor: colors.secondary.light,
     borderRadius: 20,
     borderStyle: 'solid',
@@ -43,9 +58,11 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   },
   image: {
-    width: 120,
+    width: '100%',
     height: 120,
+    borderRadius: 15,
   },
+  imageShadow: shadow.image,
   bookTitle: {
     fontSize: 16,
   },
