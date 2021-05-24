@@ -1,15 +1,15 @@
 import React from 'react';
 import { Text } from 'react-native';
 import { useFonts } from 'expo-font';
-import { Montserrat_300Light } from '@expo-google-fonts/montserrat';
+import { Montserrat_500Medium } from '@expo-google-fonts/montserrat';
 
-const PrimaryLight = ({ text, customStyles, numberOfLines }) => {
+const PrimaryMedium = ({ text, customStyles, numberOfLines }) => {
   const [fontsLoaded] = useFonts({
-    Montserrat_300Light,
+    Montserrat_500Medium,
   });
 
   const fontFamily = {
-    fontFamily: fontsLoaded ? 'Montserrat_300Light' : null,
+    fontFamily: fontsLoaded ? 'Montserrat_500Medium' : null,
   };
 
   return (
@@ -19,4 +19,4 @@ const PrimaryLight = ({ text, customStyles, numberOfLines }) => {
   );
 };
 
-export default PrimaryLight;
+export default PrimaryMedium;

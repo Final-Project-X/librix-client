@@ -3,7 +3,7 @@ import { Text } from 'react-native';
 import { useFonts } from 'expo-font';
 import { Montserrat_700Bold } from '@expo-google-fonts/montserrat';
 
-const PrimaryBold = ({ text, customStyles }) => {
+const PrimaryBold = ({ text, customStyles, numberOfLines }) => {
   const [fontsLoaded] = useFonts({
     Montserrat_700Bold,
   });
@@ -12,7 +12,11 @@ const PrimaryBold = ({ text, customStyles }) => {
     fontFamily: fontsLoaded ? 'Montserrat_700Bold' : null,
   };
 
-  return <Text style={[fontFamily, customStyles]}>{text}</Text>;
+  return (
+    <Text style={[fontFamily, customStyles]} numberOfLines={numberOfLines}>
+      {text}
+    </Text>
+  );
 };
 
 export default PrimaryBold;

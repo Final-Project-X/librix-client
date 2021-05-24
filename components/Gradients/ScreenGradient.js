@@ -1,13 +1,15 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { colors } from '../../global/styles';
 
-const ScreenGradient = ({ children }) => {
+const ScreenGradient = ({ children, customStyles }) => {
   return (
     <LinearGradient
-      colors={['#FFFFFF', '#FAA96C']}
-      start={[0.2, 0.7]}
-      style={styles.gradient}
+      colors={[colors.neutralBackground, colors.secondary.light]}
+      start={[0.1, 0.6]}
+      end={[0.5, 1]}
+      style={[styles.gradient, customStyles]}
     >
       {children}
     </LinearGradient>
