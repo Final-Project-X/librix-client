@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, FlatList, TouchableOpacity } from 'react-native';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
-import SavedBookList from '../../components/BookCard/SavedBookList';
+import SavedBookList from '../../components/BookCards/SavedBookList';
 import PrimaryBold from '../../components/Texts/PrimaryBold';
 import ButtonGradient from '../../components/Gradients/ButtonGradient';
 import styles from './styles';

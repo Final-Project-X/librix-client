@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Image, ScrollView } from 'react-native';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
-import styles from './styles';
 import PrimaryText from '../../components/Texts/PrimaryText';
 import SerifText from '../../components/Texts/SerifText';
+import styles from './styles';
 
 const SingleBook = ({ route }) => {
   const { item } = route.params;
@@ -20,19 +20,19 @@ const SingleBook = ({ route }) => {
               customStyles={styles.text}
             />
 
-            <PrimaryText text={item.description} />
+            <PrimaryText text={item.description} customStyles={styles.des} />
             <PrimaryText
               text={`Personal notes: ${item.note}`}
               customStyles={styles.note}
             />
-            <View style={styles.item1}>
+            <View style={styles.item}>
               <PrimaryText
                 text={`Language: ${item.language}`}
                 customStyles={styles.lan}
               />
               <PrimaryText text={`Year: ${item.publishedDate}`} />
             </View>
-            <View style={styles.item1}>
+            <View style={styles.item}>
               <PrimaryText
                 text={`Category: ${item.category[0]}`}
                 customStyles={styles.lan}

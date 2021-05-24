@@ -5,7 +5,7 @@ import ButtonGradient from '../../components/Gradients/ButtonGradient';
 import PrimaryBold from '../../components/Texts/PrimaryBold';
 import PrimaryText from '../../components/Texts/PrimaryText';
 
-import { FontAwesome } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import styles from './styles';
 
 const AddBook1 = ({ navigation }) => {
@@ -32,12 +32,13 @@ const AddBook1 = ({ navigation }) => {
               placeholder="ISBN"
               placeholderTextColor="black"
               onChangeText={(val) => handleIsbn(val)}
+              keyboardType="numeric"
             />
             <TouchableOpacity
               style={styles.smallButton}
               onPress={() => navigation.navigate('AddBook2')}
             >
-              <FontAwesome name="arrow-right" size={14} color="white" />
+              <Feather name="arrow-right" size={14} color="white" />
             </TouchableOpacity>
           </View>
           <PrimaryText text="or" customStyles={styles.or} />

@@ -164,6 +164,7 @@ const AddBook3 = ({ navigation }) => {
                   placeholderTextColor="black"
                   multiline={true}
                   textAlignVertical="top"
+                  enablesReturnkeyAutomatically={true}
                 />
               </View>
               <View style={styles.upload}>

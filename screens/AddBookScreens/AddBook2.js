@@ -5,7 +5,7 @@ import ButtonGradient from '../../components/Gradients/ButtonGradient';
 import PrimaryBold from '../../components/Texts/PrimaryBold';
 import PrimaryText from '../../components//Texts/PrimaryText';
 import styles from './styles';
-import { FontAwesome } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 
 const AddBook2 = ({ navigation }) => {
   const [title, setTitle] = useState(null);
@@ -86,7 +86,7 @@ const AddBook2 = ({ navigation }) => {
                 <ButtonGradient>
                   <View style={styles.buttonMix}>
                     <PrimaryBold text="Next" customStyles={styles.btnText} />
-                    <FontAwesome name="arrow-right" size={14} color="white" />
+                    <Feather name="arrow-right" size={14} color="white" />
                   </View>
                 </ButtonGradient>
               </TouchableOpacity>

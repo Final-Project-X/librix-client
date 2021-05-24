@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
-import SwipingBook from '../../components/BookCard/SwipingBook';
+import SwipingBook from '../../components/BookCards/SwipingBook';
 import { colors } from '../../global/styles';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
-import { AntDesign, Entypo, Fontisto } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 // const books = async () => {
 // const response = await getBooks()
 // return data
@@ -115,7 +115,7 @@ const books = [
   },
 ];
 
-const Books = () => {
+const Books = ({ navigation }) => {
   const [likedBooks, setLikedBooks] = useState([]);
   const [savedBooks, setSavedBooks] = useState([]);
 
@@ -137,7 +137,9 @@ const Books = () => {
         <Swiper
           cards={books}
           cardIndex={0}
-          renderCard={(book) => <SwipingBook book={book} />}
+          renderCard={(book) => (
+            <SwipingBook item={book} navigation={navigation} />
+          )}
           onSwipedLeft={(book) => handleNope(book)}
           onSwipedBottom={(book) => handleSave(book)}
           onSwipedRight={(book) => handleYes(book)}
@@ -148,10 +150,11 @@ const Books = () => {
           overlayLabels={{
             left: {
               title: (
-                <Entypo
-                  name="circle-with-cross"
+                <Feather
+                  name="x-circle"
                   size={50}
                   color={colors.error}
+                  backgroundColor={colors.green}
                 />
               ),
               style: {
@@ -164,7 +167,7 @@ const Books = () => {
               },
             },
             right: {
-              title: <AntDesign name="checkcircle" size={50} color="green" />,
+              title: <Feather name="check-circle" size={50} color="green" />,
               style: {
                 wrapper: {
                   alignItems: 'flex-start',
@@ -176,8 +179,8 @@ const Books = () => {
             },
             bottom: {
               title: (
-                <Fontisto
-                  name="bookmark-alt"
+                <Feather
+                  name="bookmark"
                   size={50}
                   color={colors.secondary.dark}
                 />
