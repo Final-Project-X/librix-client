@@ -5,10 +5,21 @@ import { colors } from '../../global/styles';
 import { MatchesIconButton } from '../Buttons/IconButtons';
 import PrimaryText from '../Texts/PrimaryText';
 import MatchBookCard from './MatchBookCard';
+import {
+  Menu,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger,
+} from 'react-native-popup-menu';
 
-const MatchMenuItem = ({ text }) => {
+const MatchMenuItem = ({ text, handlePress }) => {
+  const selectMenuItem = () => {
+    // handlePress();
+    console.log('select menu item');
+  };
+
   return (
-    <TouchableOpacity style={styles.matchMenuItem}>
+    <TouchableOpacity style={styles.matchMenuItem} onPress={selectMenuItem}>
       <PrimaryText text={text} />
     </TouchableOpacity>
   );
@@ -63,17 +74,53 @@ const Match = ({ matchNum }) => {
             buttonColor={colors.white}
             handlePress={onMessageIconPress}
           />
-          <MatchesIconButton
+
+          <Menu
+            opened={isMenuOpen}
+            onBackdropPress={() => setIsMenuOpen(false)}
+          >
+            <MenuTrigger>
+              <MatchesIconButton
+                iconName="more-vertical"
+                iconColor={colors.primary.dark}
+                buttonColor={colors.white}
+                position="right"
+                handlePress={onMoreIconPress}
+              />
+            </MenuTrigger>
+            <MenuOptions customStyles={optionsStyles}>
+              <MenuOption
+                onSelect={() => console.log('Reserve')}
+                text="Reserve your book"
+              >
+                {/* <MatchMenuItem text="Reserve your book" /> */}
+              </MenuOption>
+              <MenuOption
+                onSelect={() => console.log('Confirm')}
+                text="Confirm the receipt"
+              >
+                {/* <MatchMenuItem text="Confirm the receipt" /> */}
+              </MenuOption>
+              <MenuOption
+                onSelect={() => console.log('Delete')}
+                text="Delete this match"
+              >
+                {/* <MatchMenuItem text="Delete this match" /> */}
+              </MenuOption>
+            </MenuOptions>
+          </Menu>
+
+          {/* <MatchesIconButton
             iconName="more-vertical"
             iconColor={colors.primary.dark}
             buttonColor={colors.white}
             position="right"
             handlePress={onMoreIconPress}
-          />
+          /> */}
         </View>
       </View>
       <View style={styles.matchRow}>
-        {isMenuOpen && <MatchMenu />}
+        {/* {isMenuOpen && <MatchMenu />} */}
 
         <MatchBookCard
           bookOwner={'You'}
@@ -128,6 +175,23 @@ const styles = StyleSheet.create({
     // padding: 10,
     padding: 10,
   },
+  anchorStyle: {
+    color: colors.primary.dark,
+  },
 });
+
+const optionsStyles = {
+  optionsContainer: {
+    borderRadius: 10,
+    marginTop: 50,
+  },
+  optionsWrapper: {
+    // backgroundColor: colors.neutralBackground,
+    borderRadius: 10,
+  },
+  optionTouchable: {
+    underlayColor: colors.neutralBackground,
+  },
+};
 
 export default Match;
