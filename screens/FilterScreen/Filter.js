@@ -72,9 +72,6 @@ const Filter = ({ navigation }) => {
     setLanguageOpen(false);
   }, []);
 
-  // https://www.googleapis.com/books/v1/volumes?q=isbn:9780984782857&key=AIzaSyC_ydOAeDG_FZJ0BxN-zF7FWzQs7D4GOO8
-  //https://www.googleapis.com/books/v1/volumes?q=isbn:{isbn}&key=AIzaSyC_ydOAeDG_FZJ0BxN-zF7FWzQs7D4GOO8
-
   const apply = (location, genre, language) => {
     let newBooks = [];
     if (genre === 'Any' && language === 'Any') {

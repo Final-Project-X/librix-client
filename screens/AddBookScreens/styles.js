@@ -51,10 +51,13 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 5 },
     elevation: 4,
   },
+  inputError: {
+    color: colors.error,
+    alignSelf: 'center',
+  },
   noteText: {
     height: 100,
     borderRadius: 20,
-    marginHorizontal: 50,
   },
   inputContainer: {
     marginBottom: 10,
@@ -72,10 +75,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary.dark,
     borderTopRightRadius: 40,
     borderBottomRightRadius: 40,
-    borderColor: colors.primary.dark,
-    borderWidth: 6,
-    width: '12%',
-    padding: 10,
+    padding: 16,
     alignSelf: 'center',
   },
   button: {

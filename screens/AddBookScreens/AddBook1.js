@@ -4,16 +4,20 @@ import ScreenGradient from '../../components/Gradients/ScreenGradient';
 import ButtonGradient from '../../components/Gradients/ButtonGradient';
 import PrimaryBold from '../../components/Texts/PrimaryBold';
 import PrimaryText from '../../components/Texts/PrimaryText';
-
+import { getBookInfo } from '../../utils/apiCalls';
 import { Feather } from '@expo/vector-icons';
 import styles from './styles';
 
 const AddBook1 = ({ navigation }) => {
-  const [isbn, setIsbn] = useState('');
+  const [isbn, setIsbn] = useState(null);
 
-  // send ISBN to backend
-  const handleIsbn = (val) => {
-    setIsbn(val);
+  const handlePress = async () => {
+    if (isbn) {
+      const book = await getBookInfo(isbn);
+      return navigation.navigate('AddBook2', { book });
+    } else {
+      return navigation.navigate('AddBook2');
+    }
   };
 
   return (
@@ -31,21 +35,15 @@ const AddBook1 = ({ navigation }) => {
               autoFocus={true}
               placeholder="ISBN"
               placeholderTextColor="black"
-              onChangeText={(val) => handleIsbn(val)}
+              onChangeText={(val) => setIsbn(val)}
               keyboardType="numeric"
             />
-            <TouchableOpacity
-              style={styles.smallButton}
-              onPress={() => navigation.navigate('AddBook2')}
-            >
-              <Feather name="arrow-right" size={14} color="white" />
+            <TouchableOpacity style={styles.smallButton} onPress={handlePress}>
+              <Feather name="arrow-right" size={16} color="white" />
             </TouchableOpacity>
           </View>
           <PrimaryText text="or" customStyles={styles.or} />
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate('AddBook2')}
-          >
+          <TouchableOpacity style={styles.button} onPress={handlePress}>
             <ButtonGradient>
               <PrimaryBold
                 text="Fill in manually"

@@ -7,34 +7,26 @@ import PrimaryText from '../../components//Texts/PrimaryText';
 import styles from './styles';
 import { Feather } from '@expo/vector-icons';
 
-const AddBook2 = ({ navigation }) => {
+const AddBook2 = ({ navigation, route }) => {
+  const [error, setError] = useState(null);
   const [title, setTitle] = useState(null);
   const [authors, setAuthors] = useState(null);
   const [publishedDate, setPublishedDate] = useState(null);
 
-  //get book from API
-  const book = {
-    // authors: ['Roman Mars', 'Kurt Kohlstedt'],
-    // category: [],
-    // selectedFiles: 'https://bilder.buecher.de/produkte/58/58726/58726418n.jpg',
-    // reserved: false,
-    // interestedUsers: ['609a81d7be7697a88577453e'],
-    // _id: '609a81dabe7697a885774544',
-    // city: 'berlin',
-    // title: 'The 99% Invisible City',
-    // subtitle: 'A Field Guide to the Wonders of the Modern Metropolis',
-    // description:
-    //   '99% Invisible’ is a big-ideas podcast about small-seeming things, revealing stories baked into the buildings we inhabit, the streets we drive, and the sidewalks we traverse. The show celebrates design and architecture in all of its functional glory and accidental absurdity, with intriguing tales of both designers and the people impacted by their designs.00Now, in ‘The 99% Invisible City: A Field Guide to Hidden World of Everyday Design’, host Roman Mars and coauthor Kurt Kohlstedt zoom in on the various elements that make our cities work, exploring the origins and other fascinating stories behind everything from power grids and fire escapes to drinking fountains and street signs. With deeply researched entries and beautiful line drawings throughout, The 99% Invisible City will captivate devoted fans of the show and anyone curious about design, urban environments, and the unsung marvels of the world around them.',
-    // pages: 288,
-    // publishedDate: 1997,
-    // shape: 'as good as new',
-    // owner: '609a81d7be7697a88577453e',
-  };
+  const { book } = route.params || {};
 
-  //Add the book info to bookdata
-  const handleBookInfor = (val1, val2, val3) => {
+  const handleBookInfo = (val1, val2, val3) => {
     console.log(val1, val2, val3);
-    navigation.navigate('AddBook3');
+    if (!val1 || !val2 || !val3) {
+      return setError('All fields are require!');
+    } else {
+      navigation.navigate('AddBook3', {
+        title: val1,
+        authors: val2,
+        publishedDate: val3,
+        description: book?.description,
+      });
+    }
   };
 
   return (
@@ -52,7 +44,7 @@ const AddBook2 = ({ navigation }) => {
               value={title}
               placeholder="Book title"
               placeholderTextColor="black"
-              defaultValue={book.title}
+              defaultValue={book?.title}
               onChangeText={(val) => setTitle(val)}
             />
             <TextInput
@@ -60,7 +52,7 @@ const AddBook2 = ({ navigation }) => {
               value={authors}
               placeholder="Author's name"
               placeholderTextColor="black"
-              defaultValue={book.authors?.join(', ')}
+              defaultValue={book?.authors?.join(', ')}
               onChangeText={(val) => setAuthors(val)}
             />
             <TextInput
@@ -68,25 +60,28 @@ const AddBook2 = ({ navigation }) => {
               value={publishedDate}
               placeholder="Year"
               placeholderTextColor="black"
-              defaultValue={book.publishedDate?.toString()}
+              defaultValue={book?.publishedDate}
               onChangeText={(val) => setPublishedDate(val)}
               numeric={true}
             />
+            {error && (
+              <PrimaryText text={error} customStyles={styles.inputError} />
+            )}
             <View>
               <TouchableOpacity
                 style={styles.button}
                 onPress={() =>
-                  handleBookInfor(
-                    title || book.title,
-                    authors || book.authors,
-                    publishedDate || book.publishedDate,
+                  handleBookInfo(
+                    title || book?.title,
+                    [authors] || book?.authors,
+                    publishedDate || book?.publishedDate,
                   )
                 }
               >
                 <ButtonGradient>
                   <View style={styles.buttonMix}>
                     <PrimaryBold text="Next" customStyles={styles.btnText} />
-                    <Feather name="arrow-right" size={14} color="white" />
+                    <Feather name="arrow-right" size={16} color="white" />
                   </View>
                 </ButtonGradient>
               </TouchableOpacity>
