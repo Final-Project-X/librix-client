@@ -38,12 +38,10 @@ const UploadImageBtn = ({ setImage, navigation }) => {
 
   return (
     <TouchableOpacity onPress={pickImage}>
-      <ButtonGradient customStyles={styles.gradient}>
-        <View style={styles.wrapper}>
-          <PrimaryBold text="Upload image" customStyles={styles.text} />
-          <Feather name="upload" size={20} color={colors.white} />
-        </View>
-      </ButtonGradient>
+      <View style={styles.wrapper}>
+        <PrimaryBold text="Upload image" customStyles={styles.text} />
+        <Feather name="upload" size={20} color={colors.primary.dark} />
+      </View>
     </TouchableOpacity>
   );
 };

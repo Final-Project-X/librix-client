@@ -16,7 +16,7 @@ const ButtonGradient = ({ children, customStyles }) => {
 
 const styles = StyleSheet.create({
   gradient: {
-    borderRadius: 25,
+    borderRadius: 20,
   },
 });
 

@@ -1,52 +1,48 @@
 import { StyleSheet } from 'react-native';
+import { colors } from '../../global/styles';
 
 const styles = StyleSheet.create({
   mainModal: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#00000030',
+    backgroundColor: 'rgba(255,255,255, 0.9)',
   },
   main: {
-    borderWidth: 1,
-    borderColor: 'lightgrey',
-    height: 300,
-    width: 300,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 20,
-    backgroundColor: 'white',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
+    padding: 30,
+    marginBottom: 10,
   },
   text: {
     textAlign: 'center',
-    marginVertical: 10,
+    marginBottom: 20,
+    marginTop: 30,
   },
   buttons: {
     flexDirection: 'row',
-    marginTop: 20,
-  },
-  button: {
-    borderRadius: 5,
-    padding: 10,
-    paddingHorizontal: 20,
-    elevation: 2,
-    backgroundColor: '#be53ea',
+    marginTop: 40,
   },
   buttonN: {
     marginRight: 20,
+    backgroundColor: colors.white,
+    borderWidth: 1,
+    borderColor: colors.secondary.dark,
+  },
+  button: {
+    borderRadius: 25,
+    paddingVertical: 10,
+    paddingHorizontal: 30,
+    elevation: 2,
+    backgroundColor: colors.secondary.dark,
+  },
+  white: {
+    color: colors.secondary.dark,
+    fontWeight: 'bold',
   },
   textStyle: {
-    color: 'white',
+    color: colors.white,
     fontWeight: 'bold',
-    textAlign: 'center',
   },
 });
 

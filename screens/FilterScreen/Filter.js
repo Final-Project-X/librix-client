@@ -1,15 +1,10 @@
 import React, { useState, useCallback } from 'react';
-import {
-  TouchableOpacity,
-  TextInput,
-  Text,
-  View,
-  SafeAreaView,
-} from 'react-native';
+import { TouchableOpacity, TextInput, View, SafeAreaView } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
 import ButtonGradient from '../../components/Gradients/ButtonGradient';
 import styles from './styles';
+import PrimaryBold from '../../components/Texts/PrimaryBold';
 
 const books = [
   {
@@ -32,18 +27,20 @@ const books = [
 ];
 
 const Filter = ({ navigation }) => {
-  const [city, setCity] = useState('Berlin');
+  const [city, setCity] = useState('');
   const [genreOpen, setGenreOpen] = useState(false);
   const [languageOpen, setLanguageOpen] = useState(false);
   const [valueGenre, setValueGenre] = useState(null);
   const [valueLanguage, setValueLanguage] = useState(null);
   const [genres, setGenres] = useState([
     { label: 'Any', value: 'Any' },
-    { label: 'Fantasy', value: 'fantasy' },
-    { label: 'Romance', value: 'romance' },
-    { label: 'Sci-Fi', value: 'sci-fi' },
-    { label: 'Mystery', value: 'mystery' },
-    { label: 'Thriller', value: 'thriller' },
+    { label: 'Action', value: 'action' },
+    { label: 'Children book', value: 'children book' },
+    { label: 'Classic', value: 'classic' },
+    { label: 'Comic book', value: 'comic book' },
+    { label: 'Crime', value: 'crime' },
+    { label: 'Drama', value: 'drama' },
+    { label: 'Poetry', value: 'poetry' },
     { label: 'Self-help', value: 'self-help' },
   ]);
   const [poolOfBooks, setPoolOfBooks] = useState([]);
@@ -59,6 +56,7 @@ const Filter = ({ navigation }) => {
 
   const onGenreOpen = useCallback(() => {
     setGenreOpen(true);
+    setLanguageOpen(false);
   }, []);
 
   const onGenreClose = useCallback(() => {
@@ -67,14 +65,12 @@ const Filter = ({ navigation }) => {
 
   const onLanguageOpen = useCallback(() => {
     setLanguageOpen(true);
+    setGenreOpen(false);
   }, []);
 
   const onLanguageClose = useCallback(() => {
     setLanguageOpen(false);
   }, []);
-
-  // https://www.googleapis.com/books/v1/volumes?q=isbn:9780984782857&key=AIzaSyC_ydOAeDG_FZJ0BxN-zF7FWzQs7D4GOO8
-  //https://www.googleapis.com/books/v1/volumes?q=isbn:{isbn}&key=AIzaSyC_ydOAeDG_FZJ0BxN-zF7FWzQs7D4GOO8
 
   const apply = (location, genre, language) => {
     let newBooks = [];
@@ -96,15 +92,15 @@ const Filter = ({ navigation }) => {
   console.log(poolOfBooks);
 
   return (
-    // <View style={styles.container}>
     <ScreenGradient>
       <SafeAreaView style={styles.main}>
-        <Text style={styles.title}>Filter</Text>
         <TextInput
           style={styles.input}
           value={city}
-          placeholder="Location"
+          placeholder="City"
+          placeholderTextColor="black"
           onChangeText={(val) => setCity(val)}
+          autoFocus={true}
         />
         <View style={styles.pickerContainer}>
           <DropDownPicker
@@ -113,7 +109,7 @@ const Filter = ({ navigation }) => {
             value={valueGenre}
             items={genres}
             searchable={false}
-            placeholder="Genre"
+            placeholder="Category"
             onClose={onGenreClose}
             setOpen={onGenreOpen}
             onPress={onGenreOpen}
@@ -146,7 +142,6 @@ const Filter = ({ navigation }) => {
             dropDownDirection="TOP"
           />
         </View>
-        {/* <View style={styles.button}> */}
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
@@ -155,13 +150,11 @@ const Filter = ({ navigation }) => {
           }}
         >
           <ButtonGradient>
-            <Text style={styles.buttonText}>Apply</Text>
+            <PrimaryBold text="Apply filter" customStyles={styles.buttonText} />
           </ButtonGradient>
         </TouchableOpacity>
-        {/* </View> */}
       </SafeAreaView>
     </ScreenGradient>
-    // </View>
   );
 };
 
