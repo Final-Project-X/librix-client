@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const baseURL = '';
-const ApiKey = 'AIzaSyC_ydOAeDG_FZJ0BxN-zF7FWzQs7D4GOO8';
+const baseURL = 'exp://192.168.1.4:19000'; // a filler URL for now
+const ApiKey = 'some_api_key_that_should_never_be_here';
 
 export const getBookInfo = async (isbn) => {
   try {
