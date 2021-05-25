@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import ProfileScreen from '../screens/ProfileScreens/ProfileScreen';
-import SingleBook from '../screens/SavedBooksScreen/SingleBook';
+import SingleBook from '../screens/SingleBookScreen/SingleBook';
 import AddBookStack from '../navigation/AddBookStack';
 import BackButton from '../components/Buttons/BackButton';
 
