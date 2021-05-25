@@ -47,7 +47,10 @@ const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
   return (
-    <Tab.Navigator tabBar={(props) => <LibrixTabBar {...props} />}>
+    <Tab.Navigator
+      tabBar={(props) => <LibrixTabBar {...props} />}
+      initialRouteName="Books"
+    >
       <Tab.Screen name="Saved" component={SavedBooksStack} />
       <Tab.Screen name="Books" component={BooksStack} />
       <Tab.Screen name="Add book" component={AddBookStack} />

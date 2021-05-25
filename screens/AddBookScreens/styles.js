@@ -6,30 +6,40 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.white,
-    alignItems: 'center',
+  },
+  content: {
+    flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
+  },
+  contentContainer: {
+    flex: 1,
+    paddingBottom: 50,
   },
   input: {
     flexDirection: 'row',
-    marginHorizontal: 20,
-    justifyContent: 'center',
   },
   text: {
     textAlign: 'center',
-    margin: 30,
-    fontSize: 20,
-  },
-  label: {
-    marginLeft: 50,
-    marginBottom: 5,
-    marginTop: 20,
+    marginBottom: 50,
+    marginHorizontal: 50,
+    fontSize: 18,
   },
   isbnInput: {
-    width: 270,
-    marginRight: 5,
+    width: 250,
+    padding: Platform.OS === 'ios' ? 15 : 10,
+    backgroundColor: colors.white,
+    borderTopLeftRadius: 40,
+    borderBottomLeftRadius: 40,
+    shadowRadius: 7,
+    shadowColor: colors.black,
+    shadowOpacity: 0.18,
+    shadowOffset: { width: 0, height: 5 },
+    elevation: 4,
   },
   inputText: {
-    marginHorizontal: 40,
+    marginHorizontal: 50,
+    marginBottom: 15,
     padding: Platform.OS === 'ios' ? 15 : 10,
     backgroundColor: colors.white,
     borderRadius: 40,
@@ -39,10 +49,13 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 5 },
     elevation: 4,
   },
+  inputError: {
+    color: colors.error,
+    alignSelf: 'center',
+  },
   noteText: {
     height: 100,
-    borderRadius: 25,
-    marginHorizontal: 20,
+    borderRadius: 20,
   },
   inputContainer: {
     marginBottom: 10,
@@ -52,16 +65,15 @@ const styles = StyleSheet.create({
     width: 400,
   },
   or: {
-    marginTop: 60,
-    marginBottom: 20,
-    fontSize: 20,
+    marginTop: 40,
+    fontSize: 16,
     alignSelf: 'center',
   },
   smallButton: {
     backgroundColor: colors.primary.dark,
-    borderRadius: 15,
-    width: '12%',
-    padding: 10,
+    borderTopRightRadius: 40,
+    borderBottomRightRadius: 40,
+    padding: 16,
     alignSelf: 'center',
   },
   button: {
@@ -70,23 +82,25 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: colors.white,
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 16,
+    paddingVertical: 10,
+    paddingHorizontal: 60,
+  },
+  btnText: {
+    color: colors.white,
+    fontSize: 16,
+    marginRight: 10,
+  },
+  buttonMix: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
     paddingVertical: 10,
     paddingHorizontal: 60,
   },
   upload: {
     alignSelf: 'flex-start',
-    marginLeft: 20,
-  },
-  uploadButtton: {
-    flexDirection: 'row',
-    paddingHorizontal: 30,
-    paddingVertical: 10,
-  },
-  uploadText: {
-    color: colors.white,
-    marginRight: 10,
+    marginLeft: 50,
   },
   backgroundDrop: {
     backgroundColor: colors.primary.light,
@@ -104,7 +118,7 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   pickerContainer: {
-    marginHorizontal: 20,
+    marginHorizontal: 50,
   },
   main: {
     width: '100%',
@@ -112,7 +126,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 200,
-    height: 200,
+    height: 160,
     borderRadius: 15,
     resizeMode: 'cover',
     marginTop: 5,

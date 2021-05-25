@@ -6,10 +6,10 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import Feather from '@expo/vector-icons/Feather';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import BottomTabNavigator from './BottomTabNavigator';
 import Filter from '../screens/FilterScreen/Filter';
+import ProfileStack from '../navigation/ProfileStack';
 
 const LogOut = () => (
   <SafeAreaView>
@@ -24,25 +24,13 @@ const LogOut = () => (
   </SafeAreaView>
 );
 
-const Profile = ({ navigation }) => (
-  <SafeAreaView>
-    <View>
-      <Text style={styles.centerAlign}>Profile</Text>
-      <TouchableOpacity style={styles.back} onPress={() => navigation.goBack()}>
-        <Feather name="chevron-left" size={24} color="black" />
-        <Text>Go back</Text>
-      </TouchableOpacity>
-    </View>
-  </SafeAreaView>
-);
-
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = () => {
   return (
     <Drawer.Navigator>
       <Drawer.Screen name="Main" component={BottomTabNavigator} />
-      <Drawer.Screen name="Profile" component={Profile} />
+      <Drawer.Screen name="Profile" component={ProfileStack} />
       <Drawer.Screen name="Preferences" component={Filter} />
       <Drawer.Screen name="Log out" component={LogOut} />
     </Drawer.Navigator>
