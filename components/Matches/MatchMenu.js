@@ -15,7 +15,6 @@ const MatchMenuItem = ({ text, handlePress, onItemSelect }) => {
 
   return (
     <TouchableHighlight
-      // style={styles.matchMenuItem}
       onPress={onItemSelect}
       onPressIn={() => setIsActive(true)}
       onPressOut={() => setIsActive(false)}
@@ -25,19 +24,37 @@ const MatchMenuItem = ({ text, handlePress, onItemSelect }) => {
   );
 };
 
-const MatchMenu = ({ isMenuOpen, closeHandler, onMoreIconPress }) => {
+const MatchMenu = ({
+  isMenuOpen,
+  closeHandler,
+  onMoreIconPress,
+  alertSetters,
+  onSetBookID,
+}) => {
+  const {
+    setIsReserveModalShown,
+    setIsReceiptModalShown,
+    setIsDeleteModalShown,
+  } = alertSetters;
+
   const selectReserve = () => {
     console.log('select reserve book menu item');
     // open modal:
-    // change the status of own book to 'reserved'
+    setIsReserveModalShown(true);
+    // call the bookID setter,
+    // so that the ID is accessible on the top level
+    onSetBookID();
   };
   const selectReceipt = () => {
-    // handlePress();
     console.log('select confirm receipt menu item');
+    setIsReceiptModalShown(true);
+    // set ID of the book that will be removed from the database
+    // remove the book from the database
+    // update user profile: +1 point
   };
   const selectDelete = () => {
-    // handlePress();
     console.log('select delete match menu item');
+    setIsDeleteModalShown(true);
   };
 
   return (

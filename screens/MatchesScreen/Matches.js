@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FlatList, SafeAreaView } from 'react-native';
+import { MenuProvider } from 'react-native-popup-menu';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
 import { HeaderIconButton } from '../../components/Buttons/IconButtons';
 import Match from '../../components/Matches/Match';
+import AlertModal from '../../components/AlertModal/AlertModal';
 import { colors } from '../../global/styles';
-import { MenuProvider } from 'react-native-popup-menu';
+import PrimaryText from '../../components/Texts/PrimaryText';
+
+//! do not remove:
+// import { helpReserveBook } from '../../utils/apiCalls';
 
 const SAMPLE_MATCHES_OBJECT = [
   {
@@ -112,6 +117,30 @@ const SAMPLE_MATCHES_OBJECT = [
 const Matches = ({ navigation }) => {
   const username = 'audreeeyyy';
 
+  const [isReserveModalShown, setIsReserveModalShown] = useState(false);
+  const [isReceiptModalShown, setIsReceiptModalShown] = useState(false);
+  const [isDeleteModalShown, setIsDeleteModalShown] = useState(false);
+
+  const [bookIDToReserve, setBookIDToReserve] = useState(null);
+
+  const onReserveModalPress = () => {
+    //! do not remove:
+    // if (leftBookId) helpReserveBook(leftBookId);
+    console.log('You just reserved a book!', bookIDToReserve);
+    setIsReserveModalShown(false);
+    setBookIDToReserve(null);
+  };
+
+  const onReceiptModalPress = () => {
+    console.log('You finalized the deal!');
+    setIsReceiptModalShown(false);
+  };
+
+  const onDeleteModalPress = () => {
+    console.log('You deleted the match!');
+    setIsDeleteModalShown(false);
+  };
+
   return (
     <MenuProvider>
       <ScreenGradient>
@@ -124,10 +153,51 @@ const Matches = ({ navigation }) => {
           />
         </SafeAreaView>
 
+        {/* Reserve your book modal */}
+        <AlertModal
+          showModal={isReserveModalShown}
+          setShowModal={setIsReserveModalShown}
+          buttonText="Reserve"
+          handlePress={onReserveModalPress}
+          doCleanup={() => setBookIDToReserve(null)}
+        >
+          <PrimaryText text="Shut the door in the face of interested readers! Reserve your book!" />
+        </AlertModal>
+
+        {/* Confirm receipt of the book modal */}
+        <AlertModal
+          showModal={isReceiptModalShown}
+          setShowModal={setIsReceiptModalShown}
+          buttonText="Confirm"
+          handlePress={onReceiptModalPress}
+        >
+          <PrimaryText text="Got the book? Simply say so and close the bloody match!" />
+        </AlertModal>
+
+        {/* Delete the match modal */}
+        <AlertModal
+          showModal={isDeleteModalShown}
+          setShowModal={setIsDeleteModalShown}
+          buttonText="Delete"
+          handlePress={onDeleteModalPress}
+        >
+          <PrimaryText text="Don't want to exchange? Just delete the bloody match!" />
+        </AlertModal>
+
         <FlatList
           data={SAMPLE_MATCHES_OBJECT}
           renderItem={({ item, index }) => (
-            <Match matchNum={index + 1} matchInfo={item} username={username} />
+            <Match
+              matchNum={index + 1}
+              matchInfo={item}
+              username={username}
+              alertSetters={{
+                setIsReserveModalShown,
+                setIsReceiptModalShown,
+                setIsDeleteModalShown,
+              }}
+              onSetBookID={setBookIDToReserve}
+            />
           )}
           keyExtractor={(item) => item._id}
         />

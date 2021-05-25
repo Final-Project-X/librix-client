@@ -7,7 +7,13 @@ import PrimaryText from '../Texts/PrimaryText';
 import MatchBookCard from './MatchBookCard';
 import MatchMenu from './MatchMenu';
 
-const Match = ({ matchNum, matchInfo, username }) => {
+const Match = ({
+  matchNum,
+  matchInfo,
+  username,
+  alertSetters,
+  onSetBookID,
+}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // books on the left-hand side are those which belong to the current user, books on the right-hand side are other person's books
@@ -54,6 +60,8 @@ const Match = ({ matchNum, matchInfo, username }) => {
             isMenuOpen={isMenuOpen}
             closeHandler={() => setIsMenuOpen(false)}
             onMoreIconPress={onMoreIconPress}
+            alertSetters={alertSetters}
+            onSetBookID={() => onSetBookID(leftHandBook._id)}
           />
         </View>
       </View>
