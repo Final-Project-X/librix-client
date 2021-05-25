@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TouchableHighlight } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
 import { colors } from '../../global/styles';
 import { MatchesIconButton } from '../Buttons/IconButtons';
@@ -13,15 +13,21 @@ import {
 } from 'react-native-popup-menu';
 
 const MatchMenuItem = ({ text, handlePress }) => {
+  const [isActive, setIsActive] = useState(false);
   const selectMenuItem = () => {
     // handlePress();
     console.log('select menu item');
   };
 
   return (
-    <TouchableOpacity style={styles.matchMenuItem} onPress={selectMenuItem}>
-      <PrimaryText text={text} />
-    </TouchableOpacity>
+    <TouchableHighlight
+      style={styles.matchMenuItem}
+      onPress={selectMenuItem}
+      onPressIn={() => setIsActive(true)}
+      onPressOut={() => setIsActive(false)}
+    >
+      <PrimaryText text={text} customStyles={textStyles(isActive).text} />
+    </TouchableHighlight>
   );
 };
 
@@ -76,6 +82,7 @@ const Match = ({ matchNum }) => {
           />
 
           <Menu
+            // style={{ borderRadius: 10 }}
             opened={isMenuOpen}
             onBackdropPress={() => setIsMenuOpen(false)}
           >
@@ -89,23 +96,14 @@ const Match = ({ matchNum }) => {
               />
             </MenuTrigger>
             <MenuOptions customStyles={optionsStyles}>
-              <MenuOption
-                onSelect={() => console.log('Reserve')}
-                text="Reserve your book"
-              >
-                {/* <MatchMenuItem text="Reserve your book" /> */}
+              <MenuOption>
+                <MatchMenuItem text="Reserve your book" />
               </MenuOption>
-              <MenuOption
-                onSelect={() => console.log('Confirm')}
-                text="Confirm the receipt"
-              >
-                {/* <MatchMenuItem text="Confirm the receipt" /> */}
+              <MenuOption>
+                <MatchMenuItem text="Confirm the receipt" />
               </MenuOption>
-              <MenuOption
-                onSelect={() => console.log('Delete')}
-                text="Delete this match"
-              >
-                {/* <MatchMenuItem text="Delete this match" /> */}
+              <MenuOption>
+                <MatchMenuItem text="Delete this match" />
               </MenuOption>
             </MenuOptions>
           </Menu>
@@ -171,13 +169,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
   },
-  matchMenuItem: {
-    // padding: 10,
-    padding: 10,
-  },
-  anchorStyle: {
-    color: colors.primary.dark,
-  },
+  // matchMenuItem: {
+  //   // padding: 10,
+  //   borderRadius: 10,
+  //   // padding: 0,
+  // },
 });
 
 const optionsStyles = {
@@ -185,13 +181,15 @@ const optionsStyles = {
     borderRadius: 10,
     marginTop: 50,
   },
-  optionsWrapper: {
-    // backgroundColor: colors.neutralBackground,
-    borderRadius: 10,
-  },
-  optionTouchable: {
-    underlayColor: colors.neutralBackground,
-  },
 };
+
+const textStyles = (isSelected) =>
+  StyleSheet.create({
+    text: {
+      padding: 10,
+      color: isSelected ? colors.primary.dark : colors.black,
+      backgroundColor: isSelected ? colors.neutralBackground : colors.white,
+    },
+  });
 
 export default Match;
