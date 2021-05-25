@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, SafeAreaView } from 'react-native';
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  SafeAreaView,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
 import ButtonGradient from '../../components/Gradients/ButtonGradient';
 import PrimaryBold from '../../components/Texts/PrimaryBold';
@@ -32,62 +39,64 @@ const AddBook2 = ({ navigation, route }) => {
   return (
     <SafeAreaView style={styles.container}>
       <ScreenGradient>
-        <View style={styles.content}>
-          <PrimaryText
-            text="Please check if the information is correct."
-            customStyles={styles.text}
-          />
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+          <View style={styles.content}>
+            <PrimaryText
+              text="Please check if the information is correct."
+              customStyles={styles.text}
+            />
 
-          <View style={styles.formContainer}>
-            <TextInput
-              style={styles.inputText}
-              value={title}
-              placeholder="Book title"
-              placeholderTextColor="black"
-              defaultValue={book?.title}
-              onChangeText={(val) => setTitle(val)}
-            />
-            <TextInput
-              style={styles.inputText}
-              value={authors}
-              placeholder="Author's name"
-              placeholderTextColor="black"
-              defaultValue={book?.authors?.join(', ')}
-              onChangeText={(val) => setAuthors(val)}
-            />
-            <TextInput
-              style={styles.inputText}
-              value={publishedDate}
-              placeholder="Year"
-              placeholderTextColor="black"
-              defaultValue={book?.publishedDate}
-              onChangeText={(val) => setPublishedDate(val)}
-              numeric={true}
-            />
-            {error && (
-              <PrimaryText text={error} customStyles={styles.inputError} />
-            )}
-            <View>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() =>
-                  handleBookInfo(
-                    title || book?.title,
-                    [authors] || book?.authors,
-                    publishedDate || book?.publishedDate,
-                  )
-                }
-              >
-                <ButtonGradient>
-                  <View style={styles.buttonMix}>
-                    <PrimaryBold text="Next" customStyles={styles.btnText} />
-                    <Feather name="arrow-right" size={16} color="white" />
-                  </View>
-                </ButtonGradient>
-              </TouchableOpacity>
+            <View style={styles.formContainer}>
+              <TextInput
+                style={styles.inputText}
+                value={title}
+                placeholder="Book title"
+                placeholderTextColor="black"
+                defaultValue={book?.title}
+                onChangeText={(val) => setTitle(val)}
+              />
+              <TextInput
+                style={styles.inputText}
+                value={authors}
+                placeholder="Author's name"
+                placeholderTextColor="black"
+                defaultValue={book?.authors?.join(', ')}
+                onChangeText={(val) => setAuthors(val)}
+              />
+              <TextInput
+                style={styles.inputText}
+                value={publishedDate}
+                placeholder="Year"
+                placeholderTextColor="black"
+                defaultValue={book?.publishedDate}
+                onChangeText={(val) => setPublishedDate(val)}
+                numeric={true}
+              />
+              {error && (
+                <PrimaryText text={error} customStyles={styles.inputError} />
+              )}
+              <View>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() =>
+                    handleBookInfo(
+                      title || book?.title,
+                      [authors] || book?.authors,
+                      publishedDate || book?.publishedDate,
+                    )
+                  }
+                >
+                  <ButtonGradient>
+                    <View style={styles.buttonMix}>
+                      <PrimaryBold text="Next" customStyles={styles.btnText} />
+                      <Feather name="arrow-right" size={16} color="white" />
+                    </View>
+                  </ButtonGradient>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-        </View>
+        </TouchableWithoutFeedback>
       </ScreenGradient>
     </SafeAreaView>
   );

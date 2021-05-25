@@ -13,10 +13,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   contentContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
     flex: 1,
-    paddingBottom: 40,
+    paddingBottom: 50,
   },
   input: {
     flexDirection: 'row',

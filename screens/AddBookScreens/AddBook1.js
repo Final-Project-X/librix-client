@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { View, TextInput, SafeAreaView, TouchableOpacity } from 'react-native';
+import {
+  View,
+  TextInput,
+  SafeAreaView,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
 import ButtonGradient from '../../components/Gradients/ButtonGradient';
 import PrimaryBold from '../../components/Texts/PrimaryBold';
@@ -23,35 +30,40 @@ const AddBook1 = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <ScreenGradient>
-        <View style={styles.content}>
-          <PrimaryText
-            text="Enter ISBN number, and we'll pre-fill the rest."
-            customStyles={styles.text}
-          />
-          <View style={styles.input}>
-            <TextInput
-              style={styles.isbnInput}
-              value={isbn}
-              autoFocus={true}
-              placeholder="ISBN"
-              placeholderTextColor="black"
-              onChangeText={(val) => setIsbn(val)}
-              keyboardType="numeric"
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+          <View style={styles.content}>
+            <PrimaryText
+              text="Enter ISBN number, and we'll pre-fill the rest."
+              customStyles={styles.text}
             />
-            <TouchableOpacity style={styles.smallButton} onPress={handlePress}>
-              <Feather name="arrow-right" size={16} color="white" />
+            <View style={styles.input}>
+              <TextInput
+                style={styles.isbnInput}
+                value={isbn}
+                autoFocus={true}
+                placeholder="ISBN"
+                placeholderTextColor="black"
+                onChangeText={(val) => setIsbn(val)}
+                keyboardType="numeric"
+              />
+              <TouchableOpacity
+                style={styles.smallButton}
+                onPress={handlePress}
+              >
+                <Feather name="arrow-right" size={16} color="white" />
+              </TouchableOpacity>
+            </View>
+            <PrimaryText text="or" customStyles={styles.or} />
+            <TouchableOpacity style={styles.button} onPress={handlePress}>
+              <ButtonGradient>
+                <PrimaryBold
+                  text="Fill in manually"
+                  customStyles={styles.buttonText}
+                />
+              </ButtonGradient>
             </TouchableOpacity>
           </View>
-          <PrimaryText text="or" customStyles={styles.or} />
-          <TouchableOpacity style={styles.button} onPress={handlePress}>
-            <ButtonGradient>
-              <PrimaryBold
-                text="Fill in manually"
-                customStyles={styles.buttonText}
-              />
-            </ButtonGradient>
-          </TouchableOpacity>
-        </View>
+        </TouchableWithoutFeedback>
       </ScreenGradient>
     </SafeAreaView>
   );
