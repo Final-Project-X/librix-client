@@ -3,6 +3,7 @@ import { View, Image, StyleSheet } from 'react-native';
 import PrimaryText from '../Texts/PrimaryText';
 import PrimaryBold from '../Texts/PrimaryBold';
 import { colors, shadow } from '../../global/styles';
+import Icon from '../../assets/icon.png';
 
 const NameLabel = ({ labelName }) => {
   return (
@@ -17,9 +18,13 @@ const MatchBookCard = ({ bookOwner, bookTitle, bookAuthor, bookImageUri }) => {
       <NameLabel labelName={bookOwner} />
       <Image
         style={[styles.image, styles.imageShadow]}
-        source={{
-          uri: bookImageUri,
-        }}
+        source={
+          bookImageUri
+            ? {
+                uri: bookImageUri,
+              }
+            : Icon
+        }
       />
       <PrimaryText
         customStyles={styles.bookTitle}

@@ -7,8 +7,13 @@ import PrimaryText from '../Texts/PrimaryText';
 import MatchBookCard from './MatchBookCard';
 import MatchMenu from './MatchMenu';
 
-const Match = ({ matchNum }) => {
+const Match = ({ matchNum, matchInfo, username }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // books on the left-hand side are those which belong to the current user, books on the right-hand side are other person's books
+  const { bookOne, bookTwo } = matchInfo;
+  const leftHandBook = bookOne.owner.username === username ? bookOne : bookTwo;
+  const rightHandBook = bookOne.owner.username === username ? bookTwo : bookOne;
 
   const onProfileIconPress = () => {
     console.log('click the <profile> icon button in the match!');
@@ -56,19 +61,23 @@ const Match = ({ matchNum }) => {
       <View style={styles.matchRow}>
         <MatchBookCard
           bookOwner={'You'}
-          bookTitle={'The Little Book of Calm'}
-          bookAuthor={'Author Author'}
+          bookTitle={leftHandBook.title}
+          bookAuthor={leftHandBook.authors[0]}
           bookImageUri={
-            'https://cdn.pixabay.com/photo/2015/12/05/08/25/fairy-tale-1077863_1280.jpg'
+            leftHandBook.selectedFiles.length > 0
+              ? leftHandBook.selectedFiles[0]
+              : null
           }
         />
         <Feather name="refresh-cw" size={24} color={colors.primary.dark} />
         <MatchBookCard
-          bookOwner={'Karl'}
-          bookTitle={'The Noma Guide...'}
-          bookAuthor={'René Redzepi'}
+          bookOwner={rightHandBook.owner.username}
+          bookTitle={rightHandBook.title}
+          bookAuthor={rightHandBook.authors[0]}
           bookImageUri={
-            'https://cdn.pixabay.com/photo/2015/12/05/08/25/fairy-tale-1077863_1280.jpg'
+            rightHandBook.selectedFiles.length > 0
+              ? rightHandBook.selectedFiles[0]
+              : null
           }
         />
       </View>
@@ -83,7 +92,6 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 20,
     backgroundColor: colors.white,
-    borderWidth: 1,
     borderRadius: 20,
   },
   matchRow: {
@@ -93,15 +101,6 @@ const styles = StyleSheet.create({
   },
   matchHeader: {
     fontSize: 24,
-  },
-  matchMenu: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    zIndex: 300,
-    backgroundColor: colors.white,
-    borderWidth: 1,
-    borderRadius: 10,
   },
 });
 

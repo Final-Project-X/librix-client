@@ -10,17 +10,13 @@ import { colors } from '../../global/styles';
 import { MatchesIconButton } from '../Buttons/IconButtons';
 import PrimaryText from '../Texts/PrimaryText';
 
-const MatchMenuItem = ({ text, handlePress }) => {
+const MatchMenuItem = ({ text, handlePress, onItemSelect }) => {
   const [isActive, setIsActive] = useState(false);
-  const selectMenuItem = () => {
-    // handlePress();
-    console.log('select menu item');
-  };
 
   return (
     <TouchableHighlight
       // style={styles.matchMenuItem}
-      onPress={selectMenuItem}
+      onPress={onItemSelect}
       onPressIn={() => setIsActive(true)}
       onPressOut={() => setIsActive(false)}
     >
@@ -30,6 +26,20 @@ const MatchMenuItem = ({ text, handlePress }) => {
 };
 
 const MatchMenu = ({ isMenuOpen, closeHandler, onMoreIconPress }) => {
+  const selectReserve = () => {
+    console.log('select reserve book menu item');
+    // open modal:
+    // change the status of own book to 'reserved'
+  };
+  const selectReceipt = () => {
+    // handlePress();
+    console.log('select confirm receipt menu item');
+  };
+  const selectDelete = () => {
+    // handlePress();
+    console.log('select delete match menu item');
+  };
+
   return (
     <>
       <Menu opened={isMenuOpen} onBackdropPress={closeHandler}>
@@ -44,48 +54,28 @@ const MatchMenu = ({ isMenuOpen, closeHandler, onMoreIconPress }) => {
         </MenuTrigger>
         <MenuOptions customStyles={optionsStyles}>
           <MenuOption>
-            <MatchMenuItem text="Reserve your book" />
+            <MatchMenuItem
+              onItemSelect={selectReserve}
+              text="Reserve your book"
+            />
           </MenuOption>
           <MenuOption>
-            <MatchMenuItem text="Confirm the receipt" />
+            <MatchMenuItem
+              onItemSelect={selectReceipt}
+              text="Confirm the receipt"
+            />
           </MenuOption>
           <MenuOption>
-            <MatchMenuItem text="Delete this match" />
+            <MatchMenuItem
+              onItemSelect={selectDelete}
+              text="Delete this match"
+            />
           </MenuOption>
         </MenuOptions>
       </Menu>
     </>
   );
 };
-
-// const styles = StyleSheet.create({
-//   matchCard: {
-//     margin: 10,
-//     paddingHorizontal: 10,
-//     paddingTop: 10,
-//     paddingBottom: 20,
-//     backgroundColor: colors.white,
-//     borderWidth: 1,
-//     borderRadius: 20,
-//   },
-//   matchRow: {
-//     flexDirection: 'row',
-//     justifyContent: 'space-between',
-//     alignItems: 'center',
-//   },
-//   matchHeader: {
-//     fontSize: 24,
-//   },
-//   matchMenu: {
-//     position: 'absolute',
-//     top: 0,
-//     right: 0,
-//     zIndex: 300,
-//     backgroundColor: colors.white,
-//     borderWidth: 1,
-//     borderRadius: 10,
-//   },
-// });
 
 const textStyles = (isSelected) =>
   StyleSheet.create({

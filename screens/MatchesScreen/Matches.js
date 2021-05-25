@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView } from 'react-native';
+import { FlatList, SafeAreaView } from 'react-native';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
 import { HeaderIconButton } from '../../components/Buttons/IconButtons';
 import Match from '../../components/Matches/Match';
@@ -14,7 +14,9 @@ const SAMPLE_MATCHES_OBJECT = [
       authors: ['Osha Gray Davidson'],
       isbn: ['1469646609'],
       city: 'berlin',
-      selectedFiles: [],
+      selectedFiles: [
+        'https://i.pinimg.com/originals/d0/5d/fa/d05dfab680acc23e84e619fab3fce9ef.jpg',
+      ],
       reserved: false,
       title: 'The Best of Enemies, Movie Edition',
       description:
@@ -37,7 +39,9 @@ const SAMPLE_MATCHES_OBJECT = [
       ],
       isbn: ['0786965606'],
       city: 'berlin',
-      selectedFiles: [],
+      selectedFiles: [
+        'https://i.ebayimg.com/images/g/yAIAAOSwv9pfYnGW/s-l640.jpg',
+      ],
       reserved: false,
       title: "Player's Handbook",
       description:
@@ -60,7 +64,9 @@ const SAMPLE_MATCHES_OBJECT = [
       authors: ['J. K. Rowling'],
       isbn: ['3551354022'],
       city: 'berlin',
-      selectedFiles: [],
+      selectedFiles: [
+        'https://www.carlsen-harrypotter.de/sites/default/files/produkt/cover/9783551354020_0.jpg',
+      ],
       reserved: false,
       title: 'Harry Potter und die Kammer des Schreckens',
       description:
@@ -83,7 +89,9 @@ const SAMPLE_MATCHES_OBJECT = [
       ],
       isbn: ['0786965606'],
       city: 'berlin',
-      selectedFiles: [],
+      selectedFiles: [
+        'https://i.ebayimg.com/images/g/yAIAAOSwv9pfYnGW/s-l640.jpg',
+      ],
       reserved: false,
       title: "Player's Handbook",
       description:
@@ -102,6 +110,8 @@ const SAMPLE_MATCHES_OBJECT = [
 ];
 
 const Matches = ({ navigation }) => {
+  const username = 'audreeeyyy';
+
   return (
     <MenuProvider>
       <ScreenGradient>
@@ -113,8 +123,14 @@ const Matches = ({ navigation }) => {
             handlePress={() => navigation.toggleDrawer()}
           />
         </SafeAreaView>
-        <Match matchNum={1} />
-        <Match matchNum={2} />
+
+        <FlatList
+          data={SAMPLE_MATCHES_OBJECT}
+          renderItem={({ item, index }) => (
+            <Match matchNum={index + 1} matchInfo={item} username={username} />
+          )}
+          keyExtractor={(item) => item._id}
+        />
       </ScreenGradient>
     </MenuProvider>
   );
