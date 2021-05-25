@@ -1,45 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TouchableHighlight } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
 import { colors } from '../../global/styles';
 import { MatchesIconButton } from '../Buttons/IconButtons';
 import PrimaryText from '../Texts/PrimaryText';
 import MatchBookCard from './MatchBookCard';
-import {
-  Menu,
-  MenuOptions,
-  MenuOption,
-  MenuTrigger,
-} from 'react-native-popup-menu';
-
-const MatchMenuItem = ({ text, handlePress }) => {
-  const [isActive, setIsActive] = useState(false);
-  const selectMenuItem = () => {
-    // handlePress();
-    console.log('select menu item');
-  };
-
-  return (
-    <TouchableHighlight
-      style={styles.matchMenuItem}
-      onPress={selectMenuItem}
-      onPressIn={() => setIsActive(true)}
-      onPressOut={() => setIsActive(false)}
-    >
-      <PrimaryText text={text} customStyles={textStyles(isActive).text} />
-    </TouchableHighlight>
-  );
-};
-
-const MatchMenu = () => {
-  return (
-    <View style={styles.matchMenu}>
-      <MatchMenuItem text="Reserve your book" />
-      <MatchMenuItem text="Confirm the receipt" />
-      <MatchMenuItem text="Delete this match" />
-    </View>
-  );
-};
+import MatchMenu from './MatchMenu';
 
 const Match = ({ matchNum }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -56,8 +22,6 @@ const Match = ({ matchNum }) => {
     console.log('click the <more> icon button in the match!');
     setIsMenuOpen(!isMenuOpen);
   };
-
-  // const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
 
   return (
     <View style={styles.matchCard}>
@@ -81,45 +45,15 @@ const Match = ({ matchNum }) => {
             handlePress={onMessageIconPress}
           />
 
-          <Menu
-            // style={{ borderRadius: 10 }}
-            opened={isMenuOpen}
-            onBackdropPress={() => setIsMenuOpen(false)}
-          >
-            <MenuTrigger>
-              <MatchesIconButton
-                iconName="more-vertical"
-                iconColor={colors.primary.dark}
-                buttonColor={colors.white}
-                position="right"
-                handlePress={onMoreIconPress}
-              />
-            </MenuTrigger>
-            <MenuOptions customStyles={optionsStyles}>
-              <MenuOption>
-                <MatchMenuItem text="Reserve your book" />
-              </MenuOption>
-              <MenuOption>
-                <MatchMenuItem text="Confirm the receipt" />
-              </MenuOption>
-              <MenuOption>
-                <MatchMenuItem text="Delete this match" />
-              </MenuOption>
-            </MenuOptions>
-          </Menu>
-
-          {/* <MatchesIconButton
-            iconName="more-vertical"
-            iconColor={colors.primary.dark}
-            buttonColor={colors.white}
-            position="right"
-            handlePress={onMoreIconPress}
-          /> */}
+          <MatchMenu
+            isMenuOpen={isMenuOpen}
+            closeHandler={() => setIsMenuOpen(false)}
+            onMoreIconPress={onMoreIconPress}
+          />
         </View>
       </View>
-      <View style={styles.matchRow}>
-        {/* {isMenuOpen && <MatchMenu />} */}
 
+      <View style={styles.matchRow}>
         <MatchBookCard
           bookOwner={'You'}
           bookTitle={'The Little Book of Calm'}
@@ -169,27 +103,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
   },
-  // matchMenuItem: {
-  //   // padding: 10,
-  //   borderRadius: 10,
-  //   // padding: 0,
-  // },
 });
-
-const optionsStyles = {
-  optionsContainer: {
-    borderRadius: 10,
-    marginTop: 50,
-  },
-};
-
-const textStyles = (isSelected) =>
-  StyleSheet.create({
-    text: {
-      padding: 10,
-      color: isSelected ? colors.primary.dark : colors.black,
-      backgroundColor: isSelected ? colors.neutralBackground : colors.white,
-    },
-  });
 
 export default Match;

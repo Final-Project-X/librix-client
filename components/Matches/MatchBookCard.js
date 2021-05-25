@@ -21,11 +21,15 @@ const MatchBookCard = ({ bookOwner, bookTitle, bookAuthor, bookImageUri }) => {
           uri: bookImageUri,
         }}
       />
-      <PrimaryText customStyles={styles.bookTitle} text={bookTitle} lines={2} />
+      <PrimaryText
+        customStyles={styles.bookTitle}
+        text={bookTitle}
+        numberOfLines={2}
+      />
       <PrimaryText
         customStyles={styles.bookAuthor}
         text={bookAuthor}
-        lines={1}
+        numberOfLines={1}
       />
     </View>
   );
