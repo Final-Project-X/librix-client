@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { SafeAreaView, View, TouchableOpacity, Alert } from 'react-native';
 import { useForm, Controller, useWatch } from 'react-hook-form';
 import { Feather } from '@expo/vector-icons';
@@ -13,10 +13,8 @@ const SignUpScreen = ({ navigation }) => {
   const {
     control,
     handleSubmit,
-    formState: { errors: inputErrors },
+    formState: { errors },
   } = useForm();
-
-  const [errors, setErrors] = useState({});
 
   const onSubmit = (values) => console.log(values);
 
@@ -40,7 +38,6 @@ const SignUpScreen = ({ navigation }) => {
             control={control}
             render={({ field: { onChange, value } }) => (
               <Input
-                setErrors={setErrors}
                 customStyles={styles.input}
                 onChange={onChange}
                 value={value}
@@ -75,7 +72,6 @@ const SignUpScreen = ({ navigation }) => {
             control={control}
             render={({ field: { onChange, value } }) => (
               <Input
-                setErrors={setErrors}
                 customStyles={styles.input}
                 onChange={onChange}
                 value={value}
@@ -105,7 +101,6 @@ const SignUpScreen = ({ navigation }) => {
               control={control}
               render={({ field: { onChange, value } }) => (
                 <Input
-                  setErrors={setErrors}
                   customStyles={styles.input}
                   onChange={onChange}
                   value={value}
@@ -138,7 +133,6 @@ const SignUpScreen = ({ navigation }) => {
             control={control}
             render={({ field: { onChange, value } }) => (
               <Input
-                setErrors={setErrors}
                 customStyles={styles.input}
                 onChange={onChange}
                 value={value}
@@ -168,7 +162,6 @@ const SignUpScreen = ({ navigation }) => {
             control={control}
             render={({ field: { onChange, value } }) => (
               <Input
-                setErrors={setErrors}
                 customStyles={styles.input}
                 onChange={onChange}
                 value={value}
@@ -192,8 +185,6 @@ const SignUpScreen = ({ navigation }) => {
             title="Sign up"
             handleSubmit={handleSubmit}
             onSubmit={onSubmit}
-            errors={inputErrors}
-            setErrors={setErrors}
             customStyles={styles.buttonMargin}
           />
           <View style={styles.textWrapper}>

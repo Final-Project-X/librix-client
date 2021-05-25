@@ -30,9 +30,11 @@ const styles = StyleSheet.create({
   username: {
     fontSize: 16,
   },
+  aboutUserContainer: {
+    height: 100,
+    marginVertical: 15,
+  },
   aboutUser: {
-    marginTop: 15,
-    marginBottom: 15,
     fontSize: 16,
   },
   lightButtonText: {
