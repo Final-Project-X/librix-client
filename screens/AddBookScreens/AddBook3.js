@@ -20,7 +20,8 @@ const AddBook3 = ({ navigation, route }) => {
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
   }, []);
-
+  const [error, setError] = useState(null);
+  const [note, setNote] = useState('');
   const [image, setImage] = useState(null);
   const [valueGenre, setValueGenre] = useState(null);
   const [genreOpen, setGenreOpen] = useState(false);
@@ -53,10 +54,6 @@ const AddBook3 = ({ navigation, route }) => {
     { label: 'Chinese', value: 'chinese' },
   ]);
 
-  const [note, setNote] = useState('');
-  const { title, authors, publishedDate, description } = route.params;
-  console.log(title, authors, publishedDate, description);
-
   const onGenreOpen = useCallback(() => {
     setGenreOpen(true);
     setConditionOpen(false);
@@ -87,9 +84,19 @@ const AddBook3 = ({ navigation, route }) => {
     setLanguageOpen(false);
   }, []);
 
-  // add book info to bookdata inludes image.base64
-  const handlePublishBook = (valueNote, valueLan, valueGen, valueCon) => {
-    navigation.navigate('Books');
+  const { title, authors, publishedDate, description } = route.params;
+  console.log(title, authors, publishedDate, description);
+
+  const handlePublishBook = (valueGen, valueCon, valueLan, valueNote) => {
+    console.log(valueGen, valueCon, valueLan, valueNote);
+    console.log(image.base64);
+
+    if (!valueGen || !valueCon || !valueLan || !valueNote || !image.base64) {
+      setError('All fields are required!');
+    } else {
+      navigation.navigate('Books');
+      // add bookData to book
+    }
   };
 
   return (
@@ -183,14 +190,17 @@ const AddBook3 = ({ navigation, route }) => {
                   <Image source={{ uri: image.uri }} style={styles.image} />
                 )}
               </View>
+              {error && (
+                <PrimaryText text={error} customStyles={styles.inputError} />
+              )}
               <TouchableOpacity
                 style={styles.button}
                 onPress={() =>
                   handlePublishBook(
-                    note,
-                    valueLanguage,
                     valueGenre,
                     valueCondition,
+                    valueLanguage,
+                    note,
                   )
                 }
               >
