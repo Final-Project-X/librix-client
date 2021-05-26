@@ -6,6 +6,7 @@ import AddBookStack from './AddBookStack';
 import { HeaderIconButton } from '../components/Buttons/IconButtons';
 import ScreenGradient from '../components/Gradients/ScreenGradient';
 import { colors } from '../global/styles';
+import Matches from '../screens/MatchesScreen/Matches';
 import BooksStack from './BooksStack';
 import SavedBooksStack from './SavedBooksStack';
 
@@ -35,12 +36,6 @@ export const GradientMainScreen = ({
   );
 };
 
-const Matches = ({ navigation }) => (
-  <GradientMainScreen
-    screenText="Matches"
-    toggleDrawer={() => navigation.toggleDrawer()}
-  />
-);
 const Messages = ({ navigation }) => (
   <GradientMainScreen
     screenText="Messages"
