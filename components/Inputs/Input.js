@@ -5,7 +5,6 @@ import { useFonts } from 'expo-font';
 import { Montserrat_400Regular } from '@expo-google-fonts/montserrat';
 
 const Input = ({
-  setErrors,
   customStyles,
   keyboardType,
   secureTextEntry,
@@ -13,6 +12,7 @@ const Input = ({
   placeholder,
   onChange,
   value,
+  numberOfLines,
 }) => {
   const [fontsLoaded] = useFonts({
     Montserrat_400Regular,
@@ -30,10 +30,10 @@ const Input = ({
       multiline={multiline}
       placeholder={placeholder}
       onChangeText={(value) => {
-        setErrors({});
         onChange(value);
       }}
       value={value}
+      numberOfLines={numberOfLines}
     />
   );
 };

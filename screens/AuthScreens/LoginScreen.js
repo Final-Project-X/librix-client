@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { SafeAreaView, View, Text, TouchableOpacity } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
@@ -11,10 +11,8 @@ const LoginScreen = ({ navigation }) => {
   const {
     control,
     handleSubmit,
-    formState: { errors: inputErrors },
+    formState: { errors },
   } = useForm();
-
-  const [errors, setErrors] = useState({});
 
   const onSubmit = (values) => console.log(values);
 
@@ -26,7 +24,6 @@ const LoginScreen = ({ navigation }) => {
             control={control}
             render={({ field: { onChange, value } }) => (
               <Input
-                setErrors={setErrors}
                 customStyles={styles.input}
                 onChange={onChange}
                 value={value}
@@ -50,13 +47,12 @@ const LoginScreen = ({ navigation }) => {
           />
           <PrimaryText
             text={errors.email && errors.email.message}
-            style={styles.inputError}
+            customStyles={styles.inputError}
           />
           <Controller
             control={control}
             render={({ field: { onChange, value } }) => (
               <Input
-                setErrors={setErrors}
                 customStyles={styles.input}
                 onChange={onChange}
                 value={value}
@@ -79,14 +75,12 @@ const LoginScreen = ({ navigation }) => {
           />
           <PrimaryText
             text={errors.username && errors.username.message}
-            style={styles.inputError}
+            customStyles={styles.inputError}
           />
           <SubmitButton
             title="Log in"
             handleSubmit={handleSubmit}
             onSubmit={onSubmit}
-            errors={inputErrors}
-            setErrors={setErrors}
             customStyles={styles.buttonMargin}
           />
           <View style={styles.textWrapper}>
