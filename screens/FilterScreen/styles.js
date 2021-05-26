@@ -3,22 +3,16 @@ import { colors } from '../../global/styles';
 import { Platform } from 'react-native';
 
 const styles = StyleSheet.create({
-  // container: {
-  //   flex: 1,
-  //   backgroundColor: colors.white,
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  // },
   main: {
-    width: '100%',
     alignItems: 'center',
-    // marginHorizontal: 20,
+    justifyContent: 'center',
+    flex: 1,
   },
   pickerContainer: {
-    marginHorizontal: 20,
+    marginHorizontal: 50,
+    marginTop: 20,
   },
   picker: {
-    width: 270,
     borderColor: 'transparent',
     borderRadius: 40,
     marginBottom: 20,
@@ -52,14 +46,14 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   button: {
-    marginTop: 40,
+    marginTop: 60,
     alignSelf: 'center',
   },
   buttonText: {
     paddingVertical: 10,
     paddingHorizontal: 60,
     color: 'white',
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
   },
