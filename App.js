@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Provider } from 'react-redux';
 import { Text, View } from 'react-native';
+import store from './redux/store';
 import AuthStack from './navigation/AuthStack';
 import MainStack from './navigation/MainStack';
 
@@ -14,7 +16,7 @@ export default function App() {
   }, []);
 
   return (
-    <>
+    <Provider store={store}>
       {isLoading ? (
         <View>
           <Text>Loading...</Text>
@@ -24,6 +26,6 @@ export default function App() {
       ) : (
         <AuthStack />
       )}
-    </>
+    </Provider>
   );
 }
