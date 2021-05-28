@@ -92,4 +92,51 @@ export const helpDeleteBookFromSavedBooks = async (data) => {
   }
 };
 
-// export const helpCreateMatch = async (data)
+// /user/:id — gets userId via params and accepts bookID
+export const helpCreateMatch = async (data) => {
+  const { userId, bookId } = data;
+  try {
+    const res = await axios.post(`/user/${userId}`, bookId);
+    // return value — a message
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const helpFetchUser = async (userID) => {
+  try {
+    const res = await axios.put(`/user/${userID}`);
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const helpUpdateUser = async (userData) => {
+  const { userID, ...otherData } = userData;
+  try {
+    const res = await axios.put(`/user/${userID}`, otherData);
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+// NOT really need this:
+export const helpUpdateMatch = async (data) => {
+  const { id, status } = data;
+  try {
+    const res = await axios.put(`/matches/${id}`, { status });
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const helpDeleteMatch = async (matchId) => {
+  try {
+    await axios.delete(`/matches/${matchId}`);
+  } catch (err) {
+    console.log(err);
+  }
+};
