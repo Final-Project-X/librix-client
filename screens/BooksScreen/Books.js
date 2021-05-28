@@ -5,6 +5,9 @@ import SwipingBook from '../../components/BookCards/SwipingBook';
 import { colors } from '../../global/styles';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
 import { Feather } from '@expo/vector-icons';
+import AlertModal from '../../components/AlertModal/AlertModal';
+import PrimaryMedium from '../../components/Texts/PrimaryMedium';
+
 // const books = async () => {
 // const response = await getBooks()
 // return data
@@ -12,25 +15,6 @@ import { Feather } from '@expo/vector-icons';
 
 //books array here is just for testing
 const books = [
-  {
-    authors: ['Robert Dimery'],
-    category: ['Popular music'],
-    language: 'English',
-    condition: 'good',
-    selectedFiles:
-      'https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQ1xebBiuWpBBbsBEovQfm0ilY9ex_ejvHCbhhCpHuzEdNUvNvf6ITitqjrHSnalVXwVHEgYfIGwE3UjM3QYKrQe8xL78Ru&usqp=CAE',
-    reserved: false,
-    interestedUsers: [],
-    _id: '609a81d8be7697a885774541',
-    city: 'berlin',
-    title: 'One Thousand and One Albums You Must Hear Before You Die',
-    description:
-      'What did Time magazine consider the twentieth-century’s greatest album? Which anthem by Prince was an attempt to emulate Bob Seger? And what links Count Basie and Batman? If you thought you knew your music, then think again. 1001Albums You Must Hear Before You Die, is totally revised and fully updated for 2013, and is the definitive guide to accompany your interest in music. Written by top UK and US music journalists, and includes a preface by Michael Lydon, the founding editor of the Rolling Stone magazine. It celebrates the great and ground-breaking albums throughout the eras - from the genesis of Fifties rock ‘n’ roll to the technological and electronic innovations of the 2000s. Each entry includes key tracks and explains exactly why each of these albums deserved to be included in the list, offering an insight into the process of their creation, development, and success. With albums from Elvis Presley, Frank Sinatra, Miles Davis, The Rolling Stones, Bob Dylan, The Sex Pistols, ACDC, Ray Price, the Beach Boys, Sonic Youth, P J Harvey, Jack White, Green Day, Christina Aguilera, and the latest from David Bowie, as well as new cutting-edge entries such as Kendrick Lamar and Django Django, 1001 Albums You Must Hear Before You Die covers all the works that have formed part of the soundtracks to all our lives, at one point or another. Illustrated with more than 900 iconic images of album covers, bands and artists, as well as photographs from many legendary gigs, 1001 Albums You Must Hear Before You Die, covers from the 1950s to the present and is the single most comprehensive list of music that changed the world, an absolute must-have for all the musically inspired.',
-    publishedDate: 2013,
-    pages: 960,
-    shape: 'as good as new',
-    owner: '609a81d7be7697a88577453e',
-  },
   {
     authors: ['Marcus Hünnebeck'],
     category: ['Drama'],
@@ -116,23 +100,51 @@ const books = [
 ];
 
 const Books = ({ navigation }) => {
-  const [likedBooks, setLikedBooks] = useState([]);
-  const [savedBooks, setSavedBooks] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
-  const handleYes = ({ book }) => {
-    setLikedBooks([...likedBooks, book]);
+  const user = { booksToOffer: [], booksToRemember: [], booksInterestedIn: [] };
+
+  const handleYes = (index) => {
+    // console.log(books[index]);
+    const book = books[index];
+    if (user.booksToOffer.lenghh < 0) {
+      return setShowModal(true);
+    } else {
+      user.booksInterestedIn.push(book);
+    }
   };
 
-  const handleSave = ({ book }) => {
-    setSavedBooks([...savedBooks, book]);
+  const handleSave = (index) => {
+    user.booksToRemember.push(books[index]);
   };
 
-  const handleNope = ({ book }) => {
-    return books.filter((item) => item.title !== book?.title);
+  const handleNope = (index) => {
+    return books.filter((item) => item.title !== books[index].title);
   };
+
+  const handlePress = () => {
+    navigation.navigate('AddBook1');
+  };
+
+  console.log({ user });
 
   return (
     <SafeAreaView style={styles.container}>
+      <AlertModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        buttonText="Add a book"
+        handlePress={handlePress}
+      >
+        <PrimaryMedium
+          customStyles={styles.modalText}
+          text="You need a book to exchange."
+        />
+        <PrimaryMedium
+          customStyles={styles.modalText}
+          text="Please add a book to contine."
+        />
+      </AlertModal>
       <ScreenGradient>
         <Swiper
           cards={books}
@@ -140,9 +152,9 @@ const Books = ({ navigation }) => {
           renderCard={(book) => (
             <SwipingBook item={book} navigation={navigation} />
           )}
-          onSwipedLeft={(book) => handleNope(book)}
-          onSwipedBottom={(book) => handleSave(book)}
-          onSwipedRight={(book) => handleYes(book)}
+          onSwipedLeft={(index) => handleNope(index)}
+          onSwipedBottom={(index) => handleSave(index)}
+          onSwipedRight={(index) => handleYes(index)}
           disableTopSwipe
           overlayLabelsOpacity
           infinite
@@ -203,6 +215,12 @@ const Books = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  modalText: {
+    textAlign: 'center',
+    fontSize: 18,
+    paddingHorizontal: 30,
+    marginBottom: 20,
   },
 });
 
