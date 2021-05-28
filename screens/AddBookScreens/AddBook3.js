@@ -15,6 +15,7 @@ import ButtonGradient from '../../components/Gradients/ButtonGradient';
 import UploadImageBtn from '../../components/Buttons/UploadImageBtn';
 import PrimaryText from '../../components/Texts/PrimaryText';
 import PrimaryBold from '../../components/Texts/PrimaryBold';
+import { addBook } from '../../utils/apiCalls';
 
 const AddBook3 = ({ navigation, route }) => {
   useEffect(() => {
@@ -85,19 +86,31 @@ const AddBook3 = ({ navigation, route }) => {
   }, []);
 
   const { title, authors, publishedDate, description } = route.params;
-  console.log(title, authors, publishedDate, description);
-
-  const handlePublishBook = (valueGen, valueCon, valueLan, valueNote) => {
-    console.log(valueGen, valueCon, valueLan, valueNote);
-    console.log(image.base64);
-
-    if (!valueGen || !valueCon || !valueLan || !valueNote || !image.base64) {
+  const bookData = {
+    // city: user.city,
+    title: title,
+    authors: authors,
+    publishedDate: publishedDate,
+    description: description,
+    selectedFiles: [image?.base64],
+  };
+  const handlePublishBook = async (valueGen, valueCon, valueLan, valueNote) => {
+    if (!valueGen || !valueCon || !valueLan || !valueNote) {
       setError('All fields are required!');
     } else {
+      const newBook = await addBook({
+        ...bookData,
+        genre: valueGen,
+        condition: valueCon,
+        language: valueLan,
+        personalDescription: valueNote,
+      });
+
+      // user.booksToOffer.push(newBook)
       navigation.navigate('Books');
-      // add bookData to book
     }
   };
+  // console.log(image);
 
   return (
     <SafeAreaView style={styles.container}>

@@ -1,9 +1,14 @@
 import axios from 'axios';
 import * as env from '../env.json';
 
+<<<<<<< HEAD
 axios.defaults.baseURL = env.BASE_URL;
 
 const ApiKey = env.GOOGLE_BOOKS_API_KEY;
+=======
+const ApiKey = env.GOOGLE_BOOKS_API_KEY;
+axios.defaults.baseURL = env.BASE_URL;
+>>>>>>> 66e557f (refactor)
 
 export const getBookInfo = async (isbn) => {
   try {
@@ -13,6 +18,26 @@ export const getBookInfo = async (isbn) => {
     return res.data.items[0].volumeInfo;
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const addBook = async (bookData) => {
+  try {
+    let response = await axios.post('/books', { bookData });
+    console.log('from API', response.config.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getAllBooks = async () => {
+  try {
+    let response = await axios.get('/books');
+    console.log('Books from API', response.data);
+    return response.data;
+  } catch (error) {
+    console.log('error', error.response);
   }
 };
 

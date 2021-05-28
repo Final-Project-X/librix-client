@@ -23,7 +23,6 @@ const AddBook2 = ({ navigation, route }) => {
   const { book } = route.params || {};
 
   const handleBookInfo = (val1, val2, val3) => {
-    console.log(val1, val2, val3);
     if (!val1 || !val2 || !val3) {
       return setError('All fields are require!');
     } else {

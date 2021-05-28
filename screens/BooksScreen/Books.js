@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
 import SwipingBook from '../../components/BookCards/SwipingBook';
@@ -7,13 +7,9 @@ import ScreenGradient from '../../components/Gradients/ScreenGradient';
 import { Feather } from '@expo/vector-icons';
 import AlertModal from '../../components/AlertModal/AlertModal';
 import PrimaryMedium from '../../components/Texts/PrimaryMedium';
+import { getAllBooks } from '../../utils/apiCalls';
+import { useDispatch, useSelector } from 'react-redux';
 
-// const books = async () => {
-// const response = await getBooks()
-// return data
-// };
-
-//books array here is just for testing
 const books = [
   {
     authors: ['Marcus Hünnebeck'],
@@ -101,21 +97,35 @@ const books = [
 
 const Books = ({ navigation }) => {
   const [showModal, setShowModal] = useState(false);
+  // const dispatch = useDispatch();
+  // const books = useSelector((state) => state.poolOfBookReducer.data);
+  // const user = useSelector((state) => state.userReducer.data);
 
-  const user = { booksToOffer: [], booksToRemember: [], booksInterestedIn: [] };
+  // useEffect(() => {
+  //   console.log('fetching books');
+  //   const getData = async () => {
+  //     const allBooks = await getAllBooks();
+  //     dispatch(getAllBooks(allBooks))
+  //   };
+  //   getData();
+  // }, []);
 
-  const handleYes = (index) => {
-    // console.log(books[index]);
-    const book = books[index];
-    if (user.booksToOffer.lenghh < 0) {
-      return setShowModal(true);
-    } else {
-      user.booksInterestedIn.push(book);
-    }
-  };
+  // console.log({ books });
+
+  const handleYes = useCallback(
+    (index) => {
+      const book = books[index];
+      //   if (user.booksToOffer.length < 1) {
+      //     setShowModal(true);
+      //   } else {
+      //     user.booksInterestedIn.push(book);
+      //   }
+    },
+    // [user.booksToOffer, user.booksInterestedIn],
+  );
 
   const handleSave = (index) => {
-    user.booksToRemember.push(books[index]);
+    // user.booksToRemember.push(books[index]);
   };
 
   const handleNope = (index) => {
@@ -124,28 +134,27 @@ const Books = ({ navigation }) => {
 
   const handlePress = () => {
     navigation.navigate('AddBook1');
+    setShowModal(false);
   };
-
-  console.log({ user });
 
   return (
     <SafeAreaView style={styles.container}>
-      <AlertModal
-        showModal={showModal}
-        setShowModal={setShowModal}
-        buttonText="Add a book"
-        handlePress={handlePress}
-      >
-        <PrimaryMedium
-          customStyles={styles.modalText}
-          text="You need a book to exchange."
-        />
-        <PrimaryMedium
-          customStyles={styles.modalText}
-          text="Please add a book to contine."
-        />
-      </AlertModal>
       <ScreenGradient>
+        <AlertModal
+          showModal={showModal}
+          setShowModal={setShowModal}
+          buttonText="Add a book"
+          handlePress={handlePress}
+        >
+          <PrimaryMedium
+            customStyles={styles.modalText}
+            text="You need a book to exchange."
+          />
+          <PrimaryMedium
+            customStyles={styles.modalText}
+            text="Please add a book to contine."
+          />
+        </AlertModal>
         <Swiper
           cards={books}
           cardIndex={0}

@@ -43,7 +43,7 @@ const Filter = ({ navigation }) => {
     { label: 'Poetry', value: 'poetry' },
     { label: 'Self-help', value: 'self-help' },
   ]);
-  const [poolOfBooks, setPoolOfBooks] = useState([]);
+  const [books, setBooks] = useState([]);
 
   const [languages, setLanguages] = useState([
     { label: 'Any', value: 'Any' },
@@ -73,23 +73,9 @@ const Filter = ({ navigation }) => {
   }, []);
 
   const apply = (location, genre, language) => {
-    let newBooks = [];
-    if (genre === 'Any' && language === 'Any') {
-      newBooks = books.filter((book) => book.city === location);
-      return setPoolOfBooks(newBooks);
-    } else if (genre !== 'Any') {
-      newBooks = books.filter(
-        (book) => book.city === location && book.category.includes(genre),
-      );
-      return setPoolOfBooks(newBooks);
-    } else {
-      newBooks = books.filter(
-        (book) => book.city === location && book.language === language,
-      );
-      return setPoolOfBooks(newBooks);
-    }
+    
   };
-  console.log(poolOfBooks);
+  console.log(books);
 
   return (
     <ScreenGradient>
