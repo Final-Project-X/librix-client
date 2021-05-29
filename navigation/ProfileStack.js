@@ -4,6 +4,7 @@ import ProfileScreen from '../screens/ProfileScreens/ProfileScreen';
 import SingleBook from '../screens/SingleBookScreen/SingleBook';
 import AddBookStack from '../navigation/AddBookStack';
 import BackButton from '../components/Buttons/BackButton';
+import EditProfile from '../screens/ProfileScreens/EditProfile';
 
 const ProfileStack = createStackNavigator();
 
@@ -19,6 +20,11 @@ export default ({ navigation }) => {
           ),
           title: 'Your Profile',
         }}
+      />
+      <ProfileStack.Screen
+        name="EditProfile"
+        component={EditProfile}
+        options={{ title: 'Edit your profile' }}
       />
       <ProfileStack.Screen
         name="SingleBook"

@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   FlatList,
+  ScrollView,
 } from 'react-native';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
 import PrimaryText from '../../components/Texts/PrimaryText';
@@ -175,12 +176,16 @@ const ProfileScreen = ({ navigation }) => {
             </View>
           </View>
           <View>
-            <PrimaryText
-              customStyles={styles.aboutUser}
-              text="I order total directed against this conspiracy to pay off - Stay out of the Garden Of Delights - The Kid at the wheel and his foot on the floor - Already set off the charge - Postulate a biologic film running from the beginning to the end "
-              numberOfLines={3}
-            />
-            <TouchableOpacity style={styles.flexRow}>
+            <ScrollView style={styles.aboutUserContainer}>
+              <PrimaryText
+                customStyles={styles.aboutUser}
+                text="I order total directed against this conspiracy to pay off - Stay out of the Garden Of Delights - The Kid at the wheel and his foot on the floor - Already set off the charge - Postulate a biologic film running from the beginning to the end "
+              />
+            </ScrollView>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('EditProfile')}
+              style={styles.flexRow}
+            >
               <Feather name="edit-3" size={18} color={colors.textFaded} />
               <PrimaryLight
                 text="Edit profile"
