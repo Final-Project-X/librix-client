@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
 import SwipingBook from '../../components/BookCards/SwipingBook';
@@ -7,13 +7,15 @@ import ScreenGradient from '../../components/Gradients/ScreenGradient';
 import { Feather } from '@expo/vector-icons';
 import AlertModal from '../../components/AlertModal/AlertModal';
 import PrimaryMedium from '../../components/Texts/PrimaryMedium';
+import {
+  helpGetPoolOfBooks,
+  helpAddBookToSavedBooks,
+} from '../../utils/apiCalls';
+import { getPoolOfBooks } from '../../redux/actions/poolOfBooksActions';
+import { addBookToSavedBooks } from '../../redux/actions/savedBooksActions';
+import { removeBookFromPool } from '../../redux/actions/poolOfBooksActions';
+import { useDispatch, useSelector } from 'react-redux';
 
-// const books = async () => {
-// const response = await getBooks()
-// return data
-// };
-
-//books array here is just for testing
 const books = [
   {
     authors: ['Marcus Hünnebeck'],
@@ -101,51 +103,64 @@ const books = [
 
 const Books = ({ navigation }) => {
   const [showModal, setShowModal] = useState(false);
+  const dispatch = useDispatch();
+  // const user = useSelector((state) => state.userReducer.user);
 
-  const user = { booksToOffer: [], booksToRemember: [], booksInterestedIn: [] };
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     const allBooks = await helpGetPoolOfBooks(user._id);
+  //     dispatch(getPoolOfBooks(allBooks));
+  //   };
+  //   getData();
+  // }, []);
+
+  // const books = useSelector((state) => state.poolOfBookReducer.books);
+  // console.log({ books });
 
   const handleYes = (index) => {
-    // console.log(books[index]);
     const book = books[index];
-    if (user.booksToOffer.lenghh < 0) {
-      return setShowModal(true);
-    } else {
-      user.booksInterestedIn.push(book);
-    }
+    // if (user.booksToOffer.length < 1) {
+    //   setShowModal(true);
+    // } else {
+    // user.booksInterestedIn.push(book)
+    // dispatch(createMatch(user._id, book._id))
+    // }
   };
 
-  const handleSave = (index) => {
-    user.booksToRemember.push(books[index]);
+  const handleSave = async (index) => {
+    const book = books[index];
+    // const BookToSave = await helpAddBookToSavedBooks(book);
+    // dispatch(addBookToSavedBooks(BookToSave));
   };
 
   const handleNope = (index) => {
-    return books.filter((item) => item.title !== books[index].title);
+    const book = books[index];
+    // dispatch(removeBookFromPool(book._id, books));
   };
 
   const handlePress = () => {
     navigation.navigate('AddBook1');
+    setShowModal(false);
   };
-
-  console.log({ user });
 
   return (
     <SafeAreaView style={styles.container}>
-      <AlertModal
-        showModal={showModal}
-        setShowModal={setShowModal}
-        buttonText="Add a book"
-        handlePress={handlePress}
-      >
-        <PrimaryMedium
-          customStyles={styles.modalText}
-          text="You need a book to exchange."
-        />
-        <PrimaryMedium
-          customStyles={styles.modalText}
-          text="Please add a book to contine."
-        />
-      </AlertModal>
       <ScreenGradient>
+        <AlertModal
+          showModal={showModal}
+          setShowModal={setShowModal}
+          buttonText="Add a book"
+          handlePress={handlePress}
+        >
+          <PrimaryMedium
+            customStyles={styles.modalText}
+            text="You need a book to exchange."
+          />
+          <PrimaryMedium
+            customStyles={styles.modalText}
+            text="Please add a book to contine."
+          />
+        </AlertModal>
         <Swiper
           cards={books}
           cardIndex={0}
