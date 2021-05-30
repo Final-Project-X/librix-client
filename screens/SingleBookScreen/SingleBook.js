@@ -11,33 +11,33 @@ const SingleBook = ({ route }) => {
     <ScreenGradient>
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <View style={styles.singleBook}>
-          <Image source={{ uri: item.selectedFiles }} style={styles.card} />
+          <Image source={{ uri: item?.selectedFiles }} style={styles.card} />
 
           <View>
-            <SerifText text={item.title} customStyles={styles.text} />
+            <SerifText text={item?.title} customStyles={styles.text} />
             <PrimaryText
-              text={`by ${item.authors.join(', ')}`}
+              text={`by ${item?.authors.join(', ')}`}
               customStyles={styles.text}
             />
 
-            <PrimaryText text={item.description} customStyles={styles.des} />
+            <PrimaryText text={item?.description} customStyles={styles.des} />
             <PrimaryText
-              text={`Personal notes: ${item.note}`}
+              text={`Personal notes: ${item?.note}`}
               customStyles={styles.note}
             />
             <View style={styles.item}>
               <PrimaryText
-                text={`Language: ${item.language}`}
+                text={`Language: ${item?.language}`}
                 customStyles={styles.lan}
               />
-              <PrimaryText text={`Year: ${item.publishedDate}`} />
+              <PrimaryText text={`Year: ${item?.publishedDate}`} />
             </View>
             <View style={styles.item}>
               <PrimaryText
-                text={`Category: ${item.category[0]}`}
+                text={`Category: ${item?.category[0]}`}
                 customStyles={styles.lan}
               />
-              <PrimaryText text={`Condition: ${item.condition}`} />
+              <PrimaryText text={`Condition: ${item?.condition}`} />
             </View>
           </View>
         </View>

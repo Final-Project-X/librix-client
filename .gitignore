@@ -9,6 +9,9 @@ npm-debug.*
 *.orig.*
 web-build/
 env.json
+<<<<<<< HEAD
 
+=======
+>>>>>>> 66e557f (refactor)
 # macOS
 .DS_Store
