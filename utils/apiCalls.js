@@ -1,14 +1,8 @@
 import axios from 'axios';
 import * as env from '../env.json';
 
-<<<<<<< HEAD
-axios.defaults.baseURL = env.BASE_URL;
-
-const ApiKey = env.GOOGLE_BOOKS_API_KEY;
-=======
 const ApiKey = env.GOOGLE_BOOKS_API_KEY;
 axios.defaults.baseURL = env.BASE_URL;
->>>>>>> 66e557f (refactor)
 
 export const getBookInfo = async (isbn) => {
   try {

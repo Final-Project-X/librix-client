@@ -6,16 +6,35 @@ import styles from './styles';
 import PrimaryText from '../Texts/PrimaryText';
 import PrimaryBold from '../Texts/PrimaryBold';
 import PrimaryLight from '../Texts/PrimaryLight';
+import { removeBookFromSavedBooks } from '../../redux/actions/savedBooksActions';
+import { createMatch } from '../../redux/actions/matchesActions';
+import { helpDeleteBookFromSavedBooks } from '../../utils/apiCalls';
+import { useDispatch } from 'react-redux';
 
-const SavedBookList = ({ item, setBooks, books, navigation }) => {
-  const handleDelete = (val) => {
-    const newBooks = books.filter((book) => book._id !== val._id);
-    return setBooks(newBooks);
+const SavedBookList = ({ item, setSavedBooks, savedBooks, navigation }) => {
+  const dispatch = useDispatch();
+  // const user = useSelector((state) => state.userReducer.user);
+  // const SavedBooks = useSelector((state) => state.savedBookReducer.savedBooks);
+
+  const handleDelete = async (book) => {
+    // await helpDeleteBookFromSavedBooks(book, savedBooks);
+    // dispatch(removeBookFromSavedBooks(book._id));
+    const newBooks = savedBooks.filter(
+      (savedBook) => savedBook._id !== book._id,
+    );
+    return setSavedBooks(newBooks);
+    // return savedBooks
   };
-  const handleLike = (val) => {
+  const handleLike = (book) => {
     //  user.bookInterestedIn.push(val)
-    const newBooks = books.filter((book) => book._id !== val._id);
-    return setBooks(newBooks);
+    // dispatch(createMatch(user._id, book._id))
+    // dispatch(removeBookFromSavedBooks(book._id));
+    const newBooks = savedBooks.filter(
+      (SavedBook) => SavedBook._id !== book._id,
+    );
+    return setSavedBooks(newBooks);
+    // return savedBooks
+
   };
 
   return (

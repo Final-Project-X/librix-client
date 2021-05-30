@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
 import SwipingBook from '../../components/BookCards/SwipingBook';
@@ -7,7 +7,13 @@ import ScreenGradient from '../../components/Gradients/ScreenGradient';
 import { Feather } from '@expo/vector-icons';
 import AlertModal from '../../components/AlertModal/AlertModal';
 import PrimaryMedium from '../../components/Texts/PrimaryMedium';
-import { getAllBooks } from '../../utils/apiCalls';
+import {
+  helpGetPoolOfBooks,
+  helpAddBookToSavedBooks,
+} from '../../utils/apiCalls';
+import { getPoolOfBooks } from '../../redux/actions/poolOfBooksActions';
+import { addBookToSavedBooks } from '../../redux/actions/savedBooksActions';
+import { removeBookFromPool } from '../../redux/actions/poolOfBooksActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 const books = [
@@ -97,39 +103,39 @@ const books = [
 
 const Books = ({ navigation }) => {
   const [showModal, setShowModal] = useState(false);
-  // const dispatch = useDispatch();
-  // const books = useSelector((state) => state.poolOfBookReducer.data);
-  // const user = useSelector((state) => state.userReducer.data);
+  const dispatch = useDispatch();
+  // const user = useSelector((state) => state.userReducer.user);
 
   // useEffect(() => {
-  //   console.log('fetching books');
   //   const getData = async () => {
-  //     const allBooks = await getAllBooks();
-  //     dispatch(getAllBooks(allBooks))
+  //     const allBooks = await helpGetPoolOfBooks(user._id);
+  //     dispatch(getPoolOfBooks(allBooks));
   //   };
   //   getData();
   // }, []);
 
+  // const books = useSelector((state) => state.poolOfBookReducer.books);
   // console.log({ books });
 
-  const handleYes = useCallback(
-    (index) => {
-      const book = books[index];
-      //   if (user.booksToOffer.length < 1) {
-      //     setShowModal(true);
-      //   } else {
-      //     user.booksInterestedIn.push(book);
-      //   }
-    },
-    // [user.booksToOffer, user.booksInterestedIn],
-  );
+  const handleYes = (index) => {
+    const book = books[index];
+    // if (user.booksToOffer.length < 1) {
+    //   setShowModal(true);
+    // } else {
+    // user.booksInterestedIn.push(book)
+    // dispatch(createMatch(user._id, book._id))
+    // }
+  };
 
-  const handleSave = (index) => {
-    // user.booksToRemember.push(books[index]);
+  const handleSave = async (index) => {
+    const book = books[index];
+    // const BookToSave = await helpAddBookToSavedBooks(book);
+    // dispatch(addBookToSavedBooks(BookToSave));
   };
 
   const handleNope = (index) => {
-    return books.filter((item) => item.title !== books[index].title);
+    const book = books[index];
+    // dispatch(removeBookFromPool(book._id, books));
   };
 
   const handlePress = () => {

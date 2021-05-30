@@ -32,6 +32,10 @@ const AddBook2 = ({ navigation, route }) => {
         publishedDate: val3,
         description: book?.description,
       });
+      setTitle(null);
+      setAuthors(null);
+      setPublishedDate(null);
+      setError(null);
     }
   };
 
