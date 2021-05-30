@@ -39,7 +39,7 @@ export const helpSignupUser = async (data) => {
 export const helpLoginUser = async (loginData) => {
   try {
     const response = await axios.post('/user/login', loginData);
-    console.log('response from backend', response.data);
+    // console.log('response from backend', response.data);
     return response.data;
   } catch (err) {
     console.log(err);

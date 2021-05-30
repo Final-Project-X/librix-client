@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FlatList, SafeAreaView } from 'react-native';
 import { MenuProvider } from 'react-native-popup-menu';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
@@ -7,6 +7,11 @@ import Match from '../../components/Matches/Match';
 import AlertModal from '../../components/AlertModal/AlertModal';
 import { colors } from '../../global/styles';
 import PrimaryText from '../../components/Texts/PrimaryText';
+
+import { useSelector, useDispatch, useStore } from 'react-redux';
+import { getMatches } from '../../redux/actions/matchesActions';
+import { loginUser } from '../../redux/actions/userActions';
+import { helpFetchUser } from '../../utils/apiCalls';
 
 //! do not remove:
 // import { helpReserveBook } from '../../utils/apiCalls';
@@ -116,6 +121,38 @@ const SAMPLE_MATCHES_OBJECT = [
 
 const Matches = ({ navigation }) => {
   const username = 'audreeeyyy';
+
+  const store = useStore();
+
+  // fetch user data, i.e. by loggin the user in
+  useEffect(() => {
+    store.dispatch(
+      loginUser({
+        email: 'Harvey.Little@yahoo.com',
+        password: 'Test123!',
+      }),
+    );
+    // get the array of matches, set the state
+    store.dispatch(getMatches(store.getState().user.user.matches));
+    // console.log('user / store / matches:', store.getState().user.user.matches);
+  }, [store]);
+
+  useEffect(() => {
+    const getUserData = async () => {
+      try {
+        const res = await helpFetchUser(store.getState().user.user._id);
+        // console.log('when getting user data', res.matches);
+        store.dispatch(getMatches(res.matches));
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getUserData();
+  }, []);
+
+  console.log('this is the store:', store.getState());
+
+  //
 
   const [isReserveModalShown, setIsReserveModalShown] = useState(false);
   const [isReceiptModalShown, setIsReceiptModalShown] = useState(false);

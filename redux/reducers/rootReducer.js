@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { userReducer } from './useReducer';
+import { userReducer } from './userReducer';
 import { poolOfBooksReducer } from './poolOfBooksReducer';
 import { savedBooksReducer } from './savedBooksReducer';
 import { matchesReducer } from './matchesReducer';
