@@ -1,7 +1,6 @@
 import { ACTIONS } from './actions';
 import {
   helpCreateMatch,
-  helpFetchUser,
   helpUpdateMatch,
   helpDeleteMatch,
   helpGetUserMatches,
@@ -33,9 +32,9 @@ export const createMatch = (userId, bookId) => async (dispatch) => {
     console.log('log from the match checker', isThereAMatch);
 
     if (isThereAMatch.response.message.slice(0, 7) === 'You got') {
-      const updatedUser = await helpFetchUser(userId);
+      const updatedUserMatches = await helpGetUserMatches(userId);
       //TODO check if the sorting function works
-      const matches = updatedUser.matches.sort(
+      const matches = updatedUserMatches.sort(
         (a, b) => a.createdAt - b.createdAt,
       );
       dispatch({

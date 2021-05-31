@@ -12,7 +12,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getMatches } from '../../redux/actions/matchesActions';
 import { loginUser } from '../../redux/actions/userActions';
 import { markBookAsReserved } from '../../redux/actions/usersBooksActions';
-import { helpFetchUser, helpReserveBook } from '../../utils/apiCalls';
+import { helpReserveBook } from '../../utils/apiCalls';
 
 //! do not remove:
 // import { helpReserveBook } from '../../utils/apiCalls';
