@@ -90,7 +90,7 @@ const SavedBooks = ({ navigation }) => {
   // const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
   const savedBooks = user.booksToRemember;
-  console.log(savedBooks);
+  console.log('saved books?', savedBooks);
 
   return (
     <ScreenGradient>

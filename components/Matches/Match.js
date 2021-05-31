@@ -43,16 +43,14 @@ const Match = ({
         />
         <View style={styles.matchRow}>
           <MatchesIconButton
+            iconSize={20}
             iconName="user"
-            iconColor={colors.primary.dark}
-            buttonColor={colors.white}
             position="left"
             handlePress={onProfileIconPress}
           />
           <MatchesIconButton
+            iconSize={20}
             iconName="message-circle"
-            iconColor={colors.primary.dark}
-            buttonColor={colors.white}
             handlePress={onMessageIconPress}
           />
 

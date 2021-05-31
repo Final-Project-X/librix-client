@@ -7,7 +7,7 @@ export const getSavedBooks = (books) => (dispatch) => {
   });
 };
 
-export const addBookToSavedBooks = (book, savedBooks) => async (dispatch) => {
+export const addBookToSavedBooks = (book, savedBooks) => (dispatch) => {
   const updatedSavedBooks = [book, ...savedBooks];
   dispatch({
     type: ACTIONS.ADD_BOOK_TO_SAVED_BOOKS,

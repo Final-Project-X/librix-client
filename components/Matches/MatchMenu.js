@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TouchableHighlight, StyleSheet } from 'react-native';
+import { TouchableHighlight, StyleSheet, Text } from 'react-native';
 import {
   Menu,
   MenuOptions,
@@ -62,9 +62,8 @@ const MatchMenu = ({
       <Menu opened={isMenuOpen} onBackdropPress={closeHandler}>
         <MenuTrigger>
           <MatchesIconButton
+            iconSize={20}
             iconName="more-vertical"
-            iconColor={colors.primary.dark}
-            buttonColor={colors.white}
             position="right"
             handlePress={onMoreIconPress}
           />

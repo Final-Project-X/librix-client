@@ -106,19 +106,15 @@ const Books = ({ navigation }) => {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
-  console.log(user);
+  console.log('user in Books.js', user);
 
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        // const allBooks = await helpGetPoolOfBooks(user._id);
-        dispatch(getPoolOfBooks({ userID: user._id }));
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     const allBooks = await helpGetPoolOfBooks(user._id);
+  //     dispatch(getPoolOfBooks(allBooks));
+  //   };
+  //   getData();
+  // }, []);
 
   // const books = useSelector((state) => state.poolOfBooks.books);
   // console.log({ books });

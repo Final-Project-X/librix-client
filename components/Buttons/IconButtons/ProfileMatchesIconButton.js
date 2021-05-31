@@ -26,7 +26,7 @@ export const ProfileMatchesIconButton = ({
 }) => {
   return (
     <TouchableOpacity
-      style={styles(21, buttonColor).iconButton}
+      style={styles(21, 'center', buttonColor).iconButton}
       onPress={handlePress}
     >
       <Feather name={iconName} size={21} color={colors.white} />

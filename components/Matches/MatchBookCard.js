@@ -6,17 +6,17 @@ import PrimaryBold from '../Texts/PrimaryBold';
 import { colors, shadow } from '../../global/styles';
 import Icon from '../../assets/icon.png';
 
-const NameLabel = ({ labelName }) => {
-  return (
-    <View style={styles.nameLabel}>
-      <PrimaryBold customStyles={styles.nameLabelText} text={labelName} />
-    </View>
-  );
-};
+// const NameLabel = ({ labelName }) => {
+//   return (
+//     <View style={styles.nameLabel}>
+//       <PrimaryBold customStyles={styles.nameLabelText} text={labelName} />
+//     </View>
+//   );
+// };
 const MatchBookCard = ({ bookOwner, bookTitle, bookAuthor, bookImageUri }) => {
   return (
     <View style={styles.bookCard}>
-      <NameLabel labelName={bookOwner} />
+      {/* <NameLabel labelName={bookOwner} /> */}
       <Image
         style={[styles.image, styles.imageShadow]}
         source={

@@ -32,7 +32,7 @@ export const SavedBooksIconButton = ({
   return (
     <TouchableOpacity
       style={[
-        styles(21, buttonColor).iconButton,
+        styles(21, 'center', buttonColor).iconButton,
         styles().shadow,
         positionStyles(top, left, right).absolutePosition,
       ]}

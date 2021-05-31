@@ -9,10 +9,10 @@ import { colors } from '../../global/styles';
 import PrimaryText from '../../components/Texts/PrimaryText';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { getMatches } from '../../redux/actions/matchesActions';
-import { loginUser } from '../../redux/actions/userActions';
-import { markBookAsReserved } from '../../redux/actions/usersBooksActions';
-import { helpReserveBook } from '../../utils/apiCalls';
+// import { getMatches } from '../../redux/actions/matchesActions';
+// import { loginUser } from '../../redux/actions/userActions';
+// import { markBookAsReserved } from '../../redux/actions/usersBooksActions';
+// import { helpReserveBook } from '../../utils/apiCalls';
 
 //! do not remove:
 // import { helpReserveBook } from '../../utils/apiCalls';
@@ -123,14 +123,16 @@ const SAMPLE_MATCHES_OBJECT = [
 const Matches = ({ navigation }) => {
   // const username = 'audreeeyyy';
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  console.log('------------------------');
+  // console.log('------------------------');
 
-  const user = useSelector((state) => state.user.user);
+  // const appState = useSelector((state) => state);
+  // console.log('state! ===>', appState);
+  // const user = useSelector((state) => state.user.user);
   // console.log('<user> after calling useSelector', user);
   // console.log('userID', user._id);
-  const matches = useSelector((state) => state.matches.matches);
+  // const matches = useSelector((state) => state.matches.matches);
   // console.log('<matches> after calling useSelector', matches);
   // const booksToOffer = useSelector((state) => state.user.user.booksToOffer);
   // console.log('<booksToOffer> after calling useSelector', booksToOffer);
@@ -146,13 +148,13 @@ const Matches = ({ navigation }) => {
   //   // dispatch(getMatches(user._id));
   // }, []);
 
-  useEffect(() => {
-    console.log('userID:', user._id);
-    // get the array of matches, set the state
-    dispatch(getMatches(user._id));
-  }, []);
+  // useEffect(() => {
+  //   console.log('userID:', user._id);
+  //   // get the array of matches, set the state
+  //   dispatch(getMatches(user._id));
+  // }, []);
 
-  console.log('user / store / matches:', matches);
+  // console.log('user / store / matches:', matches);
 
   const [isReserveModalShown, setIsReserveModalShown] = useState(false);
   const [isReceiptModalShown, setIsReceiptModalShown] = useState(false);
@@ -165,12 +167,12 @@ const Matches = ({ navigation }) => {
     // dispatch(markBookAsReserved(bookIDToReserve, booksToOffer));
 
     //? call the backend — helpReserveBook
-    try {
-      const resultOfReservation = await helpReserveBook(bookIDToReserve);
-      console.log('resultOfReservation', resultOfReservation);
-    } catch (err) {
-      console.log(err);
-    }
+    // try {
+    //   const resultOfReservation = await helpReserveBook(bookIDToReserve);
+    //   console.log('resultOfReservation', resultOfReservation);
+    // } catch (err) {
+    //   console.log(err);
+    // }
 
     console.log('You just reserved a book!', bookIDToReserve);
     setIsReserveModalShown(false);
@@ -236,7 +238,8 @@ const Matches = ({ navigation }) => {
             <Match
               matchNum={index + 1}
               matchInfo={item}
-              username={user.username}
+              username="username"
+              // username={user.username}
               alertSetters={{
                 setIsReserveModalShown,
                 setIsReceiptModalShown,

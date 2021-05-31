@@ -25,15 +25,15 @@ export const addBook = async (bookData) => {
   }
 };
 
-export const getAllBooks = async () => {
-  try {
-    let response = await axios.get('/books');
-    console.log('Books from API', response.data);
-    return response.data;
-  } catch (error) {
-    console.log('error', error.response);
-  }
-};
+// export const getAllBooks = async () => {
+//   try {
+//     let response = await axios.get('/books');
+//     console.log('Books from API', response.data);
+//     return response.data;
+//   } catch (error) {
+//     console.log('error', error.response);
+//   }
+// };
 
 export const helpReserveBook = async (bookID) => {
   try {
@@ -117,15 +117,6 @@ export const helpCreateMatch = async (data) => {
   try {
     const res = await axios.post(`/user/${userId}`, bookId);
     // return value — a message
-    return res.data;
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-export const helpFetchUser = async (userID) => {
-  try {
-    const res = await axios.put(`/user/${userID}`);
     return res.data;
   } catch (err) {
     console.log(err);

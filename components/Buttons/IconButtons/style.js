@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { colors, shadow } from '../../../global/styles';
 
-export const styles = (iconSize, buttonColor = colors.white, position) =>
+export const styles = (iconSize, position, buttonColor = colors.white) =>
   StyleSheet.create({
     iconButton: {
       width: iconSize * 1.5,
@@ -14,8 +14,15 @@ export const styles = (iconSize, buttonColor = colors.white, position) =>
       marginLeft: position === 'left' ? 0 : 10,
       marginRight: position === 'right' ? 0 : 10,
     },
-    shadow: shadow.button,
   });
+
+export const shadowStyles = (shadowOn) =>
+  StyleSheet.create({
+    shadow: shadowOn ? shadow.button : { elevation: 0 },
+  });
+// export const shadowStyles = StyleSheet.create({
+//   shadow: shadow.button,
+// });
 
 export const positionStyles = (absTop, absLeft, absRight) =>
   StyleSheet.create({
