@@ -11,7 +11,8 @@ import PrimaryText from '../../components/Texts/PrimaryText';
 import { useSelector, useDispatch, useStore } from 'react-redux';
 import { getMatches } from '../../redux/actions/matchesActions';
 import { loginUser } from '../../redux/actions/userActions';
-import { helpFetchUser } from '../../utils/apiCalls';
+import { markBookAsReserved } from '../../redux/actions/usersBooksActions';
+import { helpFetchUser, helpReserveBook } from '../../utils/apiCalls';
 
 //! do not remove:
 // import { helpReserveBook } from '../../utils/apiCalls';
@@ -122,35 +123,44 @@ const SAMPLE_MATCHES_OBJECT = [
 const Matches = ({ navigation }) => {
   const username = 'audreeeyyy';
 
-  const store = useStore();
+  const dispatch = useDispatch();
+
+  console.log('------------------------');
+
+  const user = useSelector((state) => state.user.user);
+  // console.log('<user> after calling useSelector', user);
+  // console.log('userID', user._id);
+  const matches = useSelector((state) => state.matches.matches);
+  // console.log('<matches> after calling useSelector', matches);
+  const booksToOffer = useSelector((state) => state.user.user.booksToOffer);
+  // console.log('<booksToOffer> after calling useSelector', booksToOffer);
 
   // fetch user data, i.e. by loggin the user in
   useEffect(() => {
-    store.dispatch(
+    dispatch(
       loginUser({
         email: 'Harvey.Little@yahoo.com',
         password: 'Test123!',
       }),
     );
     // get the array of matches, set the state
-    store.dispatch(getMatches(store.getState().user.user.matches));
+    dispatch(getMatches(user.matches));
     // console.log('user / store / matches:', store.getState().user.user.matches);
-  }, [store]);
+  }, []);
 
   useEffect(() => {
-    const getUserData = async () => {
+    const getUserData = async (userID) => {
       try {
-        const res = await helpFetchUser(store.getState().user.user._id);
+        console.log('user ID:', userID);
+        const res = await helpFetchUser(userID);
         // console.log('when getting user data', res.matches);
-        store.dispatch(getMatches(res.matches));
+        dispatch(getMatches(res.matches));
       } catch (err) {
         console.log(err);
       }
     };
-    getUserData();
-  }, []);
-
-  console.log('this is the store:', store.getState());
+    getUserData(user._id);
+  }, [dispatch, user]);
 
   //
 
@@ -160,9 +170,18 @@ const Matches = ({ navigation }) => {
 
   const [bookIDToReserve, setBookIDToReserve] = useState(null);
 
-  const onReserveModalPress = () => {
-    //! do not remove:
-    // if (leftBookId) helpReserveBook(leftBookId);
+  const onReserveModalPress = async () => {
+    // change the booksToOffer state
+    dispatch(markBookAsReserved(bookIDToReserve, booksToOffer));
+
+    //? call the backend — helpReserveBook
+    try {
+      const resultOfReservation = await helpReserveBook(bookIDToReserve);
+      console.log('resultOfReservation', resultOfReservation);
+    } catch (err) {
+      console.log(err);
+    }
+
     console.log('You just reserved a book!', bookIDToReserve);
     setIsReserveModalShown(false);
     setBookIDToReserve(null);
