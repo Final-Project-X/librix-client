@@ -3,7 +3,7 @@ import { View, Text, SafeAreaView } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import LibrixTabBar from '../components/LibrixTabBar/LibrixTabBar';
 import AddBookStack from './AddBookStack';
-import { HeaderIconButton } from '../components/Buttons/IconButtons';
+import { HeaderIconButton } from '../components/Buttons/IconButtons/HeaderIconButton';
 import ScreenGradient from '../components/Gradients/ScreenGradient';
 import { colors } from '../global/styles';
 import Matches from '../screens/MatchesScreen/Matches';
@@ -35,7 +35,7 @@ export const GradientMainScreen = ({
     </ScreenGradient>
   );
 };
-
+// const pos = { absTop: 450, absLeft: 50 };
 const Messages = ({ navigation }) => (
   <GradientMainScreen
     screenText="Messages"

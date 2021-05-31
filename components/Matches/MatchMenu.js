@@ -7,7 +7,7 @@ import {
   MenuTrigger,
 } from 'react-native-popup-menu';
 import { colors } from '../../global/styles';
-import { MatchesIconButton } from '../Buttons/IconButtons';
+import { MatchesIconButton } from '../Buttons/IconButtons/MatchesIconButton';
 import PrimaryText from '../Texts/PrimaryText';
 
 const MatchMenuItem = ({ text, handlePress, onItemSelect }) => {

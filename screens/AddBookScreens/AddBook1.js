@@ -21,9 +21,10 @@ const AddBook1 = ({ navigation }) => {
   const handlePress = async () => {
     if (isbn) {
       const book = await getBookInfo(isbn);
-      return navigation.navigate('AddBook2', { book });
+      navigation.navigate('AddBook2', { book });
+      setIsbn(null);
     } else {
-      return navigation.navigate('AddBook2');
+      navigation.navigate('AddBook2');
     }
   };
 

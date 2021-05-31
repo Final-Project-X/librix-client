@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, FlatList, TouchableOpacity } from 'react-native';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
 import SavedBookList from '../../components/BookCards/SavedBookList';
 import PrimaryBold from '../../components/Texts/PrimaryBold';
 import ButtonGradient from '../../components/Gradients/ButtonGradient';
 import styles from './styles';
+import { useDispatch, useSelector } from 'react-redux';
 
 const booksSaved = [
   {
@@ -86,12 +87,15 @@ const booksSaved = [
 ];
 
 const SavedBooks = ({ navigation }) => {
-  const [books, setBooks] = useState(booksSaved);
+  // const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
+  const savedBooks = user.booksToRemember;
+  console.log(savedBooks);
 
   return (
     <ScreenGradient>
       <PrimaryBold text={'Books you saved'} customStyles={styles.title} />
-      {books?.length < 1 ? (
+      {savedBooks?.length < 1 ? (
         <View>
           <PrimaryBold
             text="You haven't saved any books. Go start looking ..."
@@ -110,12 +114,11 @@ const SavedBooks = ({ navigation }) => {
         <View>
           <FlatList
             style={styles.flatlist}
-            data={books}
+            data={savedBooks}
             renderItem={({ item }) => (
               <SavedBookList
                 item={item}
-                setBooks={setBooks}
-                books={books}
+                savedBooks={savedBooks}
                 navigation={navigation}
               />
             )}

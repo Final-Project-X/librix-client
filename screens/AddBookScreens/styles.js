@@ -105,6 +105,8 @@ const styles = StyleSheet.create({
   backgroundDrop: {
     backgroundColor: colors.primary.light,
     elevation: 4,
+    borderColor: 'transparent',
+    lineHeight: 10,
   },
   picker: {
     borderColor: 'transparent',
