@@ -6,6 +6,8 @@ import Input from '../../components/Inputs/Input';
 import SubmitButton from '../../components/Buttons/SubmitButton';
 import PrimaryText from '../../components/Texts/PrimaryText';
 import styles from './styles';
+import { loginUser } from '../../redux/actions/userActions';
+import { useDispatch } from 'react-redux';
 
 const LoginScreen = ({ navigation }) => {
   const {
@@ -14,7 +16,9 @@ const LoginScreen = ({ navigation }) => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (values) => console.log(values);
+  const dispatch = useDispatch();
+
+  const onSubmit = (values) => dispatch(loginUser(values));
 
   return (
     <SafeAreaView style={styles.container}>
@@ -57,24 +61,24 @@ const LoginScreen = ({ navigation }) => {
                 onChange={onChange}
                 value={value}
                 keyboardType="default"
-                placeholder="Username"
+                placeholder="Password"
               />
             )}
-            name="username"
+            name="password"
             rules={{
               required: {
                 value: true,
-                message: 'Username is required',
+                message: 'Password is required',
               },
               maxLength: {
                 value: 50,
-                message: 'Username not found',
+                message: 'Invalid password',
               },
             }}
             defaultValue=""
           />
           <PrimaryText
-            text={errors.username && errors.username.message}
+            text={errors.password && errors.password.message}
             customStyles={styles.inputError}
           />
           <SubmitButton

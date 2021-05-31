@@ -14,6 +14,7 @@ import {
 import { getPoolOfBooks } from '../../redux/actions/poolOfBooksActions';
 import { addBookToSavedBooks } from '../../redux/actions/savedBooksActions';
 import { removeBookFromPool } from '../../redux/actions/poolOfBooksActions';
+import { createMatch } from '../../redux/actions/matchesActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 const books = [
@@ -104,38 +105,39 @@ const books = [
 const Books = ({ navigation }) => {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
-  // const user = useSelector((state) => state.userReducer.user);
+  const user = useSelector((state) => state.user.user);
+  console.log({ user });
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     const allBooks = await helpGetPoolOfBooks(user._id);
-  //     dispatch(getPoolOfBooks(allBooks));
-  //   };
-  //   getData();
-  // }, []);
+  useEffect(() => {
+    const getData = async () => {
+      const allBooks = await helpGetPoolOfBooks(user._id);
+      dispatch(getPoolOfBooks(allBooks));
+    };
+    getData();
+  }, []);
 
-  // const books = useSelector((state) => state.poolOfBookReducer.books);
+  // const books = useSelector((state) => state.poolOfBooks.books);
   // console.log({ books });
 
   const handleYes = (index) => {
     const book = books[index];
-    // if (user.booksToOffer.length < 1) {
-    //   setShowModal(true);
-    // } else {
-    // user.booksInterestedIn.push(book)
-    // dispatch(createMatch(user._id, book._id))
-    // }
+    if (user.booksToOffer.length < 1) {
+      setShowModal(true);
+    } else {
+      user.booksInterestedIn.push(book);
+      dispatch(createMatch(user._id, book._id));
+    }
   };
 
   const handleSave = async (index) => {
     const book = books[index];
-    // const BookToSave = await helpAddBookToSavedBooks(book);
-    // dispatch(addBookToSavedBooks(BookToSave));
+    const BookToSave = await helpAddBookToSavedBooks(book);
+    dispatch(addBookToSavedBooks(BookToSave));
   };
 
   const handleNope = (index) => {
     const book = books[index];
-    // dispatch(removeBookFromPool(book._id, books));
+    dispatch(removeBookFromPool(book._id, books));
   };
 
   const handlePress = () => {
