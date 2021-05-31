@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, SafeAreaView } from 'react-native';
 import { MenuProvider } from 'react-native-popup-menu';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
-import { HeaderIconButton } from '../../components/Buttons/IconButtons';
+import { HeaderIconButton } from '../../components/Buttons/IconButtons/HeaderIconButton';
 import Match from '../../components/Matches/Match';
 import AlertModal from '../../components/AlertModal/AlertModal';
 import { colors } from '../../global/styles';
