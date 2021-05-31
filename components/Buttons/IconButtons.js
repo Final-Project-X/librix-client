@@ -66,11 +66,37 @@ export const HeaderIconButton = ({
   );
 };
 
+export const SavedBooksIconButton = ({
+  iconName,
+  iconSize,
+  iconColor,
+  buttonColor,
+  shadowOn,
+  position,
+  handlePress,
+}) => {
+  return (
+    <TouchableOpacity
+      style={[
+        styles(iconSize, buttonColor, position).iconButton,
+        shadowOn && styles().shadow,
+      ]}
+      onPress={handlePress}
+    >
+      <Feather
+        name={iconName}
+        size={Number(iconSize) || 18}
+        color={iconColor || colors.primary.dark}
+      />
+    </TouchableOpacity>
+  );
+};
+
 const styles = (iconSize, buttonColor = colors.white, position) =>
   StyleSheet.create({
     iconButton: {
-      width: iconSize * 1.4,
-      height: iconSize * 1.4,
+      width: iconSize * 1.5,
+      height: iconSize * 1.5,
       backgroundColor: buttonColor,
       alignItems: 'center',
       justifyContent: 'center',

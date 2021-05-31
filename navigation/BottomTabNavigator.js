@@ -9,6 +9,7 @@ import { colors } from '../global/styles';
 import Matches from '../screens/MatchesScreen/Matches';
 import BooksStack from './BooksStack';
 import SavedBooksStack from './SavedBooksStack';
+import { SavedBooksIconButton } from '../components/Buttons/IconButtons';
 
 export const GradientMainScreen = ({
   screenText,
@@ -40,7 +41,41 @@ const Messages = ({ navigation }) => (
   <GradientMainScreen
     screenText="Messages"
     toggleDrawer={() => navigation.toggleDrawer()}
-  />
+  >
+    <SavedBooksIconButton
+      iconName={'trash'}
+      iconSize={20}
+      iconColor={colors.white}
+      buttonColor={colors.secondary.dark}
+      shadowOn={true}
+      position={'left'}
+      handlePress={() => {}}
+    />
+    <SavedBooksIconButton
+      iconName={'heart'}
+      iconSize={20}
+      iconColor={colors.white}
+      buttonColor={colors.primary.dark}
+      shadowOn={true}
+      handlePress={() => {}}
+    />
+    <SavedBooksIconButton
+      iconName={'trash'}
+      iconSize={20}
+      iconColor={colors.white}
+      buttonColor={colors.secondary.dark}
+      position={'right'}
+      handlePress={() => {}}
+    />
+    <SavedBooksIconButton
+      iconName={'message-circle'}
+      iconSize={20}
+      iconColor={colors.white}
+      buttonColor={colors.primary.dark}
+      position={'left'}
+      handlePress={() => {}}
+    />
+  </GradientMainScreen>
 );
 
 const Tab = createBottomTabNavigator();
