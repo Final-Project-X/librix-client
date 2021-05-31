@@ -5,12 +5,14 @@ import SingleBook from '../screens/SingleBookScreen/SingleBook';
 import AddBookStack from '../navigation/AddBookStack';
 import BackButton from '../components/Buttons/BackButton';
 import EditProfile from '../screens/ProfileScreens/EditProfile';
+import OthersProfile from '../screens/ProfileScreens/OthersProfile';
 
 const ProfileStack = createStackNavigator();
 
 export default ({ navigation }) => {
   return (
     <ProfileStack.Navigator>
+      <ProfileStack.Screen name="OthersProfile" component={OthersProfile} />
       <ProfileStack.Screen
         name="Profile"
         component={ProfileScreen}

@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   aboutUserContainer: {
-    height: 100,
+    height: 60,
     marginVertical: 15,
   },
   aboutUser: {
