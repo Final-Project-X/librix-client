@@ -121,6 +121,8 @@ const styles = StyleSheet.create({
   },
   pickerContainer: {
     marginHorizontal: 50,
+    position: 'relative',
+    zIndex: 500,
   },
   main: {
     width: '100%',

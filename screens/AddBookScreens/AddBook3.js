@@ -89,7 +89,7 @@ const AddBook3 = ({ navigation, route }) => {
     setLanguageOpen(false);
   }, []);
 
-   // const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   // const user = useSelector((state) => state.userReducer.user);
 
   const { title, authors, publishedDate, description } = route.params;
@@ -155,8 +155,8 @@ const AddBook3 = ({ navigation, route }) => {
                     onChangeValue={(val) => setValueGenre(val)}
                     dropDownContainerStyle={styles.backgroundDrop}
                     zIndex={3000}
-                    zIndexInverse={100}
-                    dropDownDirection="TOP"
+                    zIndexInverse={1000}
+                    dropDownDirection="BOTTOM"
                   />
                 </View>
                 <View style={styles.pickerContainer}>
@@ -174,9 +174,9 @@ const AddBook3 = ({ navigation, route }) => {
                     setItems={setConditions}
                     onChangeValue={(val) => setValueCondition(val)}
                     dropDownContainerStyle={styles.backgroundDrop}
-                    zIndex={1000}
-                    zIndexInverse={3000}
-                    dropDownDirection="TOP"
+                    zIndex={2000}
+                    zIndexInverse={2000}
+                    dropDownDirection="BOTTOM"
                   />
                 </View>
                 <View style={styles.pickerContainer}>
@@ -196,7 +196,7 @@ const AddBook3 = ({ navigation, route }) => {
                     dropDownContainerStyle={styles.backgroundDrop}
                     zIndex={1000}
                     zIndexInverse={3000}
-                    dropDownDirection="TOP"
+                    dropDownDirection="BOTTOM"
                   />
                 </View>
                 <View style={styles.inputContainer}>
