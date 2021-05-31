@@ -56,15 +56,15 @@ const Filter = ({ navigation }) => {
     setLanguageOpen(false);
   }, []);
 
-  // const user = useSelector((state) => state.userReducer.user);
+  const user = useSelector((state) => state.user.user);
 
   const apply = async (city, genre, language) => {
-    const poolOfBooks = await helpGetPoolOfBooks(
+    const poolOfBooks = await helpGetPoolOfBooks({
       city,
       genre,
       language,
-      // user._id,
-    );
+      userID: user._id,
+    });
     dispatch(getPoolOfBooks(poolOfBooks));
   };
 

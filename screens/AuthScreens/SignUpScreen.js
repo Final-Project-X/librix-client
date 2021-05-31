@@ -8,6 +8,8 @@ import SubmitButton from '../../components/Buttons/SubmitButton';
 import PrimaryText from '../../components/Texts/PrimaryText';
 import styles from './styles';
 import { colors } from '../../global/styles';
+import { signUpUser } from '../../redux/actions/userActions';
+import { useDispatch } from 'react-redux';
 
 const SignUpScreen = ({ navigation }) => {
   const {
@@ -16,12 +18,14 @@ const SignUpScreen = ({ navigation }) => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (values) => console.log(values);
+  const dispatch = useDispatch();
+
+  const onSubmit = (values) => dispatch(signUpUser(values));
 
   const showCityInfo = () => {
     Alert.alert(
       'Why should I submit city?',
-      'Defining your location will set a default search area for books in your pool. If you do not wish to set a search area right now, you can leave this field empty.',
+      'Defining your location will set a default search area for books in your pool.',
       { text: 'OK' },
     );
   };
