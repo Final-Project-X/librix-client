@@ -141,6 +141,16 @@ export const helpUpdateUser = async (userData) => {
     console.log(err);
   }
 };
+
+export const helpGetUserMatches = async (userID) => {
+  try {
+    const res = await axios.get(`/user/${userID}`);
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 // NOT really need this:
 export const helpUpdateMatch = async (data) => {
   const { id, status } = data;

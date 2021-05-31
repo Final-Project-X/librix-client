@@ -7,7 +7,7 @@ import MainStack from './navigation/MainStack';
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(false);
-  const [userToken, setUserToken] = useState('12345');
+  const [userToken, setUserToken] = useState('1234');
 
   useEffect(() => {
     setTimeout(() => {

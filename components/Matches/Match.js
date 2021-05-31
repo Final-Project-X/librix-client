@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   matchRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'baseline',
   },
   matchHeader: {
     fontSize: 24,

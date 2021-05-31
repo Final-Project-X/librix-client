@@ -4,14 +4,21 @@ import {
   helpFetchUser,
   helpUpdateMatch,
   helpDeleteMatch,
+  helpGetUserMatches,
 } from '../../utils/apiCalls';
 
 // get matches
-export const getMatches = (usersMatches) => (dispatch) => {
-  dispatch({
-    type: ACTIONS.GET_USERS_MATCHES,
-    payload: usersMatches,
-  });
+export const getMatches = (userID) => async (dispatch) => {
+  try {
+    const userMatches = await helpGetUserMatches(userID);
+    console.log('hi from getMatches', userMatches);
+    dispatch({
+      type: ACTIONS.GET_USERS_MATCHES,
+      payload: userMatches,
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 // create a match

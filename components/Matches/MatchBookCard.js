@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import PrimaryText from '../Texts/PrimaryText';
+import SerifText from '../Texts/SerifText';
 import PrimaryBold from '../Texts/PrimaryBold';
 import { colors, shadow } from '../../global/styles';
 import Icon from '../../assets/icon.png';
@@ -26,7 +27,7 @@ const MatchBookCard = ({ bookOwner, bookTitle, bookAuthor, bookImageUri }) => {
             : Icon
         }
       />
-      <PrimaryText
+      <SerifText
         customStyles={styles.bookTitle}
         text={bookTitle}
         numberOfLines={2}
