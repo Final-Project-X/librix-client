@@ -87,20 +87,10 @@ const booksSaved = [
 ];
 
 const SavedBooks = ({ navigation }) => {
-  const [savedBooks, setSavedBooks] = useState(booksSaved);
-
   // const dispatch = useDispatch();
-  // const user = useSelector((state) => state.userReducer.user);
-  // const savedBooks = user.booksToRemember
-
-  //! const SavedBooks = useSelector((state) => state.savedBookReducer.savedBooks);
-  //! useEffect(() => {
-  //   const getData = async () => {
-  //   const savedBooks = await helpGetSavedBooks(user.id)
-  //     dispatch(getSavedBooks(savedBooks)
-  //   };
-  //   getData();
-  // }, []);
+  const user = useSelector((state) => state.user.user);
+  const savedBooks = user.booksToRemember;
+  console.log(savedBooks);
 
   return (
     <ScreenGradient>
@@ -128,7 +118,6 @@ const SavedBooks = ({ navigation }) => {
             renderItem={({ item }) => (
               <SavedBookList
                 item={item}
-                setSavedBooks={setSavedBooks}
                 savedBooks={savedBooks}
                 navigation={navigation}
               />
