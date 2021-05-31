@@ -3,13 +3,12 @@ import { View, Text, SafeAreaView } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import LibrixTabBar from '../components/LibrixTabBar/LibrixTabBar';
 import AddBookStack from './AddBookStack';
-import { HeaderIconButton } from '../components/Buttons/IconButtons';
+import { HeaderIconButton } from '../components/Buttons/IconButtons/HeaderIconButton';
 import ScreenGradient from '../components/Gradients/ScreenGradient';
 import { colors } from '../global/styles';
 import Matches from '../screens/MatchesScreen/Matches';
 import BooksStack from './BooksStack';
 import SavedBooksStack from './SavedBooksStack';
-import { SavedBooksIconButton } from '../components/Buttons/IconButtons';
 
 export const GradientMainScreen = ({
   screenText,
@@ -36,46 +35,12 @@ export const GradientMainScreen = ({
     </ScreenGradient>
   );
 };
-
+// const pos = { absTop: 450, absLeft: 50 };
 const Messages = ({ navigation }) => (
   <GradientMainScreen
     screenText="Messages"
     toggleDrawer={() => navigation.toggleDrawer()}
-  >
-    <SavedBooksIconButton
-      iconName={'trash'}
-      iconSize={20}
-      iconColor={colors.white}
-      buttonColor={colors.secondary.dark}
-      shadowOn={true}
-      position={'left'}
-      handlePress={() => {}}
-    />
-    <SavedBooksIconButton
-      iconName={'heart'}
-      iconSize={20}
-      iconColor={colors.white}
-      buttonColor={colors.primary.dark}
-      shadowOn={true}
-      handlePress={() => {}}
-    />
-    <SavedBooksIconButton
-      iconName={'trash'}
-      iconSize={20}
-      iconColor={colors.white}
-      buttonColor={colors.secondary.dark}
-      position={'right'}
-      handlePress={() => {}}
-    />
-    <SavedBooksIconButton
-      iconName={'message-circle'}
-      iconSize={20}
-      iconColor={colors.white}
-      buttonColor={colors.primary.dark}
-      position={'left'}
-      handlePress={() => {}}
-    />
-  </GradientMainScreen>
+  />
 );
 
 const Tab = createBottomTabNavigator();

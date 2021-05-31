@@ -13,7 +13,7 @@ import PrimaryLight from '../../components/Texts/PrimaryLight';
 import PrimaryMedium from '../../components/Texts/PrimaryMedium';
 import PrimaryBold from '../../components/Texts/PrimaryBold';
 import AlertModal from '../../components/AlertModal/AlertModal';
-import { MatchesIconButton } from '../../components/Buttons/IconButtons';
+import { MatchesIconButton } from '../../components/Buttons/IconButtons/MatchesIconButton';
 import Icon from '../../assets/favicon.png';
 import { Feather } from '@expo/vector-icons';
 import styles from './styles';

@@ -1,7 +1,6 @@
 import React from 'react';
 import { colors } from '../../global/styles';
 import { View, TouchableOpacity, Image } from 'react-native';
-import { Feather } from '@expo/vector-icons';
 import styles from './styles';
 import PrimaryText from '../Texts/PrimaryText';
 import PrimaryBold from '../Texts/PrimaryBold';
@@ -10,6 +9,7 @@ import { removeBookFromSavedBooks } from '../../redux/actions/savedBooksActions'
 import { createMatch } from '../../redux/actions/matchesActions';
 import { helpDeleteBookFromSavedBooks } from '../../utils/apiCalls';
 import { useDispatch } from 'react-redux';
+import { SavedBooksIconButton } from '../Buttons/IconButtons/SavedBooksIconButton';
 
 const SavedBookList = ({ item, setSavedBooks, savedBooks, navigation }) => {
   const dispatch = useDispatch();
@@ -34,7 +34,6 @@ const SavedBookList = ({ item, setSavedBooks, savedBooks, navigation }) => {
     );
     return setSavedBooks(newBooks);
     // return savedBooks
-
   };
 
   return (
@@ -42,26 +41,24 @@ const SavedBookList = ({ item, setSavedBooks, savedBooks, navigation }) => {
       onPress={() => navigation.navigate('SingleBook', { item })}
     >
       <View style={styles.item}>
-        <Feather
-          name="trash"
-          size={24}
-          color={colors.secondary.dark}
-          style={styles.delete}
-          onPress={() => handleDelete(item)}
-        />
         <Image source={{ uri: item.selectedFiles }} style={styles.img} />
+        <SavedBooksIconButton
+          iconName={'trash'}
+          buttonColor={colors.secondary.dark}
+          handlePress={() => handleDelete(item)}
+          absolutePosition={{ top: -15, left: -10 }}
+        />
 
         <View style={styles.detail}>
           <PrimaryBold text={item.title} customStyles={styles.titleText} />
           <PrimaryLight text={item.description} numberOfLines={2} />
           <PrimaryText text={item.category[0]} customStyles={styles.category} />
         </View>
-        <Feather
-          name="heart"
-          size={24}
-          color={colors.primary.dark}
-          style={styles.love}
-          onPress={() => handleLike(item)}
+        <SavedBooksIconButton
+          iconName={'heart'}
+          buttonColor={colors.primary.dark}
+          handlePress={() => handleLike(item)}
+          absolutePosition={{ top: -13, right: -10 }}
         />
       </View>
     </TouchableOpacity>

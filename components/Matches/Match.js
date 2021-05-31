@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
 import { colors } from '../../global/styles';
-import { MatchesIconButton } from '../Buttons/IconButtons';
+import { MatchesIconButton } from '../Buttons/IconButtons/MatchesIconButton';
 import PrimaryText from '../Texts/PrimaryText';
 import MatchBookCard from './MatchBookCard';
 import MatchMenu from './MatchMenu';
