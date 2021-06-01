@@ -95,6 +95,7 @@ const AddBook3 = ({ navigation, route }) => {
   const { title, authors, publishedDate, description } = route.params;
   const bookData = {
     city: user.city,
+    owner: user._id,
     title: title,
     authors: authors,
     publishedDate: publishedDate,

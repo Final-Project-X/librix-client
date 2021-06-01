@@ -11,25 +11,30 @@ import { helpDeleteBookFromSavedBooks } from '../../utils/apiCalls';
 import { SavedBooksIconButton } from '../Buttons/IconButtons/SavedBooksIconButton';
 import { useDispatch, useSelector } from 'react-redux';
 
-const SavedBookList = ({ item, savedBooks, navigation }) => {
+const SavedBookList = ({ item, navigation }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
+  const savedBooks = useSelector((state) => state.savedBooks.savedBooks);
 
   const handleDelete = async (book) => {
-    await helpDeleteBookFromSavedBooks(book, savedBooks);
-    dispatch(removeBookFromSavedBooks(book._id));
+    await helpDeleteBookFromSavedBooks({
+      bookId: book._id,
+      userId: user._id,
+    });
+    dispatch(removeBookFromSavedBooks(book._id, savedBooks));
     const newSavedBooks = savedBooks.filter(
       (savedBook) => savedBook._id !== book._id,
     );
     return newSavedBooks;
   };
-  const handleLike = (book) => {
-    user.bookInterestedIn.push(book);
+
+  const handleLike = async (book) => {
+    const newSavedBooks = await helpDeleteBookFromSavedBooks({
+      bookId: book._id,
+      userId: user._id,
+    });
     dispatch(createMatch(user._id, book._id));
-    dispatch(removeBookFromSavedBooks(book._id));
-    const newSavedBooks = savedBooks.filter(
-      (SavedBook) => SavedBook._id !== book._id,
-    );
+    dispatch(removeBookFromSavedBooks(book._id, savedBooks));
     return newSavedBooks;
   };
 
