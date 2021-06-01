@@ -7,7 +7,10 @@ import styles from './styles';
 const SwipingBook = ({ item, navigation }) => (
   <TouchableOpacity onPress={() => navigation.navigate('SingleBook', { item })}>
     <View style={styles.card}>
-      <Image source={{ uri: item?.selectedFiles }} style={styles.cardImage} />
+      <Image
+        source={{ uri: item?.selectedFiles.toString() }}
+        style={styles.cardImage}
+      />
       <View style={styles.info}>
         <SerifText text={item?.title} customStyles={styles.title} />
         <PrimaryText
@@ -19,10 +22,7 @@ const SwipingBook = ({ item, navigation }) => (
           text={`Language: ${item?.language}`}
           customStyles={styles.lan}
         />
-        <PrimaryText
-          text={`Genre: ${item?.category[0]}`}
-          customStyles={styles.lan}
-        />
+        <PrimaryText text={`Genre: ${item?.genre}`} customStyles={styles.lan} />
       </View>
     </View>
   </TouchableOpacity>

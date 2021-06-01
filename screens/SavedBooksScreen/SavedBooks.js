@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { View, FlatList, TouchableOpacity } from 'react-native';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
 import SavedBookList from '../../components/BookCards/SavedBookList';
 import PrimaryBold from '../../components/Texts/PrimaryBold';
 import ButtonGradient from '../../components/Gradients/ButtonGradient';
 import styles from './styles';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-const booksSaved = [
+const savedBoks = [
   {
     authors: ['Robert Dimery'],
     category: ['Popular music'],
@@ -87,7 +87,6 @@ const booksSaved = [
 ];
 
 const SavedBooks = ({ navigation }) => {
-  // const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
   const savedBooks = user.booksToRemember;
   console.log('saved books?', savedBooks);
