@@ -141,7 +141,7 @@ const Matches = ({ navigation }) => {
   useEffect(() => {
     console.log('userID:', user._id);
     dispatch(getMatches(user._id));
-  });
+  }, []);
 
   // console.log('user / store / matches:', matches);
 
