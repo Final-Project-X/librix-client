@@ -90,7 +90,7 @@ const AddBook3 = ({ navigation, route }) => {
   }, []);
 
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.userReducer.user);
+  const user = useSelector((state) => state.user.user);
 
   const { title, authors, publishedDate, description } = route.params;
   const bookData = {
