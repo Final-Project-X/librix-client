@@ -43,14 +43,13 @@ const styles = StyleSheet.create({
   },
   scrollArea: {
     height: 200,
-    marginBottom: 20,
   },
   accordionHeaderGroup: {
     justifyContent: 'space-between',
     alignItems: 'flex-end',
     paddingLeft: 20,
     paddingRight: 20,
-    marginTop: 30,
+    marginTop: 10,
     marginBottom: 10,
   },
   accordionHeaderText: {
@@ -82,6 +81,9 @@ const styles = StyleSheet.create({
   },
   textMarginBottom: {
     marginBottom: 20,
+  },
+  deleteButton: {
+    margin: 20,
   },
 });
 

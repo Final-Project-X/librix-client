@@ -6,8 +6,10 @@ import {
   SafeAreaView,
   FlatList,
   TouchableOpacity,
+  StyleSheet,
 } from 'react-native';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
+import PrimaryHeader from '../../components/Headers/PrimaryHeader';
 import PrimaryText from '../../components/Texts/PrimaryText';
 import PrimaryLight from '../../components/Texts/PrimaryLight';
 import PrimaryMedium from '../../components/Texts/PrimaryMedium';
@@ -15,8 +17,7 @@ import PrimaryBold from '../../components/Texts/PrimaryBold';
 import AlertModal from '../../components/AlertModal/AlertModal';
 import Icon from '../../assets/favicon.png';
 import { Feather } from '@expo/vector-icons';
-import styles from './styles';
-import { colors } from '../../global/styles';
+import { colors, shadow } from '../../global/styles';
 
 const SAMPLE_MATCHES_OBJECT = [
   {
@@ -121,91 +122,103 @@ const SAMPLE_MATCHES_OBJECT = [
   },
 ];
 
-const Match = ({ matchInfo, username, setShowModal }) => {
+const Match = ({ matchInfo, username, setShowModal, navigation }) => {
   const { bookOne, bookTwo } = matchInfo;
   const leftHandBook = bookOne.owner.username === username ? bookOne : bookTwo;
   const rightHandBook = bookOne.owner.username === username ? bookTwo : bookOne;
+
   return (
-    <View style={styles.flexRow}>
+    <View style={[styles.flexRow, styles.match]}>
       <View style={styles.bookCard}>
         <View style={styles.nameLabel}>
           <PrimaryBold customStyles={styles.nameLabelText} text="You" />
         </View>
-        <Image
-          style={[styles.image, styles.imageShadow]}
-          source={
-            leftHandBook.selectedFiles.length > 0
-              ? { uri: leftHandBook.selectedFiles[0] }
-              : Icon
-          }
-        />
-        <PrimaryText
-          customStyles={styles.bookTitle}
-          text={leftHandBook.title}
-          numberOfLines={2}
-        />
-        <PrimaryText
-          customStyles={styles.bookAuthor}
-          text={leftHandBook.authors[0]}
-          numberOfLines={1}
-        />
+        <View style={styles.imageShadow}>
+          <Image
+            style={[styles.bookImage, styles.imageShadow]}
+            source={
+              leftHandBook.selectedFiles.length > 0
+                ? { uri: leftHandBook.selectedFiles[0] }
+                : Icon
+            }
+          />
+        </View>
+        <PrimaryBold text={leftHandBook.title} numberOfLines={2} />
       </View>
+      <Feather
+        name="refresh-cw"
+        size={24}
+        color={colors.primary.dark}
+        style={styles.rotateIcon}
+      />
       <View style={styles.bookCard}>
         <View style={styles.nameLabel}>
           <PrimaryBold
             customStyles={styles.nameLabelText}
             text={rightHandBook.owner.username}
+            numberOfLines={1}
           />
         </View>
-        <Image
-          style={[styles.image, styles.imageShadow]}
-          source={
-            rightHandBook.selectedFiles.length > 0
-              ? { uri: rightHandBook.selectedFiles[0] }
-              : Icon
-          }
-        />
-        <PrimaryText
-          customStyles={styles.bookTitle}
-          text={rightHandBook.title}
-          numberOfLines={2}
-        />
-        <PrimaryText
-          customStyles={styles.bookAuthor}
-          text={rightHandBook.authors[0]}
-          numberOfLines={1}
-        />
+        <View style={styles.imageShadow}>
+          <Image
+            style={[styles.bookImage, styles.imageShadow]}
+            source={
+              rightHandBook.selectedFiles.length > 0
+                ? { uri: rightHandBook.selectedFiles[0] }
+                : Icon
+            }
+          />
+        </View>
+        <PrimaryBold text={rightHandBook.title} numberOfLines={2} />
       </View>
-      <View>
-        <TouchableOpacity>
-          <Feather name="message-circle" size={24} color="black" />
+      <View style={styles.buttonGroup}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Matches')}
+          style={[styles.button, styles.purpleBtn]}
+        >
+          <Feather name="message-circle" size={16} color={colors.white} />
         </TouchableOpacity>
-        <TouchableOpacity>
-          <Feather name="trash" size={24} color="black" />
+        <TouchableOpacity
+          onPress={() => setShowModal(true)}
+          style={[styles.button, styles.orangeBtn]}
+        >
+          <Feather name="trash" size={16} color={colors.white} />
         </TouchableOpacity>
       </View>
     </View>
   );
 };
 
-const OthersProfile = () => {
+const OthersProfile = ({ navigation, otherUser, userId }) => {
   const username = 'audreeeyyy';
   const [showModal, setShowModal] = useState(false);
+
   return (
     <SafeAreaView style={styles.container}>
       <AlertModal
         showModal={showModal}
         setShowModal={setShowModal}
+        whiteButtonText="Stop"
         buttonText="It's over"
       >
-        <PrimaryMedium text="You want to cut the connection?" />
-        <PrimaryText text="Thats' ok." />
-        <PrimaryText text="Pressing the purple button will make every word regarding this relationship disappear." />
-        <PrimaryText text="Clean breakup — no bull***" />
+        <PrimaryMedium
+          text="You want to cut the connection?"
+          customStyles={[styles.modalText, styles.modalBoldText]}
+        />
+        <PrimaryText text="Thats' ok." customStyles={styles.modalText} />
+        <PrimaryText
+          text="Pressing the purpleBtn button will make every word regarding this relationship disappear."
+          customStyles={styles.modalText}
+        />
+        <PrimaryText
+          text="Clean breakup — no bull***"
+          customStyles={styles.modalText}
+        />
       </AlertModal>
       <ScreenGradient customStyles={styles.gradient}>
+        <PrimaryHeader navigation={navigation} text={`${username}'s profile`} />
         <View style={styles.userCard}>
-          <View style={styles.flexRow}>
+          <View style={[styles.flexRow, styles.alignCenter]}>
             <View>
               <Image source={Icon} style={styles.avatar} />
               <PrimaryLight text="10 points" />
@@ -227,6 +240,11 @@ const OthersProfile = () => {
             </ScrollView>
           </View>
         </View>
+        <PrimaryMedium
+          text={`Matches with ${username}`}
+          customStyles={styles.listHeader}
+          numberOfLines={2}
+        />
         <FlatList
           data={SAMPLE_MATCHES_OBJECT}
           renderItem={({ item }) => (
@@ -234,6 +252,7 @@ const OthersProfile = () => {
               matchInfo={item}
               username={username}
               setShowModal={setShowModal}
+              navigation={navigation}
             />
           )}
           keyExtractor={(item) => item._id}
@@ -242,5 +261,120 @@ const OthersProfile = () => {
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  flexRow: {
+    flexDirection: 'row',
+  },
+  alignCenter: {
+    alignItems: 'center',
+  },
+  container: {
+    flex: 1,
+  },
+  gradient: {
+    padding: 20,
+    paddingBottom: 0,
+  },
+  userCard: {
+    padding: 20,
+    borderRadius: 25,
+    backgroundColor: colors.white,
+    marginBottom: 10,
+  },
+  avatar: {
+    width: 75,
+    height: 75,
+    marginRight: 20,
+    marginBottom: 10,
+    backgroundColor: 'red',
+    borderRadius: 50,
+  },
+  userDataText: {
+    marginBottom: 10,
+  },
+  username: {
+    fontSize: 16,
+  },
+  aboutUserContainer: {
+    height: 60,
+    marginTop: 15,
+  },
+  aboutUser: {
+    fontSize: 16,
+  },
+  listHeader: {
+    fontSize: 20,
+    marginVertical: 5,
+    marginLeft: 10,
+  },
+  match: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.white,
+    padding: 20,
+    borderRadius: 20,
+    marginBottom: 20,
+  },
+  bookCard: {
+    width: 100,
+    shadowColor: colors.black,
+  },
+  nameLabel: {
+    position: 'absolute',
+    top: -5,
+    left: -5,
+    zIndex: 3,
+    backgroundColor: colors.white,
+    paddingVertical: 3,
+    paddingHorizontal: 5,
+    borderColor: colors.secondary.light,
+    borderRadius: 20,
+    borderStyle: 'solid',
+    borderWidth: 1,
+  },
+  nameLabelText: {
+    color: colors.secondary.dark,
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+  },
+  bookImage: {
+    width: '100%',
+    height: 100,
+    borderRadius: 20,
+    marginBottom: 5,
+  },
+  imageShadow: shadow.image,
+  rotateIcon: {
+    marginHorizontal: 15,
+  },
+  buttonGroup: {
+    marginLeft: 15,
+  },
+  button: {
+    padding: 11,
+    borderRadius: 50,
+  },
+  purpleBtn: {
+    backgroundColor: colors.primary.dark,
+    marginBottom: 15,
+  },
+  orangeBtn: {
+    backgroundColor: colors.secondary.dark,
+  },
+  modalText: {
+    textAlign: 'center',
+    fontSize: 18,
+    marginHorizontal: 30,
+    marginBottom: 20,
+  },
+  modalBoldText: {
+    fontSize: 20,
+    marginHorizontal: 20,
+  },
+  textMarginBottom: {
+    marginBottom: 20,
+  },
+});
 
 export default OthersProfile;
