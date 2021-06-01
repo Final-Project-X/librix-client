@@ -18,7 +18,6 @@ export const getBookInfo = async (isbn) => {
 export const addBook = async (bookData) => {
   try {
     let response = await axios.post('/books', { bookData });
-    console.log('from API', response.config.data);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -78,15 +77,16 @@ export const helpGetAllBooks = async () => {
 // also, to reset the state when applying the filters
 export const helpGetPoolOfBooks = async (booksData) => {
   const filterData = {
-    city: booksData.city,
-    genre: booksData.genre,
-    language: booksData.language,
+    city: booksData?.city,
+    genre: booksData?.genre,
+    language: booksData?.language,
   };
   try {
     const res = await axios.post(
-      `/user/library/${booksData.userID}`,
+      `/user/library/${booksData?.userID}`,
       filterData,
     );
+    console.log('from Api', res.data);
     return res.data;
   } catch (err) {
     console.log(err);
@@ -105,6 +105,7 @@ export const helpAddBookToSavedBooks = async (data) => {
 export const helpDeleteBookFromSavedBooks = async (data) => {
   try {
     const res = await axios.post('user/removeSavedBook', data);
+    console.log('delete', res.data);
     return res.data;
   } catch (err) {
     console.log(err);

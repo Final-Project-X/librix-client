@@ -89,12 +89,13 @@ const AddBook3 = ({ navigation, route }) => {
     setLanguageOpen(false);
   }, []);
 
-   // const dispatch = useDispatch();
-  // const user = useSelector((state) => state.userReducer.user);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
 
   const { title, authors, publishedDate, description } = route.params;
   const bookData = {
-    // city: user.city,
+    city: user.city,
+    owner: user._id,
     title: title,
     authors: authors,
     publishedDate: publishedDate,
@@ -102,22 +103,26 @@ const AddBook3 = ({ navigation, route }) => {
   };
 
   const handlePublishBook = async (valueGen, valueCon, valueLan, valueNote) => {
-    if (!valueGen || !valueCon || !valueLan || !valueNote || !image.base64) {
-      setError('All fields are required!');
-    } else {
-      const newBook = await addBook({
-        ...bookData,
-        genre: valueGen,
-        condition: valueCon,
-        language: valueLan,
-        personalDescription: valueNote,
-        selectedFiles: [image.base64],
-      });
-      // dispatch(addBookToOfferedBooks(newBook, user.booksToOffer));
-      navigation.navigate('Books');
-      setError(null);
-      setNote(null);
-      setImage(null);
+    try {
+      if (!valueGen || !valueCon || !valueLan || !valueNote || !image.base64) {
+        setError('All fields are required!');
+      } else {
+        const newBook = await addBook({
+          ...bookData,
+          genre: valueGen,
+          condition: valueCon,
+          language: valueLan,
+          personalDescription: valueNote,
+          selectedFiles: [image.base64],
+        });
+        dispatch(addBookToOfferedBooks(newBook, user.booksToOffer));
+        navigation.navigate('Books');
+        setError(null);
+        setNote(null);
+        setImage(null);
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -155,8 +160,8 @@ const AddBook3 = ({ navigation, route }) => {
                     onChangeValue={(val) => setValueGenre(val)}
                     dropDownContainerStyle={styles.backgroundDrop}
                     zIndex={3000}
-                    zIndexInverse={100}
-                    dropDownDirection="TOP"
+                    zIndexInverse={1000}
+                    dropDownDirection="BOTTOM"
                   />
                 </View>
                 <View style={styles.pickerContainer}>
@@ -174,9 +179,9 @@ const AddBook3 = ({ navigation, route }) => {
                     setItems={setConditions}
                     onChangeValue={(val) => setValueCondition(val)}
                     dropDownContainerStyle={styles.backgroundDrop}
-                    zIndex={1000}
-                    zIndexInverse={3000}
-                    dropDownDirection="TOP"
+                    zIndex={2000}
+                    zIndexInverse={2000}
+                    dropDownDirection="BOTTOM"
                   />
                 </View>
                 <View style={styles.pickerContainer}>
@@ -196,7 +201,7 @@ const AddBook3 = ({ navigation, route }) => {
                     dropDownContainerStyle={styles.backgroundDrop}
                     zIndex={1000}
                     zIndexInverse={3000}
-                    dropDownDirection="TOP"
+                    dropDownDirection="BOTTOM"
                   />
                 </View>
                 <View style={styles.inputContainer}>

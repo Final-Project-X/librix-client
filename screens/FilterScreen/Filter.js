@@ -6,7 +6,6 @@ import ButtonGradient from '../../components/Gradients/ButtonGradient';
 import styles from './styles';
 import PrimaryBold from '../../components/Texts/PrimaryBold';
 import { useDispatch, useSelector } from 'react-redux';
-import { helpGetPoolOfBooks } from '../../utils/apiCalls';
 import { getPoolOfBooks } from '../../redux/actions/poolOfBooksActions';
 
 const Filter = ({ navigation }) => {
@@ -59,13 +58,14 @@ const Filter = ({ navigation }) => {
   const user = useSelector((state) => state.user.user);
 
   const apply = async (city, genre, language) => {
-    const poolOfBooks = await helpGetPoolOfBooks({
-      city,
-      genre,
-      language,
-      userID: user._id,
-    });
-    dispatch(getPoolOfBooks(poolOfBooks));
+    dispatch(
+      getPoolOfBooks({
+        city,
+        genre,
+        language,
+        userID: user._id,
+      }),
+    );
   };
 
   return (
