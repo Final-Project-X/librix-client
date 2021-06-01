@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
-import { styles } from './style';
+import { styles } from './styles';
 import { colors } from '../../../global/styles';
 
 // Icon buttons for the matches in another user's profile

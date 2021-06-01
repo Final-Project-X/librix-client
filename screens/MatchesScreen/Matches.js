@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { FlatList, SafeAreaView } from 'react-native';
+import React, { useEffect, useState, useCallback } from 'react';
+import { FlatList, SafeAreaView, View } from 'react-native';
 import { MenuProvider } from 'react-native-popup-menu';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
-import { HeaderIconButton } from '../../components/Buttons/IconButtons/HeaderIconButton';
+// import { HeaderIconButton } from '../../components/Buttons/IconButtons/HeaderIconButton';
 import Match from '../../components/Matches/Match';
 import AlertModal from '../../components/AlertModal/AlertModal';
-import { colors } from '../../global/styles';
+// import { colors } from '../../global/styles';
 import PrimaryText from '../../components/Texts/PrimaryText';
+import PrimaryMedium from '../../components/Texts/PrimaryMedium';
 
 import { useSelector, useDispatch } from 'react-redux';
-// import { getMatches } from '../../redux/actions/matchesActions';
+import { getMatches } from '../../redux/actions/matchesActions';
+import { styles } from '../../components/Matches/styles';
 // import { loginUser } from '../../redux/actions/userActions';
-// import { markBookAsReserved } from '../../redux/actions/usersBooksActions';
-// import { helpReserveBook } from '../../utils/apiCalls';
+import { markBookAsReserved } from '../../redux/actions/usersBooksActions';
+import { helpReserveBook } from '../../utils/apiCalls';
 
 //! do not remove:
 // import { helpReserveBook } from '../../utils/apiCalls';
@@ -123,18 +125,18 @@ const SAMPLE_MATCHES_OBJECT = [
 const Matches = ({ navigation }) => {
   // const username = 'audreeeyyy';
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   // console.log('------------------------');
 
   // const appState = useSelector((state) => state);
   // console.log('state! ===>', appState);
-  // const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.user.user);
   // console.log('<user> after calling useSelector', user);
   // console.log('userID', user._id);
-  // const matches = useSelector((state) => state.matches.matches);
+  const matches = useSelector((state) => state.matches.matches);
   // console.log('<matches> after calling useSelector', matches);
-  // const booksToOffer = useSelector((state) => state.user.user.booksToOffer);
+  const booksToOffer = useSelector((state) => state.user.user.booksToOffer);
   // console.log('<booksToOffer> after calling useSelector', booksToOffer);
 
   // fetch user data, i.e. by loggin the user in
@@ -148,58 +150,78 @@ const Matches = ({ navigation }) => {
   //   // dispatch(getMatches(user._id));
   // }, []);
 
-  // useEffect(() => {
-  //   console.log('userID:', user._id);
-  //   // get the array of matches, set the state
-  //   dispatch(getMatches(user._id));
-  // }, []);
+  useEffect(() => {
+    console.log('userID:', user._id);
+    // get the array of matches, set the state
+    dispatch(getMatches(user._id));
+  }, []);
 
-  // console.log('user / store / matches:', matches);
+  console.log('user / store / matches:', matches);
 
   const [isReserveModalShown, setIsReserveModalShown] = useState(false);
   const [isReceiptModalShown, setIsReceiptModalShown] = useState(false);
   const [isDeleteModalShown, setIsDeleteModalShown] = useState(false);
 
   const [bookIDToReserve, setBookIDToReserve] = useState(null);
+  const [bookIDToDelete, setBookIDToDelete] = useState(null);
+  const [matchIDToDelete, setMatchIDToDelete] = useState(null);
 
-  const onReserveModalPress = async () => {
-    // change the booksToOffer state
-    // dispatch(markBookAsReserved(bookIDToReserve, booksToOffer));
+  const notifyBackendOfReservedBook = useCallback(async (bookID) => {
+    try {
+      const resultOfReservation = await helpReserveBook(bookID);
+      console.log('result of Reservation', resultOfReservation.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
 
-    //? call the backend — helpReserveBook
-    // try {
-    //   const resultOfReservation = await helpReserveBook(bookIDToReserve);
-    //   console.log('resultOfReservation', resultOfReservation);
-    // } catch (err) {
-    //   console.log(err);
-    // }
-
+  const onReserveModalPress = () => {
+    // update the booksToOffer state
+    dispatch(markBookAsReserved(bookIDToReserve, booksToOffer));
+    // update the book status in the backend
+    notifyBackendOfReservedBook(bookIDToReserve);
+    // ? could be a toast message/alert instead of the log
     console.log('You just reserved a book!', bookIDToReserve);
+    // close the modal
     setIsReserveModalShown(false);
+    // clean up the state
     setBookIDToReserve(null);
   };
 
   const onReceiptModalPress = () => {
+    // update the booksToOffer state
+
+    // update the matches state
+
+    // delete the match from the DB
+
+    // remove the book from the DB
+
     console.log('You finalized the deal!');
     setIsReceiptModalShown(false);
+    // clean up the states
+    setBookIDToDelete(null);
+    setMatchIDToDelete(null);
   };
 
   const onDeleteModalPress = () => {
     console.log('You deleted the match!');
     setIsDeleteModalShown(false);
+    // clean up the states
+    setMatchIDToDelete(null);
   };
 
   return (
     <MenuProvider>
       <ScreenGradient>
-        <SafeAreaView>
+        {/* <SafeAreaView>
           <HeaderIconButton
             iconName="user"
             iconColor={colors.white}
             buttonColor={colors.primary.dark}
             handlePress={() => navigation.toggleDrawer()}
           />
-        </SafeAreaView>
+        </SafeAreaView> */}
 
         {/* Reserve your book modal */}
         <AlertModal
@@ -218,6 +240,10 @@ const Matches = ({ navigation }) => {
           setShowModal={setIsReceiptModalShown}
           buttonText="Confirm"
           handlePress={onReceiptModalPress}
+          doCleanup={() => {
+            setBookIDToDelete(null);
+            setMatchIDToDelete(null);
+          }}
         >
           <PrimaryText text="Got the book? Simply say so and close the bloody match!" />
         </AlertModal>
@@ -228,18 +254,17 @@ const Matches = ({ navigation }) => {
           setShowModal={setIsDeleteModalShown}
           buttonText="Delete"
           handlePress={onDeleteModalPress}
+          doCleanup={() => setMatchIDToDelete(null)}
         >
           <PrimaryText text="Don't want to exchange? Just delete the bloody match!" />
         </AlertModal>
 
         <FlatList
-          data={SAMPLE_MATCHES_OBJECT}
+          data={matches}
           renderItem={({ item, index }) => (
             <Match
               matchNum={index + 1}
               matchInfo={item}
-              username="username"
-              // username={user.username}
               alertSetters={{
                 setIsReserveModalShown,
                 setIsReceiptModalShown,
@@ -249,6 +274,22 @@ const Matches = ({ navigation }) => {
             />
           )}
           keyExtractor={(item) => item._id}
+          ListEmptyComponent={
+            <View>
+              <PrimaryMedium
+                text="No matches? Go navigate our pool of books!"
+                customStyles={styles.matchesListEmpty}
+              />
+            </View>
+          }
+          ListFooterComponent={
+            <View>
+              <PrimaryMedium
+                text="That's it!"
+                customStyles={styles.matchesListEnd}
+              />
+            </View>
+          }
         />
       </ScreenGradient>
     </MenuProvider>

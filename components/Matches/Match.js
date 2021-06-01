@@ -1,25 +1,29 @@
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
 import { colors } from '../../global/styles';
 import { MatchesIconButton } from '../Buttons/IconButtons/MatchesIconButton';
 import PrimaryText from '../Texts/PrimaryText';
 import MatchBookCard from './MatchBookCard';
 import MatchMenu from './MatchMenu';
+import { styles } from './styles';
+import { useSelector, useDispatch } from 'react-redux';
 
 const Match = ({
   matchNum,
   matchInfo,
-  username,
   alertSetters,
   onSetBookID,
+  // ...other
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // console.log('other props in Match.js:', other);
 
+  const user = useSelector((state) => state.user.user);
   // books on the left-hand side are those which belong to the current user, books on the right-hand side are other person's books
   const { bookOne, bookTwo } = matchInfo;
-  const leftHandBook = bookOne.owner.username === username ? bookOne : bookTwo;
-  const rightHandBook = bookOne.owner.username === username ? bookTwo : bookOne;
+  const leftHandBook = bookOne.owner === user._id ? bookOne : bookTwo;
+  const rightHandBook = bookOne.owner === user._id ? bookTwo : bookOne;
 
   const onProfileIconPress = () => {
     console.log('click the <profile> icon button in the match!');
@@ -42,23 +46,27 @@ const Match = ({
           customStyles={styles.matchHeader}
         />
         <View style={styles.matchRow}>
-          <MatchesIconButton
+          {/* <MatchesIconButton
             iconSize={20}
             iconName="user"
             position="left"
             handlePress={onProfileIconPress}
-          />
+          /> */}
+          {/* <MatchesIconButton
+            iconName="message-circle"
+            handlePress={onMessageIconPress}
+          /> */}
+          <MatchesIconButton iconName="user" handlePress={onProfileIconPress} />
           <MatchesIconButton
-            iconSize={20}
             iconName="message-circle"
             handlePress={onMessageIconPress}
           />
-
           <MatchMenu
             isMenuOpen={isMenuOpen}
             closeHandler={() => setIsMenuOpen(false)}
             onMoreIconPress={onMoreIconPress}
             alertSetters={alertSetters}
+            menuOpenSetter={setIsMenuOpen}
             onSetBookID={() => onSetBookID(leftHandBook._id)}
           />
         </View>
@@ -66,7 +74,6 @@ const Match = ({
 
       <View style={styles.matchRow}>
         <MatchBookCard
-          bookOwner={'You'}
           bookTitle={leftHandBook.title}
           bookAuthor={leftHandBook.authors[0]}
           bookImageUri={
@@ -77,7 +84,6 @@ const Match = ({
         />
         <Feather name="refresh-cw" size={24} color={colors.primary.dark} />
         <MatchBookCard
-          bookOwner={rightHandBook.owner.username}
           bookTitle={rightHandBook.title}
           bookAuthor={rightHandBook.authors[0]}
           bookImageUri={
@@ -90,24 +96,5 @@ const Match = ({
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  matchCard: {
-    margin: 10,
-    paddingHorizontal: 10,
-    paddingTop: 10,
-    paddingBottom: 20,
-    backgroundColor: colors.white,
-    borderRadius: 20,
-  },
-  matchRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'baseline',
-  },
-  matchHeader: {
-    fontSize: 24,
-  },
-});
 
 export default Match;

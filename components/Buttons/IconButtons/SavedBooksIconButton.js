@@ -2,7 +2,7 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
 import { colors } from '../../../global/styles';
-import { styles, positionStyles } from './style';
+import { styles, positionStyles } from './styles';
 
 // icon buttons for the saved books cards
 

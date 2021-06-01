@@ -2,24 +2,16 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
 import { colors } from '../../../global/styles';
-import { styles, shadowStyles } from './style';
+import { styles, shadowStyles, matchIconStyles } from './styles';
 
-export const MatchesIconButton = ({
-  iconSize,
-  iconName,
-  position,
-  handlePress,
-}) => {
+export const MatchesIconButton = ({ iconName, handlePress }) => {
   return (
     <TouchableOpacity
       // style={[styles(iconSize, position).iconButton, shadowStyles(true).shadow]}
-      style={[
-        styles(iconSize, position, colors.white).iconButton,
-        shadowStyles(true).shadow,
-      ]}
+      // style={matchIconStyles.iconButton}
       onPress={handlePress}
     >
-      <Feather name={iconName} size={iconSize} color={colors.primary.dark} />
+      <Feather name={iconName} size={20} color={colors.primary.dark} />
     </TouchableOpacity>
   );
 };

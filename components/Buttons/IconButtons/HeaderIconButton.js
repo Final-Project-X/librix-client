@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
-import { styles, shadowStyles } from './style';
+import { styles, shadowStyles } from './styles';
 
 export const HeaderIconButton = ({
   iconName,

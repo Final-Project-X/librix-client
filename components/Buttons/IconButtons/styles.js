@@ -33,3 +33,15 @@ export const positionStyles = (absTop, absLeft, absRight) =>
       right: absRight,
     },
   });
+
+export const matchIconStyles = StyleSheet.create({
+  iconButton: {
+    width: 30,
+    height: 30,
+    backgroundColor: colors.white,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 50,
+    margin: 10,
+  },
+});

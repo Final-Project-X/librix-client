@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { TouchableHighlight, StyleSheet, Text } from 'react-native';
+import { TouchableHighlight } from 'react-native';
 import {
   Menu,
   MenuOptions,
   MenuOption,
   MenuTrigger,
 } from 'react-native-popup-menu';
-import { colors } from '../../global/styles';
 import { MatchesIconButton } from '../Buttons/IconButtons/MatchesIconButton';
 import PrimaryText from '../Texts/PrimaryText';
+import { textStyles } from './styles';
 
 const MatchMenuItem = ({ text, handlePress, onItemSelect }) => {
   const [isActive, setIsActive] = useState(false);
@@ -30,6 +30,7 @@ const MatchMenu = ({
   onMoreIconPress,
   alertSetters,
   onSetBookID,
+  menuOpenSetter,
 }) => {
   const {
     setIsReserveModalShown,
@@ -41,30 +42,38 @@ const MatchMenu = ({
     console.log('select reserve book menu item');
     // open modal:
     setIsReserveModalShown(true);
-    // call the bookID setter,
-    // so that the ID is accessible on the top level
+    // call the bookID setter to pass it to the top:
     onSetBookID();
+    // close the menu:
+    menuOpenSetter(false);
   };
   const selectReceipt = () => {
     console.log('select confirm receipt menu item');
     setIsReceiptModalShown(true);
-    // set ID of the book that will be removed from the database
+    // set ID of the book that will be removed from both user's book and the DB
     // remove the book from the database
+    // set ID of the match that will be removed from both user's matches and the DB
     // update user profile: +1 point
+    menuOpenSetter(false);
   };
   const selectDelete = () => {
     console.log('select delete match menu item');
     setIsDeleteModalShown(true);
+    menuOpenSetter(false);
   };
 
   return (
     <>
       <Menu opened={isMenuOpen} onBackdropPress={closeHandler}>
         <MenuTrigger>
-          <MatchesIconButton
+          {/* <MatchesIconButton
             iconSize={20}
             iconName="more-vertical"
             position="right"
+            handlePress={onMoreIconPress}
+          /> */}
+          <MatchesIconButton
+            iconName="more-vertical"
             handlePress={onMoreIconPress}
           />
         </MenuTrigger>
@@ -93,19 +102,10 @@ const MatchMenu = ({
   );
 };
 
-const textStyles = (isSelected) =>
-  StyleSheet.create({
-    text: {
-      padding: 10,
-      color: isSelected ? colors.primary.dark : colors.black,
-      backgroundColor: isSelected ? colors.neutralBackground : colors.white,
-    },
-  });
-
 const optionsStyles = {
   optionsContainer: {
     borderRadius: 10,
-    marginTop: 50,
+    marginTop: -50,
   },
 };
 
