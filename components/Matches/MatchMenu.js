@@ -29,7 +29,9 @@ const MatchMenu = ({
   closeHandler,
   onMoreIconPress,
   alertSetters,
-  onSetBookID,
+  onSetReserveBookID,
+  onSetDeleteBookID,
+  onSetMatchID,
   menuOpenSetter,
 }) => {
   const {
@@ -40,25 +42,31 @@ const MatchMenu = ({
 
   const selectReserve = () => {
     console.log('select reserve book menu item');
-    // open modal:
+    // open modal
     setIsReserveModalShown(true);
-    // call the bookID setter to pass it to the top:
-    onSetBookID();
-    // close the menu:
+    // call the bookID setter to pass it to the top
+    onSetReserveBookID();
+    // close the menu
     menuOpenSetter(false);
   };
   const selectReceipt = () => {
     console.log('select confirm receipt menu item');
+    // open modal
     setIsReceiptModalShown(true);
     // set ID of the book that will be removed from both user's book and the DB
-    // remove the book from the database
+    onSetDeleteBookID();
     // set ID of the match that will be removed from both user's matches and the DB
-    // update user profile: +1 point
+    onSetMatchID();
+    // close the menu
     menuOpenSetter(false);
   };
   const selectDelete = () => {
     console.log('select delete match menu item');
+    // open modal
     setIsDeleteModalShown(true);
+    // set ID of the match that will be removed from both user's matches and the DB
+    onSetMatchID();
+    // close the menu
     menuOpenSetter(false);
   };
 

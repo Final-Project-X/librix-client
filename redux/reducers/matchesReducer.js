@@ -12,6 +12,8 @@ export const matchesReducer = (state = initState, action) => {
       return { ...state, matches: action.payload };
     case ACTIONS.DELETE_MATCH:
       return { ...state, matches: action.payload };
+    case ACTIONS.DELETE_MULTIPLE_MATCHES:
+      return { ...state, matches: action.payload };
     default:
       return state;
   }

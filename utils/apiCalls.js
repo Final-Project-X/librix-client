@@ -25,15 +25,16 @@ export const addBook = async (bookData) => {
   }
 };
 
-// export const getAllBooks = async () => {
-//   try {
-//     let response = await axios.get('/books');
-//     console.log('Books from API', response.data);
-//     return response.data;
-//   } catch (error) {
-//     console.log('error', error.response);
-//   }
-// };
+export const helpDeleteBook = async (bookID) => {
+  try {
+    const response = await axios.delete(`/books/${bookID}`);
+    console.log('response from helpDeleteBook API call', response);
+  } catch (err) {
+    console.log('ERROR from helpDeleteBook API call');
+
+    console.log(err);
+  }
+};
 
 export const helpReserveBook = async (bookID) => {
   try {
@@ -125,6 +126,7 @@ export const helpCreateMatch = async (data) => {
 
 export const helpUpdateUser = async (userData) => {
   const { userID, ...otherData } = userData;
+  console.log('otherData from helpUpdateUser in the API calls', otherData);
   try {
     const res = await axios.put(`/user/${userID}`, otherData);
     return res.data;
@@ -142,7 +144,7 @@ export const helpGetUserMatches = async (userID) => {
   }
 };
 
-// NOT really need this:
+// when the status is set to 'exchanged', the match is deleted from the DB, along with all other matches that have the current books IDs
 export const helpUpdateMatch = async (data) => {
   const { id, status } = data;
   try {
@@ -155,7 +157,8 @@ export const helpUpdateMatch = async (data) => {
 
 export const helpDeleteMatch = async (matchId) => {
   try {
-    await axios.delete(`/matches/${matchId}`);
+    const res = await axios.delete(`/matches/${matchId}`);
+    return res.data;
   } catch (err) {
     console.log(err);
   }

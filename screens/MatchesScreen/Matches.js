@@ -1,23 +1,32 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { FlatList, SafeAreaView, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { FlatList, View } from 'react-native';
 import { MenuProvider } from 'react-native-popup-menu';
+// REDUX
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  deleteBook,
+  markBookAsReserved,
+} from '../../redux/actions/usersBooksActions';
+import {
+  deleteMatch,
+  deleteMultipleMatches,
+  getMatches,
+} from '../../redux/actions/matchesActions';
+// COMPONENTS
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
-// import { HeaderIconButton } from '../../components/Buttons/IconButtons/HeaderIconButton';
 import Match from '../../components/Matches/Match';
 import AlertModal from '../../components/AlertModal/AlertModal';
-// import { colors } from '../../global/styles';
 import PrimaryText from '../../components/Texts/PrimaryText';
 import PrimaryMedium from '../../components/Texts/PrimaryMedium';
-
-import { useSelector, useDispatch } from 'react-redux';
-import { getMatches } from '../../redux/actions/matchesActions';
+// UTILS
+import {
+  notifyBackendOfReservedBook,
+  notifyBackendOfDeletedMatch,
+  notifyBackendOfExchange,
+  sendUserPointToBackend,
+} from './asyncFunctions';
+// STYLES
 import { styles } from '../../components/Matches/styles';
-// import { loginUser } from '../../redux/actions/userActions';
-import { markBookAsReserved } from '../../redux/actions/usersBooksActions';
-import { helpReserveBook } from '../../utils/apiCalls';
-
-//! do not remove:
-// import { helpReserveBook } from '../../utils/apiCalls';
 
 const SAMPLE_MATCHES_OBJECT = [
   {
@@ -123,40 +132,18 @@ const SAMPLE_MATCHES_OBJECT = [
 ];
 
 const Matches = ({ navigation }) => {
-  // const username = 'audreeeyyy';
-
   const dispatch = useDispatch();
 
-  // console.log('------------------------');
-
-  // const appState = useSelector((state) => state);
-  // console.log('state! ===>', appState);
   const user = useSelector((state) => state.user.user);
-  // console.log('<user> after calling useSelector', user);
-  // console.log('userID', user._id);
   const matches = useSelector((state) => state.matches.matches);
-  // console.log('<matches> after calling useSelector', matches);
   const booksToOffer = useSelector((state) => state.user.user.booksToOffer);
-  // console.log('<booksToOffer> after calling useSelector', booksToOffer);
-
-  // fetch user data, i.e. by loggin the user in
-  // useEffect(() => {
-  //   dispatch(
-  //     loginUser({
-  //       email: 'Citlalli_Cormier@hotmail.com',
-  //       password: 'Test123!',
-  //     }),
-  //   );
-  //   // dispatch(getMatches(user._id));
-  // }, []);
 
   useEffect(() => {
     console.log('userID:', user._id);
-    // get the array of matches, set the state
     dispatch(getMatches(user._id));
   }, []);
 
-  console.log('user / store / matches:', matches);
+  // console.log('user / store / matches:', matches);
 
   const [isReserveModalShown, setIsReserveModalShown] = useState(false);
   const [isReceiptModalShown, setIsReceiptModalShown] = useState(false);
@@ -166,49 +153,47 @@ const Matches = ({ navigation }) => {
   const [bookIDToDelete, setBookIDToDelete] = useState(null);
   const [matchIDToDelete, setMatchIDToDelete] = useState(null);
 
-  const notifyBackendOfReservedBook = useCallback(async (bookID) => {
-    try {
-      const resultOfReservation = await helpReserveBook(bookID);
-      console.log('result of Reservation', resultOfReservation.data);
-    } catch (err) {
-      console.log(err);
-    }
-  }, []);
-
   const onReserveModalPress = () => {
     // update the booksToOffer state
     dispatch(markBookAsReserved(bookIDToReserve, booksToOffer));
     // update the book status in the backend
     notifyBackendOfReservedBook(bookIDToReserve);
-    // ? could be a toast message/alert instead of the log
-    console.log('You just reserved a book!', bookIDToReserve);
     // close the modal
     setIsReserveModalShown(false);
     // clean up the state
     setBookIDToReserve(null);
+    // ? could be a toast message/alert instead of the log
+    console.log('You just reserved a book!', bookIDToReserve);
   };
 
   const onReceiptModalPress = () => {
     // update the booksToOffer state
+    dispatch(deleteBook(bookIDToDelete, booksToOffer));
+    // update the matches (state)
+    // dispatch(deleteMatch(matchIDToDelete, matches)); — REPLACED BY DISPATCHER BELOW
+    dispatch(deleteMultipleMatches(bookIDToDelete, matches));
+    // update the status of the match in the DB, which will delete this match and then remove the books from all other matches
+    notifyBackendOfExchange(matchIDToDelete);
 
-    // update the matches state
-
-    // delete the match from the DB
-
-    // remove the book from the DB
-
-    console.log('You finalized the deal!');
     setIsReceiptModalShown(false);
     // clean up the states
     setBookIDToDelete(null);
     setMatchIDToDelete(null);
+    // add +1 to user's profile points
+    sendUserPointToBackend(user);
+    console.log('You finalized the deal!');
   };
 
   const onDeleteModalPress = () => {
-    console.log('You deleted the match!');
+    // delete the match from the user state
+    dispatch(deleteMatch(matchIDToDelete, matches));
+    // delete the match from the DB
+    notifyBackendOfDeletedMatch(matchIDToDelete);
+    // hide the modal
     setIsDeleteModalShown(false);
     // clean up the states
     setMatchIDToDelete(null);
+    console.log('You deleted the match!');
   };
 
   return (
@@ -270,7 +255,9 @@ const Matches = ({ navigation }) => {
                 setIsReceiptModalShown,
                 setIsDeleteModalShown,
               }}
-              onSetBookID={setBookIDToReserve}
+              onSetReserveBookID={setBookIDToReserve}
+              onSetDeleteBookID={setBookIDToDelete}
+              onSetMatchID={setMatchIDToDelete}
             />
           )}
           keyExtractor={(item) => item._id}
@@ -283,12 +270,15 @@ const Matches = ({ navigation }) => {
             </View>
           }
           ListFooterComponent={
-            <View>
-              <PrimaryMedium
-                text="That's it!"
-                customStyles={styles.matchesListEnd}
-              />
-            </View>
+            matches &&
+            matches.length && (
+              <View>
+                <PrimaryMedium
+                  text="That's it!"
+                  customStyles={styles.matchesListEnd}
+                />
+              </View>
+            )
           }
         />
       </ScreenGradient>

@@ -13,7 +13,9 @@ const Match = ({
   matchNum,
   matchInfo,
   alertSetters,
-  onSetBookID,
+  onSetReserveBookID,
+  onSetDeleteBookID,
+  onSetMatchID,
   // ...other
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -67,7 +69,9 @@ const Match = ({
             onMoreIconPress={onMoreIconPress}
             alertSetters={alertSetters}
             menuOpenSetter={setIsMenuOpen}
-            onSetBookID={() => onSetBookID(leftHandBook._id)}
+            onSetReserveBookID={() => onSetReserveBookID(leftHandBook._id)}
+            onSetDeleteBookID={() => onSetDeleteBookID(leftHandBook._id)}
+            onSetMatchID={() => onSetMatchID(matchInfo._id)}
           />
         </View>
       </View>
