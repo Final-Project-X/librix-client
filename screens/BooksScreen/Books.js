@@ -7,17 +7,14 @@ import ScreenGradient from '../../components/Gradients/ScreenGradient';
 import { Feather } from '@expo/vector-icons';
 import AlertModal from '../../components/AlertModal/AlertModal';
 import PrimaryMedium from '../../components/Texts/PrimaryMedium';
-import {
-  helpGetPoolOfBooks,
-  helpAddBookToSavedBooks,
-} from '../../utils/apiCalls';
+import { helpAddBookToSavedBooks } from '../../utils/apiCalls';
 import { getPoolOfBooks } from '../../redux/actions/poolOfBooksActions';
 import { addBookToSavedBooks } from '../../redux/actions/savedBooksActions';
 import { removeBookFromPool } from '../../redux/actions/poolOfBooksActions';
 import { createMatch } from '../../redux/actions/matchesActions';
 import { useDispatch, useSelector } from 'react-redux';
 
-const books = [
+const boks = [
   {
     authors: ['Marcus Hünnebeck'],
     category: ['Drama'],
@@ -106,18 +103,17 @@ const Books = ({ navigation }) => {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
-  console.log({ user });
+  console.log('from Books', user);
 
   useEffect(() => {
     const getData = async () => {
-      const allBooks = await helpGetPoolOfBooks(user._id);
-      dispatch(getPoolOfBooks(allBooks));
+      dispatch(getPoolOfBooks({ userID: user._id }));
     };
     getData();
   }, []);
 
-  // const books = useSelector((state) => state.poolOfBooks.books);
-  // console.log({ books });
+  const books = useSelector((state) => state.poolOfBooks.books);
+  console.log({ books });
 
   const handleYes = (index) => {
     const book = books[index];
@@ -164,7 +160,7 @@ const Books = ({ navigation }) => {
           />
         </AlertModal>
         <Swiper
-          cards={books}
+          cards={books || []}
           cardIndex={0}
           renderCard={(book) => (
             <SwipingBook item={book} navigation={navigation} />

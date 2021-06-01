@@ -77,16 +77,15 @@ export const helpGetAllBooks = async () => {
 
 // also, to reset the state when applying the filters
 export const helpGetPoolOfBooks = async (booksData) => {
+  console.log(booksData);
   const filterData = {
-    city: booksData.city,
-    genre: booksData.genre,
-    language: booksData.language,
+    city: booksData?.city,
+    genre: booksData?.genre,
+    language: booksData?.language,
   };
   try {
-    const res = await axios.post(
-      `/user/library/${booksData.userID}`,
-      filterData,
-    );
+    const res = await axios.post(`/user/library/${booksData?.userID}`);
+    console.log('from Api', res.data);
     return res.data;
   } catch (err) {
     console.log(err);

@@ -38,7 +38,10 @@ const SavedBookList = ({ item, savedBooks, navigation }) => {
       onPress={() => navigation.navigate('SingleBook', { item })}
     >
       <View style={styles.item}>
-        <Image source={{ uri: item.selectedFiles }} style={styles.img} />
+        <Image
+          source={{ uri: item.selectedFiles.toString() }}
+          style={styles.img}
+        />
         <SavedBooksIconButton
           iconName={'trash'}
           buttonColor={colors.secondary.dark}
@@ -49,7 +52,7 @@ const SavedBookList = ({ item, savedBooks, navigation }) => {
         <View style={styles.detail}>
           <PrimaryBold text={item.title} customStyles={styles.titleText} />
           <PrimaryLight text={item.description} numberOfLines={2} />
-          <PrimaryText text={item.category[0]} customStyles={styles.category} />
+          <PrimaryText text={item.genre} customStyles={styles.category} />
         </View>
         <SavedBooksIconButton
           iconName={'heart'}

@@ -89,12 +89,12 @@ const AddBook3 = ({ navigation, route }) => {
     setLanguageOpen(false);
   }, []);
 
-  // const dispatch = useDispatch();
-  // const user = useSelector((state) => state.userReducer.user);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.userReducer.user);
 
   const { title, authors, publishedDate, description } = route.params;
   const bookData = {
-    // city: user.city,
+    city: user.city,
     title: title,
     authors: authors,
     publishedDate: publishedDate,
@@ -113,7 +113,7 @@ const AddBook3 = ({ navigation, route }) => {
         personalDescription: valueNote,
         selectedFiles: [image.base64],
       });
-      // dispatch(addBookToOfferedBooks(newBook, user.booksToOffer));
+      dispatch(addBookToOfferedBooks(newBook, user.booksToOffer));
       navigation.navigate('Books');
       setError(null);
       setNote(null);

@@ -11,7 +11,10 @@ const SingleBook = ({ route }) => {
     <ScreenGradient>
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <View style={styles.singleBook}>
-          <Image source={{ uri: item?.selectedFiles }} style={styles.card} />
+          <Image
+            source={{ uri: item?.selectedFiles.toString() }}
+            style={styles.card}
+          />
 
           <View>
             <SerifText text={item?.title} customStyles={styles.text} />
@@ -34,7 +37,7 @@ const SingleBook = ({ route }) => {
             </View>
             <View style={styles.item}>
               <PrimaryText
-                text={`Category: ${item?.category[0]}`}
+                text={`Category: ${item?.genre}`}
                 customStyles={styles.lan}
               />
               <PrimaryText text={`Condition: ${item?.condition}`} />
