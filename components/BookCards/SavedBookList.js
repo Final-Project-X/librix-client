@@ -17,15 +17,7 @@ const SavedBookList = ({ item, navigation }) => {
   const savedBooks = useSelector((state) => state.savedBooks.savedBooks);
 
   const handleDelete = async (book) => {
-    await helpDeleteBookFromSavedBooks({
-      bookId: book._id,
-      userId: user._id,
-    });
-    dispatch(removeBookFromSavedBooks(book._id, savedBooks));
-    const newSavedBooks = savedBooks.filter(
-      (savedBook) => savedBook._id !== book._id,
-    );
-    return newSavedBooks;
+    dispatch(removeBookFromSavedBooks(book._id, user._id, savedBooks));
   };
 
   const handleLike = async (book) => {

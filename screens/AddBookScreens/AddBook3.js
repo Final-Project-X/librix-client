@@ -163,8 +163,6 @@ const AddBook3 = ({ navigation, route }) => {
                     zIndexInverse={1000}
                     dropDownDirection="BOTTOM"
                   />
-                </View>
-                <View style={styles.pickerContainer}>
                   <DropDownPicker
                     style={styles.picker}
                     open={conditionOpen}
@@ -180,11 +178,9 @@ const AddBook3 = ({ navigation, route }) => {
                     onChangeValue={(val) => setValueCondition(val)}
                     dropDownContainerStyle={styles.backgroundDrop}
                     zIndex={2000}
-                    zIndexInverse={2000}
+                    zIndexInverse={4000}
                     dropDownDirection="BOTTOM"
                   />
-                </View>
-                <View style={styles.pickerContainer}>
                   <DropDownPicker
                     style={styles.picker}
                     open={languageOpen}
