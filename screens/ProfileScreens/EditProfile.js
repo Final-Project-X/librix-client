@@ -15,8 +15,9 @@ import { useForm, Controller } from 'react-hook-form';
 import { Feather } from '@expo/vector-icons';
 import { colors } from '../../global/styles';
 import styles from './styles';
+import PrimaryHeader from '../../components/Headers/PrimaryHeader';
 
-const EditProfile = () => {
+const EditProfile = ({ navigation }) => {
   const {
     control,
     handleSubmit,
@@ -37,6 +38,11 @@ const EditProfile = () => {
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
+      <PrimaryHeader
+        text="Edit your profile"
+        navigation={navigation}
+        customStyles={customStyles.headerMarginTop}
+      />
       <ScreenGradient style={styles.gradient}>
         <ScrollView style={styles.container}>
           <View style={customStyles.form}>
@@ -151,6 +157,9 @@ const customStyles = StyleSheet.create({
   },
   font16: {
     fontSize: 16,
+  },
+  headerMarginTop: {
+    marginTop: 30,
   },
   form: {
     backgroundColor: colors.white,
