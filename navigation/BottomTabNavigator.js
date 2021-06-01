@@ -37,30 +37,6 @@ export const GradientMainScreen = ({
   );
 };
 
-const One = ({ navigation }) => (
-  <GradientMainScreen
-    screenText="One"
-    toggleDrawer={() => navigation.toggleDrawer()}
-  />
-);
-const Two = ({ navigation }) => (
-  <GradientMainScreen
-    screenText="Two"
-    toggleDrawer={() => navigation.toggleDrawer()}
-  />
-);
-const Three = ({ navigation }) => (
-  <GradientMainScreen
-    screenText="Three"
-    toggleDrawer={() => navigation.toggleDrawer()}
-  />
-);
-const Four = ({ navigation }) => (
-  <GradientMainScreen
-    screenText="Four"
-    toggleDrawer={() => navigation.toggleDrawer()}
-  />
-);
 const Messages = ({ navigation }) => (
   <GradientMainScreen
     screenText="Messages"
@@ -78,10 +54,8 @@ const BottomTabNavigator = () => {
       tabBar={(props) => <LibrixTabBar {...props} />}
       initialRouteName="Books"
     >
-      {/* <Tab.Screen name="Saved" component={SavedBooksStack} /> */}
-      <Tab.Screen name="One" component={One} />
-      {/* <Tab.Screen name="Books" component={BooksStack} /> */}
-      <Tab.Screen name="Two" component={Two} />
+      <Tab.Screen name="Saved" component={SavedBooksStack} />
+      <Tab.Screen name="Books" component={BooksStack} />
       <Tab.Screen name="Add book" component={AddBookStack} />
       <Tab.Screen name="Matches" component={MatchesStack} />
       <Tab.Screen name="Messages" component={Messages} />
