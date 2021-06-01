@@ -9,6 +9,7 @@ const AlertModal = ({
   showModal,
   setShowModal,
   children,
+  whiteButtonText,
   buttonText,
   handlePress,
   doCleanup, // in case we need to clean any states on Cancel
@@ -28,7 +29,11 @@ const AlertModal = ({
         />
         {children}
         <View style={styles.buttonGroup}>
-          <AlertButton text="Cancel" variant="white" handlePress={hideModal} />
+          <AlertButton
+            text={whiteButtonText}
+            variant="white"
+            handlePress={hideModal}
+          />
           <AlertButton
             text={buttonText}
             handlePress={handlePress}
