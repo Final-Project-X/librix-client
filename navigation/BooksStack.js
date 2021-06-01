@@ -5,6 +5,7 @@ import SingleBook from '../screens/SingleBookScreen/SingleBook';
 import AddBook1 from '../screens/AddBookScreens/AddBook1';
 import AddBook2 from '../screens/AddBookScreens/AddBook2';
 import AddBook3 from '../screens/AddBookScreens/AddBook3';
+import Filter from '../screens/FilterScreen/Filter';
 
 const Stack = createStackNavigator();
 
@@ -26,6 +27,11 @@ const BooksStack = () => {
         name="SingleBook"
         component={SingleBook}
         options={{ title: null }}
+      />
+      <Stack.Screen
+        name="Filter"
+        component={Filter}
+        options={{ title: 'Your preferences' }}
       />
       <Stack.Screen
         name="AddBook1"
