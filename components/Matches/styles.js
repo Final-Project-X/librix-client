@@ -77,3 +77,63 @@ export const textStyles = (isSelected) =>
       backgroundColor: isSelected ? colors.neutralBackground : colors.white,
     },
   });
+
+export const matchPartnerMatchStyles = StyleSheet.create({
+  flexRow: {
+    flexDirection: 'row',
+  },
+  match: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.white,
+    padding: 20,
+    borderRadius: 20,
+    marginBottom: 20,
+  },
+  bookCard: {
+    width: 100,
+    shadowColor: colors.black,
+  },
+  nameLabel: {
+    position: 'absolute',
+    top: -5,
+    left: -5,
+    zIndex: 3,
+    backgroundColor: colors.white,
+    paddingVertical: 3,
+    paddingHorizontal: 5,
+    borderColor: colors.secondary.light,
+    borderRadius: 20,
+    borderStyle: 'solid',
+    borderWidth: 1,
+  },
+  nameLabelText: {
+    color: colors.secondary.dark,
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+  },
+  bookImage: {
+    width: '100%',
+    height: 100,
+    borderRadius: 20,
+    marginBottom: 5,
+  },
+  imageShadow: shadow.image,
+  rotateIcon: {
+    marginHorizontal: 15,
+  },
+  buttonGroup: {
+    marginLeft: 15,
+  },
+  button: {
+    padding: 11,
+    borderRadius: 50,
+  },
+  purpleBtn: {
+    backgroundColor: colors.primary.dark,
+    marginBottom: 15,
+  },
+  orangeBtn: {
+    backgroundColor: colors.secondary.dark,
+  },
+});

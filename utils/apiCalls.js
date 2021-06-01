@@ -164,3 +164,12 @@ export const helpDeleteMatch = async (matchId) => {
     console.log(err);
   }
 };
+
+export const helpGetMatchPartner = async (partnerID) => {
+  try {
+    const res = await axios.post('/user/users', { id: partnerID });
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};

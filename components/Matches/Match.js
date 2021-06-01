@@ -16,6 +16,7 @@ const Match = ({
   onSetReserveBookID,
   onSetDeleteBookID,
   onSetMatchID,
+  onMatchPartnerProfilePress,
   // ...other
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -29,6 +30,8 @@ const Match = ({
 
   const onProfileIconPress = () => {
     console.log('click the <profile> icon button in the match!');
+    onMatchPartnerProfilePress(rightHandBook.owner);
+    console.log('rightHandBook.owner', rightHandBook.owner);
   };
 
   const onMessageIconPress = () => {

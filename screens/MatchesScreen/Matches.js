@@ -132,6 +132,7 @@ const SAMPLE_MATCHES_OBJECT = [
 ];
 
 const Matches = ({ navigation }) => {
+  // console.log('navigation in Matches', navigation);
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user.user);
@@ -196,6 +197,11 @@ const Matches = ({ navigation }) => {
     console.log('You deleted the match!');
   };
 
+  const handleMatchPartnerProfilePress = (otherUserID) => {
+    console.log("other person's profile", otherUserID);
+    navigation.navigate('OthersProfile', { otherUser: otherUserID });
+  };
+
   return (
     <MenuProvider>
       <ScreenGradient>
@@ -258,6 +264,7 @@ const Matches = ({ navigation }) => {
               onSetReserveBookID={setBookIDToReserve}
               onSetDeleteBookID={setBookIDToDelete}
               onSetMatchID={setMatchIDToDelete}
+              onMatchPartnerProfilePress={handleMatchPartnerProfilePress}
             />
           )}
           keyExtractor={(item) => item._id}

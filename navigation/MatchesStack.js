@@ -1,23 +1,14 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import Matches from '../screens/MatchesScreen/Matches';
-import { SafeAreaView, Text, View } from 'react-native';
+import { SafeAreaView, Text } from 'react-native';
 import ScreenGradient from '../components/Gradients/ScreenGradient';
 import { HeaderIconButton } from '../components/Buttons/IconButtons/HeaderIconButton';
 import { colors } from '../global/styles';
-import PrimaryText from '../components/Texts/PrimaryText';
+import OthersProfile from '../screens/MatchesScreen/OthersProfile';
 
 const MatchesStack = createStackNavigator();
 
-const OtherUsersProfile = () => {
-  return (
-    <SafeAreaView>
-      <ScreenGradient>
-        <Text>Another User</Text>
-      </ScreenGradient>
-    </SafeAreaView>
-  );
-};
 const Chat = () => {
   return (
     <SafeAreaView>
@@ -50,9 +41,11 @@ export default ({ navigation }) => {
         }}
       />
       <MatchesStack.Screen
-        name="OtherUsersProfile"
-        component={OtherUsersProfile}
-        options={{ title: 'Not your profile' }}
+        name="OthersProfile"
+        component={OthersProfile}
+        options={{
+          headerShown: false,
+        }}
       />
       <MatchesStack.Screen
         name="Chat"
