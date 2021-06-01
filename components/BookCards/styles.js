@@ -13,6 +13,12 @@ const styles = StyleSheet.create({
     marginTop: -50,
     elevation: 4,
   },
+  container: {
+    flex: 0.8,
+    marginHorizontal: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   cardImage: {
     width: 200,
     height: 300,
@@ -48,6 +54,8 @@ const styles = StyleSheet.create({
   },
   noBooks: {
     textAlign: 'center',
+    marginBottom: 50,
+    fontSize: 16,
   },
   delete: {
     position: 'absolute',
@@ -81,6 +89,16 @@ const styles = StyleSheet.create({
   lan: {
     alignSelf: 'flex-start',
     marginTop: 5,
+  },
+  button: {
+    marginVertical: 20,
+    alignSelf: 'center',
+  },
+  buttonText: {
+    color: colors.white,
+    fontSize: 16,
+    paddingVertical: 10,
+    paddingHorizontal: 60,
   },
 });
 

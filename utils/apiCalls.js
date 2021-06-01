@@ -105,7 +105,6 @@ export const helpAddBookToSavedBooks = async (data) => {
 export const helpDeleteBookFromSavedBooks = async (data) => {
   try {
     const res = await axios.post('user/removeSavedBook', data);
-    console.log('delete', res.data);
     return res.data;
   } catch (err) {
     console.log(err);
