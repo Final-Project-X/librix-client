@@ -90,7 +90,7 @@ const AddBook3 = ({ navigation, route }) => {
   }, []);
 
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.userReducer.user);
+  const user = useSelector((state) => state.user.user);
 
   const { title, authors, publishedDate, description } = route.params;
   const bookData = {
@@ -103,22 +103,26 @@ const AddBook3 = ({ navigation, route }) => {
   };
 
   const handlePublishBook = async (valueGen, valueCon, valueLan, valueNote) => {
-    if (!valueGen || !valueCon || !valueLan || !valueNote || !image.base64) {
-      setError('All fields are required!');
-    } else {
-      const newBook = await addBook({
-        ...bookData,
-        genre: valueGen,
-        condition: valueCon,
-        language: valueLan,
-        personalDescription: valueNote,
-        selectedFiles: [image.base64],
-      });
-      dispatch(addBookToOfferedBooks(newBook, user.booksToOffer));
-      navigation.navigate('Books');
-      setError(null);
-      setNote(null);
-      setImage(null);
+    try {
+      if (!valueGen || !valueCon || !valueLan || !valueNote || !image.base64) {
+        setError('All fields are required!');
+      } else {
+        const newBook = await addBook({
+          ...bookData,
+          genre: valueGen,
+          condition: valueCon,
+          language: valueLan,
+          personalDescription: valueNote,
+          selectedFiles: [image.base64],
+        });
+        dispatch(addBookToOfferedBooks(newBook, user.booksToOffer));
+        navigation.navigate('Books');
+        setError(null);
+        setNote(null);
+        setImage(null);
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
