@@ -30,7 +30,7 @@ export const createMatch = (data) => async (dispatch) => {
     // `You got ${matchesArray.length} matches`
     console.log('log from the match checker', isThereAMatch);
 
-    if (isThereAMatch.response.message.slice(0, 7) === 'You got') {
+    if (isThereAMatch?.response?.message.slice(0, 7) === 'You got') {
       const updatedUserMatches = await helpGetUserMatches(data.userId);
       //TODO check if the sorting function works
       const matches = updatedUserMatches.sort(

@@ -115,9 +115,9 @@ export const helpDeleteBookFromSavedBooks = async (data) => {
 // /user/:id — gets userId via params and accepts bookID
 export const helpCreateMatch = async (data) => {
   const { userId, bookId } = data;
+  console.log('ids', userId, bookId);
   try {
-    const res = await axios.post(`/user/${userId}`, bookId);
-    // return value — a message
+    const res = await axios.post(`/user/${userId}`, { bookId });
     return res.data;
   } catch (err) {
     console.log(err);

@@ -7,9 +7,9 @@ import PrimaryBold from '../Texts/PrimaryBold';
 import PrimaryLight from '../Texts/PrimaryLight';
 import { removeBookFromSavedBooks } from '../../redux/actions/savedBooksActions';
 import { createMatch } from '../../redux/actions/matchesActions';
-import { helpDeleteBookFromSavedBooks } from '../../utils/apiCalls';
 import { SavedBooksIconButton } from '../Buttons/IconButtons/SavedBooksIconButton';
 import { useDispatch, useSelector } from 'react-redux';
+import Icon from '../../assets/icon.png';
 
 const SavedBookList = ({ item, navigation }) => {
   const dispatch = useDispatch();
@@ -21,13 +21,8 @@ const SavedBookList = ({ item, navigation }) => {
   };
 
   const handleLike = async (book) => {
-    const newSavedBooks = await helpDeleteBookFromSavedBooks({
-      bookId: book._id,
-      userId: user._id,
-    });
-    dispatch(createMatch(user._id, book._id));
-    dispatch(removeBookFromSavedBooks(book._id, savedBooks));
-    return newSavedBooks;
+    dispatch(createMatch({ userId: user._id, bookId: book._id }));
+    dispatch(removeBookFromSavedBooks(book._id, user._id, savedBooks));
   };
 
   return (
@@ -36,7 +31,11 @@ const SavedBookList = ({ item, navigation }) => {
     >
       <View style={styles.item}>
         <Image
-          source={{ uri: item.selectedFiles.toString() }}
+          source={
+            item.selectedFiles.length > 0
+              ? { uri: item.selectedFiles[0] }
+              : Icon
+          }
           style={styles.img}
         />
         <SavedBooksIconButton
