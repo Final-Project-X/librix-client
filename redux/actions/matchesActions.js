@@ -1,17 +1,22 @@
 import { ACTIONS } from './actions';
 import {
   helpCreateMatch,
-  helpFetchUser,
   helpUpdateMatch,
-  helpDeleteMatch,
+  helpGetUserMatches,
 } from '../../utils/apiCalls';
 
 // get matches
-export const getMatches = (usersMatches) => (dispatch) => {
-  dispatch({
-    type: ACTIONS.GET_USERS_MATCHES,
-    payload: usersMatches,
-  });
+export const getMatches = (userID) => async (dispatch) => {
+  try {
+    const userMatches = await helpGetUserMatches(userID);
+    // console.log('hi from getMatches', userMatches);
+    dispatch({
+      type: ACTIONS.GET_USERS_MATCHES,
+      payload: userMatches,
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 // create a match
@@ -26,9 +31,9 @@ export const createMatch = (data) => async (dispatch) => {
     console.log('log from the match checker', isThereAMatch);
 
     if (isThereAMatch.response.message.slice(0, 7) === 'You got') {
-      const updatedUser = await helpFetchUser(data.userId);
+      const updatedUserMatches = await helpGetUserMatches(data.userId);
       //TODO check if the sorting function works
-      const matches = updatedUser.matches.sort(
+      const matches = updatedUserMatches.sort(
         (a, b) => a.createdAt - b.createdAt,
       );
       dispatch({
@@ -63,17 +68,20 @@ export const updateMatchStatus =
   };
 
 // delete the match when match is rejected (or when the deal is done)
-export const deleteMatch = (matchId, usersMatches) => async (dispatch) => {
-  try {
-    await helpDeleteMatch(matchId);
-    const updatedMatches = usersMatches.filter(
-      (match) => match._id !== matchId,
-    );
-    dispatch({
-      type: ACTIONS.DELETE_MATCH,
-      payload: updatedMatches,
-    });
-  } catch (err) {
-    console.log(err);
-  }
+export const deleteMatch = (matchId, usersMatches) => (dispatch) => {
+  const updatedMatches = usersMatches.filter((match) => match._id !== matchId);
+  dispatch({
+    type: ACTIONS.DELETE_MATCH,
+    payload: updatedMatches,
+  });
+};
+
+export const deleteMultipleMatches = (bookID, usersMatches) => (dispatch) => {
+  const updatedMatches = usersMatches.filter(
+    (match) => match.bookOne._id !== bookID && match.bookTwo._id !== bookID,
+  );
+  dispatch({
+    type: ACTIONS.DELETE_MULTIPLE_MATCHES,
+    payload: updatedMatches,
+  });
 };

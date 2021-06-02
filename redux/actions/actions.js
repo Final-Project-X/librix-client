@@ -16,4 +16,5 @@ export const ACTIONS = {
   CREATE_MATCH: 'create new match',
   UPDATE_MATCH: 'update match',
   DELETE_MATCH: 'delete match',
+  DELETE_MULTIPLE_MATCHES: 'delete multiple matches',
 };

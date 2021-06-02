@@ -1,15 +1,32 @@
-import React, { useState } from 'react';
-import { FlatList, SafeAreaView } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { FlatList, View } from 'react-native';
 import { MenuProvider } from 'react-native-popup-menu';
+// REDUX
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  deleteBook,
+  markBookAsReserved,
+} from '../../redux/actions/usersBooksActions';
+import {
+  deleteMatch,
+  deleteMultipleMatches,
+  getMatches,
+} from '../../redux/actions/matchesActions';
+// COMPONENTS
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
-import { HeaderIconButton } from '../../components/Buttons/IconButtons/HeaderIconButton';
 import Match from '../../components/Matches/Match';
 import AlertModal from '../../components/AlertModal/AlertModal';
-import { colors } from '../../global/styles';
 import PrimaryText from '../../components/Texts/PrimaryText';
-
-//! do not remove:
-// import { helpReserveBook } from '../../utils/apiCalls';
+import PrimaryMedium from '../../components/Texts/PrimaryMedium';
+// UTILS
+import {
+  notifyBackendOfReservedBook,
+  notifyBackendOfDeletedMatch,
+  notifyBackendOfExchange,
+  sendUserPointToBackend,
+} from './asyncFunctions';
+// STYLES
+import { styles } from '../../components/Matches/styles';
 
 const SAMPLE_MATCHES_OBJECT = [
   {
@@ -115,43 +132,87 @@ const SAMPLE_MATCHES_OBJECT = [
 ];
 
 const Matches = ({ navigation }) => {
-  const username = 'audreeeyyy';
+  // console.log('navigation in Matches', navigation);
+  const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.user.user);
+  const matches = useSelector((state) => state.matches.matches);
+  const booksToOffer = useSelector((state) => state.user.user.booksToOffer);
+
+  useEffect(() => {
+    console.log('userID:', user._id);
+    dispatch(getMatches(user._id));
+  }, []);
+
+  // console.log('user / store / matches:', matches);
 
   const [isReserveModalShown, setIsReserveModalShown] = useState(false);
   const [isReceiptModalShown, setIsReceiptModalShown] = useState(false);
   const [isDeleteModalShown, setIsDeleteModalShown] = useState(false);
 
   const [bookIDToReserve, setBookIDToReserve] = useState(null);
+  const [bookIDToDelete, setBookIDToDelete] = useState(null);
+  const [matchIDToDelete, setMatchIDToDelete] = useState(null);
 
   const onReserveModalPress = () => {
-    //! do not remove:
-    // if (leftBookId) helpReserveBook(leftBookId);
-    console.log('You just reserved a book!', bookIDToReserve);
+    // update the booksToOffer state
+    dispatch(markBookAsReserved(bookIDToReserve, booksToOffer));
+    // update the book status in the backend
+    notifyBackendOfReservedBook(bookIDToReserve);
+    // close the modal
     setIsReserveModalShown(false);
+    // clean up the state
     setBookIDToReserve(null);
+    // ? could be a toast message/alert instead of the log
+    console.log('You just reserved a book!', bookIDToReserve);
   };
 
   const onReceiptModalPress = () => {
-    console.log('You finalized the deal!');
+    // update the booksToOffer state
+    dispatch(deleteBook(bookIDToDelete, booksToOffer));
+    // update the matches (state)
+    // dispatch(deleteMatch(matchIDToDelete, matches)); — REPLACED BY DISPATCHER BELOW
+    dispatch(deleteMultipleMatches(bookIDToDelete, matches));
+    // update the status of the match in the DB, which will delete this match and then remove the books from all other matches
+    notifyBackendOfExchange(matchIDToDelete);
+
     setIsReceiptModalShown(false);
+    // clean up the states
+    setBookIDToDelete(null);
+    setMatchIDToDelete(null);
+    // add +1 to user's profile points
+    sendUserPointToBackend(user);
+    console.log('You finalized the deal!');
   };
 
   const onDeleteModalPress = () => {
-    console.log('You deleted the match!');
+    // delete the match from the user state
+    dispatch(deleteMatch(matchIDToDelete, matches));
+    // delete the match from the DB
+    notifyBackendOfDeletedMatch(matchIDToDelete);
+    // hide the modal
     setIsDeleteModalShown(false);
+    // clean up the states
+    setMatchIDToDelete(null);
+    console.log('You deleted the match!');
+  };
+
+  const handleMatchPartnerProfilePress = (otherUserID) => {
+    console.log("other person's profile", otherUserID);
+    navigation.navigate('OthersProfile', { otherUser: otherUserID });
   };
 
   return (
     <MenuProvider>
       <ScreenGradient>
-        <SafeAreaView>
+        {/* <SafeAreaView>
           <HeaderIconButton
             iconName="user"
             iconColor={colors.white}
             buttonColor={colors.primary.dark}
             handlePress={() => navigation.toggleDrawer()}
           />
-        </SafeAreaView>
+        </SafeAreaView> */}
 
         {/* Reserve your book modal */}
         <AlertModal
@@ -170,6 +231,10 @@ const Matches = ({ navigation }) => {
           setShowModal={setIsReceiptModalShown}
           buttonText="Confirm"
           handlePress={onReceiptModalPress}
+          doCleanup={() => {
+            setBookIDToDelete(null);
+            setMatchIDToDelete(null);
+          }}
         >
           <PrimaryText text="Got the book? Simply say so and close the bloody match!" />
         </AlertModal>
@@ -180,26 +245,48 @@ const Matches = ({ navigation }) => {
           setShowModal={setIsDeleteModalShown}
           buttonText="Delete"
           handlePress={onDeleteModalPress}
+          doCleanup={() => setMatchIDToDelete(null)}
         >
           <PrimaryText text="Don't want to exchange? Just delete the bloody match!" />
         </AlertModal>
 
         <FlatList
-          data={SAMPLE_MATCHES_OBJECT}
+          data={matches}
           renderItem={({ item, index }) => (
             <Match
               matchNum={index + 1}
               matchInfo={item}
-              username={username}
               alertSetters={{
                 setIsReserveModalShown,
                 setIsReceiptModalShown,
                 setIsDeleteModalShown,
               }}
-              onSetBookID={setBookIDToReserve}
+              onSetReserveBookID={setBookIDToReserve}
+              onSetDeleteBookID={setBookIDToDelete}
+              onSetMatchID={setMatchIDToDelete}
+              onMatchPartnerProfilePress={handleMatchPartnerProfilePress}
             />
           )}
           keyExtractor={(item) => item._id}
+          ListEmptyComponent={
+            <View>
+              <PrimaryMedium
+                text="No matches? Go navigate our pool of books!"
+                customStyles={styles.matchesListEmpty}
+              />
+            </View>
+          }
+          ListFooterComponent={
+            matches &&
+            matches.length && (
+              <View>
+                <PrimaryMedium
+                  text="That's it!"
+                  customStyles={styles.matchesListEnd}
+                />
+              </View>
+            )
+          }
         />
       </ScreenGradient>
     </MenuProvider>

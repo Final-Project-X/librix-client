@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { TouchableHighlight, StyleSheet } from 'react-native';
+import { TouchableHighlight } from 'react-native';
 import {
   Menu,
   MenuOptions,
   MenuOption,
   MenuTrigger,
 } from 'react-native-popup-menu';
-import { colors } from '../../global/styles';
 import { MatchesIconButton } from '../Buttons/IconButtons/MatchesIconButton';
 import PrimaryText from '../Texts/PrimaryText';
+import { textStyles } from './styles';
 
 const MatchMenuItem = ({ text, handlePress, onItemSelect }) => {
   const [isActive, setIsActive] = useState(false);
@@ -29,7 +29,10 @@ const MatchMenu = ({
   closeHandler,
   onMoreIconPress,
   alertSetters,
-  onSetBookID,
+  onSetReserveBookID,
+  onSetDeleteBookID,
+  onSetMatchID,
+  menuOpenSetter,
 }) => {
   const {
     setIsReserveModalShown,
@@ -39,33 +42,46 @@ const MatchMenu = ({
 
   const selectReserve = () => {
     console.log('select reserve book menu item');
-    // open modal:
+    // open modal
     setIsReserveModalShown(true);
-    // call the bookID setter,
-    // so that the ID is accessible on the top level
-    onSetBookID();
+    // call the bookID setter to pass it to the top
+    onSetReserveBookID();
+    // close the menu
+    menuOpenSetter(false);
   };
   const selectReceipt = () => {
     console.log('select confirm receipt menu item');
+    // open modal
     setIsReceiptModalShown(true);
-    // set ID of the book that will be removed from the database
-    // remove the book from the database
-    // update user profile: +1 point
+    // set ID of the book that will be removed from both user's book and the DB
+    onSetDeleteBookID();
+    // set ID of the match that will be removed from both user's matches and the DB
+    onSetMatchID();
+    // close the menu
+    menuOpenSetter(false);
   };
   const selectDelete = () => {
     console.log('select delete match menu item');
+    // open modal
     setIsDeleteModalShown(true);
+    // set ID of the match that will be removed from both user's matches and the DB
+    onSetMatchID();
+    // close the menu
+    menuOpenSetter(false);
   };
 
   return (
     <>
       <Menu opened={isMenuOpen} onBackdropPress={closeHandler}>
         <MenuTrigger>
+          {/* <MatchesIconButton
+            iconSize={20}
+            iconName="more-vertical"
+            position="right"
+            handlePress={onMoreIconPress}
+          /> */}
           <MatchesIconButton
             iconName="more-vertical"
-            iconColor={colors.primary.dark}
-            buttonColor={colors.white}
-            position="right"
             handlePress={onMoreIconPress}
           />
         </MenuTrigger>
@@ -94,19 +110,10 @@ const MatchMenu = ({
   );
 };
 
-const textStyles = (isSelected) =>
-  StyleSheet.create({
-    text: {
-      padding: 10,
-      color: isSelected ? colors.primary.dark : colors.black,
-      backgroundColor: isSelected ? colors.neutralBackground : colors.white,
-    },
-  });
-
 const optionsStyles = {
   optionsContainer: {
     borderRadius: 10,
-    marginTop: 50,
+    marginTop: -50,
   },
 };
 

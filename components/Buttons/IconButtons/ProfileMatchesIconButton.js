@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
-import { styles } from './style';
+import { styles } from './styles';
 import { colors } from '../../../global/styles';
 
 // Icon buttons for the matches in another user's profile
@@ -26,7 +26,7 @@ export const ProfileMatchesIconButton = ({
 }) => {
   return (
     <TouchableOpacity
-      style={styles(21, buttonColor).iconButton}
+      style={styles(21, 'center', buttonColor).iconButton}
       onPress={handlePress}
     >
       <Feather name={iconName} size={21} color={colors.white} />

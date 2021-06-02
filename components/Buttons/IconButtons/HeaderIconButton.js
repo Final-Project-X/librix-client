@@ -1,5 +1,7 @@
 import React from 'react';
-import IconButton from './IconButtons';
+import { TouchableOpacity } from 'react-native';
+import Feather from '@expo/vector-icons/Feather';
+import { styles, shadowStyles } from './styles';
 
 export const HeaderIconButton = ({
   iconName,
@@ -8,12 +10,14 @@ export const HeaderIconButton = ({
   handlePress,
 }) => {
   return (
-    <IconButton
-      iconSize="24"
-      iconName={iconName}
-      iconColor={iconColor}
-      buttonColor={buttonColor}
-      handlePress={handlePress}
-    />
+    <TouchableOpacity
+      style={[
+        styles(24, 'center', buttonColor).iconButton,
+        shadowStyles(false).shadow,
+      ]}
+      onPress={handlePress}
+    >
+      <Feather name={iconName} size={24} color={iconColor} />
+    </TouchableOpacity>
   );
 };

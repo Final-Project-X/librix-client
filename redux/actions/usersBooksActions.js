@@ -9,14 +9,13 @@ export const getBooksToOffer = (books) => (dispatch) => {
 };
 
 // add a new book to offered books
-export const addBookToOfferedBooks =
-  (book, booksToOffer) => async (dispatch) => {
-    const updatedOfferedBooks = [book, ...booksToOffer];
-    dispatch({
-      type: ACTIONS.ADD_BOOK_TO_OFFERED_BOOKS,
-      payload: updatedOfferedBooks,
-    });
-  };
+export const addBookToOfferedBooks = (book, booksToOffer) => (dispatch) => {
+  const updatedOfferedBooks = [book, ...booksToOffer];
+  dispatch({
+    type: ACTIONS.ADD_BOOK_TO_OFFERED_BOOKS,
+    payload: updatedOfferedBooks,
+  });
+};
 
 // mark one book as reserved
 export const markBookAsReserved = (bookId, booksToOffer) => (dispatch) => {
