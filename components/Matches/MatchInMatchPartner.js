@@ -11,10 +11,16 @@ const MatchInMatchPartner = ({
   userID,
   setShowModal,
   navigation,
+  matchIDSetter,
 }) => {
   const { bookOne, bookTwo } = matchInfo;
   const leftHandBook = bookOne.owner === userID ? bookOne : bookTwo;
   const rightHandBook = bookOne.owner === userID ? bookTwo : bookOne;
+
+  const deleteButtonHandler = () => {
+    setShowModal(true);
+    matchIDSetter(matchInfo._id);
+  };
 
   return (
     <View
@@ -82,7 +88,7 @@ const MatchInMatchPartner = ({
           <Feather name="message-circle" size={16} color={colors.white} />
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => setShowModal(true)}
+          onPress={deleteButtonHandler}
           style={[
             matchPartnerMatchStyles.button,
             matchPartnerMatchStyles.orangeBtn,
