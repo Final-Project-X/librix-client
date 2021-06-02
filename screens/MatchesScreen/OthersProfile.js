@@ -10,7 +10,7 @@ import Icon from '../../assets/favicon.png';
 import { helpGetMatchPartner } from '../../utils/apiCalls';
 import { useSelector, useDispatch } from 'react-redux';
 import { notifyBackendOfDeletedMatch } from './asyncFunctions';
-import { deleteMatch } from '../../utils/apiCalls';
+import { deleteMatch } from '../../redux/actions/matchesActions';
 import MatchInMatchPartner from '../../components/Matches/MatchInMatchPartner';
 import { styles } from './styles';
 
@@ -133,6 +133,7 @@ const OthersProfile = ({ navigation, route, otherUser, userId }) => {
               userID={user._id}
               setShowModal={setShowModal}
               navigation={navigation}
+              matchIDSetter={setMatchIDToDelete}
             />
           )}
           keyExtractor={(item) => item._id}
