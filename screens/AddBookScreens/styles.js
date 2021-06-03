@@ -5,7 +5,6 @@ import { Platform } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.white,
   },
   content: {
     flex: 1,
@@ -14,7 +13,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    paddingBottom: 50,
+    // paddingBottom: 100,
   },
   input: {
     flexDirection: 'row',
@@ -59,10 +58,11 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     marginBottom: 10,
-    width: 370,
+    marginLeft: -50,
+    marginRight: -50,
   },
   formContainer: {
-    width: 400,
+    width: '100%',
   },
   or: {
     marginTop: 40,
@@ -125,7 +125,6 @@ const styles = StyleSheet.create({
     zIndex: 500,
   },
   main: {
-    width: '100%',
     alignItems: 'center',
   },
   image: {

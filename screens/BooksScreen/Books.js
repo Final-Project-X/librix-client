@@ -20,7 +20,7 @@ import { useDispatch, useSelector } from 'react-redux';
 const Books = ({ navigation }) => {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
+  const { user } = useSelector((state) => state.user.user);
 
   useEffect(() => {
     dispatch(getPoolOfBooks({ userID: user._id }));
@@ -63,6 +63,7 @@ const Books = ({ navigation }) => {
           showModal={showModal}
           setShowModal={setShowModal}
           buttonText="Add a book"
+          whiteButtonText="Not now"
           handlePress={handlePress}
         >
           <PrimaryMedium
