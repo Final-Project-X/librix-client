@@ -8,14 +8,14 @@ import { loginUser } from '../redux/actions/userActions';
 const MainStack = () => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(
-      loginUser({
-        email: 'Citlalli_Cormier@hotmail.com',
-        password: 'Test123!',
-      }),
-    );
-  }, []);
+  // useEffect(() => {
+  //   dispatch(
+  //     loginUser({
+  //       email: 'Citlalli_Cormier@hotmail.com',
+  //       password: 'Test123!',
+  //     }),
+  //   );
+  // }, []);
 
   return (
     <NavigationContainer>

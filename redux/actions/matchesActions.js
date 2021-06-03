@@ -8,8 +8,14 @@ import {
 // get matches
 export const getMatches = (userID) => async (dispatch) => {
   try {
-    const userMatches = await helpGetUserMatches(userID);
-    // console.log('hi from getMatches', userMatches);
+    let userMatches;
+    const matchesData = await helpGetUserMatches(userID);
+    console.log('hi from getMatches', matchesData);
+    if (Array.isArray(matchesData)) {
+      userMatches = matchesData;
+    } else {
+      userMatches = [];
+    }
     dispatch({
       type: ACTIONS.GET_USERS_MATCHES,
       payload: userMatches,

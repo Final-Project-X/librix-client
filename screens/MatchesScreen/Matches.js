@@ -26,7 +26,7 @@ import {
   sendUserPointToBackend,
 } from './asyncFunctions';
 // STYLES
-import { styles } from '../../components/Matches/styles';
+import { styles } from './styles';
 
 const SAMPLE_MATCHES_OBJECT = [
   {
@@ -135,9 +135,12 @@ const Matches = ({ navigation }) => {
   // console.log('navigation in Matches', navigation);
   const dispatch = useDispatch();
 
-  const user = useSelector((state) => state.user.user);
+  const { user } = useSelector((state) => state.user.user);
+  // console.log('user from matches', user);
   const matches = useSelector((state) => state.matches.matches);
-  const booksToOffer = useSelector((state) => state.user.user.booksToOffer);
+  // console.log('matches from matches', matches);
+  const booksToOffer = useSelector((state) => state.usersBooks.booksToOffer);
+  // console.log('booksToOffer from matches', booksToOffer);
 
   useEffect(() => {
     console.log('userID:', user._id);

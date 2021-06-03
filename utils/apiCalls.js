@@ -49,6 +49,7 @@ export const helpReserveBook = async (bookID) => {
 export const helpSignupUser = async (data) => {
   try {
     const res = await axios.post('/user', data);
+    console.log('response from backend', res.data);
     return res.data;
   } catch (err) {
     console.log(err);

@@ -2,17 +2,6 @@ import { StyleSheet } from 'react-native';
 import { colors, shadow } from '../../global/styles';
 
 export const styles = StyleSheet.create({
-  matchesListEmpty: {
-    alignSelf: 'center',
-    color: colors.primary.dark,
-    fontSize: 24,
-    paddingVertical: 20,
-  },
-  matchesListEnd: {
-    marginBottom: 50,
-    color: colors.white,
-    alignSelf: 'center',
-  },
   matchCard: {
     margin: 10,
     paddingHorizontal: 10,
