@@ -17,15 +17,14 @@ export const addBookToSavedBooks =
       bookId: book._id,
       userId: user._id,
     });
-    const updatedSavedBooks = [book, ...savedBooks];
     dispatch({
       type: ACTIONS.ADD_BOOK_TO_SAVED_BOOKS,
-      payload: updatedSavedBooks,
+      payload: book,
     });
   };
 
 export const removeBookFromSavedBooks =
-  (bookId, userId) => async (dispatch) => {
+  (bookId, userId, savedBooks) => async (dispatch) => {
     const res = await helpDeleteBookFromSavedBooks({
       bookId,
       userId,

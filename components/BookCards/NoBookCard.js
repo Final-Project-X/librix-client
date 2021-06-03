@@ -5,7 +5,7 @@ import ButtonGradient from '../../components/Gradients/ButtonGradient';
 import PrimaryBold from '../../components/Texts/PrimaryBold';
 
 const NoBookCard = ({ navigation }) => (
-  <SafeAreaView style={[styles.container, styles.card]}>
+  <SafeAreaView style={styles.container}>
     <PrimaryBold
       text="There are no books for you to swipe now!"
       customStyles={styles.noBooks}
