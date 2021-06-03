@@ -25,12 +25,19 @@ const AddBook2 = ({ navigation, route }) => {
   const { book } = route.params || {};
 
   const handleBookInfo = (val1, val2, val3) => {
+    const authorsArr = (value) => {
+      if (typeof value === 'string') {
+        return value.split(',').map((item) => item.trim());
+      } else {
+        return value;
+      }
+    };
     if (!val1 || !val2 || !val3) {
       return setError('All fields are require!');
     } else {
       navigation.navigate('AddBook3', {
         title: val1,
-        authors: val2,
+        authors: authorsArr(val2),
         publishedDate: val3,
         description: book?.description,
       });

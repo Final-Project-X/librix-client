@@ -96,7 +96,7 @@ const AddBook3 = ({ navigation, route }) => {
     publishedDate: publishedDate,
     description: description,
   };
-
+  console.log(authors);
   const handlePublishBook = async (valueGen, valueCon, valueLan, valueNote) => {
     try {
       if (!valueGen || !valueCon || !valueLan || !valueNote || !image.base64) {
