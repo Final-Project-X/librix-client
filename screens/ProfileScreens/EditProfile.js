@@ -7,15 +7,17 @@ import {
   Platform,
 } from 'react-native';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
+import PrimaryHeader from '../../components/Headers/PrimaryHeader';
 import SubmitButton from '../../components/Buttons/SubmitButton';
 import PrimaryText from '../../components/Texts/PrimaryText';
 import PrimaryMedium from '../../components/Texts/PrimaryMedium';
 import Input from '../../components/Inputs/Input';
 import { useForm, Controller } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 import { Feather } from '@expo/vector-icons';
+import { updateUser } from '../../redux/actions/userActions';
 import { colors } from '../../global/styles';
 import styles from './styles';
-import PrimaryHeader from '../../components/Headers/PrimaryHeader';
 
 const EditProfile = ({ navigation }) => {
   const {
@@ -24,13 +26,17 @@ const EditProfile = ({ navigation }) => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (values) => console.log(values);
+  const dispatch = useDispatch();
 
-  const user = {
-    username: 'audreeeeyy',
-    city: 'Berlin',
-    about:
-      'I order total directed against this conspiracy to pay off - Stay out of the Garden Of Delights - The Kid at the wheel and his foot on the floor - Already set off the charge - Postulate a biologic film running from the beginning to the end ',
+  const user = useSelector((state) => state.user.user);
+
+  const onSubmit = (values) => {
+    const data = {
+      username: values.username ? values.username : user.username,
+      city: values.city ? values.city : user.city,
+      aboutMe: values.aboutMe,
+    };
+    dispatch(updateUser({ userID: user._id, ...data }));
   };
 
   return (
@@ -125,14 +131,14 @@ const EditProfile = ({ navigation }) => {
                   customStyles={[customStyles.textArea, customStyles.font16]}
                 />
               )}
-              name="about"
+              name="aboutMe"
               rules={{
                 maxLength: {
                   value: 300,
                   message: 'Max. 300 characters',
                 },
               }}
-              defaultValue={user.about}
+              defaultValue={user.aboutMe}
             />
             <PrimaryText
               text={errors.about && errors.about.message}
