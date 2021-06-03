@@ -3,12 +3,17 @@ import { View, Image, TouchableOpacity } from 'react-native';
 import PrimaryText from '../Texts/PrimaryText';
 import SerifText from '../Texts/SerifText';
 import styles from './styles';
+import Icon from '../../assets/icon.png';
 
 const SwipingBook = ({ item, navigation }) => (
   <TouchableOpacity onPress={() => navigation.navigate('SingleBook', { item })}>
     <View style={styles.card}>
       <Image
-        source={{ uri: item?.selectedFiles.toString() }}
+        source={
+          item?.selectedFiles.length > 0
+            ? { uri: item?.selectedFiles[0] }
+            : Icon
+        }
         style={styles.cardImage}
       />
       <View style={styles.info}>

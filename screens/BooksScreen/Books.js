@@ -30,23 +30,25 @@ const Books = ({ navigation }) => {
   const books = useSelector((state) => state.poolOfBooks.books);
   const savedBooks = useSelector((state) => state.savedBooks.savedBooks);
 
-  const handleYes = (index) => {
+  const handleYes = async (index) => {
     const book = books[index];
     if (user.booksToOffer.length < 1) {
       setShowModal(true);
     } else {
-      dispatch(createMatch({ userId: user._id, bookId: book._id }));
+      dispatch(createMatch({ userId: user._id, bookId: book?._id }));
+      dispatch(removeBookFromPool(book?._id, books));
     }
   };
 
-  const handleSave = async (index) => {
+  const handleSave = (index) => {
     const book = books[index];
     dispatch(addBookToSavedBooks(book, user, savedBooks));
+    dispatch(removeBookFromPool(book?._id, books));
   };
 
   const handleNope = (index) => {
     const book = books[index];
-    dispatch(removeBookFromPool(book._id, books));
+    dispatch(removeBookFromPool(book?._id, books));
   };
 
   const handlePress = () => {
@@ -76,7 +78,9 @@ const Books = ({ navigation }) => {
             text="Upload a book -- and have a look!"
           />
         </AlertModal>
+                            
         {books && books.length < 1 ? (
+
           <NoBookCard navigation={navigation} />
         ) : (
           <Swiper

@@ -4,6 +4,7 @@ import ScreenGradient from '../../components/Gradients/ScreenGradient';
 import PrimaryText from '../../components/Texts/PrimaryText';
 import SerifText from '../../components/Texts/SerifText';
 import styles from './styles';
+import Icon from '../../assets/icon.png';
 
 const SingleBook = ({ route }) => {
   const { item } = route.params;
@@ -12,7 +13,11 @@ const SingleBook = ({ route }) => {
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <View style={styles.singleBook}>
           <Image
-            source={{ uri: item?.selectedFiles.toString() }}
+            source={
+              item.selectedFiles.length > 0
+                ? { uri: item.selectedFiles[0] }
+                : Icon
+            }
             style={styles.card}
           />
 
