@@ -1,5 +1,11 @@
 import React, { useState, useCallback } from 'react';
-import { TouchableOpacity, TextInput, View, SafeAreaView } from 'react-native';
+import {
+  TouchableOpacity,
+  TextInput,
+  View,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
 import ButtonGradient from '../../components/Gradients/ButtonGradient';
@@ -68,69 +74,81 @@ const Filter = ({ navigation }) => {
     );
   };
 
+  const handlePress = () => {
+    if (genreOpen) {
+      setGenreOpen(false);
+    } else if (languageOpen) {
+      setLanguageOpen(false);
+    }
+    Keyboard.dismiss();
+  };
+
   return (
     <ScreenGradient>
-      <SafeAreaView style={styles.main}>
-        <TextInput
-          style={styles.input}
-          value={location}
-          placeholder="City"
-          placeholderTextColor="black"
-          onChangeText={(val) => setLocation(val)}
-          autoFocus={true}
-        />
-        <View style={styles.pickerContainer}>
-          <DropDownPicker
-            style={styles.picker}
-            open={genreOpen}
-            value={valueGenre}
-            items={genres}
-            searchable={false}
-            placeholder="Category"
-            onClose={onGenreClose}
-            setOpen={onGenreOpen}
-            onPress={onGenreOpen}
-            setValue={setValueGenre}
-            setItems={setGenres}
-            onChangeValue={(val) => setValueGenre(val)}
-            dropDownContainerStyle={styles.backgroundDrop}
-            zIndex={3000}
-            zIndexInverse={1000}
-            dropDownDirection="TOP"
+      <TouchableWithoutFeedback onPress={handlePress} accessible={false}>
+        <View style={styles.main}>
+          <TextInput
+            style={styles.input}
+            value={location}
+            placeholder="City"
+            placeholderTextColor="black"
+            onChangeText={(val) => setLocation(val)}
+            autoFocus={true}
           />
+          <View style={styles.pickerContainer}>
+            <DropDownPicker
+              style={styles.picker}
+              open={genreOpen}
+              value={valueGenre}
+              items={genres}
+              searchable={false}
+              placeholder="Category"
+              onClose={onGenreClose}
+              setOpen={onGenreOpen}
+              onPress={onGenreOpen}
+              setValue={setValueGenre}
+              setItems={setGenres}
+              onChangeValue={(val) => setValueGenre(val)}
+              dropDownContainerStyle={styles.backgroundDrop}
+              zIndex={3000}
+              zIndexInverse={1000}
+              dropDownDirection="BOTTOM"
+            />
+            <DropDownPicker
+              style={styles.picker}
+              open={languageOpen}
+              value={valueLanguage}
+              items={languages}
+              searchable={false}
+              placeholder="Language"
+              onClose={onLanguageClose}
+              setOpen={onLanguageOpen}
+              onPress={onLanguageOpen}
+              setValue={setValueLanguage}
+              setItems={setLanguages}
+              onChangeValue={(val) => setValueLanguage(val)}
+              dropDownContainerStyle={styles.backgroundDrop}
+              zIndex={1000}
+              zIndexInverse={3000}
+              dropDownDirection="BOTTOM"
+            />
+          </View>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              apply(location, valueGenre, valueLanguage);
+              navigation.navigate('Books');
+            }}
+          >
+            <ButtonGradient>
+              <PrimaryBold
+                text="Apply filter"
+                customStyles={styles.buttonText}
+              />
+            </ButtonGradient>
+          </TouchableOpacity>
         </View>
-        <View style={styles.pickerContainer}>
-          <DropDownPicker
-            style={styles.picker}
-            open={languageOpen}
-            value={valueLanguage}
-            items={languages}
-            searchable={false}
-            placeholder="Language"
-            onClose={onLanguageClose}
-            setOpen={onLanguageOpen}
-            onPress={onLanguageOpen}
-            setValue={setValueLanguage}
-            setItems={setLanguages}
-            onChangeValue={(val) => setValueLanguage(val)}
-            dropDownContainerStyle={styles.backgroundDrop}
-            zIndex={3000}
-            zIndexInverse={1000}
-            dropDownDirection="TOP"
-          />
-        </View>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            apply(location, valueGenre, valueLanguage);
-            navigation.navigate('Books');
-          }}
-        >
-          <ButtonGradient>
-            <PrimaryBold text="Apply filter" customStyles={styles.buttonText} />
-          </ButtonGradient>
-        </TouchableOpacity>
-      </SafeAreaView>
+      </TouchableWithoutFeedback>
     </ScreenGradient>
   );
 };

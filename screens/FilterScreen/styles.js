@@ -11,6 +11,8 @@ const styles = StyleSheet.create({
   pickerContainer: {
     marginHorizontal: 50,
     marginTop: 20,
+    position: 'relative',
+    zIndex: 500,
   },
   picker: {
     borderColor: 'transparent',
