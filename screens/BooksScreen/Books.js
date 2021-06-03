@@ -78,7 +78,9 @@ const Books = ({ navigation }) => {
             text="Upload a book -- and have a look!"
           />
         </AlertModal>
-        {books?.length < 1 || books === undefined ? (
+                            
+        {books && books.length < 1 ? (
+
           <NoBookCard navigation={navigation} />
         ) : (
           <Swiper

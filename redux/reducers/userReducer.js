@@ -10,6 +10,8 @@ export const userReducer = (state = initState, action) => {
       return { ...state, user: action.payload };
     case ACTIONS.LOGIN_USER:
       return { ...state, user: action.payload };
+    case ACTIONS.UPDATE_USER:
+      return { ...state, user: action.payload };
     case ACTIONS.LOGOUT_USER:
       return { ...state, user: null };
     default:
