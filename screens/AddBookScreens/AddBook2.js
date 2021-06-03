@@ -6,6 +6,8 @@ import {
   SafeAreaView,
   TouchableWithoutFeedback,
   Keyboard,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
 import ButtonGradient from '../../components/Gradients/ButtonGradient';
@@ -43,7 +45,10 @@ const AddBook2 = ({ navigation, route }) => {
     <SafeAreaView style={styles.container}>
       <ScreenGradient>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-          <View style={styles.content}>
+          <KeyboardAvoidingView
+            style={styles.content}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          >
             <PrimaryText
               text="Please check if the information is correct."
               customStyles={styles.text}
@@ -63,7 +68,7 @@ const AddBook2 = ({ navigation, route }) => {
                 value={authors}
                 placeholder="Author's name"
                 placeholderTextColor="black"
-                defaultValue={book?.authors?.join(', ')}
+                defaultValue={book.authors.join(', ')}
                 onChangeText={(val) => setAuthors(val)}
               />
               <TextInput
@@ -84,7 +89,7 @@ const AddBook2 = ({ navigation, route }) => {
                   onPress={() =>
                     handleBookInfo(
                       title || book?.title,
-                      [authors] || book?.authors,
+                      authors || book?.authors,
                       publishedDate || book?.publishedDate,
                     )
                   }
@@ -98,7 +103,7 @@ const AddBook2 = ({ navigation, route }) => {
                 </TouchableOpacity>
               </View>
             </View>
-          </View>
+          </KeyboardAvoidingView>
         </TouchableWithoutFeedback>
       </ScreenGradient>
     </SafeAreaView>

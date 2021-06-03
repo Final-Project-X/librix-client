@@ -1,12 +1,10 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import {
   View,
   Image,
   TextInput,
   SafeAreaView,
   TouchableOpacity,
-  ScrollView,
-  LogBox,
   TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native';
@@ -22,9 +20,6 @@ import { addBookToOfferedBooks } from '../../redux/actions/usersBooksActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 const AddBook3 = ({ navigation, route }) => {
-  useEffect(() => {
-    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
-  }, []);
   const [error, setError] = useState(null);
   const [note, setNote] = useState(null);
   const [image, setImage] = useState(null);
@@ -90,7 +85,7 @@ const AddBook3 = ({ navigation, route }) => {
   }, []);
 
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
+  const { user } = useSelector((state) => state.user.user);
 
   const { title, authors, publishedDate, description } = route.params;
   const bookData = {
@@ -126,80 +121,82 @@ const AddBook3 = ({ navigation, route }) => {
     }
   };
 
+  const handlePress = () => {
+    if (genreOpen) {
+      setGenreOpen(false);
+    } else if (conditionOpen) {
+      setConditionOpen(false);
+    } else if (languageOpen) {
+      setLanguageOpen(false);
+    }
+    Keyboard.dismiss();
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <ScreenGradient>
-        <ScrollView
-          contentContainerStyle={styles.contentContainer}
-          keyboardShouldPersistTaps="always"
-          keyboardDismissMode={'on-drag'}
-        >
-          <TouchableWithoutFeedback
-            onPress={Keyboard.dismiss}
-            accessible={false}
-          >
-            <View style={styles.content}>
-              <PrimaryText
-                text="And now the rest ..."
-                customStyles={styles.text}
-              />
-              <View style={styles.main}>
-                <View style={styles.pickerContainer}>
-                  <DropDownPicker
-                    style={styles.picker}
-                    open={genreOpen}
-                    value={valueGenre}
-                    items={genres}
-                    searchable={false}
-                    placeholder="Genre"
-                    onClose={onGenreClose}
-                    setOpen={onGenreOpen}
-                    onPress={onGenreOpen}
-                    setValue={setValueGenre}
-                    setItems={setGenres}
-                    onChangeValue={(val) => setValueGenre(val)}
-                    dropDownContainerStyle={styles.backgroundDrop}
-                    zIndex={3000}
-                    zIndexInverse={1000}
-                    dropDownDirection="BOTTOM"
-                  />
-                  <DropDownPicker
-                    style={styles.picker}
-                    open={conditionOpen}
-                    value={valueCondition}
-                    items={conditions}
-                    searchable={false}
-                    placeholder="Condition"
-                    onClose={onConditionClose}
-                    setOpen={onConditionOpen}
-                    onPress={onConditionOpen}
-                    setValue={setValueCondition}
-                    setItems={setConditions}
-                    onChangeValue={(val) => setValueCondition(val)}
-                    dropDownContainerStyle={styles.backgroundDrop}
-                    zIndex={2000}
-                    zIndexInverse={4000}
-                    dropDownDirection="BOTTOM"
-                  />
-                  <DropDownPicker
-                    style={styles.picker}
-                    open={languageOpen}
-                    value={valueLanguage}
-                    items={languages}
-                    searchable={false}
-                    placeholder="Language"
-                    onClose={onLanguageClose}
-                    setOpen={onLanguageOpen}
-                    onPress={onLanguageOpen}
-                    setValue={setValueLanguage}
-                    setItems={setLanguages}
-                    onChangeValue={(val) => setValueLanguage(val)}
-                    dropDownContainerStyle={styles.backgroundDrop}
-                    zIndex={1000}
-                    zIndexInverse={3000}
-                    dropDownDirection="BOTTOM"
-                  />
-                </View>
+        <TouchableWithoutFeedback onPress={handlePress} accessible={false}>
+          <View style={styles.content}>
+            <PrimaryText
+              text="And now the rest ..."
+              customStyles={styles.text}
+            />
+            <View style={styles.main}>
+              <View style={styles.pickerContainer}>
+                <DropDownPicker
+                  style={styles.picker}
+                  open={genreOpen}
+                  value={valueGenre}
+                  items={genres}
+                  searchable={false}
+                  placeholder="Genre"
+                  onClose={onGenreClose}
+                  setOpen={onGenreOpen}
+                  onPress={onGenreOpen}
+                  setValue={setValueGenre}
+                  setItems={setGenres}
+                  onChangeValue={(val) => setValueGenre(val)}
+                  dropDownContainerStyle={styles.backgroundDrop}
+                  zIndex={3000}
+                  zIndexInverse={5000}
+                  dropDownDirection="BOTTOM"
+                />
+                <DropDownPicker
+                  style={styles.picker}
+                  open={conditionOpen}
+                  value={valueCondition}
+                  items={conditions}
+                  searchable={false}
+                  placeholder="Condition"
+                  onClose={onConditionClose}
+                  setOpen={onConditionOpen}
+                  onPress={onConditionOpen}
+                  setValue={setValueCondition}
+                  setItems={setConditions}
+                  onChangeValue={(val) => setValueCondition(val)}
+                  dropDownContainerStyle={styles.backgroundDrop}
+                  zIndex={2000}
+                  zIndexInverse={4000}
+                  dropDownDirection="BOTTOM"
+                />
+                <DropDownPicker
+                  style={styles.picker}
+                  open={languageOpen}
+                  value={valueLanguage}
+                  items={languages}
+                  searchable={false}
+                  placeholder="Language"
+                  onClose={onLanguageClose}
+                  setOpen={onLanguageOpen}
+                  onPress={onLanguageOpen}
+                  setValue={setValueLanguage}
+                  setItems={setLanguages}
+                  onChangeValue={(val) => setValueLanguage(val)}
+                  dropDownContainerStyle={styles.backgroundDrop}
+                  zIndex={1000}
+                  zIndexInverse={3000}
+                  dropDownDirection="BOTTOM"
+                />
                 <View style={styles.inputContainer}>
                   <TextInput
                     style={[styles.inputText, styles.noteText]}
@@ -211,37 +208,37 @@ const AddBook3 = ({ navigation, route }) => {
                     enablesReturnkeyAutomatically={true}
                   />
                 </View>
-                <View style={styles.upload}>
-                  <UploadImageBtn setImage={setImage} navigation={navigation} />
-                  {image && (
-                    <Image source={{ uri: image.uri }} style={styles.image} />
-                  )}
-                </View>
-                {error && (
-                  <PrimaryText text={error} customStyles={styles.inputError} />
-                )}
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={() =>
-                    handlePublishBook(
-                      valueGenre,
-                      valueCondition,
-                      valueLanguage,
-                      note,
-                    )
-                  }
-                >
-                  <ButtonGradient>
-                    <PrimaryBold
-                      text="Publish book"
-                      customStyles={styles.buttonText}
-                    />
-                  </ButtonGradient>
-                </TouchableOpacity>
               </View>
+              <View style={styles.upload}>
+                <UploadImageBtn setImage={setImage} navigation={navigation} />
+                {image && (
+                  <Image source={{ uri: image.uri }} style={styles.image} />
+                )}
+              </View>
+              {error && (
+                <PrimaryText text={error} customStyles={styles.inputError} />
+              )}
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() =>
+                  handlePublishBook(
+                    valueGenre,
+                    valueCondition,
+                    valueLanguage,
+                    note,
+                  )
+                }
+              >
+                <ButtonGradient>
+                  <PrimaryBold
+                    text="Publish book"
+                    customStyles={styles.buttonText}
+                  />
+                </ButtonGradient>
+              </TouchableOpacity>
             </View>
-          </TouchableWithoutFeedback>
-        </ScrollView>
+          </View>
+        </TouchableWithoutFeedback>
       </ScreenGradient>
     </SafeAreaView>
   );
