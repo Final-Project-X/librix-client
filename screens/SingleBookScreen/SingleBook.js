@@ -42,7 +42,7 @@ const SingleBook = ({ route }) => {
             </View>
             <View style={styles.item}>
               <PrimaryText
-                text={`Category: ${item?.genre}`}
+                text={`Genre: ${item?.genre}`}
                 customStyles={styles.lan}
               />
               <PrimaryText text={`Condition: ${item?.condition}`} />

@@ -15,7 +15,6 @@ import ButtonGradient from '../../components/Gradients/ButtonGradient';
 import UploadImageBtn from '../../components/Buttons/UploadImageBtn';
 import PrimaryText from '../../components/Texts/PrimaryText';
 import PrimaryBold from '../../components/Texts/PrimaryBold';
-import { addBook } from '../../utils/apiCalls';
 import { addBookToOfferedBooks } from '../../redux/actions/usersBooksActions';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -38,20 +37,20 @@ const AddBook3 = ({ navigation, route }) => {
   const [valueCondition, setValueCondition] = useState(null);
   const [conditionOpen, setConditionOpen] = useState(false);
   const [conditions, setConditions] = useState([
-    { label: 'Like new', value: 'like new' },
-    { label: 'Good', value: 'good' },
-    { label: 'Average', value: 'average' },
-    { label: 'Acceptable', value: 'acceptable' },
+    { label: 'Like new', value: 'Like new' },
+    { label: 'Good', value: 'Good' },
+    { label: 'Average', value: 'Average' },
+    { label: 'Acceptable', value: 'Acceptable' },
   ]);
 
   const [valueLanguage, setValueLanguage] = useState(null);
   const [languageOpen, setLanguageOpen] = useState(false);
   const [languages, setLanguages] = useState([
-    { label: 'English', value: 'english' },
-    { label: 'French', value: 'french' },
-    { label: 'German', value: 'german' },
-    { label: 'Spanish', value: 'spanish' },
-    { label: 'Chinese', value: 'chinese' },
+    { label: 'English', value: 'English' },
+    { label: 'French', value: 'French' },
+    { label: 'German', value: 'German' },
+    { label: 'Spanish', value: 'Spanish' },
+    { label: 'Chinese', value: 'Chinese' },
   ]);
 
   const onGenreOpen = useCallback(() => {
@@ -96,20 +95,21 @@ const AddBook3 = ({ navigation, route }) => {
     publishedDate: publishedDate,
     description: description,
   };
-  console.log(authors);
+
   const handlePublishBook = async (valueGen, valueCon, valueLan, valueNote) => {
+    const newBook = {
+      ...bookData,
+      genre: valueGen,
+      condition: valueCon,
+      language: valueLan,
+      personalDescription: valueNote,
+      selectedFiles: [image.base64],
+    };
+    console.log(newBook);
     try {
       if (!valueGen || !valueCon || !valueLan || !valueNote || !image.base64) {
         setError('All fields are required!');
       } else {
-        const newBook = await addBook({
-          ...bookData,
-          genre: valueGen,
-          condition: valueCon,
-          language: valueLan,
-          personalDescription: valueNote,
-          selectedFiles: [image.base64],
-        });
         dispatch(addBookToOfferedBooks(newBook, user.booksToOffer));
         navigation.navigate('Books');
         setError(null);
@@ -211,10 +211,16 @@ const AddBook3 = ({ navigation, route }) => {
               </View>
               <View style={styles.upload}>
                 <UploadImageBtn setImage={setImage} navigation={navigation} />
-                {image && (
-                  <Image source={{ uri: image.uri }} style={styles.image} />
-                )}
+                {/* {image && (
+                    <Image source={{ uri: image.uri }} style={styles.image} />
+                  )} */}
               </View>
+              {image && (
+                <PrimaryBold
+                  text="Your Image has been uploaded!"
+                  customStyles={styles.imageText}
+                />
+              )}
               {error && (
                 <PrimaryText text={error} customStyles={styles.inputError} />
               )}
