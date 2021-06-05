@@ -137,6 +137,11 @@ const styles = StyleSheet.create({
     color: colors.primary.dark,
     marginLeft: -20,
   },
+  imageSize: {
+    color: colors.primary.dark,
+    fontSize: 13,
+    marginLeft: -40,
+  },
 });
 
 export default styles;
