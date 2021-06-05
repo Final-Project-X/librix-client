@@ -13,8 +13,7 @@ export const getBooksToOffer = (books) => (dispatch) => {
 export const addBookToOfferedBooks =
   (bookData, booksToOffer) => async (dispatch) => {
     const newBook = await addBook(bookData);
-    console.log('AddBookAction', newBook);
-    const updatedOfferedBooks = [bookData, ...booksToOffer];
+    const updatedOfferedBooks = [newBook, ...booksToOffer];
     dispatch({
       type: ACTIONS.ADD_BOOK_TO_OFFERED_BOOKS,
       payload: updatedOfferedBooks,
