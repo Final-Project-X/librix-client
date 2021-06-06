@@ -35,9 +35,10 @@ export const helpDeleteBook = async (bookID) => {
   }
 };
 
+//TODO change!
 export const helpReserveBook = async (bookID) => {
   try {
-    const response = await axios.put(`/books/${bookID}`, {
+    const response = await axios.post(`/matches/${bookID}`, {
       reserved: true,
     });
     return response;

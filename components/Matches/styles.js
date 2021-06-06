@@ -56,6 +56,35 @@ export const styles = StyleSheet.create({
   bookAuthor: {
     fontSize: 14,
   },
+  matchOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    backgroundColor: colors.neutralBackground,
+    opacity: 0.8,
+  },
+  matchOverlayText: {
+    backgroundColor: colors.neutralBackground,
+    color: colors.primary.dark,
+  },
+  reservedLabel: {
+    position: 'absolute',
+    top: 10,
+    left: 0,
+    zIndex: 4,
+    backgroundColor: colors.white,
+    paddingVertical: 20,
+    paddingHorizontal: 10,
+    borderColor: colors.primary.dark,
+    borderRadius: 20,
+    borderStyle: 'solid',
+    borderWidth: 1,
+  },
+  reservedLabelText: {
+    color: colors.secondary.dark,
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+  },
 });
 
 export const textStyles = (isSelected) =>

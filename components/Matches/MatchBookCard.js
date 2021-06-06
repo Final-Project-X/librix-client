@@ -4,10 +4,17 @@ import PrimaryText from '../Texts/PrimaryText';
 import SerifText from '../Texts/SerifText';
 import Icon from '../../assets/icon.png';
 import { styles } from './styles';
+import ReservedLabel from './ReservedLabel';
 
-const MatchBookCard = ({ bookTitle, bookAuthor, bookImageUri }) => {
+const MatchBookCard = ({
+  bookTitle,
+  bookAuthor,
+  bookImageUri,
+  reservedLabelText,
+}) => {
   return (
     <View style={styles.bookCard}>
+      {reservedLabelText && <ReservedLabel text={reservedLabelText} />}
       <Image
         style={[styles.image, styles.imageShadow]}
         source={
