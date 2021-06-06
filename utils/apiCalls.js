@@ -17,7 +17,8 @@ export const getBookInfo = async (isbn) => {
 
 export const addBook = async (bookData) => {
   try {
-    let response = await axios.post('/books', { bookData });
+    let response = await axios.post('/books', bookData);
+    console.log('AddBook from APi', response.data);
     return response.data;
   } catch (error) {
     console.log(error);
