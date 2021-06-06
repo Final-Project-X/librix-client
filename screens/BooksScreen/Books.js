@@ -21,10 +21,11 @@ const Books = ({ navigation }) => {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user.user);
+  console.log('Books screen', user._id);
 
   useEffect(() => {
-    dispatch(getPoolOfBooks({ userID: user._id }));
-    dispatch(getSavedBooks(user.booksToRemember));
+    dispatch(getPoolOfBooks({ userID: user?._id }));
+    dispatch(getSavedBooks(user?.booksToRemember));
   }, []);
 
   const books = useSelector((state) => state.poolOfBooks.books);
@@ -32,10 +33,11 @@ const Books = ({ navigation }) => {
 
   const handleYes = async (index) => {
     const book = books[index];
+
     if (user.booksToOffer.length < 1) {
       setShowModal(true);
     } else {
-      dispatch(createMatch({ userId: user._id, bookId: book?._id }));
+      dispatch(createMatch({ userId: user?._id, bookId: book?._id }));
       dispatch(removeBookFromPool(book?._id, books));
     }
   };
@@ -80,7 +82,7 @@ const Books = ({ navigation }) => {
           />
         </AlertModal>
 
-        {books && books.length < 1 ? (
+        {books.length < 1 || books === undefined ? (
           <NoBookCard navigation={navigation} />
         ) : (
           <Swiper
