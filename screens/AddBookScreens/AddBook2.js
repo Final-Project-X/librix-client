@@ -38,7 +38,7 @@ const AddBook2 = ({ navigation, route }) => {
       navigation.navigate('AddBook3', {
         title: val1,
         authors: authorsArr(val2),
-        publishedDate: val3,
+        publishedDate: val3.slice(0, 4),
         description: book?.description,
       });
       setTitle(null);
@@ -75,7 +75,7 @@ const AddBook2 = ({ navigation, route }) => {
                 value={authors}
                 placeholder="Author's name"
                 placeholderTextColor="black"
-                defaultValue={book.authors.join(', ')}
+                defaultValue={book?.authors.join(', ')}
                 onChangeText={(val) => setAuthors(val)}
               />
               <TextInput
@@ -83,7 +83,7 @@ const AddBook2 = ({ navigation, route }) => {
                 value={publishedDate}
                 placeholder="Year"
                 placeholderTextColor="black"
-                defaultValue={book?.publishedDate}
+                defaultValue={book?.publishedDate.slice(0, 4)}
                 onChangeText={(val) => setPublishedDate(val)}
                 numeric={true}
               />

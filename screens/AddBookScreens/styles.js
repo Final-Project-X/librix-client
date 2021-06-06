@@ -6,14 +6,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  scrollView: {
+    flex: 1,
+  },
   content: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  contentContainer: {
-    flex: 1,
-    // paddingBottom: 100,
   },
   input: {
     flexDirection: 'row',
@@ -77,7 +76,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   button: {
-    marginTop: 40,
+    marginTop: 30,
     alignSelf: 'center',
   },
   buttonText: {
@@ -128,11 +127,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    width: 200,
+    width: 120,
     height: 160,
     borderRadius: 15,
     resizeMode: 'cover',
     marginTop: 5,
+  },
+  imageText: {
+    color: colors.primary.dark,
+    marginLeft: -20,
+  },
+  imageSize: {
+    color: colors.primary.dark,
+    fontSize: 13,
+    marginLeft: -40,
   },
 });
 
