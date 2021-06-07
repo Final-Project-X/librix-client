@@ -31,7 +31,9 @@ const MatchMenu = ({
   alertSetters,
   onSetReserveBookID,
   onSetDeleteBookID,
-  onSetMatchID,
+  onSetDeleteMatchID,
+  onSetReserveMatchID,
+  onSetBookIDToReceive,
   menuOpenSetter,
 }) => {
   const {
@@ -44,8 +46,9 @@ const MatchMenu = ({
     console.log('select reserve book menu item');
     // open modal
     setIsReserveModalShown(true);
-    // call the bookID setter to pass it to the top
+    // call the bookID and matchID setters to pass them to the top
     onSetReserveBookID();
+    onSetReserveMatchID();
     // close the menu
     menuOpenSetter(false);
   };
@@ -54,9 +57,11 @@ const MatchMenu = ({
     // open modal
     setIsReceiptModalShown(true);
     // set ID of the book that will be removed from both user's book and the DB
-    onSetDeleteBookID();
+    onSetDeleteBookID(); // ? do we need this?
+    // send an object with the right book status set to 'exchanged' to update in the DB:
+    onSetBookIDToReceive();
     // set ID of the match that will be removed from both user's matches and the DB
-    onSetMatchID();
+    onSetDeleteMatchID();
     // close the menu
     menuOpenSetter(false);
   };
@@ -65,7 +70,7 @@ const MatchMenu = ({
     // open modal
     setIsDeleteModalShown(true);
     // set ID of the match that will be removed from both user's matches and the DB
-    onSetMatchID();
+    onSetDeleteMatchID();
     // close the menu
     menuOpenSetter(false);
   };
@@ -81,6 +86,7 @@ const MatchMenu = ({
             handlePress={onMoreIconPress}
           /> */}
           <MatchesIconButton
+            type="neutral"
             iconName="more-vertical"
             handlePress={onMoreIconPress}
           />

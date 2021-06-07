@@ -42,6 +42,14 @@ export const updateUser = (data) => async (dispatch) => {
   }
 };
 
+
+export const deleteUser = () => (dispatch) => {
+  dispatch({
+    type: ACTIONS.DELETE_USER,
+  });
+};
+
+
 export const logOutUser = () => async (dispatch) => {
   try {
     await helpLogOut();

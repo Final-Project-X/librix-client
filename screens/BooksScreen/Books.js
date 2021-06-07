@@ -41,7 +41,6 @@ const Books = ({ navigation }) => {
 
   const handleYes = async (index) => {
     const book = books[index];
-
     try {
       if (user.booksToOffer.length < 1) {
         setShowModal(true);
@@ -51,6 +50,7 @@ const Books = ({ navigation }) => {
       }
     } catch (err) {
       console.log(err);
+
     }
   };
 
@@ -102,6 +102,7 @@ const Books = ({ navigation }) => {
         </AlertModal>
 
         {books === undefined || books.length < 1 ? (
+
           <NoBookCard navigation={navigation} />
         ) : (
           <Swiper

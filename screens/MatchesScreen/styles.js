@@ -47,60 +47,9 @@ export const styles = StyleSheet.create({
     marginVertical: 5,
     marginLeft: 10,
   },
-  // match: {
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   backgroundColor: colors.white,
-  //   padding: 20,
-  //   borderRadius: 20,
-  //   marginBottom: 20,
-  // },
-  // bookCard: {
-  //   width: 100,
-  //   shadowColor: colors.black,
-  // },
-  // nameLabel: {
-  //   position: 'absolute',
-  //   top: -5,
-  //   left: -5,
-  //   zIndex: 3,
-  //   backgroundColor: colors.white,
-  //   paddingVertical: 3,
-  //   paddingHorizontal: 5,
-  //   borderColor: colors.secondary.light,
-  //   borderRadius: 20,
-  //   borderStyle: 'solid',
-  //   borderWidth: 1,
-  // },
-  // nameLabelText: {
-  //   color: colors.secondary.dark,
-  //   fontWeight: 'bold',
-  //   textTransform: 'uppercase',
-  // },
-  // bookImage: {
-  //   width: '100%',
-  //   height: 100,
-  //   borderRadius: 20,
-  //   marginBottom: 5,
-  // },
-  // imageShadow: shadow.image,
-  // rotateIcon: {
-  //   marginHorizontal: 15,
-  // },
-  // buttonGroup: {
-  //   marginLeft: 15,
-  // },
-  // button: {
-  //   padding: 11,
-  //   borderRadius: 50,
-  // },
-  // purpleBtn: {
-  //   backgroundColor: colors.primary.dark,
-  //   marginBottom: 15,
-  // },
-  // orangeBtn: {
-  //   backgroundColor: colors.secondary.dark,
-  // },
+  listFooter: {
+    marginBottom: 60,
+  },
   modalText: {
     textAlign: 'center',
     fontSize: 18,
@@ -113,5 +62,19 @@ export const styles = StyleSheet.create({
   },
   textMarginBottom: {
     marginBottom: 20,
+  },
+  matchesListEmpty: {
+    alignSelf: 'center',
+    color: colors.primary.dark,
+    fontSize: 24,
+    paddingVertical: 20,
+    marginTop: 50,
+    marginHorizontal: 20,
+    textAlign: 'center',
+  },
+  matchesListEnd: {
+    marginBottom: 80,
+    color: colors.white,
+    alignSelf: 'center',
   },
 });

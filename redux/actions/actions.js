@@ -3,6 +3,7 @@ export const ACTIONS = {
   LOGIN_USER: 'login user',
   UPDATE_USER: 'update user',
   LOGOUT_USER: 'logout user',
+  DELETE_USER: ' delete profile',
   GET_ALL_BOOKS: 'get all books',
   GET_POOL_OF_BOOKS: 'get pool of books',
   REMOVE_BOOK_FROM_POOL: 'remove book from pool',

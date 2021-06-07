@@ -35,10 +35,11 @@ const OthersProfile = ({ navigation, route, otherUser, userId }) => {
     };
 
     getMatchPartnerInfo(otherUserId);
-  }, []);
+  }, [otherUserId]);
 
   console.log('match partner', matchPartner);
-  const user = useSelector((state) => state.user.user);
+  const { user } = useSelector((state) => state.user.user);
+  // console.log(user);
 
   const matches = useSelector((state) => state.matches.matches);
   const partnerMatches = matches.filter(
@@ -53,16 +54,16 @@ const OthersProfile = ({ navigation, route, otherUser, userId }) => {
     // delete the match from the user state
     dispatch(deleteMatch(matchIDToDelete, matches));
     // delete the match from the DB
-    notifyBackendOfDeletedMatch(matchIDToDelete);
+    notifyBackendOfDeletedMatch({ matchID: matchIDToDelete, userID: user._id });
 
     // hide the modal
     setShowModal(false);
-    // clean up the states
-    setMatchIDToDelete(null);
     //? show toast notification OR alert
     console.log(
       `You deleted the match ${matchIDToDelete} on someone else's profile!`,
     );
+    // clean up the states
+    setMatchIDToDelete(null);
   };
 
   return (
@@ -137,6 +138,9 @@ const OthersProfile = ({ navigation, route, otherUser, userId }) => {
             />
           )}
           keyExtractor={(item) => item._id}
+          ListFooterComponent={
+            partnerMatches?.length && <View style={styles.listFooter} />
+          }
         />
       </ScreenGradient>
     </SafeAreaView>

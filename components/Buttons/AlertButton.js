@@ -3,9 +3,12 @@ import { TouchableOpacity, StyleSheet } from 'react-native';
 import PrimaryBold from '../Texts/PrimaryBold';
 import { colors } from '../../global/styles';
 
-const AlertButton = ({ text, handlePress, variant }) => {
+const AlertButton = ({ text, handlePress, variant, customStyles }) => {
   return (
-    <TouchableOpacity onPress={handlePress} style={styles(variant).wrapper}>
+    <TouchableOpacity
+      onPress={handlePress}
+      style={[styles(variant).wrapper, customStyles]}
+    >
       <PrimaryBold text={text} customStyles={styles(variant).text} />
     </TouchableOpacity>
   );
