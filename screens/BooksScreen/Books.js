@@ -21,7 +21,6 @@ const Books = ({ navigation }) => {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user.user);
-  console.log('Books screen', user._id);
 
   useEffect(() => {
     dispatch(getPoolOfBooks({ userID: user?._id }));
@@ -31,9 +30,8 @@ const Books = ({ navigation }) => {
   const books = useSelector((state) => state.poolOfBooks.books);
   const savedBooks = useSelector((state) => state.savedBooks.savedBooks);
 
-  const handleYes = async (index) => {
+  const handleYes = (index) => {
     const book = books[index];
-
     if (user.booksToOffer.length < 1) {
       setShowModal(true);
     } else {
