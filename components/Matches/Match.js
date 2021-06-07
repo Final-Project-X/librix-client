@@ -7,7 +7,7 @@ import PrimaryText from '../Texts/PrimaryText';
 import MatchBookCard from './MatchBookCard';
 import MatchMenu from './MatchMenu';
 import { styles } from './styles';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import MatchOverlay from './MatchOverlay';
 
 const Match = ({
@@ -20,7 +20,6 @@ const Match = ({
   onSetDeleteMatchID,
   onSetReserveMatchID,
   onMatchPartnerProfilePress,
-  // ...other
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   // console.log('other props in Match.js:', other);
@@ -82,16 +81,6 @@ const Match = ({
           customStyles={styles.matchHeader}
         />
         <View style={styles.matchRow}>
-          {/* <MatchesIconButton
-            iconSize={20}
-            iconName="user"
-            position="left"
-            handlePress={onProfileIconPress}
-          /> */}
-          {/* <MatchesIconButton
-            iconName="message-circle"
-            handlePress={onMessageIconPress}
-          /> */}
           {rightHandBookStatus === 'received' &&
             leftHandBookStatus !== 'received' && (
               <MatchesIconButton
@@ -180,21 +169,15 @@ const Match = ({
       </View>
 
       <View style={styles.matchRow}>
-        {
-          rightHandBookStatus === 'received' &&
-            leftHandBookStatus !==
-              'received'(
-                <MatchOverlay text="Almost there! Just waiting for partner to receive your book." />,
-              )
-          // in Match, set message ''
-        }
-        {
-          leftHandBookStatus === 'received' &&
-            rightHandBookStatus !== 'received' && (
-              <MatchOverlay text="Your partner has received your book! Press the purple︎ button once you’ve received theirs." />
-            )
-          // in Match, set message ''
-        }
+        {rightHandBookStatus === 'received' &&
+          leftHandBookStatus !==
+            'received'(
+              <MatchOverlay text="Almost there! Just waiting for partner to receive your book." />,
+            )}
+        {leftHandBookStatus === 'received' &&
+          rightHandBookStatus !== 'received' && (
+            <MatchOverlay text="Your partner has received your book! Press the purple︎ button once you’ve received theirs." />
+          )}
         {rightHandBookStatus === 'reserved' &&
           leftHandBookStatus === 'reserved' && (
             <MatchOverlay text="Swap in progress! Press the purple︎ button once you’ve received the book!" />

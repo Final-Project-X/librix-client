@@ -37,7 +37,7 @@ const Matches = ({ navigation }) => {
   const { user } = useSelector((state) => state.user.user);
   // console.log('user from matches', user);
   const matches = useSelector((state) => state.matches.matches);
-  console.log('matches from matches', matches);
+  // console.log('matches from matches', matches);
   const booksToOffer = useSelector((state) => state.usersBooks.booksToOffer);
   // console.log('booksToOffer from matches', booksToOffer);
 

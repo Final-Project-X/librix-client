@@ -47,6 +47,9 @@ export const styles = StyleSheet.create({
     marginVertical: 5,
     marginLeft: 10,
   },
+  listFooter: {
+    marginBottom: 60,
+  },
   modalText: {
     textAlign: 'center',
     fontSize: 18,
