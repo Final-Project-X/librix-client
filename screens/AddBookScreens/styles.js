@@ -126,21 +126,9 @@ const styles = StyleSheet.create({
   main: {
     alignItems: 'center',
   },
-  image: {
-    width: 120,
-    height: 160,
-    borderRadius: 15,
-    resizeMode: 'cover',
-    marginTop: 5,
-  },
   imageText: {
     color: colors.primary.dark,
     marginLeft: -20,
-  },
-  imageSize: {
-    color: colors.primary.dark,
-    fontSize: 13,
-    marginLeft: -40,
   },
 });
 

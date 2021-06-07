@@ -211,14 +211,7 @@ const AddBook3 = ({ navigation, route }) => {
               </View>
               <View style={styles.upload}>
                 <UploadImageBtn setImage={setImage} navigation={navigation} />
-                {/* {image && (
-                    <Image source={{ uri: image.uri }} style={styles.image} />
-                  )} */}
               </View>
-              <PrimaryText
-                text="(Maximum image size 300KB)"
-                customStyles={styles.imageSize}
-              />
               {image && (
                 <PrimaryBold
                   text="Your Image has been uploaded!"

@@ -4,14 +4,20 @@ import * as env from '../env.json';
 const ApiKey = env.GOOGLE_BOOKS_API_KEY;
 axios.defaults.baseURL = env.BASE_URL;
 
+const extractApiError = (errAxios) => {
+  return errAxios.response
+    ? errAxios.response.data
+    : { error: { message: 'API not reachable' } };
+};
+
 export const getBookInfo = async (isbn) => {
   try {
     let res = await axios.get(
       `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${ApiKey}`,
     );
     return res.data.items[0].volumeInfo;
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    return extractApiError(err);
   }
 };
 
@@ -20,8 +26,8 @@ export const addBook = async (bookData) => {
     let response = await axios.post('/books', bookData);
     console.log('AddBook from APi', response.data);
     return response.data;
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    return extractApiError(err);
   }
 };
 
@@ -31,8 +37,7 @@ export const helpDeleteBook = async (bookID) => {
     console.log('response from helpDeleteBook API call', response);
   } catch (err) {
     console.log('ERROR from helpDeleteBook API call');
-
-    console.log(err);
+    return extractApiError(err);
   }
 };
 
@@ -42,8 +47,8 @@ export const helpReserveBook = async (bookID) => {
       reserved: true,
     });
     return response;
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    return extractApiError(err);
   }
 };
 
@@ -52,17 +57,17 @@ export const helpSignupUser = async (data) => {
     const res = await axios.post('/user', data);
     return res.data;
   } catch (err) {
-    console.log(err);
+    return extractApiError(err);
   }
 };
 
 export const helpLoginUser = async (loginData) => {
   try {
     const response = await axios.post('/user/login', loginData);
-    // console.log('response from backend', response.data);
+    console.log('user from backend', response.data);
     return response.data;
   } catch (err) {
-    console.log(err);
+    return extractApiError(err);
   }
 };
 
@@ -72,7 +77,7 @@ export const helpGetAllBooks = async () => {
     const res = await axios.get('/books');
     return res.data;
   } catch (err) {
-    console.log(err);
+    return extractApiError(err);
   }
 };
 
@@ -91,7 +96,7 @@ export const helpGetPoolOfBooks = async (booksData) => {
     console.log('from Api', res.data);
     return res.data;
   } catch (err) {
-    console.log(err);
+    return extractApiError(err);
   }
 };
 // data refers to user._id and book._id
@@ -100,7 +105,7 @@ export const helpAddBookToSavedBooks = async (data) => {
     const res = await axios.post('user/addSavedBook', data);
     return res.data;
   } catch (err) {
-    console.log(err);
+    return extractApiError(err);
   }
 };
 // data refers to user._id and book._id
@@ -109,19 +114,18 @@ export const helpDeleteBookFromSavedBooks = async (data) => {
     const res = await axios.post('user/removeSavedBook', data);
     return res.data;
   } catch (err) {
-    console.log(err);
+    return extractApiError(err);
   }
 };
 
 // /user/:id — gets userId via params and accepts bookID
 export const helpCreateMatch = async (data) => {
   const { userId, bookId } = data;
-  console.log('ids', userId, bookId);
   try {
     const res = await axios.post(`/user/${userId}`, { bookId });
     return res.data;
   } catch (err) {
-    console.log(err);
+    return extractApiError(err);
   }
 };
 
@@ -132,7 +136,7 @@ export const helpUpdateUser = async (userData) => {
     const res = await axios.put(`/user/${userID}`, otherData);
     return res.data;
   } catch (err) {
-    console.log(err);
+    return extractApiError(err);
   }
 };
 
@@ -141,7 +145,7 @@ export const helpGetUserMatches = async (userID) => {
     const res = await axios.get(`/user/${userID}`);
     return res.data;
   } catch (err) {
-    console.log(err);
+    return extractApiError(err);
   }
 };
 
@@ -152,7 +156,7 @@ export const helpUpdateMatch = async (data) => {
     const res = await axios.put(`/matches/${id}`, { status });
     return res.data;
   } catch (err) {
-    console.log(err);
+    return extractApiError(err);
   }
 };
 
@@ -161,7 +165,7 @@ export const helpDeleteMatch = async (matchId) => {
     const res = await axios.delete(`/matches/${matchId}`);
     return res.data;
   } catch (err) {
-    console.log(err);
+    return extractApiError(err);
   }
 };
 
@@ -170,6 +174,16 @@ export const helpGetMatchPartner = async (partnerID) => {
     const res = await axios.post('/user/users', { id: partnerID });
     return res.data;
   } catch (err) {
-    console.log(err);
+    return extractApiError(err);
+  }
+};
+
+export const helpLogOut = async () => {
+  console.log('Logging out at backend...');
+  try {
+    const response = await axios.get('/users/logout');
+    return response.data;
+  } catch (err) {
+    return extractApiError(err);
   }
 };
