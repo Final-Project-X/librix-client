@@ -4,14 +4,20 @@ import * as env from '../env.json';
 const ApiKey = env.GOOGLE_BOOKS_API_KEY;
 axios.defaults.baseURL = env.BASE_URL;
 
+const extractApiError = (errAxios) => {
+  return errAxios.response
+    ? errAxios.response.data
+    : { error: { message: 'API not reachable' } };
+};
+
 export const getBookInfo = async (isbn) => {
   try {
     let res = await axios.get(
       `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${ApiKey}`,
     );
     return res.data.items[0].volumeInfo;
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    return extractApiError(err);
   }
 };
 
@@ -20,8 +26,8 @@ export const addBook = async (bookData) => {
     let response = await axios.post('/books', bookData);
     console.log('AddBook from APi', response.data);
     return response.data;
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    return extractApiError(err);
   }
 };
 
@@ -31,8 +37,7 @@ export const helpDeleteBook = async (bookID) => {
     console.log('response from helpDeleteBook API call', response);
   } catch (err) {
     console.log('ERROR from helpDeleteBook API call');
-
-    console.log(err);
+    return extractApiError(err);
   }
 };
 
@@ -57,17 +62,17 @@ export const helpSignupUser = async (data) => {
     console.log('sign up user, response from backend', res.data);
     return res.data;
   } catch (err) {
-    console.log(err);
+    return extractApiError(err);
   }
 };
 
 export const helpLoginUser = async (loginData) => {
   try {
     const response = await axios.post('/user/login', loginData);
-    // console.log('response from backend', response.data);
+    console.log('user from backend', response.data);
     return response.data;
   } catch (err) {
-    console.log(err);
+    return extractApiError(err);
   }
 };
 
@@ -77,7 +82,7 @@ export const helpGetAllBooks = async () => {
     const res = await axios.get('/books');
     return res.data;
   } catch (err) {
-    console.log(err);
+    return extractApiError(err);
   }
 };
 
@@ -96,7 +101,7 @@ export const helpGetPoolOfBooks = async (booksData) => {
     console.log('user library from Api, length', res.data.length);
     return res.data;
   } catch (err) {
-    console.log(err);
+    return extractApiError(err);
   }
 };
 // data refers to user._id and book._id
@@ -105,7 +110,7 @@ export const helpAddBookToSavedBooks = async (data) => {
     const res = await axios.post('user/addSavedBook', data);
     return res.data;
   } catch (err) {
-    console.log(err);
+    return extractApiError(err);
   }
 };
 // data refers to user._id and book._id
@@ -114,19 +119,18 @@ export const helpDeleteBookFromSavedBooks = async (data) => {
     const res = await axios.post('user/removeSavedBook', data);
     return res.data;
   } catch (err) {
-    console.log(err);
+    return extractApiError(err);
   }
 };
 
 // /user/:id — gets userId via params and accepts bookID
 export const helpCreateMatch = async (data) => {
   const { userId, bookId } = data;
-  console.log('ids', userId, bookId);
   try {
     const res = await axios.post(`/user/${userId}`, { bookId });
     return res.data;
   } catch (err) {
-    console.log(err);
+    return extractApiError(err);
   }
 };
 
@@ -137,7 +141,7 @@ export const helpUpdateUser = async (userData) => {
     const res = await axios.put(`/user/${userID}`, otherData);
     return res.data;
   } catch (err) {
-    console.log(err);
+    return extractApiError(err);
   }
 };
 
@@ -146,7 +150,7 @@ export const helpGetUserMatches = async (userID) => {
     const res = await axios.get(`/user/${userID}`);
     return res.data;
   } catch (err) {
-    console.log(err);
+    return extractApiError(err);
   }
 };
 
@@ -157,7 +161,7 @@ export const helpUpdateMatch = async (data) => {
     const res = await axios.put(`/matches/${id}`, { status });
     return res.data;
   } catch (err) {
-    console.log(err);
+    return extractApiError(err);
   }
 };
 
@@ -175,23 +179,7 @@ export const helpDeleteMatch = async (matchAndUserData) => {
   }
 };
 
-/*
-! impossible to confirm receipt from the frontend
-
-3 actions:
-1. reserve book — updateBookAndMatchStatus
-2. confirm receipt:
-- updateMatch (set status of book inside the match to 'exchanged')
-- deleteAfterExchange (only if match status of both books is set to exchanged)
-3. delete match — deleteMatch
-
-! I want:
-deleteAfterExchange to set the status of a book (NOT MY BOOK) to "exchanged", check if the other book is 'exchanged', and, if yes, delete the match and data
-should accept match id + update object (e.g. bookOneStatus: 'exchanged')
-*/
-
 // removes the match after the exchange is done, along with all the books data
-// TODO
 export const helpRemoveMatchDataAfterExchange = async (matchAndBookData) => {
   const { matchID, bookID } = matchAndBookData;
   try {
@@ -202,7 +190,7 @@ export const helpRemoveMatchDataAfterExchange = async (matchAndBookData) => {
     console.log('response from helpRemoveMatchDataAfterExchange:', res.data);
     return res.data;
   } catch (err) {
-    console.log(err);
+    return extractApiError(err);
   }
 };
 
@@ -211,6 +199,16 @@ export const helpGetMatchPartner = async (partnerID) => {
     const res = await axios.post('/user/users', { id: partnerID });
     return res.data;
   } catch (err) {
-    console.log(err);
+    return extractApiError(err);
+  }
+};
+
+export const helpLogOut = async () => {
+  console.log('Logging out at backend...');
+  try {
+    const response = await axios.get('/users/logout');
+    return response.data;
+  } catch (err) {
+    return extractApiError(err);
   }
 };
