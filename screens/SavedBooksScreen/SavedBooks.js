@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 
 const SavedBooks = ({ navigation }) => {
   const savedBooks = useSelector((state) => state.savedBooks.savedBooks);
+  console.log('savedBooks from savedBooks.js:', savedBooks);
 
   return (
     <ScreenGradient>

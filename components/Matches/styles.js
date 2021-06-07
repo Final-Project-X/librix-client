@@ -2,17 +2,6 @@ import { StyleSheet } from 'react-native';
 import { colors, shadow } from '../../global/styles';
 
 export const styles = StyleSheet.create({
-  matchesListEmpty: {
-    alignSelf: 'center',
-    color: colors.primary.dark,
-    fontSize: 24,
-    paddingVertical: 20,
-  },
-  matchesListEnd: {
-    marginBottom: 50,
-    color: colors.white,
-    alignSelf: 'center',
-  },
   matchCard: {
     margin: 10,
     paddingHorizontal: 10,
@@ -66,6 +55,45 @@ export const styles = StyleSheet.create({
   },
   bookAuthor: {
     fontSize: 14,
+  },
+  matchOverlay: {
+    position: 'absolute',
+    top: 20,
+    left: 0,
+    width: '100%',
+    zIndex: 5,
+    padding: 15,
+    borderRadius: 25,
+    backgroundColor: colors.neutralBackground,
+    opacity: 0.9,
+  },
+  matchOverlayShadow: shadow.card,
+  matchOverlayText: {
+    backgroundColor: colors.neutralBackground,
+    color: colors.primary.dark,
+    lineHeight: 24,
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  reservedLabel: {
+    position: 'absolute',
+    top: 10,
+    left: 3,
+    width: '100%',
+    zIndex: 4,
+    backgroundColor: colors.white,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    borderColor: colors.primary.dark,
+    borderRadius: 20,
+    borderStyle: 'solid',
+    borderWidth: 1,
+  },
+  reservedLabelText: {
+    color: colors.primary.dark,
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+    textAlign: 'center',
   },
 });
 

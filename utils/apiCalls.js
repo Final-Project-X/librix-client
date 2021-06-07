@@ -41,20 +41,25 @@ export const helpDeleteBook = async (bookID) => {
   }
 };
 
-export const helpReserveBook = async (bookID) => {
+// sets reserved status in the book to true,
+// sets the book status in the match to "reserved"
+export const helpReserveBook = async (data) => {
+  const { matchID, bookID } = data;
   try {
-    const response = await axios.put(`/books/${bookID}`, {
-      reserved: true,
+    const response = await axios.post(`/matches/${matchID}`, {
+      bookId: bookID,
     });
-    return response;
-  } catch (err) {
-    return extractApiError(err);
+    console.log('from helpReserveBook in apiCalls:', response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
 export const helpSignupUser = async (data) => {
   try {
     const res = await axios.post('/user', data);
+    console.log('sign up user, response from backend', res.data);
     return res.data;
   } catch (err) {
     return extractApiError(err);
@@ -93,7 +98,7 @@ export const helpGetPoolOfBooks = async (booksData) => {
       `/user/library/${booksData?.userID}`,
       filterData,
     );
-    console.log('from Api', res.data);
+    console.log('user library from Api, length', res.data.length);
     return res.data;
   } catch (err) {
     return extractApiError(err);
@@ -143,6 +148,7 @@ export const helpUpdateUser = async (userData) => {
 export const helpGetUserMatches = async (userID) => {
   try {
     const res = await axios.get(`/user/${userID}`);
+    console.log('help get user matches from the API calls', res);
     return res.data;
   } catch (err) {
     return extractApiError(err);
@@ -160,9 +166,29 @@ export const helpUpdateMatch = async (data) => {
   }
 };
 
-export const helpDeleteMatch = async (matchId) => {
+// simply removes the match from both users' lists of matches,
+// book is removed from the interestedIn list of the one who removed the match
+export const helpDeleteMatch = async (matchAndUserData) => {
+  const { matchID, userID } = matchAndUserData;
   try {
-    const res = await axios.delete(`/matches/${matchId}`);
+    const res = await axios.delete(`/matches/${matchID}`, { userId: userID });
+    console.log('helpDeleteMatch result from the apiCalls:', res);
+    return res.data;
+  } catch (err) {
+    console.log('match was NOT deleted! apiCalls');
+    console.log(err);
+  }
+};
+
+// removes the match after the exchange is done, along with all the books data
+export const helpRemoveMatchDataAfterExchange = async (matchAndBookData) => {
+  const { matchID, bookID } = matchAndBookData;
+  try {
+    const res = await axios.post('/matches', {
+      matchId: matchID,
+      matchBookId: bookID,
+    });
+    console.log('response from helpRemoveMatchDataAfterExchange:', res.data);
     return res.data;
   } catch (err) {
     return extractApiError(err);
