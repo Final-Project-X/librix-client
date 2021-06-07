@@ -16,7 +16,9 @@ const Match = ({
   alertSetters,
   onSetReserveBookID,
   onSetDeleteBookID,
-  onSetMatchID,
+  onSetBookStatusUpdate,
+  onSetDeleteMatchID,
+  onSetReserveMatchID,
   onMatchPartnerProfilePress,
   // ...other
 }) => {
@@ -25,7 +27,8 @@ const Match = ({
 
   const { user } = useSelector((state) => state.user.user);
 
-  console.log(matchInfo);
+  // console.log(matchInfo);
+
   // books on the left-hand side are those which belong to the current user, books on the right-hand side are other person's books
   const { bookOne, bookTwo, bookOneStatus, bookTwoStatus } = matchInfo;
   const leftHandBook = bookOne.owner === user._id ? bookOne : bookTwo;
@@ -50,6 +53,29 @@ const Match = ({
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const onDeleteIconPress = () => {
+    console.log('click the <delete> icon button in the match!');
+    alertSetters.setIsDeleteModalShown(true);
+    onSetDeleteMatchID(matchInfo._id);
+  };
+
+  const onCheckIconPress = () => {
+    console.log('click the <check> icon button in the match!');
+    alertSetters.setIsReserveModalShown(true);
+    onSetReserveBookID(leftHandBook._id);
+  };
+
+  const onBookIconPress = () => {
+    console.log('click the <book> icon button in the match!');
+    onSetDeleteBookID(leftHandBook._id); //? do we need this?
+    onSetDeleteMatchID(matchInfo._id);
+    onSetBookStatusUpdate(
+      bookOne.owner === user._id
+        ? { bookTwoStatus: 'exchanged' }
+        : { bookOneStatus: 'exchanged' },
+    );
+  };
+
   return (
     <View style={styles.matchCard}>
       <View style={styles.matchRow}>
@@ -68,21 +94,80 @@ const Match = ({
             iconName="message-circle"
             handlePress={onMessageIconPress}
           /> */}
-          <MatchesIconButton iconName="user" handlePress={onProfileIconPress} />
-          <MatchesIconButton
-            iconName="message-circle"
-            handlePress={onMessageIconPress}
-          />
-          <MatchMenu
-            isMenuOpen={isMenuOpen}
-            closeHandler={() => setIsMenuOpen(false)}
-            onMoreIconPress={onMoreIconPress}
-            alertSetters={alertSetters}
-            menuOpenSetter={setIsMenuOpen}
-            onSetReserveBookID={() => onSetReserveBookID(leftHandBook._id)}
-            onSetDeleteBookID={() => onSetDeleteBookID(leftHandBook._id)}
-            onSetMatchID={() => onSetMatchID(matchInfo._id)}
-          />
+          {rightHandBookStatus === 'reserved' &&
+            leftHandBookStatus === 'reserved' && (
+              <>
+                <MatchesIconButton
+                  iconName="message-circle"
+                  handlePress={onMessageIconPress}
+                />
+                <MatchesIconButton
+                  iconName="book"
+                  handlePress={onBookIconPress}
+                />
+              </>
+            )}
+
+          {rightHandBookStatus === 'reserved' &&
+            leftHandBookStatus !== 'reserved' && (
+              <>
+                <MatchesIconButton
+                  iconName="message-circle"
+                  handlePress={onMessageIconPress}
+                />
+                <MatchesIconButton
+                  iconName="trash"
+                  handlePress={onDeleteIconPress}
+                />
+                <MatchesIconButton
+                  iconName="check"
+                  handlePress={onCheckIconPress}
+                />
+              </>
+            )}
+
+          {rightHandBookStatus !== 'reserved' && rightHandBook.reserved && (
+            <MatchesIconButton
+              iconName="trash"
+              handlePress={onDeleteIconPress}
+            />
+          )}
+
+          {rightHandBookStatus === 'pending' &&
+            leftHandBookStatus === 'pending' &&
+            !leftHandBook.reserved &&
+            !rightHandBook.reserved && (
+              <>
+                <MatchesIconButton
+                  iconName="user"
+                  handlePress={onProfileIconPress}
+                />
+                <MatchesIconButton
+                  iconName="message-circle"
+                  handlePress={onMessageIconPress}
+                />
+                <MatchMenu
+                  isMenuOpen={isMenuOpen}
+                  closeHandler={() => setIsMenuOpen(false)}
+                  onMoreIconPress={onMoreIconPress}
+                  alertSetters={alertSetters}
+                  menuOpenSetter={setIsMenuOpen}
+                  onSetReserveBookID={() =>
+                    onSetReserveBookID(leftHandBook._id)
+                  }
+                  onSetDeleteBookID={() => onSetDeleteBookID(leftHandBook._id)}
+                  onSetDeleteMatchID={() => onSetDeleteMatchID(matchInfo._id)}
+                  onSetReserveMatchID={() => onSetReserveMatchID(matchInfo._id)}
+                  onSetBookStatusUpdate={() =>
+                    onSetBookStatusUpdate(
+                      bookOne.owner === user._id
+                        ? { bookTwoStatus: 'exchanged' }
+                        : { bookOneStatus: 'exchanged' },
+                    )
+                  }
+                />
+              </>
+            )}
         </View>
       </View>
 
@@ -104,11 +189,12 @@ const Match = ({
             <MatchOverlay text="Swap in progress! Press the purple︎ button once you’ve received the book!" />
           )}
 
-        {rightHandBookStatus === 'reserved' && (
-          <MatchOverlay text="The book was reserved for you. Reserve yours, confirm the match." />
-        )}
+        {rightHandBookStatus === 'reserved' &&
+          leftHandBookStatus !== 'reserved' && (
+            <MatchOverlay text="The book was reserved for you. Reserve yours, confirm the match." />
+          )}
 
-        {rightHandBook.reserved && (
+        {rightHandBookStatus !== 'reserved' && rightHandBook.reserved && (
           <MatchOverlay text="The book was reserved by the owner." />
         )}
 
@@ -130,7 +216,7 @@ const Match = ({
           }
           reservedLabelText={
             leftHandBookStatus === 'reserved' && leftHandBook.reserved
-              ? 'reserved in this match'
+              ? 'you reserved for this match'
               : leftHandBook.reserved
               ? 'reserved'
               : null

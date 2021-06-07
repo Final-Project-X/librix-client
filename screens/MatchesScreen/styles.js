@@ -70,7 +70,7 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
   matchesListEnd: {
-    marginBottom: 450,
+    marginBottom: 80,
     color: colors.white,
     alignSelf: 'center',
   },

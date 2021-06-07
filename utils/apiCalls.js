@@ -36,13 +36,16 @@ export const helpDeleteBook = async (bookID) => {
   }
 };
 
-//TODO change!
-export const helpReserveBook = async (bookID) => {
+// sets reserved status in the book to true,
+// sets the book status in the match to "reserved"
+export const helpReserveBook = async (data) => {
+  const { matchID, bookID } = data;
   try {
-    const response = await axios.post(`/matches/${bookID}`, {
-      reserved: true,
+    const response = await axios.post(`/matches/${matchID}`, {
+      bookId: bookID,
     });
-    return response;
+    console.log('from helpReserveBook in apiCalls:', response);
+    return response.data;
   } catch (error) {
     console.log(error);
   }
@@ -51,7 +54,7 @@ export const helpReserveBook = async (bookID) => {
 export const helpSignupUser = async (data) => {
   try {
     const res = await axios.post('/user', data);
-    console.log('response from backend', res.data);
+    console.log('sign up user, response from backend', res.data);
     return res.data;
   } catch (err) {
     console.log(err);
@@ -90,7 +93,7 @@ export const helpGetPoolOfBooks = async (booksData) => {
       `/user/library/${booksData?.userID}`,
       filterData,
     );
-    console.log('from Api', res.data);
+    console.log('user library from Api, length', res.data.length);
     return res.data;
   } catch (err) {
     console.log(err);
@@ -158,9 +161,45 @@ export const helpUpdateMatch = async (data) => {
   }
 };
 
-export const helpDeleteMatch = async (matchId) => {
+// simply removes the match from both users' lists of matches,
+// book is removed from the interestedIn list of the one who removed the match
+export const helpDeleteMatch = async (matchAndUserData) => {
+  const { matchID, userID } = matchAndUserData;
   try {
-    const res = await axios.delete(`/matches/${matchId}`);
+    const res = await axios.delete(`/matches/${matchID}`, { userId: userID });
+    console.log('helpDeleteMatch result from the apiCalls:', res);
+    return res.data;
+  } catch (err) {
+    console.log('match was NOT deleted! apiCalls');
+    console.log(err);
+  }
+};
+
+/*
+! impossible to confirm receipt from the frontend
+
+3 actions:
+1. reserve book — updateBookAndMatchStatus
+2. confirm receipt:
+- updateMatch (set status of book inside the match to 'exchanged')
+- deleteAfterExchange (only if match status of both books is set to exchanged)
+3. delete match — deleteMatch
+
+! I want:
+deleteAfterExchange to set the status of a book (NOT MY BOOK) to "exchanged", check if the other book is 'exchanged', and, if yes, delete the match and data
+should accept match id + update object (e.g. bookOneStatus: 'exchanged')
+*/
+
+// removes the match after the exchange is done, along with all the books data
+// TODO
+export const helpRemoveMatchDataAfterExchange = async (matchAndBookData) => {
+  const { matchID, bookStatusUpdate } = matchAndBookData;
+  try {
+    const res = await axios.post('/matches', {
+      id: matchID,
+      update: bookStatusUpdate,
+    });
+    console.log('response from helpRemoveMatchDataAfterExchange:', res);
     return res.data;
   } catch (err) {
     console.log(err);

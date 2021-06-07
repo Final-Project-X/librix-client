@@ -2,25 +2,25 @@ import {
   helpDeleteBook,
   helpDeleteMatch,
   helpReserveBook,
-  helpUpdateMatch,
+  helpRemoveMatchDataAfterExchange,
   helpUpdateUser,
 } from '../../utils/apiCalls';
 
-export const notifyBackendOfReservedBook = async (bookID) => {
+// matchAndBookData = { matchID, bookID }
+export const notifyBackendOfReservedBook = async (matchAndBookData) => {
   try {
-    const resultOfReservation = await helpReserveBook(bookID);
-    console.log('result of Reservation', resultOfReservation.data);
+    const resultOfReservation = await helpReserveBook(matchAndBookData);
+    console.log('result of Reservation', resultOfReservation?.response.message);
   } catch (err) {
     console.log(err);
   }
 };
 
-export const notifyBackendOfExchange = async (matchID) => {
+// TODO — notifyBackendOfExchange
+// pass matchID and bookStatusUpdate as {bookOneStatus: 'exchanged'} or {bookTwoStatus: 'exchanged'}
+export const notifyBackendOfExchange = async (matchAndBookData) => {
   try {
-    const response = await helpUpdateMatch({
-      id: matchID,
-      status: 'exchanged',
-    });
+    const response = await helpRemoveMatchDataAfterExchange(matchAndBookData);
     console.log(response);
   } catch (err) {
     console.log(err);
@@ -36,10 +36,12 @@ export const notifyBackendOfExchange = async (matchID) => {
 //   }
 // };
 
-export const notifyBackendOfDeletedMatch = async (matchID) => {
+// matchAndUserData = { matchID, userID }
+export const notifyBackendOfDeletedMatch = async (matchAndUserData) => {
+  console.log('match and user data', matchAndUserData);
   try {
-    const response = await helpDeleteMatch(matchID);
-    console.log('response upon match deletion in Matches.js', response);
+    const response = await helpDeleteMatch(matchAndUserData);
+    console.log('response upon match deletion in asyncFunctions', response);
   } catch (err) {
     console.log(err);
   }

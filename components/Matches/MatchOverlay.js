@@ -5,7 +5,7 @@ import PrimaryText from '../Texts/PrimaryText';
 
 const MatchOverlay = ({ text }) => {
   return (
-    <View style={styles.matchOverlay}>
+    <View style={[styles.matchOverlay, styles.matchOverlayShadow]}>
       <PrimaryText text={text} customStyles={styles.matchOverlayText} />
     </View>
   );

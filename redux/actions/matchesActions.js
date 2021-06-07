@@ -10,7 +10,7 @@ export const getMatches = (userID) => async (dispatch) => {
   try {
     let userMatches;
     const matchesData = await helpGetUserMatches(userID);
-    console.log('hi from getMatches', matchesData);
+    console.log('hi from getMatches action', matchesData.length);
     if (Array.isArray(matchesData)) {
       userMatches = matchesData;
     } else {
