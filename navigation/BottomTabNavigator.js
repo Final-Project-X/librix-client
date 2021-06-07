@@ -10,6 +10,7 @@ import BooksStack from './BooksStack';
 import SavedBooksStack from './SavedBooksStack';
 import { MatchesIconButton } from '../components/Buttons/IconButtons/MatchesIconButton';
 import MatchesStack from './MatchesStack';
+import MassagesStack from './MessagesStack';
 
 export const GradientMainScreen = ({
   screenText,
@@ -37,14 +38,14 @@ export const GradientMainScreen = ({
   );
 };
 
-const Messages = ({ navigation }) => (
-  <GradientMainScreen
-    screenText="Messages"
-    toggleDrawer={() => navigation.toggleDrawer()}
-  >
-    <MatchesIconButton iconName="message-circle" handlePress={() => {}} />
-  </GradientMainScreen>
-);
+// const Messages = ({ navigation }) => (
+//   <GradientMainScreen
+//     screenText="Messages"
+//     toggleDrawer={() => navigation.toggleDrawer()}
+//   >
+//     <MatchesIconButton iconName="message-circle" handlePress={() => {}} />
+//   </GradientMainScreen>
+// );
 
 const Tab = createBottomTabNavigator();
 
@@ -58,7 +59,7 @@ const BottomTabNavigator = () => {
       <Tab.Screen name="Books" component={BooksStack} />
       <Tab.Screen name="Add book" component={AddBookStack} />
       <Tab.Screen name="Matches" component={MatchesStack} />
-      <Tab.Screen name="Messages" component={Messages} />
+      <Tab.Screen name="Messages" component={MassagesStack} />
     </Tab.Navigator>
   );
 };

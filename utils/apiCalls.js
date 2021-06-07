@@ -213,3 +213,12 @@ export const helpLogOut = async () => {
     return extractApiError(err);
   }
 };
+
+export const helpDeleteUser = async (userID) => {
+  try {
+    const res = await axios.delete(`/user/${userID}`);
+    return res.data.response.message;
+  } catch (err) {
+    console.log(err);
+  }
+};
