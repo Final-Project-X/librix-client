@@ -5,16 +5,14 @@ import { Platform } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.white,
+  },
+  scrollView: {
+    flex: 1,
   },
   content: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  contentContainer: {
-    flex: 1,
-    paddingBottom: 50,
   },
   input: {
     flexDirection: 'row',
@@ -59,10 +57,11 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     marginBottom: 10,
-    width: 370,
+    marginLeft: -50,
+    marginRight: -50,
   },
   formContainer: {
-    width: 400,
+    width: '100%',
   },
   or: {
     marginTop: 40,
@@ -77,7 +76,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   button: {
-    marginTop: 40,
+    marginTop: 30,
     alignSelf: 'center',
   },
   buttonText: {
@@ -125,15 +124,11 @@ const styles = StyleSheet.create({
     zIndex: 500,
   },
   main: {
-    width: '100%',
     alignItems: 'center',
   },
-  image: {
-    width: 200,
-    height: 160,
-    borderRadius: 15,
-    resizeMode: 'cover',
-    marginTop: 5,
+  imageText: {
+    color: colors.primary.dark,
+    marginLeft: -20,
   },
 });
 

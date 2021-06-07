@@ -267,7 +267,7 @@ const Matches = ({ navigation }) => {
               onMatchPartnerProfilePress={handleMatchPartnerProfilePress}
             />
           )}
-          keyExtractor={(item) => item._id}
+          keyExtractor={(item) => item?._id}
           ListEmptyComponent={
             <View>
               <PrimaryMedium

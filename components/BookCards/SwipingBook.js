@@ -10,8 +10,8 @@ const SwipingBook = ({ item, navigation }) => (
     <View style={styles.card}>
       <Image
         source={
-          item?.selectedFiles.length > 0
-            ? { uri: item?.selectedFiles[0] }
+          item.selectedFiles.length > 0
+            ? { uri: `data:image/jpeg;base64,${item.selectedFiles[0]}` }
             : Icon
         }
         style={styles.cardImage}
@@ -19,7 +19,7 @@ const SwipingBook = ({ item, navigation }) => (
       <View style={styles.info}>
         <SerifText text={item?.title} customStyles={styles.title} />
         <PrimaryText
-          text={`by ${item?.authors.join(', ')}`}
+          text={`by ${item?.authors?.join(', ')}`}
           customStyles={styles.text}
         />
         <PrimaryText text={item?.description} numberOfLines={3} />

@@ -3,6 +3,7 @@ import {
   helpSignupUser,
   helpLoginUser,
   helpUpdateUser,
+  helpLogOut,
 } from '../../utils/apiCalls';
 
 export const signUpUser = (data) => async (dispatch) => {
@@ -41,8 +42,22 @@ export const updateUser = (data) => async (dispatch) => {
   }
 };
 
+
 export const deleteUser = () => (dispatch) => {
   dispatch({
     type: ACTIONS.DELETE_USER,
   });
+};
+
+
+export const logOutUser = () => async (dispatch) => {
+  try {
+    await helpLogOut();
+    dispatch({
+      type: ACTIONS.LOGOUT_USER,
+      payload: null,
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };

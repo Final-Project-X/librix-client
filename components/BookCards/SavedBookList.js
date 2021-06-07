@@ -13,7 +13,7 @@ import Icon from '../../assets/icon.png';
 
 const SavedBookList = ({ item, navigation }) => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
+  const { user } = useSelector((state) => state.user.user);
   const savedBooks = useSelector((state) => state.savedBooks.savedBooks);
 
   const handleDelete = async (book) => {
@@ -33,7 +33,7 @@ const SavedBookList = ({ item, navigation }) => {
         <Image
           source={
             item.selectedFiles.length > 0
-              ? { uri: item.selectedFiles[0] }
+              ? { uri: `data:image/jpeg;base64,${item.selectedFiles[0]}` }
               : Icon
           }
           style={styles.img}

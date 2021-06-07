@@ -34,7 +34,7 @@ const BookItem = ({ book, navigation }) => {
       style={[styles.listItem, styles.flexRow]}
     >
       <Image
-        source={{ uri: book.selectedFiles ? book.selectedFiles : null }}
+        source={{ uri: book.selectedFiles ? book.selectedFiles[0] : null }}
         style={styles.bookImage}
       />
       <View style={styles.listItemTexts}>

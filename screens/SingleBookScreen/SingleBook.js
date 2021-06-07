@@ -15,7 +15,7 @@ const SingleBook = ({ route }) => {
           <Image
             source={
               item.selectedFiles.length > 0
-                ? { uri: item.selectedFiles[0] }
+                ? { uri: `data:image/jpeg;base64,${item.selectedFiles[0]}` }
                 : Icon
             }
             style={styles.card}
@@ -42,7 +42,7 @@ const SingleBook = ({ route }) => {
             </View>
             <View style={styles.item}>
               <PrimaryText
-                text={`Category: ${item?.genre}`}
+                text={`Genre: ${item?.genre}`}
                 customStyles={styles.lan}
               />
               <PrimaryText text={`Condition: ${item?.condition}`} />
