@@ -35,20 +35,20 @@ const Books = ({ navigation }) => {
     if (user.booksToOffer.length < 1) {
       setShowModal(true);
     } else {
-      dispatch(createMatch({ userId: user._id, bookId: book?._id }));
-      dispatch(removeBookFromPool(book?._id, books));
+      dispatch(createMatch({ userId: user._id, bookId: book._id }));
+      dispatch(removeBookFromPool(book._id, books));
     }
   };
 
   const handleSave = (index) => {
     const book = books[index];
     dispatch(addBookToSavedBooks(book, user, savedBooks));
-    dispatch(removeBookFromPool(book?._id, books));
+    dispatch(removeBookFromPool(book._id, books));
   };
 
   const handleNope = (index) => {
     const book = books[index];
-    dispatch(removeBookFromPool(book?._id, books));
+    dispatch(removeBookFromPool(book._id, books));
   };
 
   const handlePress = () => {

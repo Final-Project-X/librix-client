@@ -44,7 +44,7 @@ export const helpReserveBook = async (data) => {
     const response = await axios.post(`/matches/${matchID}`, {
       bookId: bookID,
     });
-    console.log('from helpReserveBook in apiCalls:', response);
+    console.log('from helpReserveBook in apiCalls:', response.data);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -193,11 +193,11 @@ should accept match id + update object (e.g. bookOneStatus: 'exchanged')
 // removes the match after the exchange is done, along with all the books data
 // TODO
 export const helpRemoveMatchDataAfterExchange = async (matchAndBookData) => {
-  const { matchID, bookStatusUpdate } = matchAndBookData;
+  const { matchID, bookID } = matchAndBookData;
   try {
     const res = await axios.post('/matches', {
       id: matchID,
-      update: bookStatusUpdate,
+      bookId: bookID,
     });
     console.log('response from helpRemoveMatchDataAfterExchange:', res);
     return res.data;

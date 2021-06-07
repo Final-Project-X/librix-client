@@ -10,7 +10,11 @@ import {
 export const notifyBackendOfReservedBook = async (matchAndBookData) => {
   try {
     const resultOfReservation = await helpReserveBook(matchAndBookData);
-    console.log('result of Reservation', resultOfReservation?.response.message);
+    console.log(
+      'result of reservation in asyncFunctions.js',
+      resultOfReservation,
+    );
+    return resultOfReservation;
   } catch (err) {
     console.log(err);
   }

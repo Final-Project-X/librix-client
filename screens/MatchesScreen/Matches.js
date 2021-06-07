@@ -54,19 +54,28 @@ const Matches = ({ navigation }) => {
 
   const [bookIDToReserve, setBookIDToReserve] = useState(null);
   const [matchIDToReserve, setMatchIDToReserve] = useState(null);
-  // create an object that would notify backend which book in the match needs a status update
-  const [bookStatusUpdate, setBookStatusUpdate] = useState(null);
+  const [bookIDToReceive, setBookIDToReceive] = useState(null); // the book that is received
   const [bookIDToDelete, setBookIDToDelete] = useState(null);
   const [matchIDToDelete, setMatchIDToDelete] = useState(null);
 
-  const onReserveModalPress = () => {
+  const onReserveModalPress = async () => {
     // update the booksToOffer state
     dispatch(markBookAsReserved(bookIDToReserve, booksToOffer));
+
     // update the book status in the backend
-    notifyBackendOfReservedBook({
-      matchID: matchIDToReserve,
-      bookID: bookIDToReserve,
-    });
+    try {
+      const reservationResponse = await notifyBackendOfReservedBook({
+        matchID: matchIDToReserve,
+        bookID: bookIDToReserve,
+      });
+      console.log('reservation response in Matches.js', reservationResponse);
+      if (reservationResponse?.response.message.includes('status updated')) {
+        dispatch(getMatches(user._id));
+      }
+    } catch (err) {
+      console.log(err);
+    }
+
     // close the modal
     setIsReserveModalShown(false);
     // TODO alert / toast
@@ -86,15 +95,15 @@ const Matches = ({ navigation }) => {
     // and delete the match and books' data if it is
     notifyBackendOfExchange({
       matchID: matchIDToDelete,
-      bookStatusUpdate: bookStatusUpdate,
+      bookID: bookIDToReceive,
     });
 
     setIsReceiptModalShown(false);
     // TODO alert / toast
     console.log('You finalized the deal!');
     // clean up the states
-    setBookStatusUpdate(null);
     setBookIDToDelete(null);
+    setBookIDToReceive(null);
     setMatchIDToDelete(null);
     // add +1 to user's profile points
     sendUserPointToBackend(user);
@@ -149,6 +158,7 @@ const Matches = ({ navigation }) => {
           handlePress={onReceiptModalPress}
           doCleanup={() => {
             setBookIDToDelete(null);
+            setBookIDToReceive(null);
             setMatchIDToDelete(null);
           }}
         >
@@ -181,7 +191,7 @@ const Matches = ({ navigation }) => {
               onSetDeleteBookID={setBookIDToDelete}
               onSetDeleteMatchID={setMatchIDToDelete}
               onSetReserveMatchID={setMatchIDToReserve}
-              onSetBookStatusUpdate={setBookStatusUpdate}
+              onSetBookIDToReceive={setBookIDToReceive}
               onMatchPartnerProfilePress={handleMatchPartnerProfilePress}
             />
           )}

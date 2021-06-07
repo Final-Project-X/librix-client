@@ -33,7 +33,7 @@ const MatchMenu = ({
   onSetDeleteBookID,
   onSetDeleteMatchID,
   onSetReserveMatchID,
-  onSetBookStatusUpdate,
+  onSetBookIDToReceive,
   menuOpenSetter,
 }) => {
   const {
@@ -59,7 +59,7 @@ const MatchMenu = ({
     // set ID of the book that will be removed from both user's book and the DB
     onSetDeleteBookID(); // ? do we need this?
     // send an object with the right book status set to 'exchanged' to update in the DB:
-    onSetBookStatusUpdate();
+    onSetBookIDToReceive();
     // set ID of the match that will be removed from both user's matches and the DB
     onSetDeleteMatchID();
     // close the menu
