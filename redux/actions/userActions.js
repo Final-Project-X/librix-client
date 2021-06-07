@@ -10,7 +10,7 @@ export const signUpUser = (data) => async (dispatch) => {
     const res = await helpSignupUser(data);
     dispatch({
       type: ACTIONS.SIGNUP_USER,
-      payload: res,
+      payload: res.user,
     });
   } catch (err) {
     console.log(err);
@@ -22,7 +22,7 @@ export const loginUser = (loginData) => async (dispatch) => {
     const res = await helpLoginUser(loginData);
     dispatch({
       type: ACTIONS.LOGIN_USER,
-      payload: res,
+      payload: res.user,
     });
   } catch (err) {
     console.log(err);
@@ -39,4 +39,10 @@ export const updateUser = (data) => async (dispatch) => {
   } catch (err) {
     console.log(err);
   }
+};
+
+export const deleteUser = () => (dispatch) => {
+  dispatch({
+    type: ACTIONS.DELETE_USER,
+  });
 };

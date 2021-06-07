@@ -14,9 +14,12 @@ import PrimaryLight from '../../components/Texts/PrimaryLight';
 import PrimaryMedium from '../../components/Texts/PrimaryMedium';
 import PrimaryBold from '../../components/Texts/PrimaryBold';
 import AlertModal from '../../components/AlertModal/AlertModal';
+import ResultModal from '../../components/AlertModal/ResultModal';
 import { MatchesIconButton } from '../../components/Buttons/IconButtons/MatchesIconButton';
 import { Feather } from '@expo/vector-icons';
-import { useSelector } from 'react-redux';
+import { deleteUser } from '../../redux/actions/userActions';
+import { helpDeleteUser } from '../../utils/apiCalls';
+import { useDispatch, useSelector } from 'react-redux';
 import { colors } from '../../global/styles';
 import styles from './styles';
 
@@ -44,16 +47,28 @@ const BookItem = ({ book, navigation }) => {
 
 const ProfileScreen = ({ navigation }) => {
   const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
 
-  const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showFailModal, setShowFailModal] = useState(false);
 
   return (
     <SafeAreaView style={styles.container}>
       <AlertModal
-        showModal={showModal}
-        setShowModal={setShowModal}
+        showModal={showDeleteModal}
+        setShowModal={setShowDeleteModal}
         whiteButtonText="Cancel"
         buttonText="Delete"
+        handlePress={async () => {
+          const res = await helpDeleteUser(user._i);
+          if (res === `User ${user.username} is deleted`) {
+            setShowDeleteModal(false);
+            setShowConfirmModal(true);
+          }
+          setShowDeleteModal(false);
+          setShowFailModal(true);
+        }}
       >
         <PrimaryMedium
           customStyles={[styles.modalText, styles.textMarginBottom]}
@@ -64,6 +79,32 @@ const ProfileScreen = ({ navigation }) => {
           text="Are you sure you want to delete your account?"
         />
       </AlertModal>
+      <ResultModal
+        buttonText="Dismiss"
+        showModal={showConfirmModal}
+        dismissModal={() => {
+          dispatch(deleteUser());
+        }}
+      >
+        <PrimaryMedium
+          text="Your profile has been deleted from our database along with all your data that you have submitted during your subscription with us."
+          customStyles={styles.modalText}
+        />
+      </ResultModal>
+      <ResultModal
+        buttonText="Dismiss"
+        showModal={showFailModal}
+        dismissModal={() => setShowFailModal(false)}
+      >
+        <PrimaryMedium
+          text="Something went wrong and we could not delete your profile."
+          customStyles={[styles.modalText, styles.textMarginBottom]}
+        />
+        <PrimaryMedium
+          text="Please try again!"
+          customStyles={styles.modalText}
+        />
+      </ResultModal>
       <PrimaryHeader text="Your profile" navigation={navigation} />
       <ScreenGradient customStyles={styles.gradient}>
         <View style={styles.userCard}>
@@ -137,7 +178,7 @@ const ProfileScreen = ({ navigation }) => {
         )}
 
         <TouchableOpacity
-          onPress={() => setShowModal(true)}
+          onPress={() => setShowDeleteModal(true)}
           style={[styles.deleteButton, styles.flexRow]}
         >
           <Feather name="trash-2" size={18} color={colors.textFaded} />

@@ -172,3 +172,12 @@ export const helpGetMatchPartner = async (partnerID) => {
     console.log(err);
   }
 };
+
+export const helpDeleteUser = async (userID) => {
+  try {
+    const res = await axios.delete(`/user/${userID}`);
+    return res.data.response.message;
+  } catch (err) {
+    console.log(err);
+  }
+};
