@@ -19,13 +19,12 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 10,
     marginLeft: 10,
     backgroundColor: colors.neutralBackground,
   },
   text: {
     fontSize: 18,
-    marginLeft: 20,
+    marginLeft: 10,
   },
 });
 
