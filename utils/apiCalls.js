@@ -196,10 +196,10 @@ export const helpRemoveMatchDataAfterExchange = async (matchAndBookData) => {
   const { matchID, bookID } = matchAndBookData;
   try {
     const res = await axios.post('/matches', {
-      id: matchID,
-      bookId: bookID,
+      matchId: matchID,
+      matchBookId: bookID,
     });
-    console.log('response from helpRemoveMatchDataAfterExchange:', res);
+    console.log('response from helpRemoveMatchDataAfterExchange:', res.data);
     return res.data;
   } catch (err) {
     console.log(err);

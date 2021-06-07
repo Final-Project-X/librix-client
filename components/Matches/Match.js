@@ -68,6 +68,7 @@ const Match = ({
 
   const onBookIconPress = () => {
     console.log('click the <book> icon button in the match!');
+    alertSetters.setIsReceiptModalShown(true);
     onSetDeleteBookID(leftHandBook._id); //? do we need this?
     onSetDeleteMatchID(matchInfo._id);
     onSetBookIDToReceive(rightHandBook._id);
@@ -91,22 +92,32 @@ const Match = ({
             iconName="message-circle"
             handlePress={onMessageIconPress}
           /> */}
-          {rightHandBookStatus === 'reserved' &&
-            leftHandBookStatus === 'reserved' && (
-              <>
-                <MatchesIconButton
-                  iconName="message-circle"
-                  handlePress={onMessageIconPress}
-                />
-                <MatchesIconButton
-                  iconName="book"
-                  handlePress={onBookIconPress}
-                />
-              </>
+          {rightHandBookStatus === 'received' &&
+            leftHandBookStatus !== 'received' && (
+              <MatchesIconButton
+                iconName="message-circle"
+                handlePress={onMessageIconPress}
+              />
             )}
 
+          {(rightHandBookStatus === 'reserved' &&
+            leftHandBookStatus === 'reserved') ||
+            (rightHandBookStatus !== 'received' &&
+              leftHandBookStatus === 'received' && (
+                <>
+                  <MatchesIconButton
+                    iconName="message-circle"
+                    handlePress={onMessageIconPress}
+                  />
+                  <MatchesIconButton
+                    iconName="book"
+                    handlePress={onBookIconPress}
+                  />
+                </>
+              ))}
+
           {rightHandBookStatus === 'reserved' &&
-            leftHandBookStatus !== 'reserved' && (
+            leftHandBookStatus === 'pending' && (
               <>
                 <MatchesIconButton
                   iconName="message-circle"
@@ -123,7 +134,7 @@ const Match = ({
               </>
             )}
 
-          {rightHandBookStatus !== 'reserved' && rightHandBook.reserved && (
+          {rightHandBookStatus === 'pending' && rightHandBook.reserved && (
             <MatchesIconButton
               iconName="trash"
               handlePress={onDeleteIconPress}
@@ -160,17 +171,32 @@ const Match = ({
       </View>
 
       <View style={styles.matchRow}>
+        {
+          rightHandBookStatus === 'received' &&
+            leftHandBookStatus !==
+              'received'(
+                <MatchOverlay text="Almost there! Just waiting for partner to receive your book." />,
+              )
+          // in Match, set message ''
+        }
+        {
+          leftHandBookStatus === 'received' &&
+            rightHandBookStatus !== 'received' && (
+              <MatchOverlay text="Your partner has received your book! Press the purple︎ button once you’ve received theirs." />
+            )
+          // in Match, set message ''
+        }
         {rightHandBookStatus === 'reserved' &&
           leftHandBookStatus === 'reserved' && (
             <MatchOverlay text="Swap in progress! Press the purple︎ button once you’ve received the book!" />
           )}
 
         {rightHandBookStatus === 'reserved' &&
-          leftHandBookStatus !== 'reserved' && (
+          leftHandBookStatus === 'pending' && (
             <MatchOverlay text="The book was reserved for you. Reserve yours, confirm the match." />
           )}
 
-        {rightHandBookStatus !== 'reserved' && rightHandBook.reserved && (
+        {rightHandBookStatus === 'pending' && rightHandBook.reserved && (
           <MatchOverlay text="The book was reserved by the owner." />
         )}
 
@@ -190,7 +216,7 @@ const Match = ({
             leftHandBookStatus === 'reserved' &&
             leftHandBook.reserved &&
             rightHandBookStatus === 'pending'
-              ? 'you reserved for this match'
+              ? 'reserved for this match'
               : leftHandBook.reserved &&
                 rightHandBookStatus === 'pending' &&
                 !rightHandBook.reserved

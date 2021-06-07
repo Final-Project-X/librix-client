@@ -25,7 +25,11 @@ export const notifyBackendOfReservedBook = async (matchAndBookData) => {
 export const notifyBackendOfExchange = async (matchAndBookData) => {
   try {
     const response = await helpRemoveMatchDataAfterExchange(matchAndBookData);
-    console.log(response);
+    console.log(
+      'response from notifyBackendOfExchange in asyncFunctions',
+      response,
+    );
+    return response;
   } catch (err) {
     console.log(err);
   }

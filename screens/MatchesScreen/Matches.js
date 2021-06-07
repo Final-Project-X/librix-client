@@ -37,7 +37,7 @@ const Matches = ({ navigation }) => {
   const { user } = useSelector((state) => state.user.user);
   // console.log('user from matches', user);
   const matches = useSelector((state) => state.matches.matches);
-  // console.log('matches from matches', matches);
+  console.log('matches from matches', matches);
   const booksToOffer = useSelector((state) => state.usersBooks.booksToOffer);
   // console.log('booksToOffer from matches', booksToOffer);
 
@@ -85,28 +85,41 @@ const Matches = ({ navigation }) => {
     setMatchIDToReserve(null);
   };
 
-  const onReceiptModalPress = () => {
-    // update the booksToOffer state
-    dispatch(deleteBook(bookIDToDelete, booksToOffer));
-    // update the matches (state)
-    dispatch(deleteMultipleMatches(bookIDToDelete, matches));
-    //? set the status of ANOTHER USER's book in the match to 'exchanged',
-    // which will check if the other book is exchanged as well
+  const onReceiptModalPress = async () => {
+    //? set the status of ANOTHER USER's book in the match to 'received',
+    // which will check if the other book is received as well
     // and delete the match and books' data if it is
-    notifyBackendOfExchange({
-      matchID: matchIDToDelete,
-      bookID: bookIDToReceive,
-    });
+    try {
+      const receptionResponse = await notifyBackendOfExchange({
+        matchID: matchIDToDelete,
+        bookID: bookIDToReceive,
+      });
+      console.log('reception response in Matches.js', receptionResponse);
+      const responseMessage = receptionResponse?.response.message;
+      // if both users confirmed the receipt, then the match & books are deleted.
+      // if only one has, the match stays, just the status of oneBook changes (matches are fetched from the BE again)
+      if (responseMessage.includes('Just one of the books')) {
+      } else if (responseMessage.includes('Both Books with all connections')) {
+        // update the booksToOffer state
+        dispatch(deleteBook(bookIDToDelete, booksToOffer));
+        // update the matches (state)
+        dispatch(deleteMultipleMatches(bookIDToDelete, matches));
+        // TODO alert / toast
+        console.log('You finalized the deal!');
+        // add +1 to user's profile points
+        sendUserPointToBackend(user);
+      }
+      // update matches
+      dispatch(getMatches(user._id));
+    } catch (err) {
+      console.log(err);
+    }
 
     setIsReceiptModalShown(false);
-    // TODO alert / toast
-    console.log('You finalized the deal!');
     // clean up the states
     setBookIDToDelete(null);
     setBookIDToReceive(null);
     setMatchIDToDelete(null);
-    // add +1 to user's profile points
-    sendUserPointToBackend(user);
   };
 
   const onDeleteModalPress = () => {
