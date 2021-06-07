@@ -86,6 +86,7 @@ const MatchMenu = ({
             handlePress={onMoreIconPress}
           /> */}
           <MatchesIconButton
+            type="neutral"
             iconName="more-vertical"
             handlePress={onMoreIconPress}
           />

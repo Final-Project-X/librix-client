@@ -95,6 +95,7 @@ const Match = ({
           {rightHandBookStatus === 'received' &&
             leftHandBookStatus !== 'received' && (
               <MatchesIconButton
+                type="neutral"
                 iconName="message-circle"
                 handlePress={onMessageIconPress}
               />
@@ -106,10 +107,12 @@ const Match = ({
               leftHandBookStatus === 'received' && (
                 <>
                   <MatchesIconButton
+                    type="neutral"
                     iconName="message-circle"
                     handlePress={onMessageIconPress}
                   />
                   <MatchesIconButton
+                    type="emphasis"
                     iconName="book"
                     handlePress={onBookIconPress}
                   />
@@ -120,14 +123,17 @@ const Match = ({
             leftHandBookStatus === 'pending' && (
               <>
                 <MatchesIconButton
+                  type="neutral"
                   iconName="message-circle"
                   handlePress={onMessageIconPress}
                 />
                 <MatchesIconButton
+                  type="danger"
                   iconName="trash"
                   handlePress={onDeleteIconPress}
                 />
                 <MatchesIconButton
+                  type="emphasis"
                   iconName="check"
                   handlePress={onCheckIconPress}
                 />
@@ -136,6 +142,7 @@ const Match = ({
 
           {rightHandBookStatus === 'pending' && rightHandBook.reserved && (
             <MatchesIconButton
+              type="danger"
               iconName="trash"
               handlePress={onDeleteIconPress}
             />
@@ -144,10 +151,12 @@ const Match = ({
           {rightHandBookStatus === 'pending' && !rightHandBook.reserved && (
             <>
               <MatchesIconButton
+                type="neutral"
                 iconName="user"
                 handlePress={onProfileIconPress}
               />
               <MatchesIconButton
+                type="neutral"
                 iconName="message-circle"
                 handlePress={onMessageIconPress}
               />
