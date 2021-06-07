@@ -64,14 +64,18 @@ const Filter = ({ navigation }) => {
   const user = useSelector((state) => state.user.user);
 
   const apply = async (city, genre, language) => {
-    dispatch(
-      getPoolOfBooks({
-        city,
-        genre,
-        language,
-        userID: user._id,
-      }),
-    );
+    try {
+      dispatch(
+        getPoolOfBooks({
+          city,
+          genre,
+          language,
+          userID: user._id,
+        }),
+      );
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handlePress = () => {

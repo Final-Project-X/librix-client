@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
   },
   input: {
@@ -19,7 +18,7 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'center',
-    marginBottom: 50,
+    marginVertical: 30,
     marginHorizontal: 50,
     fontSize: 18,
   },

@@ -25,14 +25,22 @@ const AddBook3 = ({ navigation, route }) => {
   const [valueGenre, setValueGenre] = useState(null);
   const [genreOpen, setGenreOpen] = useState(false);
   const [genres, setGenres] = useState([
-    { label: 'Action', value: 'action' },
-    { label: 'Children book', value: 'children book' },
-    { label: 'Classic', value: 'classic' },
-    { label: 'Comic book', value: 'comic book' },
-    { label: 'Crime', value: 'crime' },
-    { label: 'Drama', value: 'drama' },
-    { label: 'Poetry', value: 'poetry' },
-    { label: 'Self-help', value: 'self-help' },
+    { label: 'Fiction', value: 'Fiction' },
+    { label: 'Action', value: 'Action' },
+    { label: 'Children book', value: 'Children book' },
+    { label: 'Classic', value: 'Classic' },
+    { label: 'Comic book', value: 'Comic book' },
+    { label: 'Crime', value: 'Crime' },
+    { label: 'Drama', value: 'Drama' },
+    { label: 'Fantasy', value: 'Fantasy' },
+    { label: 'Romance', value: 'Romance' },
+    { label: 'Non-fiction', value: 'Non-fiction' },
+    { label: 'Biography', value: 'Biography' },
+    { label: 'History', value: 'History' },
+    { label: 'Leisure', value: 'Leisure' },
+    { label: 'Poetry', value: 'Poetry' },
+    { label: 'Self-help', value: 'Self-help' },
+    { label: 'Science', value: 'Science' },
   ]);
   const [valueCondition, setValueCondition] = useState(null);
   const [conditionOpen, setConditionOpen] = useState(false);
@@ -84,7 +92,7 @@ const AddBook3 = ({ navigation, route }) => {
   }, []);
 
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.user.user);
 
   const { title, authors, publishedDate, description } = route.params;
   const bookData = {

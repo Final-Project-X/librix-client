@@ -20,42 +20,63 @@ import { useDispatch, useSelector } from 'react-redux';
 const Books = ({ navigation }) => {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.user.user);
+  console.log('userid', user._id);
 
   useEffect(() => {
-    dispatch(getPoolOfBooks({ userID: user?._id }));
-    dispatch(getSavedBooks(user?.booksToRemember));
-  }, []);
+    async function handleFetch() {
+      try {
+        if (user) {
+          dispatch(getPoolOfBooks({ userID: user._id }));
+          dispatch(getSavedBooks(user.booksToRemember));
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    handleFetch();
+  }, [user, dispatch]);
 
   const books = useSelector((state) => state.poolOfBooks.books);
-  const savedBooks = useSelector((state) => state.savedBooks.savedBooks);
 
-  const handleYes = (index) => {
+  const handleYes = async (index) => {
     const book = books[index];
-    if (user.booksToOffer.length < 1) {
-      setShowModal(true);
-    } else {
-      dispatch(createMatch({ userId: user?._id, bookId: book?._id }));
-      dispatch(removeBookFromPool(book?._id, books));
+
+    try {
+      if (user.booksToOffer.length < 1) {
+        setShowModal(true);
+      } else {
+        dispatch(createMatch({ userId: user._id, bookId: book._id }));
+        dispatch(removeBookFromPool(book._id, books));
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
-  const handleSave = (index) => {
+  const handleSave = async (index) => {
     const book = books[index];
-    dispatch(addBookToSavedBooks(book, user, savedBooks));
-    dispatch(removeBookFromPool(book?._id, books));
+    try {
+      dispatch(addBookToSavedBooks(book, user));
+      dispatch(removeBookFromPool(book._id, books));
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const handleNope = (index) => {
+  const handleNope = async (index) => {
     const book = books[index];
-    dispatch(removeBookFromPool(book?._id, books));
+    try {
+      dispatch(removeBookFromPool(book._id, books));
+    } catch (err) {
+      console.log();
+    }
   };
 
   const handlePress = () => {
     navigation.navigate('AddBook1');
     setShowModal(false);
   };
-
   return (
     <SafeAreaView style={styles.container}>
       <ScreenGradient>
@@ -80,18 +101,22 @@ const Books = ({ navigation }) => {
           />
         </AlertModal>
 
-        {books.length < 1 || books === undefined ? (
+        {books === undefined || books.length < 1 ? (
           <NoBookCard navigation={navigation} />
         ) : (
           <Swiper
-            cards={books || []}
+            cards={books}
+            renderCard={(book) => {
+              return book ? (
+                <SwipingBook item={book} navigation={navigation} />
+              ) : (
+                <NoBookCard navigation={navigation} />
+              );
+            }}
+            onSwipedLeft={(cardIndex) => handleNope(cardIndex)}
+            onSwipedBottom={(cardIndex) => handleSave(cardIndex)}
+            onSwipedRight={(cardIndex) => handleYes(cardIndex)}
             cardIndex={0}
-            renderCard={(book) => (
-              <SwipingBook item={book} navigation={navigation} />
-            )}
-            onSwipedLeft={(index) => handleNope(index)}
-            onSwipedBottom={(index) => handleSave(index)}
-            onSwipedRight={(index) => handleYes(index)}
             disableTopSwipe
             overlayLabelsOpacity
             infinite
