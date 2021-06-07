@@ -148,6 +148,7 @@ export const helpUpdateUser = async (userData) => {
 export const helpGetUserMatches = async (userID) => {
   try {
     const res = await axios.get(`/user/${userID}`);
+    console.log('help get user matches from the API calls', res);
     return res.data;
   } catch (err) {
     return extractApiError(err);

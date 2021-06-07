@@ -80,7 +80,7 @@ const Books = ({ navigation }) => {
           />
         </AlertModal>
 
-        {books.length < 1 || books === undefined ? (
+        {books || books.length < 1 ? (
           <NoBookCard navigation={navigation} />
         ) : (
           <Swiper
