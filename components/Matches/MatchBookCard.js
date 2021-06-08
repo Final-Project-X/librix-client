@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Image } from 'react-native';
 import PrimaryText from '../Texts/PrimaryText';
 import SerifText from '../Texts/SerifText';
-import Icon from '../../assets/icon.png';
+import Icon from '../../assets/book-open.png';
 import { styles } from './styles';
 import ReservedLabel from './ReservedLabel';
 
@@ -20,7 +20,7 @@ const MatchBookCard = ({
         source={
           bookImageUri
             ? {
-                uri: bookImageUri,
+                uri: `data:image/jpeg;base64,${bookImageUri}`,
               }
             : Icon
         }

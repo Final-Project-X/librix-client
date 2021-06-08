@@ -1,8 +1,16 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
+import {
+  TouchableHighlight,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
 import { colors } from '../../../global/styles';
 import { matchIconStyles } from './styles';
+import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 
 const iconStrokes = {
   emphasis: colors.white,
@@ -10,17 +18,18 @@ const iconStrokes = {
   neutral: colors.primary.dark,
 };
 
-export const MatchesIconButton = ({ iconName, handlePress, type }) => {
+export const MatchesIconButton = ({ iconName, handlePress, iconType }) => {
   return (
-    <TouchableOpacity
+    <Pressable
       style={[
         matchIconStyles.iconButton,
         matchIconStyles.buttonShadow,
-        matchIconStyles[type],
+        matchIconStyles[iconType],
       ]}
       onPress={handlePress}
     >
-      <Feather name={iconName} size={20} color={iconStrokes[type]} />
-    </TouchableOpacity>
+      <Feather name={iconName} size={20} color={iconStrokes[iconType]} />
+      {/* <Feather name={iconName} size={20} color={colors.primary.dark} /> */}
+    </Pressable>
   );
 };

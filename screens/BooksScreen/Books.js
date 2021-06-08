@@ -38,6 +38,7 @@ const Books = ({ navigation }) => {
   }, [user, dispatch]);
 
   const books = useSelector((state) => state.poolOfBooks.books);
+  console.log('books in Books.js:', books?.length);
 
   const handleYes = async (index) => {
     const book = books[index];

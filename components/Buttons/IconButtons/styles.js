@@ -35,18 +35,27 @@ export const positionStyles = (absTop, absLeft, absRight) =>
   });
 
 export const matchIconStyles = StyleSheet.create({
+  basicIconButton: {
+    margin: 10,
+  },
   iconButton: {
-    width: 30,
+    // width: 30,
     height: 30,
+    padding: 5,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 50,
-    margin: 10,
+    marginHorizontal: 15,
+    marginVertical: 10,
   },
   buttonShadow: shadow.button,
   emphasis: {
     backgroundColor: colors.primary.dark,
   },
-  danger: { backgroundColor: colors.secondary.dark },
-  neutral: { backgroundColor: colors.white },
+  danger: {
+    backgroundColor: colors.secondary.dark,
+  },
+  neutral: {
+    backgroundColor: colors.white,
+  },
 });

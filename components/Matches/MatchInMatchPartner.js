@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image, TouchableOpacity } from 'react-native';
 import PrimaryBold from '../../components/Texts/PrimaryBold';
-import Icon from '../../assets/favicon.png';
+import Icon from '../../assets/book-open.png';
 import { Feather } from '@expo/vector-icons';
 import { colors } from '../../global/styles';
 import { matchPartnerMatchStyles } from './styles';
@@ -41,7 +41,9 @@ const MatchInMatchPartner = ({
             ]}
             source={
               leftHandBook.selectedFiles.length > 0
-                ? { uri: leftHandBook.selectedFiles[0] }
+                ? {
+                    uri: `data:image/jpeg;base64,${leftHandBook.selectedFiles[0]}`,
+                  }
                 : Icon
             }
           />
@@ -70,7 +72,9 @@ const MatchInMatchPartner = ({
             ]}
             source={
               rightHandBook.selectedFiles.length > 0
-                ? { uri: rightHandBook.selectedFiles[0] }
+                ? {
+                    uri: `data:image/jpeg;base64,${rightHandBook.selectedFiles[0]}`,
+                  }
                 : Icon
             }
           />

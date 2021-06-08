@@ -38,7 +38,7 @@ const OthersProfile = ({ navigation, route, otherUser, userId }) => {
   }, [otherUserId]);
 
   console.log('match partner', matchPartner);
-  const { user } = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.user.user);
   // console.log(user);
 
   const matches = useSelector((state) => state.matches.matches);

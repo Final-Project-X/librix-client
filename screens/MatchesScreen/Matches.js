@@ -27,6 +27,7 @@ import {
 } from './asyncFunctions';
 // STYLES
 import { styles } from './styles';
+import PrimaryBold from '../../components/Texts/PrimaryBold';
 
 //* COMPONENT
 
@@ -156,18 +157,27 @@ const Matches = ({ navigation }) => {
         <AlertModal
           showModal={isReserveModalShown}
           setShowModal={setIsReserveModalShown}
+          whiteButtonText="Cancel"
           buttonText="Reserve"
           handlePress={onReserveModalPress}
           doCleanup={() => setBookIDToReserve(null)}
         >
-          <PrimaryText text="Shut the door in the face of interested readers! Reserve your book!" />
+          <PrimaryBold
+            customStyles={styles.alertModalBold}
+            text="That's a commitment!"
+          />
+          <PrimaryText
+            customStyles={styles.alertModalText}
+            text="Shut the door in the face of other interested readers, reserve your book!"
+          />
         </AlertModal>
 
         {/* Confirm receipt of the book modal */}
         <AlertModal
           showModal={isReceiptModalShown}
           setShowModal={setIsReceiptModalShown}
-          buttonText="Confirm"
+          whiteButtonText="No, wait"
+          buttonText="Let's do it!"
           handlePress={onReceiptModalPress}
           doCleanup={() => {
             setBookIDToDelete(null);
@@ -175,18 +185,43 @@ const Matches = ({ navigation }) => {
             setMatchIDToDelete(null);
           }}
         >
-          <PrimaryText text="Got the book? Simply say so and close the bloody match!" />
+          <PrimaryBold
+            customStyles={styles.alertModalBold}
+            text="Swapped the books? Feeling good?"
+          />
+          <PrimaryText
+            customStyles={styles.alertModalText}
+            text="From now on, we delete everything… EVERYTHING!!!"
+          />
+          <PrimaryText
+            customStyles={styles.alertModalText}
+            text="Just kidding, not everything but all things associated with this match, so the books and the chat. Just clearing up some space for later."
+          />
         </AlertModal>
 
         {/* Delete the match modal */}
         <AlertModal
           showModal={isDeleteModalShown}
           setShowModal={setIsDeleteModalShown}
-          buttonText="Delete"
+          whiteButtonText="Undo"
+          buttonText="It's over"
           handlePress={onDeleteModalPress}
           doCleanup={() => setMatchIDToDelete(null)}
         >
-          <PrimaryText text="Don't want to exchange? Just delete the bloody match!" />
+          <PrimaryBold
+            customStyles={styles.alertModalBold}
+            text="Want to cut the connection?"
+          />
+          <PrimaryText customStyles={styles.alertModalText} text="That’s ok." />
+          <PrimaryText
+            customStyles={styles.alertModalText}
+            text="Pressing the purple button
+            will make every word regarding this relationship disappear."
+          />
+          <PrimaryText
+            customStyles={styles.alertModalText}
+            text="Clean breakup — no bull***."
+          />
         </AlertModal>
 
         <FlatList

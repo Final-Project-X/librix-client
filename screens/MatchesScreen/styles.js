@@ -77,4 +77,17 @@ export const styles = StyleSheet.create({
     color: colors.white,
     alignSelf: 'center',
   },
+  alertModalBold: {
+    width: '80%',
+    marginBottom: 10,
+    fontSize: 20,
+    textAlign: 'center',
+  },
+  alertModalText: {
+    width: '80%',
+    marginVertical: 10,
+    fontSize: 18,
+    lineHeight: 24,
+    textAlign: 'center',
+  },
 });
