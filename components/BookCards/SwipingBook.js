@@ -6,8 +6,6 @@ import styles from './styles';
 import Icon from '../../assets/icon.png';
 
 const SwipingBook = ({ item, navigation }) => {
-  console.log('item', item);
-
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate('SingleBook', { item })}
