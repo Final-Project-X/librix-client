@@ -1,22 +1,22 @@
 import React from 'react';
-import { SafeAreaView, View, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  SafeAreaView,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import PrimaryText from '../../components/Texts/PrimaryText';
 import PrimaryMedium from '../../components/Texts/PrimaryMedium';
 import { Feather } from '@expo/vector-icons';
 import { colors } from '../../global/styles';
+import logo from '../../assets/logo.png';
 
 const HomeScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.logoSection}>
-        <View style={styles.flexRow}>
-          <Feather name="book-open" size={30} color="black" />
-          <PrimaryText text="librix" customStyles={styles.logoText} />
-        </View>
-        <PrimaryText
-          text="like Tinder. for books."
-          customStyles={styles.slogan}
-        />
+        <Image source={logo} style={styles.image} />
       </View>
       <View style={styles.lowerSection}>
         <PrimaryText
@@ -88,6 +88,11 @@ const styles = StyleSheet.create({
     height: 200,
     backgroundColor: '#dddddd',
   },
+  image: {
+    height: 220,
+    width: '100%',
+    resizeMode: 'cover',
+  },
   logoText: {
     fontSize: 22,
     marginLeft: 10,
@@ -109,7 +114,7 @@ const styles = StyleSheet.create({
     marginVertical: 35,
   },
   button: {
-    backgroundColor: colors.almostBlack,
+    backgroundColor: colors.primary.dark,
     borderRadius: 5,
   },
   buttonLabel: {

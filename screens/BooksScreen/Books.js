@@ -21,7 +21,7 @@ const Books = ({ navigation }) => {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
-  console.log('userid', user._id);
+  console.log({ user });
 
   useEffect(() => {
     async function handleFetch() {
@@ -76,6 +76,7 @@ const Books = ({ navigation }) => {
     navigation.navigate('AddBook1');
     setShowModal(false);
   };
+  console.log('books from BooksScreen', books.length);
   return (
     <SafeAreaView style={styles.container}>
       <ScreenGradient>

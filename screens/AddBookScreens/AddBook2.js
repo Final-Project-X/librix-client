@@ -21,8 +21,8 @@ const AddBook2 = ({ navigation, route }) => {
   const [title, setTitle] = useState(null);
   const [authors, setAuthors] = useState(null);
   const [publishedDate, setPublishedDate] = useState(null);
-
-  const { book } = route.params || {};
+  const { book } = route.params;
+  const [bookInfo, setBookInfo] = useState(book);
 
   const handleBookInfo = (val1, val2, val3) => {
     const authorsArr = (value) => {
@@ -32,6 +32,7 @@ const AddBook2 = ({ navigation, route }) => {
         return value;
       }
     };
+
     if (!val1 || !val2 || !val3) {
       return setError('All fields are require!');
     } else {
@@ -39,11 +40,9 @@ const AddBook2 = ({ navigation, route }) => {
         title: val1,
         authors: authorsArr(val2),
         publishedDate: val3.slice(0, 4),
-        description: book?.description,
+        description: bookInfo?.description,
       });
-      setTitle(null);
-      setAuthors(null);
-      setPublishedDate(null);
+      setBookInfo(null);
       setError(null);
     }
   };
@@ -67,7 +66,7 @@ const AddBook2 = ({ navigation, route }) => {
                 value={title}
                 placeholder="Book title"
                 placeholderTextColor="black"
-                defaultValue={book?.title}
+                defaultValue={bookInfo?.title}
                 onChangeText={(val) => setTitle(val)}
               />
               <TextInput
@@ -75,7 +74,7 @@ const AddBook2 = ({ navigation, route }) => {
                 value={authors}
                 placeholder="Author's name"
                 placeholderTextColor="black"
-                defaultValue={book?.authors.join(', ')}
+                defaultValue={bookInfo?.authors.join(', ')}
                 onChangeText={(val) => setAuthors(val)}
               />
               <TextInput
@@ -83,7 +82,7 @@ const AddBook2 = ({ navigation, route }) => {
                 value={publishedDate}
                 placeholder="Year"
                 placeholderTextColor="black"
-                defaultValue={book?.publishedDate.slice(0, 4)}
+                defaultValue={bookInfo?.publishedDate.slice(0, 4)}
                 onChangeText={(val) => setPublishedDate(val)}
                 numeric={true}
               />
@@ -95,9 +94,9 @@ const AddBook2 = ({ navigation, route }) => {
                   style={styles.button}
                   onPress={() =>
                     handleBookInfo(
-                      title || book?.title,
-                      authors || book?.authors,
-                      publishedDate || book?.publishedDate,
+                      title || bookInfo?.title,
+                      authors || bookInfo?.authors,
+                      publishedDate || bookInfo?.publishedDate,
                     )
                   }
                 >

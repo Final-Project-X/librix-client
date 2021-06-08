@@ -19,12 +19,16 @@ const AddBook1 = ({ navigation }) => {
   const [isbn, setIsbn] = useState(null);
 
   const handlePress = async () => {
-    if (isbn) {
-      const book = await getBookInfo(isbn);
-      navigation.navigate('AddBook2', { book });
-      setIsbn(null);
-    } else {
-      navigation.navigate('AddBook2');
+    try {
+      if (isbn) {
+        const book = await getBookInfo(isbn);
+        navigation.navigate('AddBook2', { book });
+        setIsbn(null);
+      } else {
+        navigation.navigate('AddBook2');
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
