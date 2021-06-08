@@ -24,7 +24,6 @@ export const getBookInfo = async (isbn) => {
 export const addBook = async (bookData) => {
   try {
     let response = await axios.post('/books', bookData);
-    console.log('AddBook from APi', response.data);
     return response.data;
   } catch (err) {
     return extractApiError(err);
@@ -137,7 +136,6 @@ export const helpCreateMatch = async (data) => {
 
 export const helpUpdateUser = async (userData) => {
   const { userID, ...otherData } = userData;
-  console.log('otherData from helpUpdateUser in the API calls', otherData);
   try {
     const res = await axios.put(`/user/${userID}`, otherData);
     return res.data;

@@ -17,7 +17,7 @@ import { getPoolOfBooks } from '../../redux/actions/poolOfBooksActions';
 const Filter = ({ navigation }) => {
   const dispatch = useDispatch();
 
-  const [location, setLocation] = useState('');
+  const [location, setLocation] = useState(null);
   const [genreOpen, setGenreOpen] = useState(false);
   const [languageOpen, setLanguageOpen] = useState(false);
   const [valueGenre, setValueGenre] = useState(null);
@@ -76,6 +76,9 @@ const Filter = ({ navigation }) => {
     } catch (err) {
       console.log(err);
     }
+    setLocation(null);
+    setValueGenre(null);
+    setValueLanguage(null);
   };
 
   const handlePress = () => {

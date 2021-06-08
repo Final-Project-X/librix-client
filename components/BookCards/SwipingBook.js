@@ -6,7 +6,6 @@ import styles from './styles';
 import Icon from '../../assets/icon.png';
 
 const SwipingBook = ({ item, navigation }) => {
-  console.log('item passed to SwipingBook', item?.title);
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate('SingleBook', { item })}
@@ -14,7 +13,7 @@ const SwipingBook = ({ item, navigation }) => {
       <View style={styles.card}>
         <Image
           source={
-            item.selectedFiles.length > 0
+            item?.selectedFiles.length > 0
               ? { uri: `data:image/jpeg;base64,${item.selectedFiles[0]}` }
               : Icon
           }

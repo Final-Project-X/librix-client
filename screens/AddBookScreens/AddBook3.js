@@ -1,7 +1,6 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   View,
-  Image,
   TextInput,
   SafeAreaView,
   TouchableOpacity,
@@ -15,7 +14,10 @@ import ButtonGradient from '../../components/Gradients/ButtonGradient';
 import UploadImageBtn from '../../components/Buttons/UploadImageBtn';
 import PrimaryText from '../../components/Texts/PrimaryText';
 import PrimaryBold from '../../components/Texts/PrimaryBold';
-import { addBookToOfferedBooks } from '../../redux/actions/usersBooksActions';
+import {
+  addBookToOfferedBooks,
+  getBooksToOffer,
+} from '../../redux/actions/usersBooksActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 const AddBook3 = ({ navigation, route }) => {
@@ -113,16 +115,18 @@ const AddBook3 = ({ navigation, route }) => {
       personalDescription: valueNote,
       selectedFiles: [image.base64],
     };
-    console.log(newBook);
     try {
-      if (!valueGen || !valueCon || !valueLan || !valueNote || !image.base64) {
-        setError('All fields are required!');
+      if (!valueGen || !valueCon || !valueLan || !image) {
+        setError('Please make sure fields are filled in correctly!');
       } else {
         dispatch(addBookToOfferedBooks(newBook, user.booksToOffer));
+        dispatch(getBooksToOffer(user.booksToOffer));
         navigation.navigate('Books');
-        setError(null);
+        setValueGenre(null);
+        setValueCondition(null);
         setNote(null);
         setImage(null);
+        setError(null);
       }
     } catch (err) {
       console.log(err);
@@ -210,24 +214,28 @@ const AddBook3 = ({ navigation, route }) => {
                     style={[styles.inputText, styles.noteText]}
                     value={note}
                     onChangeText={(val) => setNote(val)}
-                    placeholder="Describe the book"
+                    placeholder="Describe the book (optional)"
                     multiline={true}
                     textAlignVertical="top"
                     enablesReturnkeyAutomatically={true}
                   />
                 </View>
               </View>
+              <PrimaryText
+                text="Maximum image size 1MB"
+                customStyles={styles.size}
+              />
               <View style={styles.upload}>
                 <UploadImageBtn setImage={setImage} navigation={navigation} />
               </View>
+              {error && (
+                <PrimaryText text={error} customStyles={styles.inputError} />
+              )}
               {image && (
                 <PrimaryBold
                   text="Your Image has been uploaded!"
                   customStyles={styles.imageText}
                 />
-              )}
-              {error && (
-                <PrimaryText text={error} customStyles={styles.inputError} />
               )}
               <TouchableOpacity
                 style={styles.button}
