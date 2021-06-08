@@ -34,7 +34,11 @@ const BookItem = ({ book, navigation }) => {
       style={[styles.listItem, styles.flexRow]}
     >
       <Image
-        source={{ uri: book.selectedFiles ? book.selectedFiles[0] : null }}
+        source={{
+          uri: book.selectedFiles
+            ? `data:image/jpeg;base64,${book.selectedFiles[0]}`
+            : null,
+        }}
         style={styles.bookImage}
       />
       <View style={styles.listItemTexts}>
@@ -47,8 +51,9 @@ const BookItem = ({ book, navigation }) => {
 
 const ProfileScreen = ({ navigation }) => {
   const user = useSelector((state) => state.user.user);
-  const dispatch = useDispatch();
+  const booksToOffer = useSelector((state) => state.usersBooks.booksToOffer);
 
+  const dispatch = useDispatch();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showFailModal, setShowFailModal] = useState(false);
@@ -61,7 +66,7 @@ const ProfileScreen = ({ navigation }) => {
         whiteButtonText="Cancel"
         buttonText="Delete"
         handlePress={async () => {
-          const res = await helpDeleteUser(user._i);
+          const res = await helpDeleteUser(user._id);
           if (res === `User ${user.username} is deleted`) {
             setShowDeleteModal(false);
             setShowConfirmModal(true);
@@ -158,10 +163,10 @@ const ProfileScreen = ({ navigation }) => {
           />
         </View>
 
-        {user.booksToOffer && user.booksToOffer.length ? (
+        {booksToOffer.length > 0 ? (
           <View style={styles.scrollArea}>
             <FlatList
-              data={user.booksToOffer}
+              data={booksToOffer}
               renderItem={(data) => (
                 <BookItem book={data.item} navigation={navigation} />
               )}

@@ -37,6 +37,7 @@ const EditProfile = ({ navigation }) => {
       aboutMe: values.aboutMe,
     };
     dispatch(updateUser({ userID: user._id, ...data }));
+    navigation.navigate('Profile');
   };
 
   return (

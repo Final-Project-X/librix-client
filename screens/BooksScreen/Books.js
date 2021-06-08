@@ -107,7 +107,7 @@ const Books = ({ navigation }) => {
           <Swiper
             cards={books}
             renderCard={(book) => {
-              return book ? (
+              return book && book._id ? (
                 <SwipingBook item={book} navigation={navigation} />
               ) : (
                 <NoBookCard navigation={navigation} />
