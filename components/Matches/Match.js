@@ -24,7 +24,7 @@ const Match = ({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   // console.log('other props in Match.js:', other);
 
-  const { user } = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.user.user);
 
   // console.log(matchInfo);
 

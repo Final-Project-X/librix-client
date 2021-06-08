@@ -34,7 +34,7 @@ const Matches = ({ navigation }) => {
   // console.log('navigation in Matches', navigation);
   const dispatch = useDispatch();
 
-  const { user } = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.user.user);
   // console.log('user from matches', user);
   const matches = useSelector((state) => state.matches.matches);
   // console.log('matches from matches', matches);
