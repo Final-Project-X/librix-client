@@ -14,7 +14,10 @@ import ButtonGradient from '../../components/Gradients/ButtonGradient';
 import UploadImageBtn from '../../components/Buttons/UploadImageBtn';
 import PrimaryText from '../../components/Texts/PrimaryText';
 import PrimaryBold from '../../components/Texts/PrimaryBold';
-import { addBookToOfferedBooks } from '../../redux/actions/usersBooksActions';
+import {
+  addBookToOfferedBooks,
+  getBooksToOffer,
+} from '../../redux/actions/usersBooksActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 const AddBook3 = ({ navigation, route }) => {
@@ -117,6 +120,7 @@ const AddBook3 = ({ navigation, route }) => {
         setError('Please make sure fields are filled in correctly!');
       } else {
         dispatch(addBookToOfferedBooks(newBook, user.booksToOffer));
+        dispatch(getBooksToOffer(user.booksToOffer));
         navigation.navigate('Books');
         setValueGenre(null);
         setValueCondition(null);
