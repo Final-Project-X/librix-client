@@ -50,7 +50,6 @@ const Books = ({ navigation }) => {
       }
     } catch (err) {
       console.log(err);
-
     }
   };
 
@@ -102,13 +101,12 @@ const Books = ({ navigation }) => {
         </AlertModal>
 
         {books === undefined || books.length < 1 ? (
-
           <NoBookCard navigation={navigation} />
         ) : (
           <Swiper
             cards={books}
             renderCard={(book) => {
-              return book ? (
+              return book && book._id ? (
                 <SwipingBook item={book} navigation={navigation} />
               ) : (
                 <NoBookCard navigation={navigation} />
