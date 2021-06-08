@@ -14,6 +14,7 @@ export const addBookToOfferedBooks =
   (bookData, booksToOffer) => async (dispatch) => {
     try {
       const newBook = await addBook(bookData);
+      console.log('newBook from Action', newBook);
       const updatedOfferedBooks = [newBook, ...booksToOffer];
       dispatch({
         type: ACTIONS.ADD_BOOK_TO_OFFERED_BOOKS,

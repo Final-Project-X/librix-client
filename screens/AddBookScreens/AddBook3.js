@@ -1,7 +1,6 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   View,
-  Image,
   TextInput,
   SafeAreaView,
   TouchableOpacity,
@@ -113,16 +112,17 @@ const AddBook3 = ({ navigation, route }) => {
       personalDescription: valueNote,
       selectedFiles: [image.base64],
     };
-    console.log(newBook);
     try {
-      if (!valueGen || !valueCon || !valueLan || !valueNote || !image.base64) {
-        setError('All fields are required!');
+      if (!valueGen || !valueCon || !valueLan || !image) {
+        setError('Please make sure fields are filled in correctly!');
       } else {
         dispatch(addBookToOfferedBooks(newBook, user.booksToOffer));
         navigation.navigate('Books');
-        setError(null);
+        setValueGenre(null);
+        setValueCondition(null);
         setNote(null);
         setImage(null);
+        setError(null);
       }
     } catch (err) {
       console.log(err);
@@ -210,24 +210,28 @@ const AddBook3 = ({ navigation, route }) => {
                     style={[styles.inputText, styles.noteText]}
                     value={note}
                     onChangeText={(val) => setNote(val)}
-                    placeholder="Describe the book"
+                    placeholder="Describe the book (optional)"
                     multiline={true}
                     textAlignVertical="top"
                     enablesReturnkeyAutomatically={true}
                   />
                 </View>
               </View>
+              <PrimaryText
+                text="Maximum image size 1MB"
+                customStyles={styles.size}
+              />
               <View style={styles.upload}>
                 <UploadImageBtn setImage={setImage} navigation={navigation} />
               </View>
+              {error && (
+                <PrimaryText text={error} customStyles={styles.inputError} />
+              )}
               {image && (
                 <PrimaryBold
                   text="Your Image has been uploaded!"
                   customStyles={styles.imageText}
                 />
-              )}
-              {error && (
-                <PrimaryText text={error} customStyles={styles.inputError} />
               )}
               <TouchableOpacity
                 style={styles.button}

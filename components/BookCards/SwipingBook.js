@@ -5,32 +5,41 @@ import SerifText from '../Texts/SerifText';
 import styles from './styles';
 import Icon from '../../assets/icon.png';
 
-const SwipingBook = ({ item, navigation }) => (
-  <TouchableOpacity onPress={() => navigation.navigate('SingleBook', { item })}>
-    <View style={styles.card}>
-      <Image
-        source={
-          item.selectedFiles.length > 0
-            ? { uri: `data:image/jpeg;base64,${item.selectedFiles[0]}` }
-            : Icon
-        }
-        style={styles.cardImage}
-      />
-      <View style={styles.info}>
-        <SerifText text={item?.title} customStyles={styles.title} />
-        <PrimaryText
-          text={`by ${item?.authors?.join(', ')}`}
-          customStyles={styles.text}
+const SwipingBook = ({ item, navigation }) => {
+  console.log('item', item);
+
+  return (
+    <TouchableOpacity
+      onPress={() => navigation.navigate('SingleBook', { item })}
+    >
+      <View style={styles.card}>
+        <Image
+          source={
+            item?.selectedFiles.length > 0
+              ? { uri: `data:image/jpeg;base64,${item.selectedFiles[0]}` }
+              : Icon
+          }
+          style={styles.cardImage}
         />
-        <PrimaryText text={item?.description} numberOfLines={3} />
-        <PrimaryText
-          text={`Language: ${item?.language}`}
-          customStyles={styles.lan}
-        />
-        <PrimaryText text={`Genre: ${item?.genre}`} customStyles={styles.lan} />
+        <View style={styles.info}>
+          <SerifText text={item?.title} customStyles={styles.title} />
+          <PrimaryText
+            text={`by ${item?.authors?.join(', ')}`}
+            customStyles={styles.text}
+          />
+          <PrimaryText text={item?.description} numberOfLines={3} />
+          <PrimaryText
+            text={`Language: ${item?.language}`}
+            customStyles={styles.lan}
+          />
+          <PrimaryText
+            text={`Genre: ${item?.genre}`}
+            customStyles={styles.lan}
+          />
+        </View>
       </View>
-    </View>
-  </TouchableOpacity>
-);
+    </TouchableOpacity>
+  );
+};
 
 export default SwipingBook;
