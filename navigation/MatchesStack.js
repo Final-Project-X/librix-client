@@ -3,9 +3,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Matches from '../screens/MatchesScreen/Matches';
 import { SafeAreaView, Text } from 'react-native';
 import ScreenGradient from '../components/Gradients/ScreenGradient';
-import { HeaderIconButton } from '../components/Buttons/IconButtons/HeaderIconButton';
 import { colors } from '../global/styles';
 import OthersProfile from '../screens/MatchesScreen/OthersProfile';
+import MainStackHeader from '../components/Headers/MainStackHeader';
+import { useSelector } from 'react-redux';
 
 const MatchesStack = createStackNavigator();
 
@@ -20,6 +21,7 @@ const Chat = () => {
 };
 
 export default ({ navigation }) => {
+  const user = useSelector((state) => state.user.user);
   return (
     <MatchesStack.Navigator>
       <MatchesStack.Screen
@@ -27,11 +29,9 @@ export default ({ navigation }) => {
         component={Matches}
         options={{
           headerTitle: (props) => (
-            <HeaderIconButton
-              iconName="user"
-              iconColor={colors.white}
-              buttonColor={colors.primary.dark}
-              handlePress={() => navigation.toggleDrawer()}
+            <MainStackHeader
+              drawerToggler={() => navigation.toggleDrawer()}
+              avatar={user?.avatar}
             />
           ),
           headerTitleAlign: 'left',
