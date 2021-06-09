@@ -119,8 +119,7 @@ const AddBook3 = ({ navigation, route }) => {
       if (!valueGen || !valueCon || !valueLan || !image) {
         setError('Please make sure fields are filled in correctly!');
       } else {
-        dispatch(addBookToOfferedBooks(newBook, user.booksToOffer));
-        dispatch(getBooksToOffer(user.booksToOffer));
+        dispatch(addBookToOfferedBooks(newBook));
         navigation.navigate('Books');
         setValueGenre(null);
         setValueCondition(null);

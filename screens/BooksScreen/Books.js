@@ -15,6 +15,7 @@ import {
 } from '../../redux/actions/savedBooksActions';
 import { removeBookFromPool } from '../../redux/actions/poolOfBooksActions';
 import { createMatch } from '../../redux/actions/matchesActions';
+import { getBooksToOffer } from '../../redux/actions/usersBooksActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Books = ({ navigation }) => {
@@ -29,6 +30,7 @@ const Books = ({ navigation }) => {
         if (user) {
           dispatch(getPoolOfBooks({ userID: user._id }));
           dispatch(getSavedBooks(user.booksToRemember));
+          dispatch(getBooksToOffer(user.booksToOffer));
         }
       } catch (err) {
         console.log(err);
