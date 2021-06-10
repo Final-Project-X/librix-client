@@ -26,63 +26,41 @@ const Books = ({ navigation }) => {
   console.log({ user });
 
   useEffect(() => {
-    async function handleFetch() {
-      try {
-        if (user) {
-          dispatch(getPoolOfBooks({ userID: user._id }, userToken));
-          dispatch(getSavedBooks(user.booksToRemember));
-          dispatch(getBooksToOffer(user.booksToOffer));
-        }
-      } catch (err) {
-        console.log(err);
-      }
+    if (user) {
+      dispatch(getPoolOfBooks({ userID: user._id }, userToken));
+      dispatch(getSavedBooks(user.booksToRemember));
+      dispatch(getBooksToOffer(user.booksToOffer));
     }
-    handleFetch();
   }, [user, userToken, dispatch]);
 
   const books = useSelector((state) => state.poolOfBooks.books);
   console.log('books in Books.js:', books?.length);
 
-  const handleYes = async (index) => {
+  const handleYes = (index) => {
     const book = books[index];
-    try {
-      if (user.booksToOffer.length < 1) {
-        setShowModal(true);
-      } else {
-        dispatch(
-          createMatch({ userId: user._id, bookId: book._id }, userToken),
-        );
-        dispatch(removeBookFromPool(book._id, books));
-      }
-    } catch (err) {
-      console.log(err);
+    if (user.booksToOffer.length < 1) {
+      setShowModal(true);
+    } else {
+      dispatch(createMatch({ userId: user._id, bookId: book._id }));
+      dispatch(removeBookFromPool(book._id, books));
     }
   };
 
-  const handleSave = async (index) => {
+  const handleSave = (index) => {
     const book = books[index];
-    try {
-      dispatch(addBookToSavedBooks(book, user, userToken));
-      dispatch(removeBookFromPool(book._id, books));
-    } catch (err) {
-      console.log(err);
-    }
+    dispatch(addBookToSavedBooks(book, user, userToken));
+    dispatch(removeBookFromPool(book._id, books));
   };
 
-  const handleNope = async (index) => {
+  const handleNope = (index) => {
     const book = books[index];
-    try {
-      dispatch(removeBookFromPool(book._id, books));
-    } catch (err) {
-      console.log();
-    }
+    dispatch(removeBookFromPool(book._id, books));
   };
 
   const handlePress = () => {
     navigation.navigate('AddBook1');
     setShowModal(false);
   };
-  console.log('books from BooksScreen', books.length);
   return (
     <SafeAreaView style={styles.container}>
       <ScreenGradient>

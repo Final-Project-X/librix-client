@@ -4,7 +4,7 @@ import ScreenGradient from '../../components/Gradients/ScreenGradient';
 import PrimaryText from '../../components/Texts/PrimaryText';
 import SerifText from '../../components/Texts/SerifText';
 import styles from './styles';
-import Icon from '../../assets/icon.png';
+import Icon from '../../assets/book-open.png';
 
 const SingleBook = ({ route }) => {
   const { item } = route.params;

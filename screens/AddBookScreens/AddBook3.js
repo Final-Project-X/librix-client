@@ -14,10 +14,7 @@ import ButtonGradient from '../../components/Gradients/ButtonGradient';
 import UploadImageBtn from '../../components/Buttons/UploadImageBtn';
 import PrimaryText from '../../components/Texts/PrimaryText';
 import PrimaryBold from '../../components/Texts/PrimaryBold';
-import {
-  addBookToOfferedBooks,
-  getBooksToOffer,
-} from '../../redux/actions/usersBooksActions';
+import { addBookToOfferedBooks } from '../../redux/actions/usersBooksActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 const AddBook3 = ({ navigation, route }) => {
@@ -107,7 +104,7 @@ const AddBook3 = ({ navigation, route }) => {
     description: description,
   };
 
-  const handlePublishBook = async (valueGen, valueCon, valueLan, valueNote) => {
+  const handlePublishBook = (valueGen, valueCon, valueLan, valueNote) => {
     const newBook = {
       ...bookData,
       genre: valueGen,
@@ -116,20 +113,17 @@ const AddBook3 = ({ navigation, route }) => {
       personalDescription: valueNote,
       selectedFiles: [image.base64],
     };
-    try {
-      if (!valueGen || !valueCon || !valueLan || !image) {
-        setError('Please make sure fields are filled in correctly!');
-      } else {
-        dispatch(addBookToOfferedBooks(newBook, userToken));
-        navigation.navigate('Books');
-        setValueGenre(null);
-        setValueCondition(null);
-        setNote(null);
-        setImage(null);
-        setError(null);
-      }
-    } catch (err) {
-      console.log(err);
+    
+    if (!valueGen || !valueCon || !valueLan || !image) {
+      setError('Please make sure fields are filled in correctly!');
+    } else {
+      dispatch(addBookToOfferedBooks(newBook, userToken));
+      navigation.navigate('Books');
+      setValueGenre(null);
+      setValueCondition(null);
+      setNote(null);
+      setImage(null);
+      setError(null);
     }
   };
 
