@@ -6,10 +6,14 @@ import AddBook1 from '../screens/AddBookScreens/AddBook1';
 import AddBook2 from '../screens/AddBookScreens/AddBook2';
 import AddBook3 from '../screens/AddBookScreens/AddBook3';
 import Filter from '../screens/FilterScreen/Filter';
+import MainStackHeader from '../components/Headers/MainStackHeader';
+import { useSelector } from 'react-redux';
+import { colors } from '../global/styles';
 
 const Stack = createStackNavigator();
 
-const BooksStack = () => {
+const BooksStack = ({ navigation }) => {
+  const user = useSelector((state) => state.user.user);
   return (
     <Stack.Navigator
       screenOptions={{
@@ -21,7 +25,18 @@ const BooksStack = () => {
       <Stack.Screen
         name="Books"
         component={Books}
-        options={{ title: 'Find Your Match' }}
+        options={{
+          headerTitle: (props) => (
+            <MainStackHeader
+              drawerToggler={() => navigation.toggleDrawer()}
+              avatar={user?.avatar}
+            />
+          ),
+          headerTitleAlign: 'left',
+          headerStyle: {
+            backgroundColor: colors.neutralBackground,
+          },
+        }}
       />
       <Stack.Screen
         name="SingleBook"

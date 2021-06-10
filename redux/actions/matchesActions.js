@@ -5,20 +5,26 @@ import {
   helpGetUserMatches,
 } from '../../utils/apiCalls';
 
+const sortMatches = (matches) =>
+  matches.sort((a, b) => {
+    if (b.createdAt < a.createdAt) {
+      return -1;
+    } else if (a.createdAt < b.createdAt) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+
 // get matches
 export const getMatches = (userID) => async (dispatch) => {
   try {
-    let userMatches;
-    const matchesData = await helpGetUserMatches(userID);
-    console.log('hi from getMatches action', matchesData);
-    if (Array.isArray(matchesData)) {
-      userMatches = matchesData;
-    } else {
-      userMatches = [];
-    }
+    const userMatches = await helpGetUserMatches(userID);
+    const matches = sortMatches(userMatches);
+    // console.log('hi from getMatches', userMatches);
     dispatch({
       type: ACTIONS.GET_USERS_MATCHES,
-      payload: userMatches,
+      payload: matches,
     });
   } catch (err) {
     console.log(err);
@@ -39,9 +45,7 @@ export const createMatch = (data) => async (dispatch) => {
     if (isThereAMatch?.response?.message.slice(0, 7) === 'You got') {
       const updatedUserMatches = await helpGetUserMatches(data.userId);
       //TODO check if the sorting function works
-      const matches = updatedUserMatches.sort(
-        (a, b) => a.createdAt - b.createdAt,
-      );
+      const matches = sortMatches(updatedUserMatches);
       dispatch({
         type: ACTIONS.CREATE_MATCH,
         payload: matches,
