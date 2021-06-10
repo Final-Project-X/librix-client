@@ -38,9 +38,9 @@ export const loginUser = (loginData) => async (dispatch) => {
   }
 };
 
-export const updateUser = (data) => async (dispatch) => {
+export const updateUser = (data, token) => async (dispatch) => {
   try {
-    const res = await helpUpdateUser(data);
+    const res = await helpUpdateUser(data, token);
     dispatch({
       type: ACTIONS.UPDATE_USER,
       payload: res,
@@ -52,6 +52,9 @@ export const updateUser = (data) => async (dispatch) => {
 
 export const deleteUser = () => (dispatch) => {
   dispatch({
+    type: ACTIONS.DELETE_TOKEN,
+  });
+  dispatch({
     type: ACTIONS.DELETE_USER,
   });
 };
@@ -60,11 +63,11 @@ export const logOutUser = () => async (dispatch) => {
   try {
     await helpLogOut();
     dispatch({
-      type: ACTIONS.LOGOUT_USER,
-      payload: null,
+      type: ACTIONS.DELETE_TOKEN,
     });
     dispatch({
-      type: ACTIONS.DELETE_TOKEN,
+      type: ACTIONS.LOGOUT_USER,
+      payload: null,
     });
   } catch (err) {
     console.log(err);

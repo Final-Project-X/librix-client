@@ -8,9 +8,9 @@ import { colors } from '../../global/styles';
 const LogOut = ({ navigation }) => {
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(logOutUser());
-  // }, []);
+  useEffect(() => {
+    dispatch(logOutUser());
+  }, []);
 
   return (
     <SafeAreaView>

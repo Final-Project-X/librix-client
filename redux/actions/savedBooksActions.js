@@ -11,12 +11,15 @@ export const getSavedBooks = (books) => (dispatch) => {
   });
 };
 
-export const addBookToSavedBooks = (book, user) => async (dispatch) => {
+export const addBookToSavedBooks = (book, user, token) => async (dispatch) => {
   try {
-    await helpAddBookToSavedBooks({
-      bookId: book._id,
-      userId: user._id,
-    });
+    await helpAddBookToSavedBooks(
+      {
+        bookId: book._id,
+        userId: user._id,
+      },
+      token,
+    );
     dispatch({
       type: ACTIONS.ADD_BOOK_TO_SAVED_BOOKS,
       payload: book,
@@ -27,12 +30,15 @@ export const addBookToSavedBooks = (book, user) => async (dispatch) => {
 };
 
 export const removeBookFromSavedBooks =
-  (bookId, userId) => async (dispatch) => {
+  (bookId, userId, token) => async (dispatch) => {
     try {
-      await helpDeleteBookFromSavedBooks({
-        bookId,
-        userId,
-      });
+      await helpDeleteBookFromSavedBooks(
+        {
+          bookId,
+          userId,
+        },
+        token,
+      );
       dispatch({
         type: ACTIONS.REMOVE_BOOK_FROM_SAVED_BOOKS,
         payload: bookId,

@@ -51,6 +51,7 @@ const BookItem = ({ book, navigation }) => {
 
 const ProfileScreen = ({ navigation }) => {
   const user = useSelector((state) => state.user.user);
+  const userToken = useSelector((state) => state.token.token);
   const booksToOffer = useSelector((state) => state.usersBooks.booksToOffer);
 
   const dispatch = useDispatch();
@@ -66,7 +67,7 @@ const ProfileScreen = ({ navigation }) => {
         whiteButtonText="Cancel"
         buttonText="Delete"
         handlePress={async () => {
-          const res = await helpDeleteUser(user._id);
+          const res = await helpDeleteUser(user._id, userToken);
           if (res === `User ${user.username} is deleted`) {
             setShowDeleteModal(false);
             setShowConfirmModal(true);
@@ -116,7 +117,9 @@ const ProfileScreen = ({ navigation }) => {
           <View style={styles.flexRow}>
             <View>
               <Image source={{ uri: user.avatar }} style={styles.avatar} />
-              <PrimaryLight text="10 points" />
+              <PrimaryLight
+                text={user.points === 1 ? '1 point' : `${user.points} points`}
+              />
             </View>
             <View>
               <PrimaryBold

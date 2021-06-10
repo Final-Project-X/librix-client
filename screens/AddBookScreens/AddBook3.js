@@ -95,6 +95,7 @@ const AddBook3 = ({ navigation, route }) => {
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
+  const userToken = useSelector((state) => state.token.token);
 
   const { title, authors, publishedDate, description } = route.params;
   const bookData = {
@@ -119,7 +120,7 @@ const AddBook3 = ({ navigation, route }) => {
       if (!valueGen || !valueCon || !valueLan || !image) {
         setError('Please make sure fields are filled in correctly!');
       } else {
-        dispatch(addBookToOfferedBooks(newBook));
+        dispatch(addBookToOfferedBooks(newBook, userToken));
         navigation.navigate('Books');
         setValueGenre(null);
         setValueCondition(null);

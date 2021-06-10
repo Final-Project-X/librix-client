@@ -21,18 +21,22 @@ export const getBookInfo = async (isbn) => {
   }
 };
 
-export const addBook = async (bookData) => {
+export const addBook = async (bookData, token) => {
   try {
-    let response = await axios.post('/books', bookData);
+    let response = await axios.post('/books', bookData, {
+      headers: { auth: token },
+    });
     return response.data;
   } catch (err) {
     return extractApiError(err);
   }
 };
 
-export const helpDeleteBook = async (bookID) => {
+export const helpDeleteBook = async (bookID, token) => {
   try {
-    const response = await axios.delete(`/books/${bookID}`);
+    const response = await axios.delete(`/books/${bookID}`, {
+      headers: { auth: token },
+    });
     console.log('response from helpDeleteBook API call', response);
   } catch (err) {
     console.log('ERROR from helpDeleteBook API call');
@@ -42,12 +46,16 @@ export const helpDeleteBook = async (bookID) => {
 
 // sets reserved status in the book to true,
 // sets the book status in the match to "reserved"
-export const helpReserveBook = async (data) => {
+export const helpReserveBook = async (data, token) => {
   const { matchID, bookID } = data;
   try {
-    const response = await axios.post(`/matches/${matchID}`, {
-      bookId: bookID,
-    });
+    const response = await axios.post(
+      `/matches/${matchID}`,
+      {
+        bookId: bookID,
+      },
+      { headers: { auth: token } },
+    );
     console.log('from helpReserveBook in apiCalls:', response.data);
     return response.data;
   } catch (error) {
@@ -86,7 +94,7 @@ export const helpGetAllBooks = async () => {
 };
 
 // also, to reset the state when applying the filters
-export const helpGetPoolOfBooks = async (booksData) => {
+export const helpGetPoolOfBooks = async (booksData, token) => {
   const filterData = {
     city: booksData?.city,
     genre: booksData?.genre,
@@ -96,6 +104,7 @@ export const helpGetPoolOfBooks = async (booksData) => {
     const res = await axios.post(
       `/user/library/${booksData?.userID}`,
       filterData,
+      { headers: { auth: token } },
     );
 
     console.log('user library from Api, length', res.data.length);
@@ -105,18 +114,22 @@ export const helpGetPoolOfBooks = async (booksData) => {
   }
 };
 // data refers to user._id and book._id
-export const helpAddBookToSavedBooks = async (data) => {
+export const helpAddBookToSavedBooks = async (data, token) => {
   try {
-    const res = await axios.post('user/addSavedBook', data);
+    const res = await axios.post('user/addSavedBook', data, {
+      headers: { auth: token },
+    });
     return res.data;
   } catch (err) {
     return extractApiError(err);
   }
 };
 // data refers to user._id and book._id
-export const helpDeleteBookFromSavedBooks = async (data) => {
+export const helpDeleteBookFromSavedBooks = async (data, token) => {
   try {
-    const res = await axios.post('user/removeSavedBook', data);
+    const res = await axios.post('user/removeSavedBook', data, {
+      headers: { auth: token },
+    });
     return res.data;
   } catch (err) {
     return extractApiError(err);
@@ -124,29 +137,37 @@ export const helpDeleteBookFromSavedBooks = async (data) => {
 };
 
 // /user/:id — gets userId via params and accepts bookID
-export const helpCreateMatch = async (data) => {
+export const helpCreateMatch = async (data, token) => {
   const { userId, bookId } = data;
   try {
-    const res = await axios.post(`/user/${userId}`, { bookId });
+    const res = await axios.post(
+      `/user/${userId}`,
+      { bookId },
+      { headers: { auth: token } },
+    );
     return res.data;
   } catch (err) {
     return extractApiError(err);
   }
 };
 
-export const helpUpdateUser = async (userData) => {
+export const helpUpdateUser = async (userData, token) => {
   const { userID, ...otherData } = userData;
   try {
-    const res = await axios.put(`/user/${userID}`, otherData);
+    const res = await axios.put(`/user/${userID}`, otherData, {
+      headers: { auth: token },
+    });
     return res.data;
   } catch (err) {
     return extractApiError(err);
   }
 };
 
-export const helpGetUserMatches = async (userID) => {
+export const helpGetUserMatches = async (userID, token) => {
   try {
-    const res = await axios.get(`/user/${userID}`);
+    const res = await axios.get(`/user/${userID}`, {
+      headers: { auth: token },
+    });
     console.log('help get user matches from the API calls', res);
     return res.data;
   } catch (err) {
@@ -155,22 +176,30 @@ export const helpGetUserMatches = async (userID) => {
 };
 
 // when the status is set to 'exchanged', the match is deleted from the DB, along with all other matches that have the current books IDs
-export const helpUpdateMatch = async (data) => {
-  const { id, status } = data;
-  try {
-    const res = await axios.put(`/matches/${id}`, { status });
-    return res.data;
-  } catch (err) {
-    return extractApiError(err);
-  }
-};
+// export const helpUpdateMatch = async (data, token) => {
+//   const { id, status } = data;
+//   try {
+//     const res = await axios.put(
+//       `/matches/${id}`,
+//       { status },
+//       { headers: { auth: token } },
+//     );
+//     return res.data;
+//   } catch (err) {
+//     return extractApiError(err);
+//   }
+// };
 
 // simply removes the match from both users' lists of matches,
 // book is removed from the interestedIn list of the one who removed the match
-export const helpDeleteMatch = async (matchAndUserData) => {
+export const helpDeleteMatch = async (matchAndUserData, token) => {
   const { matchID, userID } = matchAndUserData;
   try {
-    const res = await axios.delete(`/matches/${matchID}`, { userId: userID });
+    const res = await axios.delete(
+      `/matches/${matchID}`,
+      { userId: userID },
+      { headers: { auth: token } },
+    );
     console.log('helpDeleteMatch result from the apiCalls:', res);
     return res.data;
   } catch (err) {
@@ -180,13 +209,20 @@ export const helpDeleteMatch = async (matchAndUserData) => {
 };
 
 // removes the match after the exchange is done, along with all the books data
-export const helpRemoveMatchDataAfterExchange = async (matchAndBookData) => {
+export const helpRemoveMatchDataAfterExchange = async (
+  matchAndBookData,
+  token,
+) => {
   const { matchID, bookID } = matchAndBookData;
   try {
-    const res = await axios.post('/matches', {
-      matchId: matchID,
-      matchBookId: bookID,
-    });
+    const res = await axios.post(
+      '/matches',
+      {
+        matchId: matchID,
+        matchBookId: bookID,
+      },
+      { headers: { auth: token } },
+    );
     console.log('response from helpRemoveMatchDataAfterExchange:', res.data);
     return res.data;
   } catch (err) {
@@ -194,9 +230,13 @@ export const helpRemoveMatchDataAfterExchange = async (matchAndBookData) => {
   }
 };
 
-export const helpGetMatchPartner = async (partnerID) => {
+export const helpGetMatchPartner = async (partnerID, token) => {
   try {
-    const res = await axios.post('/user/users', { id: partnerID });
+    const res = await axios.post(
+      '/user/users',
+      { id: partnerID },
+      { headers: { auth: token } },
+    );
     return res.data;
   } catch (err) {
     return extractApiError(err);
@@ -213,9 +253,11 @@ export const helpLogOut = async () => {
   }
 };
 
-export const helpDeleteUser = async (userID) => {
+export const helpDeleteUser = async (userID, token) => {
   try {
-    const res = await axios.delete(`/user/${userID}`);
+    const res = await axios.delete(`/user/${userID}`, {
+      headers: { auth: token },
+    });
     return res.data.response.message;
   } catch (err) {
     console.log(err);
