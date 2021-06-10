@@ -9,7 +9,7 @@ import { removeBookFromSavedBooks } from '../../redux/actions/savedBooksActions'
 import { createMatch } from '../../redux/actions/matchesActions';
 import { SavedBooksIconButton } from '../Buttons/IconButtons/SavedBooksIconButton';
 import { useDispatch, useSelector } from 'react-redux';
-import Icon from '../../assets/icon.png';
+import Icon from '../../assets/book-open.png';
 
 const SavedBookList = ({ item, navigation }) => {
   const dispatch = useDispatch();

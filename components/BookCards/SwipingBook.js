@@ -3,7 +3,7 @@ import { View, Image, TouchableOpacity } from 'react-native';
 import PrimaryText from '../Texts/PrimaryText';
 import SerifText from '../Texts/SerifText';
 import styles from './styles';
-import Icon from '../../assets/icon.png';
+import Icon from '../../assets/book-open.png';
 
 const SwipingBook = ({ item, navigation }) => {
   return (

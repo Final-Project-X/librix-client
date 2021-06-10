@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import PrimaryBold from '../../components/Texts/PrimaryBold';
 import { colors } from '../../global/styles';
 
-const LogOut = ({ navigation }) => {
+const LogOut = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
