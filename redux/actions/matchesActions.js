@@ -1,9 +1,5 @@
 import { ACTIONS } from './actions';
-import {
-  helpCreateMatch,
-  helpUpdateMatch,
-  helpGetUserMatches,
-} from '../../utils/apiCalls';
+import { helpCreateMatch, helpGetUserMatches } from '../../utils/apiCalls';
 
 const sortMatches = (matches) =>
   matches.sort((a, b) => {
@@ -17,9 +13,9 @@ const sortMatches = (matches) =>
   });
 
 // get matches
-export const getMatches = (userID) => async (dispatch) => {
+export const getMatches = (userID, token) => async (dispatch) => {
   try {
-    const userMatches = await helpGetUserMatches(userID);
+    const userMatches = await helpGetUserMatches(userID, token);
     const matches = sortMatches(userMatches);
     // console.log('hi from getMatches', userMatches);
     dispatch({
@@ -32,9 +28,9 @@ export const getMatches = (userID) => async (dispatch) => {
 };
 
 // create a match
-export const createMatch = (data) => async (dispatch) => {
+export const createMatch = (data, token) => async (dispatch) => {
   try {
-    const isThereAMatch = await helpCreateMatch(data);
+    const isThereAMatch = await helpCreateMatch(data, token);
     // if message says OK, we fetch user data again and set the matches
     // on success, we use the following message
     //TODO and show the (alert?) message to the user
@@ -58,24 +54,27 @@ export const createMatch = (data) => async (dispatch) => {
 
 // update the match status to 'rejected' or 'exchanged'
 // we might not need it
-export const updateMatchStatus =
-  (matchId, newStatus, matches) => async (dispatch) => {
-    try {
-      const updatedMatch = await helpUpdateMatch({
-        id: matchId,
-        status: newStatus,
-      });
-      const updatedMatchesArray = matches
-        .map((match) => (match._id === matchId ? updatedMatch : match))
-        .filter((match) => match.status === 'pending');
-      dispatch({
-        type: ACTIONS.UPDATE_MATCH,
-        payload: updatedMatchesArray,
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
+// export const updateMatchStatus =
+//   (matchId, newStatus, matches, token) => async (dispatch) => {
+//     try {
+//       const updatedMatch = await helpUpdateMatch(
+//         {
+//           id: matchId,
+//           status: newStatus,
+//         },
+//         token,
+//       );
+//       const updatedMatchesArray = matches
+//         .map((match) => (match._id === matchId ? updatedMatch : match))
+//         .filter((match) => match.status === 'pending');
+//       dispatch({
+//         type: ACTIONS.UPDATE_MATCH,
+//         payload: updatedMatchesArray,
+//       });
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   };
 
 // delete the match when match is rejected (or when the deal is done)
 export const deleteMatch = (matchId, usersMatches) => (dispatch) => {

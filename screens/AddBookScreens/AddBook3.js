@@ -113,6 +113,7 @@ const AddBook3 = ({ navigation, route }) => {
       personalDescription: valueNote,
       selectedFiles: [image.base64],
     };
+    
     if (!valueGen || !valueCon || !valueLan || !image) {
       setError('Please make sure fields are filled in correctly!');
     } else {

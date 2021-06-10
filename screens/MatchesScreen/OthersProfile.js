@@ -26,7 +26,7 @@ const OthersProfile = ({ navigation, route, otherUser, userId }) => {
   useEffect(() => {
     const getMatchPartnerInfo = async (matchPartnerID) => {
       try {
-        const response = await helpGetMatchPartner(matchPartnerID);
+        const response = await helpGetMatchPartner(matchPartnerID, userToken);
         console.log('response from getMatchPartnerInfo', response);
         setMatchPartner(response);
       } catch (err) {
@@ -35,13 +35,15 @@ const OthersProfile = ({ navigation, route, otherUser, userId }) => {
     };
 
     getMatchPartnerInfo(otherUserId);
-  }, [otherUserId]);
+  }, [otherUserId, userToken]);
 
   console.log('match partner', matchPartner);
   const user = useSelector((state) => state.user.user);
   // console.log(user);
 
   const matches = useSelector((state) => state.matches.matches);
+  const userToken = useSelector((state) => state.token.token);
+
   const partnerMatches = matches.filter(
     (match) =>
       match.bookOne.owner === otherUserId ||

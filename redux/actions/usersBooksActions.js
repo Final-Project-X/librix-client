@@ -10,9 +10,9 @@ export const getBooksToOffer = (books) => (dispatch) => {
 };
 
 // add a new book to offered books
-export const addBookToOfferedBooks = (bookData) => async (dispatch) => {
+export const addBookToOfferedBooks = (bookData, token) => async (dispatch) => {
   try {
-    const newBook = await addBook(bookData);
+    const newBook = await addBook(bookData, token);
     dispatch({
       type: ACTIONS.ADD_BOOK_TO_OFFERED_BOOKS,
       payload: newBook,
