@@ -14,10 +14,11 @@ import Icon from '../../assets/icon.png';
 const SavedBookList = ({ item, navigation }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
+  const userToken = useSelector((state) => state.token.token);
 
   const handleDelete = async (book) => {
     try {
-      dispatch(removeBookFromSavedBooks(book._id, user._id));
+      dispatch(removeBookFromSavedBooks(book._id, user._id, userToken));
     } catch (err) {
       console.log(err);
     }
@@ -25,8 +26,8 @@ const SavedBookList = ({ item, navigation }) => {
 
   const handleLike = async (book) => {
     try {
-      dispatch(createMatch({ userId: user._id, bookId: book._id }));
-      dispatch(removeBookFromSavedBooks(book._id, user._id));
+      dispatch(createMatch({ userId: user._id, bookId: book._id }, userToken));
+      dispatch(removeBookFromSavedBooks(book._id, user._id, userToken));
     } catch (err) {
       console.log(err);
     }

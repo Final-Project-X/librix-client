@@ -1,12 +1,12 @@
 import React from 'react';
 import { View } from 'react-native';
 import { styles } from './styles';
-import PrimaryText from '../Texts/PrimaryText';
+import PrimaryMedium from '../Texts/PrimaryMedium';
 
 const MatchOverlay = ({ text }) => {
   return (
     <View style={[styles.matchOverlay, styles.matchOverlayShadow]}>
-      <PrimaryText text={text} customStyles={styles.matchOverlayText} />
+      <PrimaryMedium text={text} customStyles={styles.matchOverlayText} />
     </View>
   );
 };

@@ -28,6 +28,7 @@ import {
 // STYLES
 import { styles } from './styles';
 import PrimaryBold from '../../components/Texts/PrimaryBold';
+import MainStackHeader from '../../components/Headers/MainStackHeader';
 
 //* COMPONENT
 
@@ -35,6 +36,7 @@ const Matches = ({ navigation }) => {
   // console.log('navigation in Matches', navigation);
   const dispatch = useDispatch();
 
+  const userToken = useSelector((state) => state.token.token);
   const user = useSelector((state) => state.user.user);
   // console.log('user from matches', user);
   const matches = useSelector((state) => state.matches.matches);
@@ -44,7 +46,7 @@ const Matches = ({ navigation }) => {
 
   useEffect(() => {
     console.log('userID:', user._id);
-    dispatch(getMatches(user._id));
+    dispatch(getMatches(user._id, userToken));
   }, []);
 
   // console.log('user / store / matches:', matches);
@@ -65,13 +67,16 @@ const Matches = ({ navigation }) => {
 
     // update the book status in the backend
     try {
-      const reservationResponse = await notifyBackendOfReservedBook({
-        matchID: matchIDToReserve,
-        bookID: bookIDToReserve,
-      });
+      const reservationResponse = await notifyBackendOfReservedBook(
+        {
+          matchID: matchIDToReserve,
+          bookID: bookIDToReserve,
+        },
+        userToken,
+      );
       console.log('reservation response in Matches.js', reservationResponse);
       if (reservationResponse?.response.message.includes('status updated')) {
-        dispatch(getMatches(user._id));
+        dispatch(getMatches(user._id, userToken));
       }
     } catch (err) {
       console.log(err);
@@ -91,10 +96,13 @@ const Matches = ({ navigation }) => {
     // which will check if the other book is received as well
     // and delete the match and books' data if it is
     try {
-      const receptionResponse = await notifyBackendOfExchange({
-        matchID: matchIDToDelete,
-        bookID: bookIDToReceive,
-      });
+      const receptionResponse = await notifyBackendOfExchange(
+        {
+          matchID: matchIDToDelete,
+          bookID: bookIDToReceive,
+        },
+        userToken,
+      );
       console.log('reception response in Matches.js', receptionResponse);
       const responseMessage = receptionResponse?.response.message;
       // if both users confirmed the receipt, then the match & books are deleted.
@@ -111,7 +119,7 @@ const Matches = ({ navigation }) => {
         sendUserPointToBackend(user);
       }
       // update matches
-      dispatch(getMatches(user._id));
+      dispatch(getMatches(user._id, userToken));
     } catch (err) {
       console.log(err);
     }
@@ -127,7 +135,10 @@ const Matches = ({ navigation }) => {
     // delete the match from the user state
     dispatch(deleteMatch(matchIDToDelete, matches));
     // delete the match from the DB
-    notifyBackendOfDeletedMatch({ matchID: matchIDToDelete, userID: user._id });
+    notifyBackendOfDeletedMatch(
+      { matchID: matchIDToDelete, userID: user._id },
+      userToken,
+    );
     // hide the modal
     setIsDeleteModalShown(false);
     // TODO alert / toast
@@ -144,15 +155,6 @@ const Matches = ({ navigation }) => {
   return (
     <MenuProvider>
       <ScreenGradient>
-        {/* <SafeAreaView>
-          <HeaderIconButton
-            iconName="user"
-            iconColor={colors.white}
-            buttonColor={colors.primary.dark}
-            handlePress={() => navigation.toggleDrawer()}
-          />
-        </SafeAreaView> */}
-
         {/* Reserve your book modal */}
         <AlertModal
           showModal={isReserveModalShown}

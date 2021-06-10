@@ -19,4 +19,6 @@ export const ACTIONS = {
   UPDATE_MATCH: 'update match',
   DELETE_MATCH: 'delete match',
   DELETE_MULTIPLE_MATCHES: 'delete multiple matches',
+  SET_TOKEN: 'set token',
+  DELETE_TOKEN: 'delete token',
 };

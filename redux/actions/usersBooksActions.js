@@ -10,20 +10,17 @@ export const getBooksToOffer = (books) => (dispatch) => {
 };
 
 // add a new book to offered books
-export const addBookToOfferedBooks =
-  (bookData, booksToOffer) => async (dispatch) => {
-    try {
-      const newBook = await addBook(bookData);
-      console.log('newBook from Action', newBook);
-      const updatedOfferedBooks = [newBook, ...booksToOffer];
-      dispatch({
-        type: ACTIONS.ADD_BOOK_TO_OFFERED_BOOKS,
-        payload: updatedOfferedBooks,
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
+export const addBookToOfferedBooks = (bookData, token) => async (dispatch) => {
+  try {
+    const newBook = await addBook(bookData, token);
+    dispatch({
+      type: ACTIONS.ADD_BOOK_TO_OFFERED_BOOKS,
+      payload: newBook,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 // mark one book as reserved
 export const markBookAsReserved = (bookId, booksToOffer) => (dispatch) => {

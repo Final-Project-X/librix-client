@@ -15,27 +15,30 @@ import {
 } from '../../redux/actions/savedBooksActions';
 import { removeBookFromPool } from '../../redux/actions/poolOfBooksActions';
 import { createMatch } from '../../redux/actions/matchesActions';
+import { getBooksToOffer } from '../../redux/actions/usersBooksActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Books = ({ navigation }) => {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
+  const userToken = useSelector((state) => state.token.token);
   console.log({ user });
 
   useEffect(() => {
     async function handleFetch() {
       try {
         if (user) {
-          dispatch(getPoolOfBooks({ userID: user._id }));
+          dispatch(getPoolOfBooks({ userID: user._id }, userToken));
           dispatch(getSavedBooks(user.booksToRemember));
+          dispatch(getBooksToOffer(user.booksToOffer));
         }
       } catch (err) {
         console.log(err);
       }
     }
     handleFetch();
-  }, [user, dispatch]);
+  }, [user, userToken, dispatch]);
 
   const books = useSelector((state) => state.poolOfBooks.books);
   console.log('books in Books.js:', books?.length);
@@ -46,7 +49,9 @@ const Books = ({ navigation }) => {
       if (user.booksToOffer.length < 1) {
         setShowModal(true);
       } else {
-        dispatch(createMatch({ userId: user._id, bookId: book._id }));
+        dispatch(
+          createMatch({ userId: user._id, bookId: book._id }, userToken),
+        );
         dispatch(removeBookFromPool(book._id, books));
       }
     } catch (err) {
@@ -57,7 +62,7 @@ const Books = ({ navigation }) => {
   const handleSave = async (index) => {
     const book = books[index];
     try {
-      dispatch(addBookToSavedBooks(book, user));
+      dispatch(addBookToSavedBooks(book, user, userToken));
       dispatch(removeBookFromPool(book._id, books));
     } catch (err) {
       console.log(err);

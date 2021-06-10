@@ -7,7 +7,6 @@ import {
   Platform,
 } from 'react-native';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
-import StackHeader from '../../components/Headers/StackHeader';
 import SubmitButton from '../../components/Buttons/SubmitButton';
 import PrimaryText from '../../components/Texts/PrimaryText';
 import PrimaryMedium from '../../components/Texts/PrimaryMedium';
@@ -29,6 +28,7 @@ const EditProfile = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user.user);
+  const userToken = useSelector((state) => state.token.token);
 
   const onSubmit = (values) => {
     const data = {
@@ -36,7 +36,7 @@ const EditProfile = ({ navigation }) => {
       city: values.city ? values.city : user.city,
       aboutMe: values.aboutMe,
     };
-    dispatch(updateUser({ userID: user._id, ...data }));
+    dispatch(updateUser({ userID: user._id, ...data }, userToken));
     navigation.navigate('ProfileScreen');
   };
 

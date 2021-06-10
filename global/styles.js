@@ -13,6 +13,7 @@ export const colors = {
   white: '#FFFFFF',
   black: '#000000',
   almostBlack: '#111111', // prefer this for text color instead of black?
+  almostWhite: '#FFFBFB', // used for stack nav headers
   textFaded: '#767676',
   error: '#B00020',
 };

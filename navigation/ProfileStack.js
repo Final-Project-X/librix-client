@@ -10,13 +10,13 @@ const ProfileStack = createStackNavigator();
 
 export default () => {
   return (
-    <ProfileStack.Navigator>
+    <ProfileStack.Navigator headerMode="screen">
       <ProfileStack.Screen
         name="ProfileScreen"
         component={ProfileScreen}
         options={{
           header: ({ navigation }) => (
-            <StackHeader navigation={navigation} text="Your Profile" />
+            <StackHeader navigation={navigation} text="Your profile" />
           ),
         }}
       />
@@ -25,14 +25,16 @@ export default () => {
         component={EditProfile}
         options={{
           header: ({ navigation }) => (
-            <StackHeader navigation={navigation} text="Your Profile" />
+            <StackHeader navigation={navigation} text="Edit your profile" />
           ),
         }}
       />
       <ProfileStack.Screen
         name="SingleBook"
         component={SingleBook}
-        options={{ title: null }}
+        options={{
+          headerShown: false,
+        }}
       />
       <ProfileStack.Screen
         name="AddBookStack"

@@ -13,6 +13,10 @@ export const signUpUser = (data) => async (dispatch) => {
       type: ACTIONS.SIGNUP_USER,
       payload: res.user,
     });
+    dispatch({
+      type: ACTIONS.SET_TOKEN,
+      payload: res.token,
+    });
   } catch (err) {
     console.log(err);
   }
@@ -25,14 +29,18 @@ export const loginUser = (loginData) => async (dispatch) => {
       type: ACTIONS.LOGIN_USER,
       payload: res.user,
     });
+    dispatch({
+      type: ACTIONS.SET_TOKEN,
+      payload: res.token,
+    });
   } catch (err) {
     console.log(err);
   }
 };
 
-export const updateUser = (data) => async (dispatch) => {
+export const updateUser = (data, token) => async (dispatch) => {
   try {
-    const res = await helpUpdateUser(data);
+    const res = await helpUpdateUser(data, token);
     dispatch({
       type: ACTIONS.UPDATE_USER,
       payload: res,
@@ -42,17 +50,21 @@ export const updateUser = (data) => async (dispatch) => {
   }
 };
 
-
 export const deleteUser = () => (dispatch) => {
+  dispatch({
+    type: ACTIONS.DELETE_TOKEN,
+  });
   dispatch({
     type: ACTIONS.DELETE_USER,
   });
 };
 
-
 export const logOutUser = () => async (dispatch) => {
   try {
     await helpLogOut();
+    dispatch({
+      type: ACTIONS.DELETE_TOKEN,
+    });
     dispatch({
       type: ACTIONS.LOGOUT_USER,
       payload: null,
