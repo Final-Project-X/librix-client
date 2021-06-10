@@ -4,10 +4,12 @@ import { Text, View } from 'react-native';
 import store from './redux/store';
 import AuthStack from './navigation/AuthStack';
 import MainStack from './navigation/MainStack';
+import { useSelector } from 'react-redux';
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(false);
-  const [userToken, setUserToken] = useState('123');
+  const userToken = useSelector((state) => state.token.token);
+  // const [userToken, setUserToken] = useState('123');
 
   useEffect(() => {
     setTimeout(() => {
