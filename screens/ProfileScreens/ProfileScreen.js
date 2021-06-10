@@ -8,7 +8,7 @@ import {
   ScrollView,
 } from 'react-native';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
-import PrimaryHeader from '../../components/Headers/PrimaryHeader';
+import StackHeader from '../../components/Headers/StackHeader';
 import PrimaryText from '../../components/Texts/PrimaryText';
 import PrimaryLight from '../../components/Texts/PrimaryLight';
 import PrimaryMedium from '../../components/Texts/PrimaryMedium';
@@ -110,7 +110,7 @@ const ProfileScreen = ({ navigation }) => {
           customStyles={styles.modalText}
         />
       </ResultModal>
-      <PrimaryHeader text="Your profile" navigation={navigation} />
+      {/* <StackHeader text="Your profile" navigation={navigation} /> */}
       <ScreenGradient customStyles={styles.gradient}>
         <View style={styles.userCard}>
           <View style={styles.flexRow}>

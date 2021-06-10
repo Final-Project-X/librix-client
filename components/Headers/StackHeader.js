@@ -1,10 +1,10 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
-import PrimaryMedium from '../../components/Texts/PrimaryMedium';
+import PrimaryMedium from '../Texts/PrimaryMedium';
 import { Feather } from '@expo/vector-icons';
 import { colors } from '../../global/styles';
 
-const PrimaryHeader = ({ navigation, text, customStyles }) => {
+const StackHeader = ({ navigation, text, customStyles }) => {
   return (
     <SafeAreaView style={[styles.header, customStyles]}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -29,4 +29,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PrimaryHeader;
+export default StackHeader;

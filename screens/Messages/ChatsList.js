@@ -10,7 +10,6 @@ import ScreenGradient from '../../components/Gradients/ScreenGradient';
 import PrimaryText from '../../components/Texts/PrimaryText';
 import PrimaryMedium from '../../components/Texts/PrimaryMedium';
 import PrimaryBold from '../../components/Texts/PrimaryBold';
-import PrimaryHeader from '../../components/Headers/PrimaryHeader';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMatches } from '../../redux/actions/matchesActions';
 import Icon from '../../assets/adaptive-icon.png';
