@@ -9,8 +9,9 @@ import {
 import PrimaryText from '../../components/Texts/PrimaryText';
 import PrimaryMedium from '../../components/Texts/PrimaryMedium';
 import { Feather } from '@expo/vector-icons';
-import { colors } from '../../global/styles';
+import { colors, shadow } from '../../global/styles';
 import logo from '../../assets/logo.png';
+import ButtonGradient from '../../components/Gradients/ButtonGradient';
 
 const HomeScreen = ({ navigation }) => {
   return (
@@ -28,42 +29,58 @@ const HomeScreen = ({ navigation }) => {
           customStyles={styles.productDescription}
         />
         <View style={[styles.buttonGroup, styles.flexRow]}>
-          <TouchableOpacity onPress={() => navigation.navigate('LogIn')}>
-            <View style={styles.button}>
+          <ButtonGradient customStyles={styles.button}>
+            <TouchableOpacity onPress={() => navigation.navigate('LogIn')}>
               <PrimaryMedium text="Log in" customStyles={styles.buttonLabel} />
-            </View>
-          </TouchableOpacity>
+            </TouchableOpacity>
+          </ButtonGradient>
           <PrimaryText text="or" customStyles={styles.or} />
-          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-            <View style={styles.button}>
+          <ButtonGradient customStyles={styles.button}>
+            <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
               <PrimaryMedium text="Sign up" customStyles={styles.buttonLabel} />
-            </View>
-          </TouchableOpacity>
+            </TouchableOpacity>
+          </ButtonGradient>
         </View>
-        <View>
+        <View style={[styles.rules, styles.rulesShadow]}>
           <View style={[styles.useTip, styles.flexRow]}>
-            <Feather name="chevrons-right" size={24} color="black" />
+            <Feather
+              name="chevrons-right"
+              size={24}
+              color={colors.secondary.dark}
+            />
             <PrimaryText
               text="Want the book? Swipe right!"
               customStyles={styles.useTipText}
             />
           </View>
           <View style={[styles.useTip, styles.flexRow]}>
-            <Feather name="chevrons-left" size={24} color="black" />
+            <Feather
+              name="chevrons-left"
+              size={24}
+              color={colors.secondary.dark}
+            />
             <PrimaryText
               text="Don't want the book? Swipe left!"
               customStyles={styles.useTipText}
             />
           </View>
           <View style={[styles.useTip, styles.flexRow]}>
-            <Feather name="chevrons-down" size={24} color="black" />
+            <Feather
+              name="chevrons-down"
+              size={24}
+              color={colors.secondary.dark}
+            />
             <PrimaryText
               text="Aren't sure? Bookmark for later!"
               customStyles={styles.useTipText}
             />
           </View>
           <View style={[styles.useTip, styles.flexRow]}>
-            <Feather name="check-circle" size={24} color="black" />
+            <Feather
+              name="check-circle"
+              size={24}
+              color={colors.secondary.dark}
+            />
             <PrimaryText
               text="Have match? Swap the books!"
               customStyles={styles.useTipText}
@@ -81,6 +98,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    backgroundColor: colors.neutralBackground,
   },
   logoSection: {
     justifyContent: 'center',
@@ -101,7 +119,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   lowerSection: {
-    paddingHorizontal: 40,
+    paddingHorizontal: '7%',
     paddingTop: 30,
   },
   productDescription: {
@@ -114,8 +132,8 @@ const styles = StyleSheet.create({
     marginVertical: 35,
   },
   button: {
-    backgroundColor: colors.primary.dark,
-    borderRadius: 5,
+    width: 110,
+    alignItems: 'center',
   },
   buttonLabel: {
     margin: 11,
@@ -132,8 +150,15 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   useTipText: {
-    marginLeft: 20,
+    marginLeft: 10,
   },
+  rules: {
+    backgroundColor: colors.white,
+    paddingVertical: 20,
+    paddingHorizontal: '5%',
+    borderRadius: 20,
+  },
+  rulesShadow: shadow.card,
 });
 
 export default HomeScreen;

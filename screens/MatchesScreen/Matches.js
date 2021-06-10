@@ -28,6 +28,7 @@ import {
 // STYLES
 import { styles } from './styles';
 import PrimaryBold from '../../components/Texts/PrimaryBold';
+import MainStackHeader from '../../components/Headers/MainStackHeader';
 
 //* COMPONENT
 
@@ -144,15 +145,6 @@ const Matches = ({ navigation }) => {
   return (
     <MenuProvider>
       <ScreenGradient>
-        {/* <SafeAreaView>
-          <HeaderIconButton
-            iconName="user"
-            iconColor={colors.white}
-            buttonColor={colors.primary.dark}
-            handlePress={() => navigation.toggleDrawer()}
-          />
-        </SafeAreaView> */}
-
         {/* Reserve your book modal */}
         <AlertModal
           showModal={isReserveModalShown}
