@@ -4,6 +4,7 @@ import { poolOfBooksReducer } from './poolOfBooksReducer';
 import { savedBooksReducer } from './savedBooksReducer';
 import { matchesReducer } from './matchesReducer';
 import { usersBooksReducer } from './usersBooksReducer';
+import { tokenReducer } from './tokenReducer';
 
 const rootReducer = combineReducers({
   user: userReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   savedBooks: savedBooksReducer,
   usersBooks: usersBooksReducer,
   matches: matchesReducer,
+  token: tokenReducer,
 });
 
 export default rootReducer;

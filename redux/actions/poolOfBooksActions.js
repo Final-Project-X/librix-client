@@ -13,9 +13,9 @@ export const getAllBooks = () => async (dispatch) => {
   }
 };
 
-export const getPoolOfBooks = (booksData) => async (dispatch) => {
+export const getPoolOfBooks = (booksData, token) => async (dispatch) => {
   try {
-    const res = await helpGetPoolOfBooks(booksData);
+    const res = await helpGetPoolOfBooks(booksData, token);
     dispatch({
       type: ACTIONS.GET_POOL_OF_BOOKS,
       payload: res,
