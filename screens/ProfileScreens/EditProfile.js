@@ -7,7 +7,6 @@ import {
   Platform,
 } from 'react-native';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
-import PrimaryHeader from '../../components/Headers/PrimaryHeader';
 import SubmitButton from '../../components/Buttons/SubmitButton';
 import PrimaryText from '../../components/Texts/PrimaryText';
 import PrimaryMedium from '../../components/Texts/PrimaryMedium';
@@ -38,7 +37,7 @@ const EditProfile = ({ navigation }) => {
       aboutMe: values.aboutMe,
     };
     dispatch(updateUser({ userID: user._id, ...data }, userToken));
-    navigation.navigate('Profile');
+    navigation.navigate('ProfileScreen');
   };
 
   return (
@@ -46,11 +45,6 @@ const EditProfile = ({ navigation }) => {
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
-      <PrimaryHeader
-        text="Edit your profile"
-        navigation={navigation}
-        customStyles={customStyles.headerMarginTop}
-      />
       <ScreenGradient style={styles.gradient}>
         <ScrollView style={styles.container}>
           <View style={customStyles.form}>

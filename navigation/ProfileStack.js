@@ -4,31 +4,37 @@ import ProfileScreen from '../screens/ProfileScreens/ProfileScreen';
 import SingleBook from '../screens/SingleBookScreen/SingleBook';
 import AddBookStack from '../navigation/AddBookStack';
 import EditProfile from '../screens/ProfileScreens/EditProfile';
-import PrimaryHeader from '../components/Headers/PrimaryHeader';
+import StackHeader from '../components/Headers/StackHeader';
 
 const ProfileStack = createStackNavigator();
 
-export default ({ navigation }) => {
+export default () => {
   return (
-    <ProfileStack.Navigator>
+    <ProfileStack.Navigator headerMode="screen">
       <ProfileStack.Screen
-        name="Profile"
+        name="ProfileScreen"
         component={ProfileScreen}
         options={{
-          headerShown: false,
+          header: ({ navigation }) => (
+            <StackHeader navigation={navigation} text="Your profile" />
+          ),
         }}
       />
       <ProfileStack.Screen
         name="EditProfile"
         component={EditProfile}
         options={{
-          headerShown: false,
+          header: ({ navigation }) => (
+            <StackHeader navigation={navigation} text="Edit your profile" />
+          ),
         }}
       />
       <ProfileStack.Screen
         name="SingleBook"
         component={SingleBook}
-        options={{ title: null }}
+        options={{
+          headerShown: false,
+        }}
       />
       <ProfileStack.Screen
         name="AddBookStack"

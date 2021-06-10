@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import ChatsList from '../screens/Messages/ChatsList';
 import Conversation from '../screens/Messages/Conversation';
-import PrimaryHeader from '../components/Headers/PrimaryHeader';
+import StackHeader from '../components/Headers/StackHeader';
 
 const MessagesStack = createStackNavigator();
 
@@ -14,7 +14,7 @@ export default ({ navigation }) => {
         component={ChatsList}
         options={{
           header: () => (
-            <PrimaryHeader text="Your chats" navigation={navigation} />
+            <StackHeader text="Your chats" navigation={navigation} />
           ),
         }}
       />

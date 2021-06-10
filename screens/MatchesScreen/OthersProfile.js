@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Image, ScrollView, SafeAreaView, FlatList } from 'react-native';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
-import PrimaryHeader from '../../components/Headers/PrimaryHeader';
+import StackHeader from '../../components/Headers/StackHeader';
 import PrimaryText from '../../components/Texts/PrimaryText';
 import PrimaryLight from '../../components/Texts/PrimaryLight';
 import PrimaryMedium from '../../components/Texts/PrimaryMedium';
@@ -93,7 +93,7 @@ const OthersProfile = ({ navigation, route, otherUser, userId }) => {
         />
       </AlertModal>
       <ScreenGradient customStyles={styles.gradient}>
-        <PrimaryHeader
+        <StackHeader
           navigation={navigation}
           text={`${matchPartner.username}'s profile`}
         />

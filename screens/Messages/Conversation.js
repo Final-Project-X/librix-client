@@ -2,7 +2,7 @@ import React from 'react';
 import { FlatList, StyleSheet, Image, View, SafeAreaView } from 'react-native';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
 import PrimaryMedium from '../../components/Texts/PrimaryMedium';
-import PrimaryHeader from '../../components/Headers/PrimaryHeader';
+import StackHeader from '../../components/Headers/StackHeader';
 import Icon from '../../assets/adaptive-icon.png';
 import { colors } from '../../global/styles';
 
@@ -494,7 +494,7 @@ const Conversation = ({ navigation, route }) => {
   return (
     <SafeAreaView style={styles.container}>
       <ScreenGradient customStyles={styles.screenGradient}>
-        <PrimaryHeader text="Your conversation" navigation={navigation} />
+        <StackHeader text="Your conversation" navigation={navigation} />
         <FlatList
           data={chat}
           renderItem={({ item }) => {

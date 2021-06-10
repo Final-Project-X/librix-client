@@ -103,11 +103,11 @@ const styles = StyleSheet.create({
   logoSection: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: 200,
+    height: 220,
     backgroundColor: '#dddddd',
   },
   image: {
-    height: 220,
+    height: '100%',
     width: '100%',
     resizeMode: 'cover',
   },

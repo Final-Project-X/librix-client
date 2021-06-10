@@ -7,6 +7,7 @@ import AddBook2 from '../screens/AddBookScreens/AddBook2';
 import AddBook3 from '../screens/AddBookScreens/AddBook3';
 import Filter from '../screens/FilterScreen/Filter';
 import MainStackHeader from '../components/Headers/MainStackHeader';
+import StackHeader from '../components/Headers/StackHeader';
 import { useSelector } from 'react-redux';
 import { colors } from '../global/styles';
 
@@ -46,22 +47,48 @@ const BooksStack = ({ navigation }) => {
       <Stack.Screen
         name="Filter"
         component={Filter}
-        options={{ title: 'Your preferences' }}
+        options={{
+          headerShown: true,
+          header: ({ navigation }) => (
+            <StackHeader navigation={navigation} text="Your preferences" />
+          ),
+        }}
       />
       <Stack.Screen
         name="AddBook1"
         component={AddBook1}
-        options={{ title: 'Add your book: step 1 of 3' }}
+        options={{
+          header: ({ navigation }) => (
+            <StackHeader
+              navigation={navigation}
+              text="Add your book: step 1 of 3"
+            />
+          ),
+        }}
       />
       <Stack.Screen
         name="AddBook2"
         component={AddBook2}
-        options={{ title: 'Add your book: step 2 of 3' }}
+        options={{
+          header: ({ navigation }) => (
+            <StackHeader
+              navigation={navigation}
+              text="Add your book: step 2 of 3"
+            />
+          ),
+        }}
       />
       <Stack.Screen
         name="AddBook3"
         component={AddBook3}
-        options={{ title: 'Add your book: step 3 of 3' }}
+        options={{
+          header: ({ navigation }) => (
+            <StackHeader
+              navigation={navigation}
+              text="Add your book: step 3 of 3"
+            />
+          ),
+        }}
       />
     </Stack.Navigator>
   );
