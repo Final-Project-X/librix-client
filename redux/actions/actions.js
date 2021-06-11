@@ -21,4 +21,6 @@ export const ACTIONS = {
   DELETE_MULTIPLE_MATCHES: 'delete multiple matches',
   SET_TOKEN: 'set token',
   DELETE_TOKEN: 'delete token',
+  SET_ERROR: 'set error',
+  CLEAR_ERROR: 'clear error',
 };
