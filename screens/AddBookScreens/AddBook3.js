@@ -32,6 +32,7 @@ const AddBook3 = ({ navigation, route }) => {
     { label: 'Crime', value: 'Crime' },
     { label: 'Drama', value: 'Drama' },
     { label: 'Fantasy', value: 'Fantasy' },
+    { label: 'Sci-fi', value: 'Sci-fi' },
     { label: 'Romance', value: 'Romance' },
     { label: 'Non-fiction', value: 'Non-fiction' },
     { label: 'Biography', value: 'Biography' },
@@ -58,6 +59,15 @@ const AddBook3 = ({ navigation, route }) => {
     { label: 'German', value: 'German' },
     { label: 'Spanish', value: 'Spanish' },
     { label: 'Chinese', value: 'Chinese' },
+    { label: 'Polish', value: 'Polish' },
+    { label: 'Slovak', value: 'Slovak' },
+    { label: 'Ukrainian', value: 'Ukrainian' },
+    { label: 'Italian', value: 'Italian' },
+    { label: 'Czech', value: 'Czech' },
+    { label: 'Arabic', value: 'Arabic' },
+    { label: 'Turkish', value: 'Turkish' },
+    { label: 'Greek', value: 'Greek' },
+    { label: 'Other', value: 'Other' },
   ]);
 
   const onGenreOpen = useCallback(() => {
@@ -113,7 +123,7 @@ const AddBook3 = ({ navigation, route }) => {
       personalDescription: valueNote,
       selectedFiles: [image.base64],
     };
-    
+
     if (!valueGen || !valueCon || !valueLan || !image) {
       setError('Please make sure fields are filled in correctly!');
     } else {

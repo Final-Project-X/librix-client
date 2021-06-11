@@ -28,7 +28,6 @@ import {
 // STYLES
 import { styles } from './styles';
 import PrimaryBold from '../../components/Texts/PrimaryBold';
-import MainStackHeader from '../../components/Headers/MainStackHeader';
 
 //* COMPONENT
 

@@ -90,17 +90,15 @@ const Books = ({ navigation }) => {
         ) : (
           <Swiper
             cards={books}
-            renderCard={(book) => {
-              return book && book._id ? (
-                <SwipingBook item={book} navigation={navigation} />
-              ) : (
-                <NoBookCard navigation={navigation} />
-              );
-            }}
+            renderCard={(book) =>
+              book &&
+              book._id && <SwipingBook item={book} navigation={navigation} />
+            }
             onSwipedLeft={(cardIndex) => handleNope(cardIndex)}
             onSwipedBottom={(cardIndex) => handleSave(cardIndex)}
             onSwipedRight={(cardIndex) => handleYes(cardIndex)}
             cardIndex={0}
+            key={books.length}
             disableTopSwipe
             overlayLabelsOpacity
             infinite
