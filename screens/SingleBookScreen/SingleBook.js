@@ -47,9 +47,10 @@ const SingleBook = ({ navigation, route }) => {
               text={`Language: ${item?.language}`}
               customStyles={styles.item}
             />
-            <View style={styles.item}>
-              <PrimaryText text={`Year: ${item?.publishedDate}`} />
-            </View>
+            <PrimaryText
+              text={`Year: ${item?.publishedDate}`}
+              style={styles.item}
+            />
             <PrimaryText
               text={`Genre: ${item?.genre}`}
               customStyles={styles.item}
