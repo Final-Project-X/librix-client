@@ -17,8 +17,8 @@ export const addBookToOfferedBooks = (bookData, token) => async (dispatch) => {
       type: ACTIONS.ADD_BOOK_TO_OFFERED_BOOKS,
       payload: newBook,
     });
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    dispatch({ type: ACTIONS.ADD_BOOK_ERROR, payload: error });
   }
 };
 

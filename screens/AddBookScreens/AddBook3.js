@@ -18,7 +18,7 @@ import { addBookToOfferedBooks } from '../../redux/actions/usersBooksActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 const AddBook3 = ({ navigation, route }) => {
-  const [error, setError] = useState(null);
+  const [errors, setErrors] = useState(null);
   const [note, setNote] = useState(null);
   const [image, setImage] = useState(null);
   const [valueGenre, setValueGenre] = useState(null);
@@ -103,6 +103,7 @@ const AddBook3 = ({ navigation, route }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
   const userToken = useSelector((state) => state.token.token);
+  const error = useSelector((state) => state.error.error);
 
   const { title, authors, publishedDate, description } = route.params;
   const bookData = {
@@ -121,19 +122,22 @@ const AddBook3 = ({ navigation, route }) => {
       condition: valueCon,
       language: valueLan,
       personalDescription: valueNote,
-      selectedFiles: [image.base64],
+      selectedFiles: [image?.base64],
     };
 
     if (!valueGen || !valueCon || !valueLan || !image) {
-      setError('Please make sure fields are filled in correctly!');
+      setErrors('Please make sure fields are filled in correctly!');
+    } else if (error.message) {
+      setErrors(error.message);
     } else {
       dispatch(addBookToOfferedBooks(newBook, userToken));
       navigation.navigate('Books');
       setValueGenre(null);
       setValueCondition(null);
+      setValueLanguage(null);
       setNote(null);
       setImage(null);
-      setError(null);
+      setErrors(null);
     }
   };
 
@@ -228,8 +232,8 @@ const AddBook3 = ({ navigation, route }) => {
               <View style={styles.upload}>
                 <UploadImageBtn setImage={setImage} navigation={navigation} />
               </View>
-              {error && (
-                <PrimaryText text={error} customStyles={styles.inputError} />
+              {errors && (
+                <PrimaryText text={errors} customStyles={styles.inputError} />
               )}
               {image && (
                 <PrimaryBold

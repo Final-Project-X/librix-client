@@ -44,16 +44,19 @@ const SavedBooks = ({ navigation }) => {
         <PrimaryBold text={'Books you saved'} customStyles={styles.title} />
         {savedBooks?.length < 1 ? (
           <View>
-            <PrimaryBold
-              text="You haven't saved any books. Go start looking ..."
+            <PrimaryMedium
+              text="You do not have any saved books."
               customStyles={styles.text}
             />
             <TouchableOpacity
               style={styles.button}
-              onPress={() => navigation.goBack()}
+              onPress={() => navigation.navigate('Books')}
             >
               <ButtonGradient>
-                <PrimaryBold text="Go Back" customStyles={styles.buttonText} />
+                <PrimaryBold
+                  text="Go Swiping"
+                  customStyles={styles.buttonText}
+                />
               </ButtonGradient>
             </TouchableOpacity>
           </View>
