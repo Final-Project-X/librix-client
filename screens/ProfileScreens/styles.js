@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
     height: 75,
     marginRight: 20,
     marginBottom: 10,
-    backgroundColor: 'red',
     borderRadius: 50,
   },
   userDataText: {

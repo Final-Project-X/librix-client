@@ -8,7 +8,6 @@ import {
   ScrollView,
 } from 'react-native';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
-import StackHeader from '../../components/Headers/StackHeader';
 import PrimaryText from '../../components/Texts/PrimaryText';
 import PrimaryLight from '../../components/Texts/PrimaryLight';
 import PrimaryMedium from '../../components/Texts/PrimaryMedium';
@@ -22,6 +21,7 @@ import { helpDeleteUser } from '../../utils/apiCalls';
 import { useDispatch, useSelector } from 'react-redux';
 import { colors } from '../../global/styles';
 import styles from './styles';
+import placeholder from '../../assets/librix-book-round-logo.png';
 
 const BookItem = ({ book, navigation }) => {
   const handlePress = () => {
@@ -116,7 +116,7 @@ const ProfileScreen = ({ navigation }) => {
         <View style={styles.userCard}>
           <View style={styles.flexRow}>
             <View>
-              <Image source={{ uri: user.avatar }} style={styles.avatar} />
+              <Image source={placeholder} style={styles.avatar} />
               <PrimaryLight
                 text={user.points === 1 ? '1 point' : `${user.points} points`}
               />

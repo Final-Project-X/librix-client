@@ -36,10 +36,17 @@ const SavedBooksStack = ({ navigation }) => {
           },
         }}
       />
+
       <Stack.Screen
         name="SingleBook"
         component={SingleBook}
-        options={{ title: null }}
+        options={{
+          header: ({ navigation, scene }) => {
+            const title = scene.route.params.item.title;
+
+            return <StackHeader navigation={navigation} text={title} />;
+          },
+        }}
       />
       <Stack.Screen
         name="Add a Book"

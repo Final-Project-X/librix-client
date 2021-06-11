@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
   singleBook: {
     flex: 1,
     margin: 15,
+    marginBottom: 60,
     backgroundColor: colors.white,
     padding: 20,
     borderRadius: 15,
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   card: {
-    width: 120,
+    width: 150,
     height: 200,
     borderRadius: 15,
     resizeMode: 'cover',
@@ -33,6 +34,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 16,
   },
+  title: {
+    fontSize: 20,
+  },
+  author: {
+    marginBottom: 10,
+  },
   des: {
     lineHeight: 22,
   },
@@ -41,8 +48,6 @@ const styles = StyleSheet.create({
   },
   item: {
     marginTop: 10,
-    flexDirection: 'row',
-    alignSelf: 'flex-start',
   },
   lan: {
     marginRight: 10,

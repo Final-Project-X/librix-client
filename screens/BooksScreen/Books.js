@@ -23,7 +23,7 @@ const Books = ({ navigation }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
   const userToken = useSelector((state) => state.token.token);
-  console.log({ user });
+  // console.log({ user });
 
   useEffect(() => {
     if (user) {
@@ -42,7 +42,7 @@ const Books = ({ navigation }) => {
     if (booksToOffer.length < 1) {
       setShowModal(true);
     } else {
-      dispatch(createMatch({ userId: user._id, bookId: book._id }));
+      dispatch(createMatch({ userId: user._id, bookId: book._id }, userToken));
       dispatch(removeBookFromPool(book._id, books));
     }
   };

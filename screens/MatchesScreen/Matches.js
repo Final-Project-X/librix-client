@@ -32,7 +32,6 @@ import PrimaryBold from '../../components/Texts/PrimaryBold';
 //* COMPONENT
 
 const Matches = ({ navigation }) => {
-  // console.log('navigation in Matches', navigation);
   const dispatch = useDispatch();
 
   const userToken = useSelector((state) => state.token.token);

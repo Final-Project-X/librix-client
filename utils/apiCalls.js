@@ -168,27 +168,12 @@ export const helpGetUserMatches = async (userID, token) => {
     const res = await axios.get(`/user/${userID}`, {
       headers: { auth: token },
     });
-    console.log('help get user matches from the API calls', res);
+    console.log('help get user matches from the API calls', res.data);
     return res.data;
   } catch (err) {
     return extractApiError(err);
   }
 };
-
-// when the status is set to 'exchanged', the match is deleted from the DB, along with all other matches that have the current books IDs
-// export const helpUpdateMatch = async (data, token) => {
-//   const { id, status } = data;
-//   try {
-//     const res = await axios.put(
-//       `/matches/${id}`,
-//       { status },
-//       { headers: { auth: token } },
-//     );
-//     return res.data;
-//   } catch (err) {
-//     return extractApiError(err);
-//   }
-// };
 
 // simply removes the match from both users' lists of matches,
 // book is removed from the interestedIn list of the one who removed the match
