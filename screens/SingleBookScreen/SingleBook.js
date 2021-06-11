@@ -49,7 +49,7 @@ const SingleBook = ({ navigation, route }) => {
             />
             <PrimaryText
               text={`Year: ${item?.publishedDate}`}
-              style={styles.item}
+              customStyles={styles.item}
             />
             <PrimaryText
               text={`Genre: ${item?.genre}`}

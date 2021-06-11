@@ -35,10 +35,10 @@ const styles = StyleSheet.create({
     marginVertical: 40,
   },
   input: {
-    width: 260,
+    width: Platform.OS === 'ios' ? 270 : 260,
     marginHorizontal: 20,
     borderRadius: 40,
-    padding: Platform.OS === 'ios' ? 15 : 10,
+    padding: Platform.OS === 'ios' ? 16 : 10,
     backgroundColor: colors.white,
     shadowRadius: 8,
     shadowColor: colors.black,
