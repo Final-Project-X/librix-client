@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
   singleBook: {
     flex: 1,
     margin: 15,
+    marginBottom: 60,
     backgroundColor: colors.white,
     padding: 20,
     borderRadius: 15,

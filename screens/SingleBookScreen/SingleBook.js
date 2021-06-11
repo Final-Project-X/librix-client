@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Image, ScrollView } from 'react-native';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
 import PrimaryText from '../../components/Texts/PrimaryText';
-import StackHeader from '../../components/Headers/StackHeader';
+
 import SerifText from '../../components/Texts/SerifText';
 import styles from './styles';
 import Icon from '../../assets/book-open.png';
@@ -11,7 +11,6 @@ const SingleBook = ({ navigation, route }) => {
   const { item } = route.params;
   return (
     <ScreenGradient>
-      {/* <StackHeader navigation={navigation} text={item?.title} /> */}
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <View style={styles.singleBook}>
           <Image

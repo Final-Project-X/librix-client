@@ -23,7 +23,7 @@ const Books = ({ navigation }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
   const userToken = useSelector((state) => state.token.token);
-  console.log({ user });
+  // console.log({ user });
 
   useEffect(() => {
     if (user) {

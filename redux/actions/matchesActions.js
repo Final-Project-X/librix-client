@@ -16,12 +16,20 @@ const sortMatches = (matches) =>
 export const getMatches = (userID, token) => async (dispatch) => {
   try {
     const userMatches = await helpGetUserMatches(userID, token);
-    const matches = sortMatches(userMatches);
-    // console.log('hi from getMatches', userMatches);
-    dispatch({
-      type: ACTIONS.GET_USERS_MATCHES,
-      payload: matches,
-    });
+    console.log('hi from getMatches action', userMatches);
+    if (Array.isArray(userMatches)) {
+      const matches = sortMatches(userMatches);
+      dispatch({
+        type: ACTIONS.GET_USERS_MATCHES,
+        payload: matches,
+      });
+    } else {
+      const matches = [];
+      dispatch({
+        type: ACTIONS.GET_USERS_MATCHES,
+        payload: matches,
+      });
+    }
   } catch (err) {
     console.log(err);
   }
