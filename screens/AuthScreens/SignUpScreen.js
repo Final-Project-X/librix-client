@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Platform,
   TouchableWithoutFeedback,
@@ -15,10 +15,11 @@ import ScreenGradient from '../../components/Gradients/ScreenGradient';
 import Input from '../../components/Inputs/Input';
 import SubmitButton from '../../components/Buttons/SubmitButton';
 import PrimaryText from '../../components/Texts/PrimaryText';
+import LoadingModal from '../../components/AlertModal/LoadingModal';
 import styles from './styles';
 import { colors } from '../../global/styles';
 import { signUpUser } from '../../redux/actions/userActions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const SignUpScreen = ({ navigation }) => {
   const {
@@ -27,9 +28,16 @@ const SignUpScreen = ({ navigation }) => {
     formState: { errors },
   } = useForm();
 
+  const [loading, setLoading] = useState(false);
+
   const dispatch = useDispatch();
 
-  const onSubmit = (values) => dispatch(signUpUser(values));
+  const userToken = useSelector((state) => state.token.token);
+
+  const onSubmit = (values) => {
+    setLoading(true);
+    dispatch(signUpUser(values));
+  };
 
   const showCityInfo = () => {
     Alert.alert(
@@ -46,8 +54,13 @@ const SignUpScreen = ({ navigation }) => {
   const PWD_REGEX =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
 
+  if (userToken) {
+    setLoading(false);
+  }
+
   return (
     <SafeAreaView style={styles.container}>
+      <LoadingModal showModal={loading} setShowModal={setLoading} />
       <ScreenGradient>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <KeyboardAvoidingView
