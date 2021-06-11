@@ -1,9 +1,9 @@
 import React from 'react';
 import {
   SafeAreaView,
-  Dimensions,
   StyleSheet,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import PrimaryMedium from '../Texts/PrimaryMedium';
 import { Feather } from '@expo/vector-icons';
