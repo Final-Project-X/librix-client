@@ -11,8 +11,11 @@ const SingleBook = ({ navigation, route }) => {
   const { item } = route.params;
   return (
     <ScreenGradient>
-      <ScrollView contentContainerStyle={styles.contentContainer}>
-        <View style={styles.singleBook}>
+      <View style={styles.container}>
+        <ScrollView
+          style={styles.singleBook}
+          contentContainerStyle={styles.contentContainer}
+        >
           <Image
             source={
               item.selectedFiles.length > 0
@@ -39,27 +42,30 @@ const SingleBook = ({ navigation, route }) => {
                 customStyles={styles.note}
               />
             ) : null}
-            <View style={styles.item}>
-              <PrimaryText
-                text={`Language: ${item?.language}`}
-                customStyles={styles.lan}
-              />
-            </View>
+            {/* <View style={styles.item}> */}
+            <PrimaryText
+              text={`Language: ${item?.language}`}
+              customStyles={styles.item}
+            />
+            {/* </View> */}
             <View style={styles.item}>
               <PrimaryText text={`Year: ${item?.publishedDate}`} />
             </View>
-            <View style={styles.item}>
-              <PrimaryText
-                text={`Genre: ${item?.genre}`}
-                customStyles={styles.lan}
-              />
-            </View>
-            <View style={styles.item}>
-              <PrimaryText text={`Condition: ${item?.condition}`} />
-            </View>
+            {/* <View style={styles.item}> */}
+            <PrimaryText
+              text={`Genre: ${item?.genre}`}
+              customStyles={styles.item}
+            />
+            {/* </View> */}
+            {/* <View style={styles.item}> */}
+            <PrimaryText
+              text={`Condition: ${item?.condition}`}
+              customStyles={styles.item}
+            />
+            {/* </View> */}
           </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
     </ScreenGradient>
   );
 };
