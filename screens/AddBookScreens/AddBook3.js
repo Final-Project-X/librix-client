@@ -32,6 +32,7 @@ const AddBook3 = ({ navigation, route }) => {
     { label: 'Crime', value: 'Crime' },
     { label: 'Drama', value: 'Drama' },
     { label: 'Fantasy', value: 'Fantasy' },
+    { label: 'Horror', value: 'Horror' },
     { label: 'Sci-fi', value: 'Sci-fi' },
     { label: 'Romance', value: 'Romance' },
     { label: 'Non-fiction', value: 'Non-fiction' },
