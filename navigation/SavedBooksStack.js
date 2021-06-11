@@ -3,6 +3,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import SavedBooks from '../screens/SavedBooksScreen/SavedBooks';
 import SingleBook from '../screens/SingleBookScreen/SingleBook';
 import MainStackHeader from '../components/Headers/MainStackHeader';
+import AddBookStack from '../navigation/AddBookStack/';
+import StackHeader from '../components/Headers/StackHeader';
 import { useSelector } from 'react-redux';
 import { colors } from '../global/styles';
 
@@ -38,6 +40,11 @@ const SavedBooksStack = ({ navigation }) => {
         name="SingleBook"
         component={SingleBook}
         options={{ title: null }}
+      />
+      <Stack.Screen
+        name="Add a Book"
+        component={AddBookStack}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );

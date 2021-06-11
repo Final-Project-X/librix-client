@@ -2,6 +2,9 @@ import { StyleSheet } from 'react-native';
 import { colors } from '../../global/styles';
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   title: {
     fontSize: 20,
     padding: 16,
