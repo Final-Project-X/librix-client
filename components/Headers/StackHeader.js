@@ -1,8 +1,15 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 import PrimaryMedium from '../Texts/PrimaryMedium';
 import { Feather } from '@expo/vector-icons';
 import { colors } from '../../global/styles';
+
+const windowHeight = Dimensions.get('window').height;
 
 const StackHeader = ({ navigation, text, customStyles }) => {
   return (
@@ -24,7 +31,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    height: 60,
+    height: windowHeight / 9,
     backgroundColor: colors.almostWhite,
   },
   icon: {

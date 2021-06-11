@@ -21,7 +21,7 @@ const AddBook2 = ({ navigation, route }) => {
   const [title, setTitle] = useState(null);
   const [authors, setAuthors] = useState(null);
   const [publishedDate, setPublishedDate] = useState(null);
-  const { book } = route.params;
+  const { book } = route.params || {};
   const [bookInfo, setBookInfo] = useState(book);
 
   const handleBookInfo = (val1, val2, val3) => {

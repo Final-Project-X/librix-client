@@ -34,11 +34,12 @@ const Books = ({ navigation }) => {
   }, [user, userToken, dispatch]);
 
   const books = useSelector((state) => state.poolOfBooks.books);
+  const booksToOffer = useSelector((state) => state.usersBooks.booksToOffer);
   console.log('books in Books.js:', books?.length);
 
   const handleYes = (index) => {
     const book = books[index];
-    if (user.booksToOffer.length < 1) {
+    if (booksToOffer.length < 1) {
       setShowModal(true);
     } else {
       dispatch(createMatch({ userId: user._id, bookId: book._id }));

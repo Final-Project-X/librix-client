@@ -129,10 +129,6 @@ const styles = StyleSheet.create({
     color: colors.primary.dark,
     marginLeft: -20,
   },
-  size: {
-    marginLeft: -80,
-    color: colors.primary.dark,
-  },
 });
 
 export default styles;
