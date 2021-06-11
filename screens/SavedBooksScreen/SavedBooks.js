@@ -38,14 +38,14 @@ const SavedBooks = ({ navigation }) => {
           />
           <PrimaryMedium
             customStyles={styles.modalText}
-            text="Upload a book -- and have a look!"
+            text="Upload a book — and have a look!"
           />
         </AlertModal>
         <PrimaryBold text={'Books you saved'} customStyles={styles.title} />
         {savedBooks?.length < 1 ? (
           <View>
-            <PrimaryBold
-              text="You haven't saved any books. Go start looking ..."
+            <PrimaryMedium
+              text="You haven't saved any books. Go start looking..."
               customStyles={styles.text}
             />
             <TouchableOpacity

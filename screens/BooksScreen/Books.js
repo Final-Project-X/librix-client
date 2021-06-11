@@ -8,6 +8,7 @@ import ScreenGradient from '../../components/Gradients/ScreenGradient';
 import { Feather } from '@expo/vector-icons';
 import AlertModal from '../../components/AlertModal/AlertModal';
 import PrimaryMedium from '../../components/Texts/PrimaryMedium';
+import PrimaryText from '../../components/Texts/PrimaryText';
 import { getPoolOfBooks } from '../../redux/actions/poolOfBooksActions';
 import {
   addBookToSavedBooks,
@@ -76,13 +77,13 @@ const Books = ({ navigation }) => {
             customStyles={styles.modalText}
             text="You need to contribute mate!"
           />
-          <PrimaryMedium
+          <PrimaryText
             customStyles={styles.modalText}
             text="One hand washes the other, this is how we do it."
           />
-          <PrimaryMedium
+          <PrimaryText
             customStyles={styles.modalText}
-            text="Upload a book -- and have a look!"
+            text="Upload a book — and have a look!"
           />
         </AlertModal>
 

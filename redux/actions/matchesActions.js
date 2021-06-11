@@ -18,11 +18,18 @@ export const getMatches = (userID, token) => async (dispatch) => {
     const userMatches = await helpGetUserMatches(userID, token);
     console.log('hi from getMatches action', userMatches);
     if (Array.isArray(userMatches)) {
-      const matches = sortMatches(userMatches);
-      dispatch({
-        type: ACTIONS.GET_USERS_MATCHES,
-        payload: matches,
-      });
+      if (userMatches.length > 0) {
+        const matches = sortMatches(userMatches);
+        dispatch({
+          type: ACTIONS.GET_USERS_MATCHES,
+          payload: matches,
+        });
+      } else {
+        dispatch({
+          type: ACTIONS.GET_USERS_MATCHES,
+          payload: userMatches,
+        });
+      }
     } else {
       const matches = [];
       dispatch({
