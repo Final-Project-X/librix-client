@@ -6,13 +6,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontSize: 20,
-    padding: 16,
+    fontSize: 24,
+    padding: 20,
+    color: colors.primary.dark,
   },
   text: {
-    padding: 8,
+    padding: 20,
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: 24,
+    color: colors.primary.dark,
   },
   flatlist: {
     marginBottom: 120,

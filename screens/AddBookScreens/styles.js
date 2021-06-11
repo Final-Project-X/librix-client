@@ -55,9 +55,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   inputContainer: {
-    marginBottom: 10,
-    marginLeft: -50,
-    marginRight: -50,
+    marginHorizontal: -50,
   },
   formContainer: {
     width: '100%',
@@ -76,6 +74,10 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 30,
+    alignSelf: 'center',
+  },
+  buttonBook3: {
+    marginTop: 10,
     alignSelf: 'center',
   },
   buttonText: {

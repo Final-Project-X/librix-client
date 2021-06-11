@@ -23,4 +23,5 @@ export const ACTIONS = {
   DELETE_TOKEN: 'delete token',
   SET_ERROR: 'set error',
   CLEAR_ERROR: 'clear error',
+  ADD_BOOK_ERROR: 'add a book',
 };
