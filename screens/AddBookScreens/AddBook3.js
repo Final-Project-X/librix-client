@@ -225,10 +225,6 @@ const AddBook3 = ({ navigation, route }) => {
                   />
                 </View>
               </View>
-              <PrimaryText
-                text="Maximum image size 1MB"
-                customStyles={styles.size}
-              />
               <View style={styles.upload}>
                 <UploadImageBtn setImage={setImage} navigation={navigation} />
               </View>
