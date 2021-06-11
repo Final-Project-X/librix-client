@@ -42,27 +42,22 @@ const SingleBook = ({ navigation, route }) => {
                 customStyles={styles.note}
               />
             ) : null}
-            {/* <View style={styles.item}> */}
+
             <PrimaryText
               text={`Language: ${item?.language}`}
               customStyles={styles.item}
             />
-            {/* </View> */}
             <View style={styles.item}>
               <PrimaryText text={`Year: ${item?.publishedDate}`} />
             </View>
-            {/* <View style={styles.item}> */}
             <PrimaryText
               text={`Genre: ${item?.genre}`}
               customStyles={styles.item}
             />
-            {/* </View> */}
-            {/* <View style={styles.item}> */}
             <PrimaryText
               text={`Condition: ${item?.condition}`}
               customStyles={styles.item}
             />
-            {/* </View> */}
           </View>
         </ScrollView>
       </View>
