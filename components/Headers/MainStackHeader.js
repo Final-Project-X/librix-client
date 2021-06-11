@@ -5,16 +5,13 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import Avatar from '../../assets/icon.png';
+import Avatar from '../../assets/librix-book-round-logo.png';
 
 const MainStackHeader = ({ drawerToggler, avatar }) => {
   return (
     <SafeAreaView>
       <TouchableOpacity onPress={drawerToggler}>
-        <Image
-          source={avatar ? { uri: avatar } : Avatar}
-          style={styles.image}
-        />
+        <Image source={Avatar} style={styles.image} />
       </TouchableOpacity>
     </SafeAreaView>
   );
@@ -22,8 +19,8 @@ const MainStackHeader = ({ drawerToggler, avatar }) => {
 
 const styles = StyleSheet.create({
   image: {
-    width: 35,
-    height: 35,
+    width: 30,
+    height: 30,
     borderRadius: 25,
   },
 });

@@ -41,7 +41,7 @@ const Books = ({ navigation }) => {
     if (user.booksToOffer.length < 1) {
       setShowModal(true);
     } else {
-      dispatch(createMatch({ userId: user._id, bookId: book._id }));
+      dispatch(createMatch({ userId: user._id, bookId: book._id }, userToken));
       dispatch(removeBookFromPool(book._id, books));
     }
   };

@@ -10,7 +10,7 @@ import PrimaryText from '../../components/Texts/PrimaryText';
 import PrimaryMedium from '../../components/Texts/PrimaryMedium';
 import { Feather } from '@expo/vector-icons';
 import { colors, shadow } from '../../global/styles';
-import logo from '../../assets/logo.png';
+import logo from '../../assets/librix-book-full-logo.png';
 import ButtonGradient from '../../components/Gradients/ButtonGradient';
 
 const HomeScreen = ({ navigation }) => {
