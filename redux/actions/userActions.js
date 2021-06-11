@@ -25,14 +25,21 @@ export const signUpUser = (data) => async (dispatch) => {
 export const loginUser = (loginData) => async (dispatch) => {
   try {
     const res = await helpLoginUser(loginData);
-    dispatch({
-      type: ACTIONS.LOGIN_USER,
-      payload: res.user,
-    });
-    dispatch({
-      type: ACTIONS.SET_TOKEN,
-      payload: res.token,
-    });
+    if (res.user) {
+      dispatch({
+        type: ACTIONS.LOGIN_USER,
+        payload: res.user,
+      });
+      dispatch({
+        type: ACTIONS.SET_TOKEN,
+        payload: res.token,
+      });
+    } else if (res.error) {
+      dispatch({
+        type: ACTIONS.SET_ERROR,
+        payload: res.error,
+      });
+    }
   } catch (err) {
     console.log(err);
   }

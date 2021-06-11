@@ -15,7 +15,7 @@ import SubmitButton from '../../components/Buttons/SubmitButton';
 import PrimaryText from '../../components/Texts/PrimaryText';
 import styles from './styles';
 import { loginUser } from '../../redux/actions/userActions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const LoginScreen = ({ navigation }) => {
   const {
@@ -27,6 +27,8 @@ const LoginScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const onSubmit = (values) => dispatch(loginUser(values));
+
+  const error = useSelector((state) => state.error.error);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -62,7 +64,11 @@ const LoginScreen = ({ navigation }) => {
               defaultValue=""
             />
             <PrimaryText
-              text={errors.email && errors.email.message}
+              text={
+                errors.email
+                  ? errors.email.message
+                  : error.message && 'Invalid email or password!'
+              }
               customStyles={styles.inputError}
             />
             <Controller
