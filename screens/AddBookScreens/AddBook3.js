@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard,
+  Alert,
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import styles from './styles';
@@ -16,6 +17,7 @@ import PrimaryText from '../../components/Texts/PrimaryText';
 import PrimaryBold from '../../components/Texts/PrimaryBold';
 import { addBookToOfferedBooks } from '../../redux/actions/usersBooksActions';
 import { useDispatch, useSelector } from 'react-redux';
+import { addBook } from '../../utils/apiCalls';
 
 const AddBook3 = ({ navigation, route }) => {
   const [errors, setErrors] = useState(null);
@@ -115,7 +117,7 @@ const AddBook3 = ({ navigation, route }) => {
     description: description,
   };
 
-  const handlePublishBook = (valueGen, valueCon, valueLan, valueNote) => {
+  const handlePublishBook = async (valueGen, valueCon, valueLan, valueNote) => {
     const newBook = {
       ...bookData,
       genre: valueGen,
@@ -125,19 +127,32 @@ const AddBook3 = ({ navigation, route }) => {
       selectedFiles: [image?.base64],
     };
 
-    if (!valueGen || !valueCon || !valueLan || !image) {
-      setErrors('Please make sure fields are filled in correctly!');
-    } else if (error.message) {
-      setErrors(error.message);
-    } else {
-      dispatch(addBookToOfferedBooks(newBook, userToken));
-      navigation.navigate('Books');
-      setValueGenre(null);
-      setValueCondition(null);
-      setValueLanguage(null);
-      setNote(null);
-      setImage(null);
-      setErrors(null);
+    const showAlert = () => {
+      Alert.alert('Book added', 'You have successfuly added your book!', [
+        { text: 'OK' },
+      ]);
+    };
+    try {
+      if (!valueGen || !valueCon || !valueLan || !image) {
+        setErrors('Please make sure fields are filled in correctly!');
+      } else if (error.message) {
+        setErrors(error.message);
+      } else {
+        const addedBook = await addBook(newBook, userToken);
+        if (addedBook && addedBook._id) {
+          showAlert();
+        }
+        dispatch(addBookToOfferedBooks(newBook, userToken));
+        navigation.navigate('Books');
+        setValueGenre(null);
+        setValueCondition(null);
+        setValueLanguage(null);
+        setNote(null);
+        setImage(null);
+        setErrors(null);
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
