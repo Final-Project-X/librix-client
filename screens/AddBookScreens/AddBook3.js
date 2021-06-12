@@ -132,23 +132,27 @@ const AddBook3 = ({ navigation, route }) => {
         { text: 'OK' },
       ]);
     };
-    if (!valueGen || !valueCon || !valueLan || !image) {
-      setErrors('Please make sure fields are filled in correctly!');
-    } else if (error.message) {
-      setErrors(error.message);
-    } else {
-      const addedBook = await addBook(newBook, userToken);
-      if (addedBook && addedBook._id) {
-        showAlert();
+    try {
+      if (!valueGen || !valueCon || !valueLan || !image) {
+        setErrors('Please make sure fields are filled in correctly!');
+      } else if (error.message) {
+        setErrors(error.message);
+      } else {
+        const addedBook = await addBook(newBook, userToken);
+        if (addedBook && addedBook._id) {
+          showAlert();
+        }
+        dispatch(addBookToOfferedBooks(newBook, userToken));
+        navigation.navigate('Books');
+        setValueGenre(null);
+        setValueCondition(null);
+        setValueLanguage(null);
+        setNote(null);
+        setImage(null);
+        setErrors(null);
       }
-      dispatch(addBookToOfferedBooks(newBook, userToken));
-      navigation.navigate('Books');
-      setValueGenre(null);
-      setValueCondition(null);
-      setValueLanguage(null);
-      setNote(null);
-      setImage(null);
-      setErrors(null);
+    } catch (err) {
+      console.log(err);
     }
   };
 
