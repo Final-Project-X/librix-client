@@ -33,9 +33,14 @@ export default () => {
         name="SingleBook"
         component={SingleBook}
         options={{
-          headerShown: false,
+          header: ({ navigation, scene }) => {
+            const title = scene.route.params.item.title;
+
+            return <StackHeader navigation={navigation} text={title} />;
+          },
         }}
       />
+
       <ProfileStack.Screen
         name="AddBookStack"
         component={AddBookStack}
