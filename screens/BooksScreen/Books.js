@@ -18,11 +18,10 @@ import { removeBookFromPool } from '../../redux/actions/poolOfBooksActions';
 import { createMatch } from '../../redux/actions/matchesActions';
 import { getBooksToOffer } from '../../redux/actions/usersBooksActions';
 import { useDispatch, useSelector } from 'react-redux';
-import LoadingModal from '../../components/AlertModal/LoadingModal';
 
 const Books = ({ navigation }) => {
   const [showModal, setShowModal] = useState(false);
-  const [loading, setLoading] = useState(false);
+
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
   const userToken = useSelector((state) => state.token.token);
@@ -32,14 +31,9 @@ const Books = ({ navigation }) => {
   console.log('books in Books.js:', books?.length);
 
   useEffect(() => {
-    setLoading(true);
     dispatch(getPoolOfBooks({ userID: user._id }, userToken));
     dispatch(getSavedBooks(user.booksToRemember));
     dispatch(getBooksToOffer(user.booksToOffer));
-
-    if (userToken) {
-      setLoading(false);
-    }
   }, [user, userToken, dispatch]);
 
   const handleYes = (index) => {
@@ -70,7 +64,6 @@ const Books = ({ navigation }) => {
   return (
     // <SafeAreaView style={styles.container}>
     <ScreenGradient>
-      <LoadingModal showModal={loading} setShowModal={setLoading} />
       <AlertModal
         showModal={showModal}
         setShowModal={setShowModal}

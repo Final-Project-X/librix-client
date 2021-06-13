@@ -3,7 +3,6 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  SafeAreaView,
   TouchableWithoutFeedback,
   Keyboard,
   KeyboardAvoidingView,
@@ -48,71 +47,69 @@ const AddBook2 = ({ navigation, route }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScreenGradient>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-          <KeyboardAvoidingView
-            style={styles.content}
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          >
-            <PrimaryText
-              text="Please check if the information is correct."
-              customStyles={styles.text}
-            />
+    <ScreenGradient>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <KeyboardAvoidingView
+          style={styles.content}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        >
+          <PrimaryText
+            text="Please check if the information is correct."
+            customStyles={styles.text}
+          />
 
-            <View style={styles.formContainer}>
-              <TextInput
-                style={styles.inputText}
-                value={title}
-                placeholder="Book title"
-                placeholderTextColor="black"
-                defaultValue={bookInfo?.title}
-                onChangeText={(val) => setTitle(val)}
-              />
-              <TextInput
-                style={styles.inputText}
-                value={authors}
-                placeholder="Author's name"
-                placeholderTextColor="black"
-                defaultValue={bookInfo?.authors.join(', ')}
-                onChangeText={(val) => setAuthors(val)}
-              />
-              <TextInput
-                style={styles.inputText}
-                value={publishedDate}
-                placeholder="Year"
-                placeholderTextColor="black"
-                defaultValue={bookInfo?.publishedDate.slice(0, 4)}
-                onChangeText={(val) => setPublishedDate(val)}
-                numeric={true}
-              />
-              {error && (
-                <PrimaryText text={error} customStyles={styles.inputError} />
-              )}
-              <View>
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={() =>
-                    handleBookInfo(
-                      title || bookInfo?.title,
-                      authors || bookInfo?.authors,
-                      publishedDate || bookInfo?.publishedDate,
-                    )
-                  }
-                >
-                  <ButtonGradient>
-                    <View style={styles.buttonMix}>
-                      <PrimaryBold text="Next" customStyles={styles.btnText} />
-                      <Feather name="arrow-right" size={16} color="white" />
-                    </View>
-                  </ButtonGradient>
-                </TouchableOpacity>
-              </View>
+          <View style={styles.formContainer}>
+            <TextInput
+              style={styles.inputText}
+              value={title}
+              placeholder="Book title"
+              placeholderTextColor="black"
+              defaultValue={bookInfo?.title}
+              onChangeText={(val) => setTitle(val)}
+            />
+            <TextInput
+              style={styles.inputText}
+              value={authors}
+              placeholder="Author's name"
+              placeholderTextColor="black"
+              defaultValue={bookInfo?.authors.join(', ')}
+              onChangeText={(val) => setAuthors(val)}
+            />
+            <TextInput
+              style={styles.inputText}
+              value={publishedDate}
+              placeholder="Year"
+              placeholderTextColor="black"
+              defaultValue={bookInfo?.publishedDate.slice(0, 4)}
+              onChangeText={(val) => setPublishedDate(val)}
+              numeric={true}
+            />
+            {error && (
+              <PrimaryText text={error} customStyles={styles.inputError} />
+            )}
+            <View>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() =>
+                  handleBookInfo(
+                    title || bookInfo?.title,
+                    authors || bookInfo?.authors,
+                    publishedDate || bookInfo?.publishedDate,
+                  )
+                }
+              >
+                <ButtonGradient>
+                  <View style={styles.buttonMix}>
+                    <PrimaryBold text="Next" customStyles={styles.btnText} />
+                    <Feather name="arrow-right" size={16} color="white" />
+                  </View>
+                </ButtonGradient>
+              </TouchableOpacity>
             </View>
-          </KeyboardAvoidingView>
-        </TouchableWithoutFeedback>
-      </ScreenGradient>
-    </SafeAreaView>
+          </View>
+        </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
+    </ScreenGradient>
   );
 };
 
