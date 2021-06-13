@@ -1,5 +1,4 @@
 import { ACTIONS } from './actions';
-import { addBook } from '../../utils/apiCalls';
 
 //get the books user has to offer
 export const getBooksToOffer = (books) => (dispatch) => {
@@ -10,16 +9,11 @@ export const getBooksToOffer = (books) => (dispatch) => {
 };
 
 // add a new book to offered books
-export const addBookToOfferedBooks = (bookData, token) => async (dispatch) => {
-  try {
-    const newBook = await addBook(bookData, token);
-    dispatch({
-      type: ACTIONS.ADD_BOOK_TO_OFFERED_BOOKS,
-      payload: newBook,
-    });
-  } catch (error) {
-    dispatch({ type: ACTIONS.ADD_BOOK_ERROR, payload: error });
-  }
+export const addBookToOfferedBooks = (bookData) => (dispatch) => {
+  dispatch({
+    type: ACTIONS.ADD_BOOK_TO_OFFERED_BOOKS,
+    payload: bookData,
+  });
 };
 
 // mark one book as reserved
