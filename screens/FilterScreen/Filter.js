@@ -24,23 +24,41 @@ const Filter = ({ navigation }) => {
   const [valueLanguage, setValueLanguage] = useState(null);
   const [genres, setGenres] = useState([
     { label: 'Any', value: 'Any' },
-    { label: 'Action', value: 'action' },
-    { label: 'Children book', value: 'children book' },
-    { label: 'Classic', value: 'classic' },
-    { label: 'Comic book', value: 'comic book' },
-    { label: 'Crime', value: 'crime' },
-    { label: 'Drama', value: 'drama' },
-    { label: 'Poetry', value: 'poetry' },
-    { label: 'Self-help', value: 'self-help' },
+    { label: 'Fiction', value: 'Fiction' },
+    { label: 'Action', value: 'Action' },
+    { label: 'Children book', value: 'Children book' },
+    { label: 'Classic', value: 'Classic' },
+    { label: 'Comic book', value: 'Comic book' },
+    { label: 'Crime', value: 'Crime' },
+    { label: 'Drama', value: 'Drama' },
+    { label: 'Fantasy', value: 'Fantasy' },
+    { label: 'Sci-fi', value: 'Sci-fi' },
+    { label: 'Romance', value: 'Romance' },
+    { label: 'Non-fiction', value: 'Non-fiction' },
+    { label: 'Biography', value: 'Biography' },
+    { label: 'History', value: 'History' },
+    { label: 'Leisure', value: 'Leisure' },
+    { label: 'Poetry', value: 'Poetry' },
+    { label: 'Self-help', value: 'Self-help' },
+    { label: 'Science', value: 'Science' },
   ]);
 
   const [languages, setLanguages] = useState([
     { label: 'Any', value: 'Any' },
-    { label: 'English', value: 'english' },
-    { label: 'French', value: 'french' },
-    { label: 'German', value: 'german' },
-    { label: 'Spanish', value: 'spanish' },
-    { label: 'Chinese', value: 'chinese' },
+    { label: 'English', value: 'English' },
+    { label: 'French', value: 'French' },
+    { label: 'German', value: 'German' },
+    { label: 'Spanish', value: 'Spanish' },
+    { label: 'Chinese', value: 'Chinese' },
+    { label: 'Polish', value: 'Polish' },
+    { label: 'Slovak', value: 'Slovak' },
+    { label: 'Ukrainian', value: 'Ukrainian' },
+    { label: 'Italian', value: 'Italian' },
+    { label: 'Czech', value: 'Czech' },
+    { label: 'Arabic', value: 'Arabic' },
+    { label: 'Turkish', value: 'Turkish' },
+    { label: 'Greek', value: 'Greek' },
+    { label: 'Other', value: 'Other' },
   ]);
 
   const onGenreOpen = useCallback(() => {
@@ -62,15 +80,19 @@ const Filter = ({ navigation }) => {
   }, []);
 
   const user = useSelector((state) => state.user.user);
+  const userToken = useSelector((state) => state.token.token);
 
   const apply = (city, genre, language) => {
     dispatch(
-      getPoolOfBooks({
-        city,
-        genre,
-        language,
-        userID: user._id,
-      }),
+      getPoolOfBooks(
+        {
+          city,
+          genre,
+          language,
+          userID: user._id,
+        },
+        userToken,
+      ),
     );
     setLocation(null);
     setValueGenre(null);

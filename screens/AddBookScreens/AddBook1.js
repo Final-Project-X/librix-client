@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard,
+  Alert,
 } from 'react-native';
 import ScreenGradient from '../../components/Gradients/ScreenGradient';
 import ButtonGradient from '../../components/Gradients/ButtonGradient';
@@ -19,11 +20,23 @@ const AddBook1 = ({ navigation }) => {
   const [isbn, setIsbn] = useState(null);
 
   const handlePress = async () => {
+    const buttonAlert = () => {
+      Alert.alert(
+        'Wrong ISBN Number',
+        'Please make sure to have your correct ISBN number',
+        [{ text: 'OK' }],
+      );
+    };
+
     try {
       if (isbn) {
         const book = await getBookInfo(isbn);
-        navigation.navigate('AddBook2', { book });
-        setIsbn(null);
+        if (book.error) {
+          buttonAlert();
+        } else {
+          navigation.navigate('AddBook2', { book });
+          setIsbn(null);
+        }
       } else {
         navigation.navigate('AddBook2');
       }

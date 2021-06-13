@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard,
+  Alert,
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import styles from './styles';
@@ -16,9 +17,10 @@ import PrimaryText from '../../components/Texts/PrimaryText';
 import PrimaryBold from '../../components/Texts/PrimaryBold';
 import { addBookToOfferedBooks } from '../../redux/actions/usersBooksActions';
 import { useDispatch, useSelector } from 'react-redux';
+import { addBook } from '../../utils/apiCalls';
 
 const AddBook3 = ({ navigation, route }) => {
-  const [error, setError] = useState(null);
+  const [errors, setErrors] = useState(null);
   const [note, setNote] = useState(null);
   const [image, setImage] = useState(null);
   const [valueGenre, setValueGenre] = useState(null);
@@ -104,6 +106,7 @@ const AddBook3 = ({ navigation, route }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
   const userToken = useSelector((state) => state.token.token);
+  const error = useSelector((state) => state.error.error);
 
   const { title, authors, publishedDate, description } = route.params;
   const bookData = {
@@ -115,26 +118,42 @@ const AddBook3 = ({ navigation, route }) => {
     description: description,
   };
 
-  const handlePublishBook = (valueGen, valueCon, valueLan, valueNote) => {
+  const handlePublishBook = async (valueGen, valueCon, valueLan, valueNote) => {
     const newBook = {
       ...bookData,
       genre: valueGen,
       condition: valueCon,
       language: valueLan,
       personalDescription: valueNote,
-      selectedFiles: [image.base64],
+      selectedFiles: [image?.base64],
     };
 
-    if (!valueGen || !valueCon || !valueLan || !image) {
-      setError('Please make sure fields are filled in correctly!');
-    } else {
-      dispatch(addBookToOfferedBooks(newBook, userToken));
-      navigation.navigate('Books');
-      setValueGenre(null);
-      setValueCondition(null);
-      setNote(null);
-      setImage(null);
-      setError(null);
+    const showAlert = () => {
+      Alert.alert('Book added', 'You have successfuly added your book!', [
+        { text: 'OK' },
+      ]);
+    };
+    try {
+      if (!valueGen || !valueCon || !valueLan || !image) {
+        setErrors('Please make sure fields are filled in correctly!');
+      } else if (error.message) {
+        setErrors(error.message);
+      } else {
+        const addedBook = await addBook(newBook, userToken);
+        if (addedBook && addedBook._id) {
+          showAlert();
+        }
+        dispatch(addBookToOfferedBooks(newBook, userToken));
+        navigation.navigate('Books');
+        setValueGenre(null);
+        setValueCondition(null);
+        setValueLanguage(null);
+        setNote(null);
+        setImage(null);
+        setErrors(null);
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -229,8 +248,8 @@ const AddBook3 = ({ navigation, route }) => {
               <View style={styles.upload}>
                 <UploadImageBtn setImage={setImage} navigation={navigation} />
               </View>
-              {error && (
-                <PrimaryText text={error} customStyles={styles.inputError} />
+              {errors && (
+                <PrimaryText text={errors} customStyles={styles.inputError} />
               )}
               {image && (
                 <PrimaryBold

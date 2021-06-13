@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   TouchableWithoutFeedback,
@@ -12,6 +12,7 @@ import ScreenGradient from '../../components/Gradients/ScreenGradient';
 import Input from '../../components/Inputs/Input';
 import SubmitButton from '../../components/Buttons/SubmitButton';
 import PrimaryText from '../../components/Texts/PrimaryText';
+import LoadingModal from '../../components/AlertModal/LoadingModal';
 import styles from './styles';
 import { loginUser } from '../../redux/actions/userActions';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,14 +24,25 @@ const LoginScreen = ({ navigation }) => {
     formState: { errors },
   } = useForm();
 
+  const [loading, setLoading] = useState(false);
+
+  const userToken = useSelector((state) => state.token.token);
+  const error = useSelector((state) => state.error.error);
+
   const dispatch = useDispatch();
 
-  const onSubmit = (values) => dispatch(loginUser(values));
+  const onSubmit = (values) => {
+    setLoading(true);
+    dispatch(loginUser(values));
+  };
 
-  const error = useSelector((state) => state.error.error);
+  if (userToken) {
+    setLoading(false);
+  }
 
   return (
     <ScreenGradient>
+      <LoadingModal showModal={loading} setShowModal={setLoading} />
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <KeyboardAvoidingView
           style={styles.form}

@@ -2,9 +2,17 @@ import { StyleSheet } from 'react-native';
 import { colors } from '../../global/styles';
 
 const styles = StyleSheet.create({
-  singleBook: {
+  container: {
     flex: 1,
-    margin: 15,
+    marginHorizontal: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  singleBook: {
+    width: '100%',
+    flex: 1,
+    marginHorizontal: 20,
+    marginTop: 10,
     marginBottom: 60,
     backgroundColor: colors.white,
     padding: 20,
@@ -13,21 +21,19 @@ const styles = StyleSheet.create({
     shadowColor: colors.black,
     shadowOpacity: 0.18,
     shadowOffset: { width: 0, height: 5 },
-    alignItems: 'center',
     elevation: 4,
   },
   card: {
-    width: 150,
+    width: 140,
     height: 200,
     borderRadius: 15,
     resizeMode: 'cover',
     marginBottom: 10,
-    marginTop: -10,
   },
   contentContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingBottom: 20,
+    paddingBottom: 50,
   },
   text: {
     padding: 8,
@@ -48,9 +54,6 @@ const styles = StyleSheet.create({
   },
   item: {
     marginTop: 10,
-  },
-  lan: {
-    marginRight: 10,
   },
 });
 
