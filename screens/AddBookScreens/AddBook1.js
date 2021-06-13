@@ -21,11 +21,9 @@ const AddBook1 = ({ navigation }) => {
 
   const handlePress = async () => {
     const buttonAlert = () => {
-      Alert.alert(
-        'Wrong ISBN Number',
-        'Please make sure to have your correct ISBN number',
-        [{ text: 'OK' }],
-      );
+      Alert.alert('Wrong ISBN', 'Please make sure your ISBN is correct', [
+        { text: 'OK' },
+      ]);
     };
 
     try {

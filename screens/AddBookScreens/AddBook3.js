@@ -137,7 +137,7 @@ const AddBook3 = ({ navigation, route }) => {
       if (!valueGen || !valueCon || !valueLan || !image) {
         setErrors('Please make sure fields are filled in correctly!');
       } else if (error.message) {
-        setErrors(error.message);
+        setErrors('Sorry, your image size is too large.');
       } else {
         const addedBook = await addBook(newBook, userToken);
         if (addedBook && addedBook._id) {
