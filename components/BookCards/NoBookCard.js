@@ -3,10 +3,11 @@ import { SafeAreaView, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import ButtonGradient from '../../components/Gradients/ButtonGradient';
 import PrimaryBold from '../../components/Texts/PrimaryBold';
+import PrimaryMedium from '../../components/Texts/PrimaryMedium';
 
 const NoBookCard = ({ navigation }) => (
   <SafeAreaView style={styles.container}>
-    <PrimaryBold
+    <PrimaryMedium
       text="There are no books for you to swipe now!"
       customStyles={styles.noBooks}
     />

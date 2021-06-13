@@ -54,7 +54,8 @@ const styles = StyleSheet.create({
   noBooks: {
     textAlign: 'center',
     marginBottom: 50,
-    fontSize: 16,
+    fontSize: 24,
+    color: colors.primary.dark,
   },
   delete: {
     position: 'absolute',
