@@ -26,7 +26,7 @@ export const addBook = async (bookData, token) => {
     let response = await axios.post('/books', bookData, {
       headers: { auth: token },
     });
-    return response.data;
+    return response;
   } catch (err) {
     return extractApiError(err);
   }

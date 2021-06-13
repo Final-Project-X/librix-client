@@ -105,7 +105,6 @@ const AddBook3 = ({ navigation, route }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
   const userToken = useSelector((state) => state.token.token);
-  const error = useSelector((state) => state.error.error);
 
   const { title, authors, publishedDate, description } = route.params;
   const bookData = {
@@ -135,14 +134,15 @@ const AddBook3 = ({ navigation, route }) => {
     try {
       if (!valueGen || !valueCon || !valueLan || !image) {
         setErrors('Please make sure fields are filled in correctly!');
-      } else if (error.message) {
-        setErrors('Sorry, your image size is too large.');
       } else {
-        const addedBook = await addBook(newBook, userToken);
-        if (addedBook && addedBook._id) {
+        const result = await addBook(newBook, userToken);
+        console.log('result.data', result.data);
+        if (result.data && result.data._id) {
           showAlert();
+        } else if (result.error) {
+          setErrors('Sorry, your image size is too large.');
         }
-        dispatch(addBookToOfferedBooks(newBook, userToken));
+        dispatch(addBookToOfferedBooks(result.data));
         navigation.navigate('Books');
         setValueGenre(null);
         setValueCondition(null);
