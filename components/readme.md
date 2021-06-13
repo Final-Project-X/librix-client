@@ -1,6 +1,0 @@
-# Components
-
-Contains the following components:
-
-- ...
-- ...
