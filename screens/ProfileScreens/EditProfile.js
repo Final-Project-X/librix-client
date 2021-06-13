@@ -165,7 +165,8 @@ const customStyles = StyleSheet.create({
   },
   form: {
     backgroundColor: colors.white,
-    margin: 20,
+    marginHorizontal: 20,
+    marginTop: 10,
     padding: 20,
     paddingTop: 90,
     borderRadius: 25,

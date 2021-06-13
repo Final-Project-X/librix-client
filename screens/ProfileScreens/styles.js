@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import { colors } from '../../global/styles';
 
 const styles = StyleSheet.create({
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   deleteButton: {
-    margin: 20,
+    margin: Platform.OS === 'ios' ? 20 : 0,
   },
 });
 
