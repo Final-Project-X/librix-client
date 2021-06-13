@@ -148,6 +148,7 @@ export const helpCreateMatch = async (data, token) => {
     console.log('from API calls, helpCreateMatch', res.data);
     return res.data;
   } catch (err) {
+    console.log('cannot create match', err);
     return extractApiError(err);
   }
 };
