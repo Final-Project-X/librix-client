@@ -145,6 +145,7 @@ export const helpCreateMatch = async (data, token) => {
       { bookId },
       { headers: { auth: token } },
     );
+    console.log('from API calls, helpCreateMatch', res.data);
     return res.data;
   } catch (err) {
     return extractApiError(err);

@@ -27,6 +27,10 @@ const Books = ({ navigation }) => {
   const user = useSelector((state) => state.user.user);
   const userToken = useSelector((state) => state.token.token);
 
+  const books = useSelector((state) => state.poolOfBooks.books);
+  const booksToOffer = useSelector((state) => state.usersBooks.booksToOffer);
+  console.log('books in Books.js:', books?.length);
+
   useEffect(() => {
     setLoading(true);
     dispatch(getPoolOfBooks({ userID: user._id }, userToken));
@@ -36,11 +40,7 @@ const Books = ({ navigation }) => {
     if (userToken) {
       setLoading(false);
     }
-  }, []);
-
-  const books = useSelector((state) => state.poolOfBooks.books);
-  const booksToOffer = useSelector((state) => state.usersBooks.booksToOffer);
-  console.log('books in Books.js:', books?.length);
+  }, [user, userToken, dispatch]);
 
   const handleYes = (index) => {
     const book = books[index];
