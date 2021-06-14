@@ -43,16 +43,8 @@ export const getMatches = (userID, token) => async (dispatch) => {
 };
 
 // create a match
-export const createMatch = (data, token) => async (dispatch) => {
+export const createMatch = (isThereAMatch, data) => async (dispatch) => {
   try {
-    const isThereAMatch = await helpCreateMatch(data, token);
-    // if message says OK, we fetch user data again and set the matches
-    // on success, we use the following message
-    //TODO and show the (alert?) message to the user
-    // (alert: continue swiping / go to matches)
-    // `You got ${matchesArray.length} matches`
-    console.log('log from the match checker', isThereAMatch);
-
     if (isThereAMatch?.response?.message.slice(0, 7) === 'You got') {
       const updatedUserMatches = await helpGetUserMatches(data.userId);
       //TODO check if the sorting function works

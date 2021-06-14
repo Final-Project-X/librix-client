@@ -1,6 +1,6 @@
 import React from 'react';
 import { colors } from '../../global/styles';
-import { View, TouchableOpacity, Image } from 'react-native';
+import { View, TouchableOpacity, Image, Alert } from 'react-native';
 import styles from './styles';
 import PrimaryText from '../Texts/PrimaryText';
 import PrimaryBold from '../Texts/PrimaryBold';
@@ -8,6 +8,7 @@ import PrimaryLight from '../Texts/PrimaryLight';
 import { removeBookFromSavedBooks } from '../../redux/actions/savedBooksActions';
 import { createMatch } from '../../redux/actions/matchesActions';
 import { SavedBooksIconButton } from '../Buttons/IconButtons/SavedBooksIconButton';
+import { helpCreateMatch } from '../../utils/apiCalls';
 import { useDispatch, useSelector } from 'react-redux';
 import Icon from '../../assets/book-open.png';
 
@@ -17,15 +18,28 @@ const SavedBookList = ({ item, navigation, setShowModal }) => {
   const userToken = useSelector((state) => state.token.token);
   const booksToOffer = useSelector((state) => state.usersBooks.booksToOffer);
 
+  const showAlert = () => {
+    Alert.alert('A match has been created', 'You have got a match!', [
+      { text: 'OK' },
+    ]);
+  };
+
   const handleDelete = (book) => {
     dispatch(removeBookFromSavedBooks(book._id, user._id, userToken));
   };
 
-  const handleLike = (book) => {
+  const handleLike = async (book) => {
     if (booksToOffer.length < 1) {
       setShowModal(true);
     } else {
-      dispatch(createMatch({ userId: user._id, bookId: book._id }, userToken));
+      const isThereAMatch = await helpCreateMatch(
+        { userId: user._id, bookId: book._id },
+        userToken,
+      );
+      if (isThereAMatch?.response?.message.slice(0, 7) === 'You got') {
+        showAlert();
+      }
+      dispatch(createMatch(isThereAMatch, { userId: user._id }));
       dispatch(removeBookFromSavedBooks(book._id, user._id, userToken));
     }
   };
