@@ -4,6 +4,8 @@
 
 librix is a book-swapping mobile app. This is the frontend part built with React Native on Expo. You can find [our RESTful backend here](https://github.com/Final-Project-X/librix-server).
 
+This is an ongoing project. We are still working on it.
+
 ## Table of Contents
 
 - [librix: Frontend](#librix-frontend)
@@ -12,6 +14,8 @@ librix is a book-swapping mobile app. This is the frontend part built with React
     - [Screenshots](#screenshots)
     - [Features](#features)
   - [Running locally](#running-locally)
+    - [Requirements](#requirements)
+    - [Steps](#steps)
   - [Technologies](#technologies)
   - [Collaboration](#collaboration)
   - [Upcoming features](#upcoming-features)
@@ -63,13 +67,13 @@ Once the match is created, you can:
 
 ## Running locally
 
-Requirements:
+### Requirements
 
 - Node & NPM
 - [Expo CLI](https://docs.expo.io/workflow/expo-cli/)
 - Expo Go mobile app or iOS Simulator and/or Android emulator
 
-Steps:
+### Steps
 
 1. clone the repo: `git clone git@github.com:Final-Project-X/librix-client.git`
 2. cd into `librix-client` directory
