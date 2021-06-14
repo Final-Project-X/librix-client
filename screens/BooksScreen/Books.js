@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { Alert, StyleSheet } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
 import SwipingBook from '../../components/BookCards/SwipingBook';
 import NoBookCard from '../../components/BookCards/NoBookCard';
@@ -15,6 +15,7 @@ import {
   getSavedBooks,
 } from '../../redux/actions/savedBooksActions';
 import { removeBookFromPool } from '../../redux/actions/poolOfBooksActions';
+import { helpCreateMatch } from '../../utils/apiCalls';
 import { createMatch } from '../../redux/actions/matchesActions';
 import { getBooksToOffer } from '../../redux/actions/usersBooksActions';
 import { useDispatch, useSelector } from 'react-redux';
@@ -36,13 +37,30 @@ const Books = ({ navigation }) => {
     dispatch(getBooksToOffer(user.booksToOffer));
   }, [user, userToken, dispatch]);
 
-  const handleYes = (index) => {
+  const showAlert = () => {
+    Alert.alert('A match has been created', 'You have got a match!', [
+      { text: 'OK' },
+    ]);
+  };
+
+  const handleYes = async (index) => {
     const book = books[index];
-    if (booksToOffer.length < 1) {
-      setShowModal(true);
-    } else {
-      dispatch(createMatch({ userId: user._id, bookId: book._id }, userToken));
-      dispatch(removeBookFromPool(book._id, books));
+    try {
+      if (booksToOffer.length < 1) {
+        setShowModal(true);
+      } else {
+        const isThereAMatch = await helpCreateMatch(
+          { userId: user._id, bookId: book._id },
+          userToken,
+        );
+        if (isThereAMatch?.response?.message.slice(0, 7) === 'You got') {
+          showAlert();
+        }
+        dispatch(createMatch(isThereAMatch, { userId: user._id }));
+        dispatch(removeBookFromPool(book._id, books));
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
