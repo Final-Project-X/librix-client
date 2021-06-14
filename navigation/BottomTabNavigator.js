@@ -15,11 +15,31 @@ const BottomTabNavigator = () => {
       tabBar={(props) => <LibrixTabBar {...props} />}
       initialRouteName="Books"
     >
-      <Tab.Screen name="Saved" component={SavedBooksStack} />
-      <Tab.Screen name="Books" component={BooksStack} />
-      <Tab.Screen name="Add book" component={AddBookStack} />
-      <Tab.Screen name="Matches" component={MatchesStack} />
-      <Tab.Screen name="Messages" component={MassagesStack} />
+      <Tab.Screen
+        name="Saved"
+        component={SavedBooksStack}
+        options={{ unmountOnBlur: 'true' }}
+      />
+      <Tab.Screen
+        name="Books"
+        component={BooksStack}
+        options={{ unmountOnBlur: 'true' }}
+      />
+      <Tab.Screen
+        name="Add book"
+        component={AddBookStack}
+        options={{ unmountOnBlur: 'true' }}
+      />
+      <Tab.Screen
+        name="Matches"
+        component={MatchesStack}
+        options={{ unmountOnBlur: 'true' }}
+      />
+      <Tab.Screen
+        name="Messages"
+        component={MassagesStack}
+        options={{ unmountOnBlur: 'true' }}
+      />
     </Tab.Navigator>
   );
 };
