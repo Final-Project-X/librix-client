@@ -100,6 +100,7 @@ export const helpGetPoolOfBooks = async (booksData, token) => {
     genre: booksData?.genre,
     language: booksData?.language,
   };
+  console.log('booksData sent to get Pool of Books', booksData);
   try {
     const res = await axios.post(
       `/user/library/${booksData?.userID}`,
@@ -107,7 +108,7 @@ export const helpGetPoolOfBooks = async (booksData, token) => {
       { headers: { auth: token } },
     );
 
-    console.log('user library from Api, length', res.data.length);
+    console.log('user library from Api, length', res.data);
     return res.data;
   } catch (err) {
     return extractApiError(err);

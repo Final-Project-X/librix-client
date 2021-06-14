@@ -23,7 +23,7 @@ const Filter = ({ navigation }) => {
   const [valueGenre, setValueGenre] = useState(null);
   const [valueLanguage, setValueLanguage] = useState(null);
   const [genres, setGenres] = useState([
-    { label: 'Any', value: 'Any' },
+    { label: 'Any', value: null },
     { label: 'Fiction', value: 'Fiction' },
     { label: 'Action', value: 'Action' },
     { label: 'Children book', value: 'Children book' },
@@ -44,7 +44,7 @@ const Filter = ({ navigation }) => {
   ]);
 
   const [languages, setLanguages] = useState([
-    { label: 'Any', value: 'Any' },
+    { label: 'Any', value: null },
     { label: 'English', value: 'English' },
     { label: 'French', value: 'French' },
     { label: 'German', value: 'German' },
