@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === 'ios' ? 0 : 20,
     height: windowHeight / 9,
     alignItems: 'baseline',
-    paddingTop: Platform.OS === 'ios' ? 0 : 20,
     backgroundColor: colors.almostWhite,
   },
   text: {
