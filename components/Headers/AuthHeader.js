@@ -6,7 +6,7 @@ import {
   View,
   Dimensions,
 } from 'react-native';
-import PrimaryMedium from '../Texts/PrimaryMedium';
+
 import { colors } from '../../global/styles';
 import smallLogo from '../../assets/librix-small-logo.png';
 
@@ -18,7 +18,6 @@ const AuthHeader = () => {
       <View style={styles.logoContainer}>
         <Image source={smallLogo} style={styles.logo} />
       </View>
-      {/* <PrimaryMedium text="librix" customStyles={styles.text} /> */}
     </SafeAreaView>
   );
 };
