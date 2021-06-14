@@ -29,18 +29,22 @@ const SavedBookList = ({ item, navigation, setShowModal }) => {
   };
 
   const handleLike = async (book) => {
-    if (booksToOffer.length < 1) {
-      setShowModal(true);
-    } else {
-      const isThereAMatch = await helpCreateMatch(
-        { userId: user._id, bookId: book._id },
-        userToken,
-      );
-      if (isThereAMatch?.response?.message.slice(0, 7) === 'You got') {
-        showAlert();
+    try {
+      if (booksToOffer.length < 1) {
+        setShowModal(true);
+      } else {
+        const isThereAMatch = await helpCreateMatch(
+          { userId: user._id, bookId: book._id },
+          userToken,
+        );
+        if (isThereAMatch?.response?.message.slice(0, 7) === 'You got') {
+          showAlert();
+        }
+        dispatch(createMatch(isThereAMatch, { userId: user._id }));
+        dispatch(removeBookFromSavedBooks(book._id, user._id, userToken));
       }
-      dispatch(createMatch(isThereAMatch, { userId: user._id }));
-      dispatch(removeBookFromSavedBooks(book._id, user._id, userToken));
+    } catch (err) {
+      console.log(err);
     }
   };
 
