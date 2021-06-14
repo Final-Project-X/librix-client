@@ -5,6 +5,7 @@ import {
   Image,
   View,
   Dimensions,
+  Platform,
 } from 'react-native';
 
 import { colors } from '../../global/styles';
@@ -24,6 +25,7 @@ const AuthHeader = () => {
 
 const styles = StyleSheet.create({
   header: {
+    paddingTop: Platform.OS === 'ios' ? 0 : 20,
     height: windowHeight / 9,
     alignItems: 'baseline',
     backgroundColor: colors.almostWhite,
