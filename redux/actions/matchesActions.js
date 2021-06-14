@@ -1,5 +1,5 @@
 import { ACTIONS } from './actions';
-import { helpCreateMatch, helpGetUserMatches } from '../../utils/apiCalls';
+import { helpGetUserMatches } from '../../utils/apiCalls';
 
 const sortMatches = (matches) =>
   matches.sort((a, b) => {
@@ -16,7 +16,7 @@ const sortMatches = (matches) =>
 export const getMatches = (userID, token) => async (dispatch) => {
   try {
     const userMatches = await helpGetUserMatches(userID, token);
-    console.log('hi from getMatches action', userMatches);
+    // console.log('hi from getMatches action', userMatches);
     if (Array.isArray(userMatches)) {
       if (userMatches.length > 0) {
         const matches = sortMatches(userMatches);
@@ -65,30 +65,6 @@ export const createMatch = (isThereAMatch, data) => async (dispatch) => {
     console.log(err);
   }
 };
-
-// update the match status to 'rejected' or 'exchanged'
-// we might not need it
-// export const updateMatchStatus =
-//   (matchId, newStatus, matches, token) => async (dispatch) => {
-//     try {
-//       const updatedMatch = await helpUpdateMatch(
-//         {
-//           id: matchId,
-//           status: newStatus,
-//         },
-//         token,
-//       );
-//       const updatedMatchesArray = matches
-//         .map((match) => (match._id === matchId ? updatedMatch : match))
-//         .filter((match) => match.status === 'pending');
-//       dispatch({
-//         type: ACTIONS.UPDATE_MATCH,
-//         payload: updatedMatchesArray,
-//       });
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
 
 // delete the match when match is rejected (or when the deal is done)
 export const deleteMatch = (matchId, usersMatches) => (dispatch) => {

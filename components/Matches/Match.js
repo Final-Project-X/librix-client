@@ -89,24 +89,24 @@ const Match = ({
                 handlePress={onMessageIconPress}
               />
             )}
-
-          {(rightHandBookStatus === 'reserved' &&
+          {/* swap in progress or partner has received a book */}
+          {((rightHandBookStatus === 'reserved' &&
             leftHandBookStatus === 'reserved') ||
             (rightHandBookStatus !== 'received' &&
-              leftHandBookStatus === 'received' && (
-                <>
-                  <MatchesIconButton
-                    iconType="neutral"
-                    iconName="message-circle"
-                    handlePress={onMessageIconPress}
-                  />
-                  <MatchesIconButton
-                    iconType="emphasis"
-                    iconName="book"
-                    handlePress={onBookIconPress}
-                  />
-                </>
-              ))}
+              leftHandBookStatus === 'received')) && (
+            <>
+              <MatchesIconButton
+                iconType="neutral"
+                iconName="message-circle"
+                handlePress={onMessageIconPress}
+              />
+              <MatchesIconButton
+                iconType="emphasis"
+                iconName="book"
+                handlePress={onBookIconPress}
+              />
+            </>
+          )}
 
           {rightHandBookStatus === 'reserved' &&
             leftHandBookStatus === 'pending' && (
@@ -170,10 +170,9 @@ const Match = ({
 
       <View style={styles.matchRow}>
         {rightHandBookStatus === 'received' &&
-          leftHandBookStatus !==
-            'received'(
-              <MatchOverlay text="Almost there! Just waiting for partner to receive your book." />,
-            )}
+          leftHandBookStatus !== 'received' && (
+            <MatchOverlay text="Almost there! Just waiting for partner to receive your book." />
+          )}
         {leftHandBookStatus === 'received' &&
           rightHandBookStatus !== 'received' && (
             <MatchOverlay text="Your partner has received your book! Press the purple︎ button once you’ve received theirs." />

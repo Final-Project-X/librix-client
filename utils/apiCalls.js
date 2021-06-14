@@ -108,7 +108,6 @@ export const helpGetPoolOfBooks = async (booksData, token) => {
       { headers: { auth: token } },
     );
 
-    console.log('user library from Api, length', res.data);
     return res.data;
   } catch (err) {
     return extractApiError(err);
@@ -140,7 +139,7 @@ export const helpDeleteBookFromSavedBooks = async (data, token) => {
 // /user/:id — gets userId via params and accepts bookID
 export const helpCreateMatch = async (data, token) => {
   const { userId, bookId } = data;
-  console.log('data from helpCreateMatch', data);
+
   try {
     const res = await axios.post(
       `/user/${userId}`,
@@ -172,7 +171,7 @@ export const helpGetUserMatches = async (userID, token) => {
     const res = await axios.get(`/user/${userID}`, {
       headers: { auth: token },
     });
-    console.log('help get user matches from the API calls', res.data);
+    // console.log('help get user matches from the API calls', res.data.length);
     return res.data;
   } catch (err) {
     return extractApiError(err);
@@ -189,7 +188,7 @@ export const helpDeleteMatch = async (matchAndUserData, token) => {
       { userId: userID },
       { headers: { auth: token } },
     );
-    console.log('helpDeleteMatch result from the apiCalls:', res);
+    // console.log('helpDeleteMatch result from the apiCalls:', res);
     return res.data;
   } catch (err) {
     console.log('match was NOT deleted! apiCalls');
@@ -212,7 +211,7 @@ export const helpRemoveMatchDataAfterExchange = async (
       },
       { headers: { auth: token } },
     );
-    console.log('response from helpRemoveMatchDataAfterExchange:', res.data);
+    // console.log('response from helpRemoveMatchDataAfterExchange:', res.data);
     return res.data;
   } catch (err) {
     return extractApiError(err);

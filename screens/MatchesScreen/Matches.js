@@ -79,7 +79,6 @@ const Matches = ({ navigation }) => {
     } catch (err) {
       console.log(err);
     }
-
     // close the modal
     setIsReserveModalShown(false);
     // TODO alert / toast
@@ -90,7 +89,7 @@ const Matches = ({ navigation }) => {
   };
 
   const onReceiptModalPress = async () => {
-    //? set the status of ANOTHER USER's book in the match to 'received',
+    // set the status of ANOTHER USER's book in the match to 'received',
     // which will check if the other book is received as well
     // and delete the match and books' data if it is
     try {
@@ -114,7 +113,7 @@ const Matches = ({ navigation }) => {
         // TODO alert / toast
         console.log('You finalized the deal!');
         // add +1 to user's profile points
-        sendUserPointToBackend(user);
+        sendUserPointToBackend(user, userToken);
       }
       // update matches
       dispatch(getMatches(user._id, userToken));
