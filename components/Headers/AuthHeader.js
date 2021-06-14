@@ -5,6 +5,7 @@ import {
   Image,
   View,
   Dimensions,
+  Platform,
 } from 'react-native';
 
 import { colors } from '../../global/styles';
@@ -26,6 +27,7 @@ const styles = StyleSheet.create({
   header: {
     height: windowHeight / 9,
     alignItems: 'baseline',
+    paddingTop: Platform.OS === 'ios' ? 0 : 20,
     backgroundColor: colors.almostWhite,
   },
   text: {
