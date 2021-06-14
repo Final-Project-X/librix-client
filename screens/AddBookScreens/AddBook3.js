@@ -20,6 +20,7 @@ import { addBook } from '../../utils/apiCalls';
 
 const AddBook3 = ({ navigation, route }) => {
   const [errors, setErrors] = useState(null);
+  const [disabled, setDisabled] = useState(false);
   const [note, setNote] = useState(null);
   const [image, setImage] = useState(null);
   const [valueGenre, setValueGenre] = useState(null);
@@ -117,6 +118,7 @@ const AddBook3 = ({ navigation, route }) => {
   };
 
   const handlePublishBook = async (valueGen, valueCon, valueLan, valueNote) => {
+    setDisabled(true);
     const newBook = {
       ...bookData,
       genre: valueGen,
@@ -134,13 +136,16 @@ const AddBook3 = ({ navigation, route }) => {
     try {
       if (!valueGen || !valueCon || !valueLan || !image) {
         setErrors('Please make sure fields are filled in correctly!');
+        setDisabled(false);
       } else {
         const result = await addBook(newBook, userToken);
         console.log('result.data', result.data);
         if (result.data && result.data._id) {
           showAlert();
+          setDisabled(false);
         } else if (result.error) {
           setErrors('Sorry, your image size is too large.');
+          setDisabled(false);
         }
         dispatch(addBookToOfferedBooks(result.data));
         navigation.navigate('Books');
@@ -262,6 +267,7 @@ const AddBook3 = ({ navigation, route }) => {
                   note,
                 )
               }
+              disabled={disabled}
             >
               <ButtonGradient>
                 <PrimaryBold
