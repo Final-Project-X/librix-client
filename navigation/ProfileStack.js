@@ -40,6 +40,7 @@ export default () => {
           },
         }}
       />
+
       <ProfileStack.Screen
         name="AddBookStack"
         component={AddBookStack}

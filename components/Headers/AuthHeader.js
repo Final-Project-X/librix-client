@@ -1,27 +1,49 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  Image,
+  View,
+  Dimensions,
+} from 'react-native';
 import PrimaryMedium from '../Texts/PrimaryMedium';
 import { colors } from '../../global/styles';
+import smallLogo from '../../assets/librix-small-logo.png';
+
+const windowHeight = Dimensions.get('window').height;
 
 const AuthHeader = () => {
   return (
     <SafeAreaView style={styles.header}>
-      <PrimaryMedium text="librix" customStyles={styles.text} />
+      <View style={styles.logoContainer}>
+        <Image source={smallLogo} style={styles.logo} />
+      </View>
+      {/* <PrimaryMedium text="librix" customStyles={styles.text} /> */}
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   header: {
-    flexDirection: 'row',
-    height: 60,
-    alignItems: 'center',
+    height: windowHeight / 9,
+    alignItems: 'baseline',
     backgroundColor: colors.almostWhite,
   },
   text: {
     fontSize: 22,
     marginLeft: 30,
     color: colors.primary.dark,
+  },
+  logoContainer: {
+    padding: 5,
+    marginLeft: 20,
+    height: 36,
+    width: 72,
+  },
+  logo: {
+    height: '100%',
+    width: '100%',
+    resizeMode: 'contain',
   },
 });
 

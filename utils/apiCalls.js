@@ -139,14 +139,17 @@ export const helpDeleteBookFromSavedBooks = async (data, token) => {
 // /user/:id — gets userId via params and accepts bookID
 export const helpCreateMatch = async (data, token) => {
   const { userId, bookId } = data;
+  console.log('data from helpCreateMatch', data);
   try {
     const res = await axios.post(
       `/user/${userId}`,
-      { bookId },
+      { bookId: bookId },
       { headers: { auth: token } },
     );
+    console.log('from API calls, helpCreateMatch', res.data);
     return res.data;
   } catch (err) {
+    console.log('cannot create match', err);
     return extractApiError(err);
   }
 };

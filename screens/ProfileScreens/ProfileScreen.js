@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-  SafeAreaView,
   View,
   Image,
   TouchableOpacity,
@@ -60,7 +59,7 @@ const ProfileScreen = ({ navigation }) => {
   const [showFailModal, setShowFailModal] = useState(false);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <>
       <AlertModal
         showModal={showDeleteModal}
         setShowModal={setShowDeleteModal}
@@ -111,7 +110,7 @@ const ProfileScreen = ({ navigation }) => {
           customStyles={styles.modalText}
         />
       </ResultModal>
-      {/* <StackHeader text="Your profile" navigation={navigation} /> */}
+
       <ScreenGradient customStyles={styles.gradient}>
         <View style={styles.userCard}>
           <View style={styles.flexRow}>
@@ -196,7 +195,7 @@ const ProfileScreen = ({ navigation }) => {
           />
         </TouchableOpacity>
       </ScreenGradient>
-    </SafeAreaView>
+    </>
   );
 };
 

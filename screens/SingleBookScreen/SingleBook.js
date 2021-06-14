@@ -36,9 +36,9 @@ const SingleBook = ({ navigation, route }) => {
             />
 
             <PrimaryText text={item?.description} customStyles={styles.des} />
-            {item?.note ? (
+            {item?.personalDescription ? (
               <PrimaryText
-                text={`Personal notes: ${item.note}`}
+                text={`Personal notes: ${item.personalDescription}`}
                 customStyles={styles.note}
               />
             ) : null}
