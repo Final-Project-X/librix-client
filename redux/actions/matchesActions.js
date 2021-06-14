@@ -56,11 +56,18 @@ export const createMatch = (data, token) => async (dispatch) => {
     if (isThereAMatch?.response?.message.slice(0, 7) === 'You got') {
       const updatedUserMatches = await helpGetUserMatches(data.userId);
       //TODO check if the sorting function works
-      const matches = sortMatches(updatedUserMatches);
-      dispatch({
-        type: ACTIONS.CREATE_MATCH,
-        payload: matches,
-      });
+      if (updatedUserMatches.length > 0) {
+        const matches = sortMatches(updatedUserMatches);
+        dispatch({
+          type: ACTIONS.GET_USERS_MATCHES,
+          payload: matches,
+        });
+      } else {
+        dispatch({
+          type: ACTIONS.GET_USERS_MATCHES,
+          payload: updatedUserMatches,
+        });
+      }
     }
   } catch (err) {
     console.log(err);

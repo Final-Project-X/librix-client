@@ -25,6 +25,7 @@ const AuthHeader = () => {
 
 const styles = StyleSheet.create({
   header: {
+    paddingTop: Platform.OS === 'ios' ? 0 : 20,
     height: windowHeight / 9,
     alignItems: 'baseline',
     paddingTop: Platform.OS === 'ios' ? 0 : 20,
