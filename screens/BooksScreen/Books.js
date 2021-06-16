@@ -56,7 +56,7 @@ const Books = ({ navigation }) => {
         if (isThereAMatch?.response?.message.slice(0, 7) === 'You got') {
           showAlert();
         }
-        dispatch(createMatch(isThereAMatch, { userId: user._id }));
+        dispatch(createMatch(isThereAMatch, { userId: user._id }, userToken));
         dispatch(removeBookFromPool(book._id, books));
       }
     } catch (err) {
