@@ -40,7 +40,7 @@ const SavedBookList = ({ item, navigation, setShowModal }) => {
         if (isThereAMatch?.response?.message.slice(0, 7) === 'You got') {
           showAlert();
         }
-        dispatch(createMatch(isThereAMatch, { userId: user._id }));
+        dispatch(createMatch(isThereAMatch, { userId: user._id }, userToken));
         dispatch(removeBookFromSavedBooks(book._id, user._id, userToken));
       }
     } catch (err) {

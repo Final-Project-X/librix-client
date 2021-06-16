@@ -43,10 +43,10 @@ export const getMatches = (userID, token) => async (dispatch) => {
 };
 
 // create a match
-export const createMatch = (isThereAMatch, data) => async (dispatch) => {
+export const createMatch = (isThereAMatch, data, token) => async (dispatch) => {
   try {
     if (isThereAMatch?.response?.message.slice(0, 7) === 'You got') {
-      const updatedUserMatches = await helpGetUserMatches(data.userId);
+      const updatedUserMatches = await helpGetUserMatches(data.userId, token);
       //TODO check if the sorting function works
       if (updatedUserMatches.length > 0) {
         const matches = sortMatches(updatedUserMatches);
